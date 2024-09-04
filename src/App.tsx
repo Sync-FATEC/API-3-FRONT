@@ -3,6 +3,7 @@ import Auth from './pages/auth';
 import { RequireAuth } from './contexts/auth/RequireAuth';
 import PrivateComponent from './components/Private';
 import './normalize.css';
+import './global.css';
 
 function App() {
   return (

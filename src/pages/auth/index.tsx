@@ -82,8 +82,8 @@ export default function Auth() {
         </form>
         <div className='formAuthImg'>
           <div className="card">
-            <img src="/static/img/Logo.png" alt="" />
-            <img src="/static/img/Componente.png" alt="" />
+            <img src="/static/img/logo.svg" alt="" />
+            <img src="/static/img/component-login.png" alt="" />
           </div>
         </div>
       </section>

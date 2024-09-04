@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    font-family: -apple-system, BlinkMacSystemFont, 'Public Sans';
+    font-size: 16px;
+}
+
+:root {
+    --title-font: 24px;
+    --padding-input: 16px;
+    --margin: 32px;
+    --border: 48px;
+    --black-color: #000000;
+    --white-color: #FFFFFF;
+    --off-white-color: #FAFAFA;
+    --lightgray-color: #F3F4F8;
+    --gray-colot: #8B909A;
+    --blue-color: #003383;
+    --yellow-color: #F0CE00;
+  }
+  
