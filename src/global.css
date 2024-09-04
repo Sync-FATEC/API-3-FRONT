@@ -8,6 +8,8 @@
 :root {
     --title-font: 24px;
     --padding-input: 16px;
+    --padding-sizes: 0 16px;
+    --padding-tops: 16px 0;
     --margin: 32px;
     --border: 48px;
     --black-color: #000000;

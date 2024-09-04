@@ -1,7 +1,11 @@
 h2 {
     color: var(--blue-color);
     font-size: 30px;
-    margin: 20px 0;
+    margin: var(--padding-tops);
+}
+
+p {
+    text-align: justify;
 }
 
 header.headerPortal {
@@ -9,14 +13,13 @@ header.headerPortal {
         linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)), 
         url(./static/img/fundo.png) no-repeat center center;
     background-color: #D9D9D9E5;
-    padding: 30px;
+    padding: var(--padding-input);
 }
 
 .headerPortal nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 0;
 }
 
 .headerPortal nav div {
@@ -26,17 +29,49 @@ header.headerPortal {
 
 
 .headerPortal div h1 {
-    margin-left: 30px;
     color: var(--blue-color);
     font-size: 20px;
+    margin-left: 20px;
 }
 
 .headerPortal section p {
     color: var(--gray-color);
-    font-size: 16px;
-    margin: 20px 0;
+    font-size: 17px;
+    line-height: 1.5;
 }
 
-main {
-    padding: 30px;
+.MainDados h2 {
+    margin-left: 16px;
+}
+
+.Referencias {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px var(--gray-color) solid;
+    padding: var(--padding-input);
+}
+
+.Projetos {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px var(--gray-color) solid;
+    color: var(--gray-color);
+    padding: var(--padding-input);
+
+}
+
+.Projetos p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+}
+
+.Projetos img {
+    cursor: pointer;
 }
