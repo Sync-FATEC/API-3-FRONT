@@ -53,7 +53,7 @@ section.formAuth div.formAuthImg {
   align-items: center;
   width: 50%;
   height: 100vh;
-  background: url('./static/img/fundo.png');
+  background: url('./static/img/Fundo.png');
   background-size: cover;
   background-blend-mode: overlay;
 }

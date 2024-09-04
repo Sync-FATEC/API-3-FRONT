@@ -4,6 +4,7 @@ import { RequireAuth } from './contexts/auth/RequireAuth';
 import PrivateComponent from './components/Private';
 import './normalize.css';
 import './global.css';
+import PortalTransparencia from './pages/portalTransparencia';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <Router>
         <Routes>
           <Route path="/auth" element={<Auth />} />
+          <Route path='/' element={<PortalTransparencia />} />
           <Route path='/private' element={<RequireAuth><PrivateComponent /></RequireAuth>} />
         </Routes>
       </Router>
