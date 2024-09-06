@@ -1,41 +1,26 @@
+import FiltroPortal from '../../components/filtroPortal';
+import ProjetosPortal from '../../components/projetosPortal';
 import './styles.css'
 export default function PortalTransparencia() {
     return (
         <>
-        <header className="headerPortal">
-            <nav>
-                <div>
-                    <img src="/static/img/logo.svg" alt="" />
-                    <h1>Portal de Transparência</h1>
-                </div>
-                <input type="text" />
-            </nav>
-            <section>
-                <h2>Sobre nos</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Iste quas ratione quod ipsam rerum, cumque ut non aut tempora! Alias blanditiis quis accusantium mollitia, placeat nesciunt libero ducimus corrupti fuga. Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum soluta officia quasi laboriosam incidunt, ad autem distinctio corrupti maiores, impedit inventore ullam perferendis enim aut illum, sunt sapiente culpa voluptatibus? Lorem ipsum, dolor sit amet consectetur adipisicing elit. Beatae ut error illo eum recusandae alias, sint omnis facilis! Pariatur, tempora! Autem consectetur reprehenderit culpa harum id, quis vero corrupti saepe? Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate perferendis possimus tenetur, incidunt sit, quos nobis soluta, quis perspiciatis quo numquam porro natus quaerat earum voluptates nisi officiis vel veritatis!</p>
-            </section>
-        </header>
-        <main className='MainDados'>
-            <h2>Filtro de dados</h2>
-        </main>
-        <main className='MainDados'>
-            <div className='Referencias'>
-                <p>Referencia do projeto</p>
-                <p>Inicio</p>
-                <p>Término</p>
-                <p>Coordenador</p>
-                <p>Valor</p>
-                <p>Visualizar</p>
-            </div>
-            <div className='Projetos'>
-                <p>Projetoaaaaaaaaaaaaaaaaaaaaaaaaaaa</p>
-                <p>01/01/2021</p>
-                <p>01/01/2022</p>
-                <p>João</p>
-                <p>R$ 1000,00</p>
-                <img src="/static/img/pesquisar.svg" alt="" />
-            </div>
-        </main>
+            <header className="headerPortal">
+                <nav>
+                    <div>
+                        <img src="/static/img/logo.svg" alt="" />
+                        <h1>Portal de Transparência</h1>
+                    </div>
+                    <input type="text" />
+                </nav>
+                <section>
+                    <h2>Sobre nos</h2>
+                    <p>Bem-vindo à Fundação de Apoio à Pesquisa de Pós-Graduandos (FAPG)!</p>
+                    <p>A FAPG é uma instituição dedicada a promover e apoiar a pesquisa acadêmica e científica entre pós-graduandos, oferecendo recursos, orientação e suporte para que nossos pesquisadores possam alcançar excelência em suas áreas de estudo. Fundada com o objetivo de fortalecer a produção científica e fomentar a inovação, nossa fundação desempenha um papel crucial no desenvolvimento de novos conhecimentos e na formação de futuros líderes acadêmicos.</p>
+                    <p>Nossa missão é proporcionar um ambiente estimulante e enriquecedor para pós-graduandos em todas as etapas de sua jornada de pesquisa. Apoiamos uma ampla gama de projetos, desde estudos iniciais até pesquisas avançadas, com o intuito de maximizar o impacto e a relevância das descobertas científicas.</p>
+                </section>
+            </header>
+            <FiltroPortal />
+            <ProjetosPortal />
         </>
     );
 }

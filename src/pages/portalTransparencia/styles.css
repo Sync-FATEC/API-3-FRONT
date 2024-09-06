@@ -40,10 +40,63 @@ header.headerPortal {
     line-height: 1.5;
 }
 
+/* FILTRO DE PROJETOS */
+.MainDados {
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
 .MainDados h2 {
     margin-left: 16px;
 }
 
+.MainDados form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: self-start;
+    margin-left: 16px;
+}
+
+.MainDados form div {
+    display: flex;
+    justify-content: space-between;
+    width: 450px;
+    margin-bottom: var(--padding-input);
+}
+
+.MainDados form label {
+    color: var(--gray-color);
+    font-size: 17px;
+    margin-right: var(--padding-input);
+}
+
+.MainDados form select {
+    width: 220px;
+    padding: 8px;
+    border: 1px var(--gray-color) solid;
+    border-radius: 5px;
+}
+
+.MainDados form input {
+    width: 220px;
+    padding: 8px;
+    padding-left: 14px;
+    border: 1px var(--gray-color) solid;
+    border-radius: 5px;
+}
+
+.MainDados form button {
+    width: 450px;
+    padding: 8px;
+    border: 1px var(--gray-color) solid;
+    border-radius: 5px;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    cursor: pointer;
+}   
+
+/* PROJETOS */
 .Referencias {
     display: grid;
     align-items: center;

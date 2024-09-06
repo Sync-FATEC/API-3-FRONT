@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Auth from './pages/auth';
 import { RequireAuth } from './contexts/auth/RequireAuth';
 import PrivateComponent from './components/Private';
-import './normalize.css';
 import './global.css';
 import PortalTransparencia from './pages/portalTransparencia';
 
