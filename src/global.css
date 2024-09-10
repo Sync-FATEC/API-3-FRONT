@@ -11,6 +11,7 @@
 }
 
 :root {
+    --padding-global: 10px 120px;
     --title-font: 24px;
     --padding-input: 16px;
     --padding-sizes: 0 16px;
@@ -24,5 +25,23 @@
     --gray-color: #8B909A;
     --blue-color: #003383;
     --yellow-color: #F0CE00;
-  }
-  
+}
+
+h1 {
+    color: var(--blue-color);
+    font-size: 20px;
+}
+
+h2 {
+    color: var(--blue-color);
+    font-size: 30px;
+    margin: var(--padding-input) 0;
+}
+
+p {
+    text-align: justify;
+}
+
+body {
+    background-color: var(--off-white-color);
+}

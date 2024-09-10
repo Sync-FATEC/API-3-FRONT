@@ -1,19 +1,10 @@
-h2 {
-    color: var(--blue-color);
-    font-size: 30px;
-    margin: var(--padding-tops);
-}
-
-p {
-    text-align: justify;
-}
-
-header.headerPortal {
-    background: 
-        linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)), 
+/* Header */
+.background {
+    background:
+        linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)),
         url(./static/img/fundo.png) no-repeat center center;
     background-color: #D9D9D9E5;
-    padding: var(--padding-input);
+    padding: var(--padding-global);
 }
 
 .headerPortal nav {
@@ -25,85 +16,106 @@ header.headerPortal {
 .headerPortal nav div {
     display: flex;
     align-items: center;
+    gap: var(--padding-input);
 }
 
+.headerPortal nav input {
+    background-image: url('./static/img/pesquisar.svg');
+    background-repeat: no-repeat;
+    background-position: var(--padding-input) center;
+    padding-left: var(--border);
+    padding-right: var(--padding-input);
+    box-sizing: border-box;
+    border-radius: var(--padding-input);
+    border: none;
+    box-shadow: none;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+/* Final Header */
 
-.headerPortal div h1 {
-    color: var(--blue-color);
-    font-size: 20px;
-    margin-left: 20px;
+/* Tela inicial */
+.section{
+    display: flex;
+    flex-direction: column;  
 }
 
-.headerPortal section p {
+.section p {
     color: var(--gray-color);
-    font-size: 17px;
+    font-size: 18px;
     line-height: 1.5;
 }
+/* Final Tela inicial */
 
-/* FILTRO DE PROJETOS */
+/* Filtro */
+
 .MainDados {
-    margin-top: 50px;
-    margin-bottom: 50px;
+    padding: var(--padding-global);
 }
 
-.MainDados h2 {
-    margin-left: 16px;
+.containerForm,
+.containerData {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: var(--padding-input);
 }
 
-.MainDados form {
+.containerForm div {
     display: flex;
     flex-direction: column;
-    justify-content: start;
-    align-items: self-start;
-    margin-left: 16px;
-}
-
-.MainDados form div {
-    display: flex;
     justify-content: space-between;
-    width: 450px;
-    margin-bottom: var(--padding-input);
+    align-items: center;
 }
 
 .MainDados form label {
     color: var(--gray-color);
-    font-size: 17px;
-    margin-right: var(--padding-input);
 }
 
-.MainDados form select {
-    width: 220px;
-    padding: 8px;
-    border: 1px var(--gray-color) solid;
-    border-radius: 5px;
-}
-
+.MainDados form select,
 .MainDados form input {
-    width: 220px;
+    width: 150px;
+    height: 40px;
     padding: 8px;
-    padding-left: 14px;
-    border: 1px var(--gray-color) solid;
-    border-radius: 5px;
+    background-color: var(--lightgray-color);
+    border: none;
+    border-radius: var(--padding-input);
 }
 
 .MainDados form button {
-    width: 450px;
-    padding: 8px;
-    border: 1px var(--gray-color) solid;
-    border-radius: 5px;
+    width: 100px;
+    margin-top: var(--padding-input);
+    padding: 12px;
+    height: 40px;
+    border: none;
+    border-radius: var(--padding-input);
     background-color: var(--blue-color);
     color: var(--white-color);
     cursor: pointer;
-}   
+}
 
-/* PROJETOS */
+#referenciaDeDados,
+#dataInicio,
+#dataTermino {
+    box-shadow: none;
+}
+/* Fim Componente filtro */
+
+/* Componente projetos */
 .Referencias {
     display: grid;
     align-items: center;
     justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    border-bottom: 1px var(--gray-color) solid;
+    border-bottom: 1px var(--lightgray-color) solid;
     padding: var(--padding-input);
+}
+
+.background-projects{
+    background-color: var(--white-color);
+    border-radius: var(--padding-input);
+    box-shadow: 2px 2px 2px #bebebe,
+    -2px -2px 6px var(--white-color);
 }
 
 .Projetos {
@@ -111,10 +123,10 @@ header.headerPortal {
     align-items: center;
     justify-items: center;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    border-bottom: 1px var(--gray-color) solid;
+    border-bottom: 1px var(--blue-color) solid;
+    border-radius: var(--padding-input);
     color: var(--gray-color);
     padding: var(--padding-input);
-
 }
 
 .Projetos p {
@@ -128,3 +140,4 @@ header.headerPortal {
 .Projetos img {
     cursor: pointer;
 }
+/* Fim Componente projetos */
