@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import api from "../../api/api";
+import { Coordenadores } from "../../type/coordenadores";
+
 export default function FiltroPortal() {
+    const [coordenadores, setCoordenadores] = useState<Coordenadores[]>([]);
+
+    useEffect(() => {
+        const fetchCoordenadores = async () => {
+            try {
+                const response = await api.get('projetos/listarCoordenadores');
+                setCoordenadores(response.data);
+            } catch (error) {
+                console.error(error);
+            }
+        };
+
+        fetchCoordenadores();
+    }, []);
+    
     return (
         <main className='MainDados'>
             <h2>Filtro de dados</h2>
@@ -12,8 +31,9 @@ export default function FiltroPortal() {
                         <label htmlFor="coordenador">Coordenador</label>
                         <select name="coordenador" id="coordenador">
                             <option value=''></option>
-                            <option value="arakaki">Arakaki</option>
-                            <option value="gerson">Gerson</option>
+                            {coordenadores.map(coordenador => (
+                                <option key={coordenador.id} value={coordenador.id}>{coordenador.nome}</option>
+                            ))}
                         </select>
                     </div>
 
