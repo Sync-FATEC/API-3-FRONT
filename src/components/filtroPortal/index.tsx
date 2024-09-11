@@ -9,7 +9,9 @@ export default function FiltroPortal() {
         const fetchCoordenadores = async () => {
             try {
                 const response = await api.get('projetos/listarCoordenadores');
-                setCoordenadores(response.data);
+                setCoordenadores(response.data.message);
+                console.log(response);
+                
             } catch (error) {
                 console.error(error);
             }
@@ -32,7 +34,7 @@ export default function FiltroPortal() {
                         <select name="coordenador" id="coordenador">
                             <option value=''></option>
                             {coordenadores.map(coordenador => (
-                                <option key={coordenador.id} value={coordenador.id}>{coordenador.nome}</option>
+                                <option key={coordenador.id} value={coordenador.id}>{coordenador.name}</option>
                             ))}
                         </select>
                     </div>

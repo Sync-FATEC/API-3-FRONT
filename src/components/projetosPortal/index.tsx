@@ -2,18 +2,20 @@ import { useState, useEffect } from "react";
 import api from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import { errorSwal } from "../swal/errorSwal";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 export default function ProjetosPortal() {
     const [projetos, setProjetos] = useState<Projetos[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(1);
-    const projetosPerPage = 10;
+    const projetosPerPage = 15;
 
     useEffect(() => {
         const fetchProjetos = async () => {
             try {
                 const response = await api.get('projetos/listar');
-                const allProjetos = response.data;
+                const allProjetos = response.data.message;
 
                 setProjetos(allProjetos);
                 const total = Math.ceil(allProjetos.length / projetosPerPage);
@@ -60,14 +62,14 @@ export default function ProjetosPortal() {
                         onClick={() => handlePageChange(currentPage - 1)} 
                         disabled={currentPage === 1}
                     >
-                        Anterior
+                        <FontAwesomeIcon icon={faChevronLeft} />
                     </button>
                     <span>Página {currentPage} de {totalPages}</span>
-                    <button 
+                    <button
                         onClick={() => handlePageChange(currentPage + 1)} 
                         disabled={currentPage === totalPages}
                     >
-                        Próxima
+                        <FontAwesomeIcon icon={faChevronRight} />
                     </button>
                 </div>
             </div>

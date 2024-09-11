@@ -1,5 +1,5 @@
 export type Coordenadores = {
     id: string;
-    nome: string;
-    usuario: string | null;
+    name: string;
+    user: string | null;
 }
