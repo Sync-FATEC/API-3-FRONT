@@ -2,6 +2,7 @@ export type AuthContextType = {
     isAuthenticated: boolean;
     login: (email: string, senha: string) => void;
     logout: () => void;
+    user?: UserInfo;
   };
   
 export type AuthProviderProps = {
@@ -9,6 +10,6 @@ export type AuthProviderProps = {
   };
   
 export type UserInfo = {
-      username: string;
-      permisao: string;
+      name: string;
+      role: string;
   }

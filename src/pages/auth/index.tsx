@@ -4,9 +4,16 @@ import { successSwal } from '../../components/swal/sucessSwal';
 import { errorSwal } from '../../components/swal/errorSwal';
 import './styles.css';
 import { AuthContext } from '../../contexts/auth/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 export default function Auth() {
   const authContext = useContext(AuthContext);
+  const navigate = useNavigate()
+
+
+  if(authContext.isAuthenticated){
+    navigate('/sidebar')
+  }
 
   const handleSubmitLogin = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -4,6 +4,7 @@ import { errorSwal } from "../../components/swal/errorSwal";
 import { jwtDecode } from 'jwt-decode';
 import { AuthContextType, AuthProviderProps, UserInfo } from "../../type/auth";
 import { decode } from "punycode";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -19,6 +20,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState<UserInfo>();
   const decodificador = jwtDecode;
+  const navigate = useNavigate(); 
 
   const login = async (email: string, senha: string) => {
     
@@ -34,9 +36,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         
         const decodedToken = jwtDecode(token);
         const jsonUserInfo = JSON.parse(decodedToken.sub as string);
-        console.log(jsonUserInfo)
+        console.log(jsonUserInfo);
+        setUser(jsonUserInfo);
         setIsAuthenticated(true);
-        
+        navigate('/sidebar')
+
     } else {
         errorSwal(response.data.error);
     }
@@ -45,10 +49,11 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const logout = () => {
     api.defaults.headers.common.Authorization = ``;
     setIsAuthenticated(false);
+    navigate('/')
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
       {children}
     </AuthContext.Provider>
   );
