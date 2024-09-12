@@ -24,27 +24,50 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const login = async (email: string, senha: string) => {
     
-    const response = await api.post("/auth/login", {
-      email: email,
-      password: senha,
-    });
+    const login = async (email: string, senha: string) => {
+      try {
+        const response = await api.post("/auth/login", {
+          email,
+          password: senha,
+        });
 
-    if(response.status === 200){
-        var token = response.data.model.token;
+        if (response.status === 200) {
+          try {
+            const token = response.data.model.token;
+            api.defaults.headers["Authorization"] = `Bearer ${token}`;
     
-        api.defaults.headers["Authorization"] = `Bearer ${token}`;
+            try {
+              const decodedToken = jwtDecode(token);
+              const jsonUserInfo = JSON.parse(decodedToken.sub as string);
+              console.log(jsonUserInfo);
+    
+              
+              setUser(jsonUserInfo);
+              setIsAuthenticated(true);
+    
+             
+              navigate('/sidebar');
+            } catch (decodeError) {
+              
+              console.error("Erro ao decodificar o token:", decodeError);
+              errorSwal("Erro ao processar as informações do usuário.");
+            }
+          } catch (tokenError) {
+            
+            console.error("Erro ao processar o token:", tokenError);
+            errorSwal("Erro ao configurar o token. Por favor, tente novamente.");
+          }
+        } else {
+          
+          errorSwal(response.data.error);
+        }
+      } catch (apiError) {
         
-        const decodedToken = jwtDecode(token);
-        const jsonUserInfo = JSON.parse(decodedToken.sub as string);
-        console.log(jsonUserInfo);
-        setUser(jsonUserInfo);
-        setIsAuthenticated(true);
-        navigate('/sidebar')
-
-    } else {
-        errorSwal(response.data.error);
-    }
-  };
+        console.error("Erro ao fazer login:", apiError);
+        errorSwal("Erro ao fazer login. Por favor, tente novamente.");
+      }
+    };
+    
 
   const logout = () => {
     api.defaults.headers.common.Authorization = ``;
@@ -57,4 +80,4 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}};

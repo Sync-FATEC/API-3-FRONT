@@ -2,8 +2,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faFolder, faUsers, faSignOutAlt, faUsersGear, faCirclePlus, faCube } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./sidebar.css";
+import Logout from '../../../contexts/auth/logout';
 
-const Sidebar = () => {
+export default function Sidebar  () {
     return (
         <div className="sidebar">
             <div className="logo">
@@ -13,7 +14,7 @@ const Sidebar = () => {
                 <h4>Menu</h4>
                 <div className="menu-item dashBoard">
                     
-                    <Link to="/"style={{ textDecoration: 'none', color: '#8B909A' }}>
+                    <Link to="/dashboard"style={{ textDecoration: 'none', color: '#8B909A' }}>
                         <FontAwesomeIcon icon={faHome} style={{color: "#969696"}} /> Dashboard
                     </Link>
                 </div>
@@ -39,7 +40,7 @@ const Sidebar = () => {
                     <FontAwesomeIcon icon={faUsersGear} style={{color: "#969696"}} />Gerenciar Usuários
                     </Link>
                 </div>
-                <div className="menu-item logout">
+                <div className="menu-item logout" onClick={Logout}>
                 <Link to="/"style={{ textDecoration: 'none', color: '#e74c3c', justifyContent:'center', display:'flex' }} className='sair'>
                     <FontAwesomeIcon icon={faSignOutAlt} style={{color: "#e74c3c"}} /> Sair
                     </Link>
@@ -49,4 +50,3 @@ const Sidebar = () => {
     );
 };
 
-export default Sidebar;
