@@ -23,27 +23,7 @@ export default function Auth() {
 
 
     authContext.login(email, password);
-
-
-    // try {
-    //   const response = await axios.post('http://localhost:5000/users/userlogin', { userUser: email, userPassword: password });
-    //   localStorage.setItem('token', response.data.success.token);
-    //   successSwal('Usuário logado com sucesso');
-    //   setTimeout(() => {
-    //     window.location.href = '/private';
-    //   }, 1000);
-    // } catch (error) {
-    //   if (axios.isAxiosError(error)) {
-    //     if (error.response) {
-    //       console.error('Erro na resposta da API:', error.response.data);
-    //       errorSwal(error.response.data.error);
-    //     }
-    //   } else {
-    //     console.error('Erro desconhecido:', error);
-    //   }
-    // }
-  };
-
+  }
   return (
     <main>
       <section className='formAuth Login'>
