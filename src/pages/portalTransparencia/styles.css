@@ -140,4 +140,28 @@
 .Projetos img {
     cursor: pointer;
 }
+
+.pagination {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: var(--padding-input);
+    margin-top: var(--padding-input);
+}
+
+.pagination button {
+    background-color: var(--white-color);
+    border: none;
+    border-radius: var(--padding-input);
+    padding: 8px;
+    margin: 0 10px;
+    cursor: pointer;
+}
+
+.pagination svg {
+    cursor: pointer;
+    height: 30px;
+    width: 30px;
+    color: var(--blue-color);
+}
 /* Fim Componente projetos */
