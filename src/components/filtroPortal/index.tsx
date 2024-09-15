@@ -62,23 +62,23 @@ export default function FiltroPortal() {
             <label htmlFor="classificacao">Classificação</label>
             <select name="classficacao" id="classficacao">
               <option value=""></option>
-              <option value="outros">AS, OF, PC e/ou outros</option>
-              <option value="contrato">Contrato</option>
-              <option value="convenio">Convênio</option>
-              <option value="patrocinio">Patrocínio</option>
-              <option value="termoDeCooperacao">Termo de cooperação</option>
-              <option value="termoDeOutorga">Termo de outorga</option>
+              <option value="OUTROS">AS, OF, PC e/ou outros</option>
+              <option value="CONTRATOS">Contrato</option>
+              <option value="CONVENIO">Convênio</option>
+              <option value="PATROCINIO">Patrocínio</option>
+              <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
+              <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
           <div>
             <label htmlFor="situacaoDoProjeto">Situação do projeto</label>
             <select name="situacaoDoProjeto" id="situacaoDoProjeto">
               <option value=""></option>
-              <option value="ProjetosNaoIniciados">
+              <option value="NAO_INICIADOS">
                 Projetos não iniciados
               </option>
-              <option value="ProjetosEmAndamento">Projetos em andamento</option>
-              <option value="ProjetosConcluidos">Projetos concluídos</option>
+              <option value="EM_ANDAMENTO">Projetos em andamento</option>
+              <option value="FINALIZADOS">Projetos concluídos</option>
             </select>
           </div>
 

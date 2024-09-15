@@ -8,6 +8,8 @@ export type Projetos = {
     projectValue: number;
     projectStartDate: string;
     projectEndDate: string;
+    projectClassification: string;
+    projectStatus: string;
     documents: {
         documentsId: string;
         fileName: string;
