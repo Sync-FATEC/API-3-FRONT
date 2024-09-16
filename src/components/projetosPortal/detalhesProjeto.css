@@ -1,0 +1,116 @@
+.detalhes-projeto {
+    max-width: 180vh;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px ;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 7px 7px 7px 7px rgba(0, 0, 0, 0.1);
+  }
+  
+  .detalhes-projeto h2 {
+    text-align:left;
+    margin-bottom: 20px;
+    color: #003383;
+  }
+  
+  .campo-projeto {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 15px;
+  }
+  
+  .campo-projeto label {
+    font-weight: bold;
+    width: 418px;
+    margin-bottom: 5px;
+    color: #555;
+    border-radius: 6px;
+  }
+  
+  .campo-projeto span {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #F3F4F8;
+    color: #333;
+    width: 500px;
+  }
+  
+  .botao-voltar {
+    width: 100px;
+    margin-top: var(--padding-input);
+    padding: 12px;
+    height: 40px;
+    border: none;
+    border-radius: var(--padding-input);
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    cursor: pointer;
+}
+  
+  .botao-voltar:hover {
+    background-color:   var(--blue-color);
+  }
+  
+  .botao-voltar .icone {
+    margin-right: 10px;
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(135deg);
+  }
+  
+  
+  .background2 {
+    background:
+        linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)),
+        url(/src/pages/portalTransparencia/static/img/fundo.png) no-repeat center center;
+    background-color: #D9D9D9E5;
+    padding: var(--padding-global);
+    width: auto;
+    height: 100px;
+
+    
+}
+.background2 h1{
+    display: flex;
+    align-items: center;
+    gap: 10vh;
+    padding-left: 1vh;
+}
+.title{
+    margin-left: 5vh;
+    padding: 50px;
+}
+#fundo{
+    background-color: #F3F4F8;
+}
+.tabs {
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 20px;
+}
+
+.tab {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    color: #000;
+    transition: color 0.3s;
+    box-shadow: none; 
+}
+
+.tab:hover {
+    color:  var(--blue-color);
+}
+
+.tab.active {
+    color:  var(--blue-color);
+    border-bottom: 2px solid var(--blue-color);
+    box-shadow: none; 
+}

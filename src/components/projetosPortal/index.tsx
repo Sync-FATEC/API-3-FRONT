@@ -3,26 +3,28 @@ import api from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import { errorSwal } from "../swal/errorSwal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faChevronLeft,
-  faChevronRight,
-} from "@fortawesome/free-solid-svg-icons";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjetosPortal() {
   const [projetos, setProjetos] = useState<Projetos[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const projetosPerPage = 15;
+  const navigate = useNavigate(); // Usar o hook useNavigate para navegação
 
   useEffect(() => {
     const fetchProjetos = async () => {
       try {
         const response = await api.get('/projects/list');
-        const allProjetos = response.data.model;
-
-        setProjetos(allProjetos);
-        const total = Math.ceil(allProjetos.length / projetosPerPage);
-        setTotalPages(total);
+        if (response.data && response.data.model) {
+          const allProjetos = response.data.model;
+          setProjetos(allProjetos);
+          const total = Math.ceil(allProjetos.length / projetosPerPage);
+          setTotalPages(total);
+        } else {
+          errorSwal("Dados de projeto não encontrados.");
+        }
       } catch (error) {
         errorSwal(String(error));
       }
@@ -33,15 +35,16 @@ export default function ProjetosPortal() {
 
   const indexOfLastProjeto = currentPage * projetosPerPage;
   const indexOfFirstProjeto = indexOfLastProjeto - projetosPerPage;
-  const currentProjetos = projetos.slice(
-    indexOfFirstProjeto,
-    indexOfLastProjeto
-  );
+  const currentProjetos = projetos.slice(indexOfFirstProjeto, indexOfLastProjeto);
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
 
+  const handleProjetoClick = (projeto: Projetos) => {
+    navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
+  };
+  
   return (
     <main className="MainDados">
       <div className="background-projects">
@@ -60,7 +63,13 @@ export default function ProjetosPortal() {
             <p>{projeto.projectEndDate}</p>
             <p>{projeto.nameCoordinator}</p>
             <p>{projeto.projectValue}</p>
-            <img src="/static/img/pesquisar.svg" alt="" />
+            
+            <img
+              src="/static/img/pesquisar.svg"
+              alt="Visualizar detalhes do projeto"
+              onClick={() => handleProjetoClick(projeto)} 
+              style={{ cursor: "pointer" }}
+            />
           </div>
         ))}
         <div className="pagination">
