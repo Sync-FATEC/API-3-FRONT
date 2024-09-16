@@ -4,25 +4,33 @@ import './pesquisa.css';
 
 export default function FiltroPortal() {
   const [coordenadores, setCoordenadores] = useState<string[]>([]);
-  const [texto, setTexto] = useState('');
-  const [exibirDropdown, setExibirDropdown] = useState(true);
+  const [empresas, setEmpresas] = useState<string[]>([]);
+  const [textoEmpresas, setTextoEmpresas] = useState('');
+  const [textoCoordenadores, setTextoCoordenadores] = useState('');
+  const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
+  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
 
-  const filtrarOpcoes = coordenadores.filter(opcao =>
-    opcao.toLowerCase().includes(texto.toLowerCase())
-    );
+  const filtrarOpcoesEmpresas = empresas.filter(opcao =>
+    opcao.toLowerCase().includes(textoEmpresas.toLowerCase())
+  );
 
+  const filtrarOpcoesCoordenadores = coordenadores.filter(opcao =>
+    opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
+  );
 
   useEffect(() => {
-    const fetchCoordenadores = async () => {
+    const fetchData = async () => {
       try {
-        const response = await api.get("projects/list/coordinators");
-        setCoordenadores(response.data.model);
+        const responseCoordinators = await api.get("projects/list/coordinators");
+        const responseCompanies = await api.get("projects/list/companies");
+        setCoordenadores(responseCoordinators.data.model);
+        setEmpresas(responseCompanies.data.model);
       } catch (error) {
         console.error(error);
       }
     };
 
-    fetchCoordenadores();
+    fetchData();
   }, []);
 
   return (
@@ -39,19 +47,39 @@ export default function FiltroPortal() {
             />
           </div>
           <div className="pesquisa-container">
-          <label htmlFor="coordenador">Coordenador</label>
+            <label htmlFor="empresas">Empresas</label>
             <input
               type="text"
-              value={texto}
-              onChange={(e) => setTexto(e.target.value)}
-              onFocus={() => setExibirDropdown(true)}
-              onBlur={() => setTimeout(() => setExibirDropdown(false), 200)}
+              value={textoEmpresas}
+              onChange={(e) => setTextoEmpresas(e.target.value)}
+              onFocus={() => setExibirDropdownEmpresas(true)}
+              onBlur={() => setTimeout(() => setExibirDropdownEmpresas(false), 200)}
               placeholder="Pesquise..."
             />
-            {exibirDropdown && texto && (
+            {exibirDropdownEmpresas && textoEmpresas && (
               <ul className="dropdown">
-                {filtrarOpcoes.map((opcao, index) => (
-                  <li key={index} onMouseDown={() => setTexto(opcao)}>
+                {filtrarOpcoesEmpresas.map((opcao, index) => (
+                  <li key={index} onMouseDown={() => setTextoEmpresas(opcao)}>
+                    {opcao}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className="pesquisa-container">
+            <label htmlFor="coordenador">Coordenador</label>
+            <input
+              type="text"
+              value={textoCoordenadores}
+              onChange={(e) => setTextoCoordenadores(e.target.value)}
+              onFocus={() => setExibirDropdownCoordenadores(true)}
+              onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+              placeholder="Pesquise..."
+            />
+            {exibirDropdownCoordenadores && textoCoordenadores && (
+              <ul className="dropdown">
+                {filtrarOpcoesCoordenadores.map((opcao, index) => (
+                  <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
                     {opcao}
                   </li>
                 ))}
@@ -60,7 +88,7 @@ export default function FiltroPortal() {
           </div>
           <div>
             <label htmlFor="classificacao">Classificação</label>
-            <select name="classficacao" id="classficacao">
+            <select name="classificacao" id="classificacao">
               <option value=""></option>
               <option value="OUTROS">AS, OF, PC e/ou outros</option>
               <option value="CONTRATOS">Contrato</option>
@@ -74,25 +102,23 @@ export default function FiltroPortal() {
             <label htmlFor="situacaoDoProjeto">Situação do projeto</label>
             <select name="situacaoDoProjeto" id="situacaoDoProjeto">
               <option value=""></option>
-              <option value="NAO_INICIADOS">
-                Projetos não iniciados
-              </option>
+              <option value="NAO_INICIADOS">Projetos não iniciados</option>
               <option value="EM_ANDAMENTO">Projetos em andamento</option>
               <option value="FINALIZADOS">Projetos concluídos</option>
             </select>
           </div>
 
           <div>
-            <label htmlFor="dataInicio">Data de inicio</label>
+            <label htmlFor="dataInicio">Data de início</label>
             <input type="date" name="dataInicio" id="dataInicio" />
           </div>
           <div>
-            <label htmlFor="dataTermino">Data de termino</label>
+            <label htmlFor="dataTermino">Data de término</label>
             <input type="date" name="dataTermino" id="dataTermino" />
           </div>
         </div>
         <div>
-          <button>Buscar</button>
+          <button type="submit">Buscar</button>
         </div>
       </form>
     </main>
