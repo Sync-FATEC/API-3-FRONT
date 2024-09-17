@@ -85,16 +85,14 @@
     margin-left: 5vh;
     padding: 50px;
 }
-#fundo{
-    background-color: #F3F4F8;
-}
-.tabs {
+
+.tabs2 {
     display: flex;
     justify-content: space-evenly;
     margin-bottom: 20px;
 }
 
-.tab {
+.tab2 {
     background-color: transparent;
     border: none;
     cursor: pointer;
@@ -105,12 +103,16 @@
     box-shadow: none; 
 }
 
-.tab:hover {
+.tab2:hover {
     color:  var(--blue-color);
 }
 
-.tab.active {
+.tab2.active {
     color:  var(--blue-color);
     border-bottom: 2px solid var(--blue-color);
     box-shadow: none; 
+}
+
+button {
+  box-shadow: none !important;
 }

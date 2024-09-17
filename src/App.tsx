@@ -7,6 +7,7 @@ import { AuthProvider } from './contexts/auth/AuthContext';
 import Sidebar from './components/sideBar/static/sidebar';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
+import DashBoard from './components/dashBoard/Dashboard';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
                 <Route path='/private' element={<RequireAuthAdmin><PrivateComponent /></RequireAuthAdmin>}/>
                 <Route path='/sidebar' element={<RequireAuthAdmin><Sidebar/></RequireAuthAdmin>}/>
                 <Route path="/detalhe/:id" element={<ProjetoDetalhe />} />
+                <Route path='/dashboard' element={<DashBoard/>}></Route>
             </Routes>
         </AuthProvider>
       </Router>

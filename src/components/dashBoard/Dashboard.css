@@ -1,48 +1,42 @@
 .page{
     width: 100%;
 }
-.navbar {
-    display: flex;
-    margin-left: 250px;
-    height: 800px;
-    background-color: #fff;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .navbar ul {
-    list-style-type: none;
-    padding: 0;
-    gap: 20px;
-    display: flex;
-    justify-content: space-around;
-  }
-  
-  .navbar li {
-    margin: 0 10px;
-  }
-  
-  .navbar a {
-    color: #8B909A;
-    text-decoration: none;
-    font-weight: bold;
-  }
-  
-  .navbar a:hover {
-    transition: 0.5s;
-    color: #003383;
-    text-decoration: underline;
-  }
-  .navbar a.active {
-    font-weight: bold;
-    color: blue;
-  }
-  
-  .title{
-    background-color: #fff;
-    display: flex;
-    color: #003383;
-  }
-  .title h2{
-    padding: 10px;
-    padding-left: 35vh;
-  }
+.tabs3 {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 20px;
+  padding-top: 8vh;
+  padding-left: 270px;
+}
+
+.tab3 {
+  background-color: transparent;
+    border: none;
+    cursor: pointer;
+    flex: 1;
+    text-align: center;
+    color: #000;
+    transition: color 0.3s;
+    box-shadow: none; 
+}
+
+
+.tab3:hover {
+    color:  var(--blue-color);
+}
+
+.tab3.active {
+    color:  var(--blue-color);
+    border-bottom: 2px solid var(--blue-color);
+    box-shadow: none; 
+}
+
+button {
+  box-shadow: none !important;
+}
+.titulo  h1{
+  font-weight: 700;
+  size: 24px;
+  padding-top: 8vh;
+  padding-left: 40vh;
+}
