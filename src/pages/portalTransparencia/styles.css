@@ -47,59 +47,7 @@
 }
 /* Final Tela inicial */
 
-/* Filtro */
 
-.MainDados {
-    padding: var(--padding-global);
-}
-
-.containerForm,
-.containerData {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: var(--padding-input);
-}
-
-.containerForm div {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.MainDados form label {
-    color: var(--gray-color);
-}
-
-.MainDados form select,
-.MainDados form input {
-    width: 150px;
-    height: 40px;
-    padding: 8px;
-    background-color: var(--lightgray-color);
-    border: none;
-    border-radius: var(--padding-input);
-}
-
-.MainDados form button {
-    width: 100px;
-    margin-top: var(--padding-input);
-    padding: 12px;
-    height: 40px;
-    border: none;
-    border-radius: var(--padding-input);
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    cursor: pointer;
-}
-
-#referenciaDeDados,
-#dataInicio,
-#dataTermino {
-    box-shadow: none;
-}
-/* Fim Componente filtro */
 
 /* Componente projetos */
 .Referencias {

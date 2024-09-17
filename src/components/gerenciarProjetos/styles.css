@@ -1,0 +1,15 @@
+.admin_center-padding{
+    padding-left: 50vh;
+}
+
+.admin_center-header{
+    display: flex;
+    justify-content: space-around;
+}
+
+.user{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+}

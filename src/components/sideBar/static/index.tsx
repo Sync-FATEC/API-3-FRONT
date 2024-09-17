@@ -20,26 +20,16 @@ export default function Sidebar  () {
                 </div>
                 <h4>Projetos</h4>
                 <div className="menu-item" id="projetos">
-                    <Link to="/"style={{ textDecoration: 'none', color: '#8B909A' }}>
+                    <Link to="/addProjetos"style={{ textDecoration: 'none', color: '#8B909A' }}>
                         <FontAwesomeIcon icon={faCirclePlus} style={{color: "#969696"}} /> Adicionar Projetos
                     </Link>
                 </div>
                 <div className="menu-item" id="gerenciarprojetos">
-                <Link to="/"style={{ textDecoration: 'none', color: '#8B909A' }}>
+                <Link to="/gerenciarprojetos"style={{ textDecoration: 'none', color: '#8B909A' }}>
                     <FontAwesomeIcon icon={faCube} style={{color: "#969696"}} /> Gerenciar Projetos
                     </Link>
                 </div>
-                <h4>Usuários</h4>
-                <div className="menu-item" id="usuarios">
-                <Link to="/"style={{ textDecoration: 'none', color: '#8B909A' }}>
-                    <FontAwesomeIcon icon={faCirclePlus} style={{color: "#969696"}} />Adicionar Usuários
-                    </Link>
-                </div>
-                <div className="menu-item" id="usuarios">
-                    <Link to="/" style={{ textDecoration: 'none', color: '#8B909A',  }}>
-                    <FontAwesomeIcon icon={faUsersGear} style={{color: "#969696"}} />Gerenciar Usuários
-                    </Link>
-                </div>
+              
                 <div className="menu-item logout" onClick={Logout}>
                 <Link to="/"style={{ textDecoration: 'none', color: '#e74c3c', justifyContent:'center', display:'flex' }} className='sair'>
                     <FontAwesomeIcon icon={faSignOutAlt} style={{color: "#e74c3c"}} /> Sair

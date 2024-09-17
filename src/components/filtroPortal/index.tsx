@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../../api/api";
-import './pesquisa.css';
+import './styles.css';
 
 export default function FiltroPortal() {
   const [coordenadores, setCoordenadores] = useState<string[]>([]);
@@ -118,7 +118,10 @@ export default function FiltroPortal() {
           </div>
         </div>
         <div>
-          <button type="submit">Buscar</button>
+          <button type="submit" className="searchButton">
+          <img src="/static/img/pesquisar.svg" alt="logo" />
+          <p>Buscar</p>
+          </button>
         </div>
       </form>
     </main>
