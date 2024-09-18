@@ -1,28 +1,25 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import { Projetos } from "../../type/projeto";
-import { errorSwal } from "../swal/errorSwal";
-import "./styles.css";
 import api from "../../api/api";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import { Projetos } from "../../type/projeto";
+import "./styles.css"
+
 
 export default function ProjetoDetalhes() {
-  const { id } = useParams<{ id?: string }>(); // Obtém o ID da URL
-  const location = useLocation(); // Usado para obter o estado passado via navigate
-  const navigate = useNavigate(); // Usado para navegação
-  const { projeto } = location.state as { projeto?: Projetos } || {}; // Estado passado pela página anterior
+  const { id } = useParams<{ id?: string }>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { projeto } = (location.state as { projeto?: Projetos }) || {};
   const [projectData, setProjectData] = useState<Projetos | null>(projeto || null);
   const [error, setError] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState<string>("Informações do Projeto");
 
-  // Função para buscar projeto pelo ID caso não tenha sido passado no state
   const fetchProjetoById = async (projectId: string) => {
     try {
       const response = await api.get(`/projects/read/${projectId}`);
-      console.log("Dados recebidos da API:", response.data); // Verificar os dados recebidos da API
+      console.log("Dados recebidos da API:", response.data);
       if (response.data) {
-        setProjectData(response.data.model); // Atualizando o state com os dados do projeto
+        setProjectData(response.data.model);
       } else {
         setError("Projeto não encontrado.");
       }
@@ -32,14 +29,16 @@ export default function ProjetoDetalhes() {
     }
   };
 
-  // useEffect para buscar o projeto se não tiver sido passado no estado
   useEffect(() => {
     if (id && !projectData) {
-      fetchProjetoById(id); // Busca o projeto via API se não houver dados
+      fetchProjetoById(id);
     }
   }, [id, projectData]);
 
-  // Caso ocorra algum erro, exibe uma mensagem de erro
+  const handleTabClick = (tab: string) => {
+    setActiveTab(tab);
+  };
+
   if (error) {
     return (
       <div id="fundo">
@@ -52,16 +51,12 @@ export default function ProjetoDetalhes() {
         <div className="title">
           <h2>Erro</h2>
           <p>{error}</p>
-          <button onClick={() => navigate("/")}>
-            <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#FFFFF", fontSize: "24px" }} />
-            Voltar
-          </button>
+          <button onClick={() => navigate("/")}>Voltar</button>
         </div>
       </div>
     );
   }
 
-  // Se o projeto não estiver disponível, exibe uma mensagem de carregamento
   if (!projectData) {
     return (
       <div id="fundo">
@@ -87,56 +82,92 @@ export default function ProjetoDetalhes() {
         </h1>
       </div>
       <div className="title">
-        <h2>Detalhes do projeto</h2>
+        <h2>Detalhes do Projeto</h2>
         <button className="botao-voltar" onClick={() => navigate("/")}>
-        <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#FFFFF", fontSize: "24px" }} />
           Voltar
         </button>
       </div>
 
+      <div className="tabs2">
+        {["Informações do Projeto", "Propostas Relacionadas", "Termos", "Artigos"].map((tab) => (
+          <button
+            key={tab}
+            className={`tab2 ${activeTab === tab ? "active" : ""}`}
+            onClick={() => handleTabClick(tab)}
+          >
+            {tab}
+          </button>
+        ))}
+      </div>
+
       <div className="detalhes-projeto">
-        <div className="campo-projeto">
-          <label><strong>Referência:</strong></label>
-          <span>{projectData?.projectReference || "Referência não disponível"}</span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Empresa:</strong></label>
-          <span>{projectData?.projectCompany || "Entidade não disponível"}</span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Objeto:</strong></label>
-          <span>{projectData?.projectObjective || "Objeto não disponível"}</span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Coordenador:</strong></label>
-          <span>{projectData?.nameCoordinator || "Coordenador não disponível"}</span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Valor do Projeto:</strong></label>
-          {/* Verifica se projectValue está definido antes de formatá-lo */}
-          <span>{projectData?.projectValue !== undefined
-            ? projectData.projectValue.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
-            : "Valor não disponível"}
-          </span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Data de Início:</strong></label>
-          <span>{projectData?.projectStartDate
-            ? new Date(projectData.projectStartDate).toLocaleDateString('pt-BR')
-            : "Data de início não disponível"}
-          </span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Data de Término:</strong></label>
-          <span>{projectData?.projectEndDate
-            ? new Date(projectData.projectEndDate).toLocaleDateString('pt-BR')
-            : "Data de término não disponível"}
-          </span>
-        </div>
-        <div className="campo-projeto">
-          <label><strong>Descrição:</strong></label>
-          <span>{projectData?.projectDescription || "Descrição não disponível"}</span>
-        </div>
+        {activeTab === "Informações do Projeto" && (
+          <div className="detalhes-projeto">
+            <div className="campo-projeto">
+              <label><strong>Referência:</strong></label>
+              <span>{projectData?.projectReference || "Referência não disponível"}</span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Entidade:</strong></label>
+              <span>{projectData?.projectCompany || "Entidade não disponível"}</span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Objeto:</strong></label>
+              <span>{projectData?.projectObjective || "Objeto não disponível"}</span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Coordenador:</strong></label>
+              <span>{projectData?.nameCoordinator || "Coordenador não disponível"}</span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Valor do Projeto:</strong></label>
+              <span>
+                {projectData?.projectValue !== undefined
+                  ? projectData.projectValue.toLocaleString('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    })
+                  : "Valor não disponível"}
+              </span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Data de Início:</strong></label>
+              <span>
+                {projectData?.projectStartDate
+                  ? new Date(projectData.projectStartDate).toLocaleDateString('pt-BR')
+                  : "Data de início não disponível"}
+              </span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Data de Término:</strong></label>
+              <span>
+                {projectData?.projectEndDate
+                  ? new Date(projectData.projectEndDate).toLocaleDateString('pt-BR')
+                  : "Data de término não disponível"}
+              </span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Descrição:</strong></label>
+              <span>{projectData?.projectDescription || "Descrição não disponível"}</span>
+            </div>
+          </div>
+        )}
+
+        {activeTab === "Propostas Relacionadas" && (
+          <div>
+            {/* Conteúdo para Propostas Relacionadas */}
+          </div>
+        )}
+        {activeTab === "Termos" && (
+          <div>
+            {/* Conteúdo para Termos */}
+          </div>
+        )}
+        {activeTab === "Artigos" && (
+          <div>
+            {/* Conteúdo para Artigos */}
+          </div>
+        )}
       </div>
     </div>
   );
