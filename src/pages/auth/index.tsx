@@ -28,8 +28,8 @@ export default function Auth() {
     <main>
       <section className='formAuth Login'>
         <form onSubmit={handleSubmitLogin}>
-          <h1>LOGIN</h1>
-          <p>Acesso Admin Portal da Transparência</p>
+          <h1>Portal da Transparência</h1>
+          <p>Acesso Admin</p>
           <input type='text' id='text' name='text' placeholder='Email' required />
           <input type='password' id='password' name='password' required placeholder='Senha' />
           <button type='submit'>Login</button>

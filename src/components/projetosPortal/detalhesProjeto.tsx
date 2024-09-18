@@ -3,8 +3,10 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Projetos } from "../../type/projeto";
 import { errorSwal } from "../swal/errorSwal";
-import "./detalhesProjeto.css";
+import "./styles.css";
 import api from "../../api/api";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>(); // Obtém o ID da URL
@@ -51,6 +53,7 @@ export default function ProjetoDetalhes() {
           <h2>Erro</h2>
           <p>{error}</p>
           <button onClick={() => navigate("/")}>
+            <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#FFFFF", fontSize: "24px" }} />
             Voltar
           </button>
         </div>
@@ -86,7 +89,8 @@ export default function ProjetoDetalhes() {
       <div className="title">
         <h2>Detalhes do projeto</h2>
         <button className="botao-voltar" onClick={() => navigate("/")}>
-            Voltar
+        <FontAwesomeIcon icon={faChevronLeft} style={{ color: "#FFFFF", fontSize: "24px" }} />
+          Voltar
         </button>
       </div>
 
@@ -96,7 +100,7 @@ export default function ProjetoDetalhes() {
           <span>{projectData?.projectReference || "Referência não disponível"}</span>
         </div>
         <div className="campo-projeto">
-          <label><strong>Entidade:</strong></label>
+          <label><strong>Empresa:</strong></label>
           <span>{projectData?.projectCompany || "Entidade não disponível"}</span>
         </div>
         <div className="campo-projeto">

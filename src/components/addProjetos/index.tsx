@@ -1,7 +1,7 @@
 import { useState } from "react";
 import './styles.css';
 import Sidebar from '../sideBar/static';
-import Contrato from "./tabs/contrato";
+import Contratos from "./tabs/contrato";
 import TermosAditivo from "./tabs/termosAditivo";
 import PlanosTrabalho from "./tabs/planosTrabalho";
 import Projeto from "./tabs/infoProjeto";
@@ -19,9 +19,14 @@ const handleTabClick = (tab: string) => {
     
     <div>
       <Sidebar/>
-      <div className="titulo">
-      <h1>Adicionar Projetos</h1>
-      </div>
+      <div className="admin_center-header">
+                <h1>Adicionar Projetos</h1>
+                <div className="user">
+                    <img src="/static/img/user.svg" alt="logo" />
+                    <p>Admin</p>
+                </div>
+
+            </div>
       
       <div className="tabs3">
         {["Informações dos Projetos", "Contratos", "Planos de Trabalho", "Termos Aditivo"].map((tab) => (
@@ -53,7 +58,7 @@ const handleTabClick = (tab: string) => {
     )}
        {activeTab === "Contratos" && (
       <div>
-        {<Contrato/>}
+        {<Contratos/>}
       </div>
     )}
        

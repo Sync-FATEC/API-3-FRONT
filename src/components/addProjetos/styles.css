@@ -2,17 +2,17 @@
     font-weight: 700;
     size: 24px;
     padding-top: 8vh;
-    padding-left: 50vh;
+    padding-left: 270px;
+    margin-bottom: 64px;
 }
 
 
 .addProjetos {
-    
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 10px;
-    
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    margin-top: 32px;
+    margin-bottom: 64px;
 }
 
 
@@ -42,21 +42,33 @@
     border-radius: 10px;
     outline: none;
     caret-color: initial;
-    padding: 15px;
+    padding: 16px;
     background: none;
     transition: border 0.3s;
 }
-
+#inputBig{
+    width: 420px;
+    height: 64px;
+}
+.input-flex-container{
+    display: flex;
+    gap: 16px;
+}
+.input-big-container{
+    display: flex;
+    flex-direction: column;
+    
+}
 .placeholder {
     position: absolute;
     left: 10%;
     top: 50%;
     transform: translateY(-50%);
     user-select: none;
-    padding: 0 5px;
+    padding: 0 4px;
     background: var(--lightgray-color);
     color: silver;
-    font-size: 16px;
+    font-size: 16.5px;
     pointer-events: none;
     transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s;
 }
@@ -80,5 +92,34 @@ form button {
     background-color: var(--blue-color);
     color: var(--white-color);
     font-weight: bold;
+    width: 200px;
   }
   
+
+  /* Tabs de anexos */
+  
+
+  .documents button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: var(--padding-input);
+    padding: var(--padding-input);
+    border-radius: var(--padding-input);
+    border: none;
+    background-color: var(--blue-color);
+    color: var(--white-color);
+    font-weight: bold;
+    width: 120px;
+    height: 50px;
+  }
+  
+  .anexado{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 64px;
+    margin: 16px 0;
+    border-bottom: 2px solid var(--gray-color);
+  }

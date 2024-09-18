@@ -21,9 +21,14 @@ export default function DashBoard() {
 
     <div>
       <Sidebar />
-      <div className="titulo">
-        <h1>DashBoard</h1>
-      </div>
+      <div className="admin_center-header">
+                <h1>Dashboard</h1>
+                <div className="user">
+                    <img src="/static/img/user.svg" alt="logo" />
+                    <p>Admin</p>
+                </div>
+
+            </div>
       <div className="tabs3">
         {["Referência do Projeto", "Coordenador", "Empresa", "Classificação", "Situação do Projeto"].map((tab) => (
           <button

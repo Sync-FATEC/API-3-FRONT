@@ -1,10 +1,17 @@
 .admin_center-padding{
-    padding-left: 50vh;
+    padding-left: 150px;
 }
 
 .admin_center-header{
     display: flex;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: 700;
+    size: 24px;
+    padding-top: 8vh;
+    padding-bottom: 32px;
+    padding-left: 270px;
+    padding-right: 150px;
 }
 
 .user{
