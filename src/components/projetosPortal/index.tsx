@@ -68,7 +68,9 @@ export default function ProjetosPortal() {
               src="/static/img/pesquisar.svg"
               alt="Visualizar detalhes do projeto"
               onClick={() => handleProjetoClick(projeto)} 
-              style={{ cursor: "pointer" }}
+              style={{ cursor: "pointer", transition: "transform 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
             />
           </div>
         ))}
