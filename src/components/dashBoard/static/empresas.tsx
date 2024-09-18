@@ -1,7 +1,7 @@
 export default function Empresas () {
     return (
         <>
-        <p>Coordenador</p>
+      <img src="src\components\dashBoard\tabs\1.jpg" alt="dasdasd" />
         </>
     )
 }

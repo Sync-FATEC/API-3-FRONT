@@ -11,7 +11,7 @@ export default function ProjetosPortal() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const projetosPerPage = 15;
-  const navigate = useNavigate(); // Usar o hook useNavigate para navegação
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjetos = async () => {

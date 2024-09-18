@@ -102,7 +102,7 @@ export default function ProjetoDetalhes() {
 
       <div className="detalhes-projeto">
         {activeTab === "Informações do Projeto" && (
-          <div className="detalhes-projeto">
+          <div>
             <div className="campo-projeto">
               <label><strong>Referência:</strong></label>
               <span>{projectData?.projectReference || "Referência não disponível"}</span>

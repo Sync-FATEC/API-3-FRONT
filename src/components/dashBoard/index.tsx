@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { NavLink } from 'react-router-dom';
 import './styles.css';
 import Sidebar from '../sideBar/static';
-import ReferênciaProjeto from "./tabs/referenciaProjeto";
-import CoordenadorPage from "./tabs/coordenadorPage";
-import Empresas from "./tabs/empresas";
-import Classificacao from "./tabs/classificacao";
-import SituacaoProjeto from "./tabs/situacaodoProjeto";
+import ReferênciaProjeto from "./static/referenciaProjeto";
+import CoordenadorPage from "./static/coordenadorPage";
+import Empresas from "./static/empresas";
+import Classificacao from "./static/classificacao";
+import SituacaoProjeto from "./static/situacaodoProjeto";
 
 
 export default function DashBoard() {
