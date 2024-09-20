@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { NavLink } from 'react-router-dom';
 import './styles.css';
 import Sidebar from '../sideBar/static';
@@ -8,27 +8,23 @@ import Empresas from "./static/empresas";
 import Classificacao from "./static/classificacao";
 import SituacaoProjeto from "./static/situacaodoProjeto";
 
-
 export default function DashBoard() {
-  const [activeTab, setActiveTab] = useState<string>("Referência de Projeto");
-
+  const [activeTab, setActiveTab] = useState<string>("Coordenador");
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
 
   return (
-
     <div>
       <Sidebar />
       <div className="admin_center-header">
-                <h1>Dashboard</h1>
-                <div className="user">
-                    <img src="/static/img/user.svg" alt="logo" />
-                    <p>Admin</p>
-                </div>
-
-            </div>
+        <h1>Dashboard</h1>
+        <div className="user">
+          <img src="/static/img/user.svg" alt="logo" />
+          <p>Admin</p>
+        </div>
+      </div>
       <div className="tabs3">
         {["Referência do Projeto", "Coordenador", "Empresa", "Classificação", "Situação do Projeto"].map((tab) => (
           <button
@@ -44,32 +40,30 @@ export default function DashBoard() {
       <div className="tabs3">
         {activeTab === "Referência do Projeto" && (
           <div>
-            {<ReferênciaProjeto />}
+            <ReferênciaProjeto />
           </div>
         )}
         {activeTab === "Coordenador" && (
           <div>
-            {<CoordenadorPage />}
+            <CoordenadorPage />
           </div>
         )}
         {activeTab === "Empresa" && (
           <div>
-            {<Empresas />}
+            <ReferênciaProjeto />
           </div>
         )}
         {activeTab === "Classificação" && (
           <div>
-            {<Classificacao />}
+            <ReferênciaProjeto />
           </div>
         )}
         {activeTab === "Situação do Projeto" && (
           <div>
-            {<SituacaoProjeto />}
+            <ReferênciaProjeto />
           </div>
         )}
       </div>
     </div>
   );
 }
-
-
