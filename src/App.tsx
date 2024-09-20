@@ -22,7 +22,7 @@ function App() {
             <Route path='/private' element={<RequireAuthAdmin><PrivateComponent /></RequireAuthAdmin>} />
             <Route path='/sidebar' element={<RequireAuthAdmin><Sidebar /></RequireAuthAdmin>} />
             <Route path="/detalhe/:id" element={<ProjetoDetalhe />} />
-            <Route path='/dashboard' element={<DashBoard />}></Route>
+            <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
             <Route path='/addprojetos' element={<AddProjetos />}></Route>
             <Route path='/gerenciarProjetos' element={<GerenciarProjetos />}></Route>
           </Routes>

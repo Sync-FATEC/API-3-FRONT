@@ -3,7 +3,9 @@ import { useLocation, useParams, useNavigate } from "react-router-dom";
 import api from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import "./styles.css"
-
+import Loading from "../loading";
+import documents from "../../type/documents";
+import Anexos from "./anexos";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -13,6 +15,9 @@ export default function ProjetoDetalhes() {
   const [projectData, setProjectData] = useState<Projetos | null>(projeto || null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Informações do Projeto");
+  const [contratos, setContratos] = useState<documents[]>([]);
+  const [planos, setPlanos] = useState<documents[]>([]);
+  const [termos, setTermos] = useState<documents[]>([]);
 
   const fetchProjetoById = async (projectId: string) => {
     try {
@@ -34,6 +39,33 @@ export default function ProjetoDetalhes() {
       fetchProjetoById(id);
     }
   }, [id, projectData]);
+
+  useEffect(() => {
+    if (projectData && projectData.documents) {
+      const newContratos: documents[] = [];
+      const newPlanos: documents[] = [];
+      const newTermos: documents[] = [];
+
+      for (let i = 0; i < projectData.documents.length; i++) {
+        const doc = projectData.documents[i];
+        if (doc.fileName.toLowerCase().includes("trabalho")) {
+          newPlanos.push(doc);
+        } else if (doc.fileName.toLowerCase().includes("contrato")) {
+          newContratos.push(doc);
+        } else if (doc.fileName.toLowerCase().includes("aditivo")) {
+          newTermos.push(doc);
+        }
+      }
+
+      setContratos(newContratos);
+      setPlanos(newPlanos);
+      setTermos(newTermos);
+      console.log("Contratos:", newContratos);
+      console.log("Planos:", newPlanos);
+      console.log("Termos:", newTermos);
+      
+    }
+  }, [projectData]);
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -66,9 +98,7 @@ export default function ProjetoDetalhes() {
             Portal da Transparência
           </h1>
         </div>
-        <div className="title">
-          <h2>Carregando...</h2>
-        </div>
+        <Loading />
       </div>
     );
   }
@@ -89,7 +119,7 @@ export default function ProjetoDetalhes() {
       </div>
 
       <div className="tabs2">
-        {["Informações do Projeto", "Propostas Relacionadas", "Termos", "Artigos"].map((tab) => (
+        {["Informações do Projeto", "Contratos", "Planos de trabalhos", "Termos aditivo"].map((tab) => (
           <button
             key={tab}
             className={`tab2 ${activeTab === tab ? "active" : ""}`}
@@ -153,19 +183,45 @@ export default function ProjetoDetalhes() {
           </div>
         )}
 
-        {activeTab === "Propostas Relacionadas" && (
+        {activeTab === "Contratos" && (
           <div>
-            {/* Conteúdo para Propostas Relacionadas */}
+            {contratos.length > 0 ? (
+              <div>
+                {contratos.map((cont) => (
+                  <Anexos link={cont.fileUrl} nome={cont.fileName} />
+                ))}
+              </div>
+            ) : (
+              <p>Nenhum contrato disponível.</p>
+            )}
           </div>
         )}
-        {activeTab === "Termos" && (
+
+        {activeTab === "Planos de trabalhos" && (
           <div>
-            {/* Conteúdo para Termos */}
+            {planos.length > 0 ? (
+              <div>
+              {planos.map((cont) => (
+                <Anexos link={cont.fileUrl} nome={cont.fileName} />
+              ))}
+              </div>
+            ) : (
+              <p>Nenhum plano de trabalho disponível.</p>
+            )}
           </div>
         )}
-        {activeTab === "Artigos" && (
+
+        {activeTab === "Termos aditivo" && (
           <div>
-            {/* Conteúdo para Artigos */}
+            {termos.length > 0 ? (
+              <div>
+              {termos.map((cont) => (
+                <Anexos link={cont.fileUrl} nome={cont.fileName} />
+              ))}
+            </div>
+            ) : (
+              <p>Nenhum termo aditivo disponível.</p>
+            )}
           </div>
         )}
       </div>

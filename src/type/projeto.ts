@@ -1,3 +1,6 @@
+import documents from "./documents";
+
+
 export type Projetos = {
     projectId: string;
     projectReference: string;
@@ -10,13 +13,6 @@ export type Projetos = {
     projectEndDate: string;
     projectClassification: string;
     projectStatus: string;
-    documents: {
-        documentsId: string;
-        fileName: string;
-        fileType: string;
-        fileUrl: string;
-        uploadedAt: string | null;
-        user: string | null;
-    }[];
+    documents: documents[];
     historyProject: any[];
 };
