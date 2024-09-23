@@ -38,7 +38,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       console.log(jsonUserInfo);
       setUser(jsonUserInfo);
       setIsAuthenticated(true);
-      navigate('/sidebar')
+      navigate('/dashboard')
     } catch (error) {
       console.log(error);
       errorSwal((error as any).response.data.error);
