@@ -59,8 +59,8 @@ export default function ProjetosPortal() {
         {currentProjetos.map((projeto) => (
           <div className="Projetos" key={projeto.projectId}>
             <p>{projeto.projectReference}</p>
-            <p>{projeto.projectStartDate}</p>
-            <p>{projeto.projectEndDate}</p>
+            <p>{new Date(projeto.projectStartDate).toLocaleDateString('pt-BR')}</p>
+            <p>{new Date(projeto.projectEndDate).toLocaleDateString('pt-BR')}</p>
             <p>{projeto.nameCoordinator}</p>
             <p>{projeto.projectValue}</p>
             

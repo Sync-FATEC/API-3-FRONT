@@ -18,6 +18,7 @@ export default function ProjetoDetalhes() {
   const [contratos, setContratos] = useState<documents[]>([]);
   const [planos, setPlanos] = useState<documents[]>([]);
   const [termos, setTermos] = useState<documents[]>([]);
+  const [outros, setOutros] = useState<documents[]>([]);
 
   const fetchProjetoById = async (projectId: string) => {
     try {
@@ -45,24 +46,24 @@ export default function ProjetoDetalhes() {
       const newContratos: documents[] = [];
       const newPlanos: documents[] = [];
       const newTermos: documents[] = [];
+      const newOutros: documents[] = [];
 
-      for (let i = 0; i < projectData.documents.length; i++) {
-        const doc = projectData.documents[i];
-        if (doc.fileName.toLowerCase().includes("trabalho")) {
-          newPlanos.push(doc);
-        } else if (doc.fileName.toLowerCase().includes("contrato")) {
+      projectData.documents.forEach((doc) => {
+        if (doc.fileType === "CONTRATO") {
           newContratos.push(doc);
-        } else if (doc.fileName.toLowerCase().includes("aditivo")) {
+        } else if (doc.fileType === "PLANO_DE_TRABALHO") {
+          newPlanos.push(doc);
+        } else if (doc.fileType === "TERMO_ADITIVO") {
           newTermos.push(doc);
+        } else {
+          newOutros.push(doc);
         }
-      }
+      });
 
       setContratos(newContratos);
       setPlanos(newPlanos);
       setTermos(newTermos);
-      console.log("Contratos:", newContratos);
-      console.log("Planos:", newPlanos);
-      console.log("Termos:", newTermos);
+      setOutros(newOutros);
       
     }
   }, [projectData]);
@@ -119,7 +120,7 @@ export default function ProjetoDetalhes() {
       </div>
 
       <div className="tabs2">
-        {["Informações do Projeto", "Contratos", "Planos de trabalhos", "Termos aditivo"].map((tab) => (
+        {["Informações do Projeto", "Contratos", "Planos de trabalhos", "Termos aditivo", "Outros"].map((tab) => (
           <button
             key={tab}
             className={`tab2 ${activeTab === tab ? "active" : ""}`}
@@ -221,6 +222,20 @@ export default function ProjetoDetalhes() {
             </div>
             ) : (
               <p>Nenhum termo aditivo disponível.</p>
+            )}
+          </div>
+        )}
+
+        {activeTab === "Outros" && (
+          <div>
+            {outros.length > 0 ? (
+              <div>
+              {outros.map((cont) => (
+                <Anexos link={cont.fileUrl} nome={cont.fileName} />
+              ))}
+            </div>
+            ) : (
+              <p>Nenhum outro anexos disponíveis.</p>
             )}
           </div>
         )}
