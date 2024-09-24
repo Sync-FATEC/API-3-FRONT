@@ -3,9 +3,14 @@ import "../styles.css";
 import api from "../../../api/api";
 import { errorSwal } from "../../swal/errorSwal";
 import { successSwal } from "../../swal/sucessSwal";
+import AddAnexo from "../../addAnexo";
 
 export default function Projeto() {
   // Crie os states do projeto
+  const [quantidadeAnexos, setQuantidade ] = useState<number[]>([0]);
+  const [projectId , setProjectId] = useState<string>("");
+  const [triggerUpdate, setTriggerUpdate] = useState<() => void>(() => () => {});
+
   const [referencia, setReferencia] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
   const [coordenador, setCoordenador] = useState<string>("");
@@ -34,11 +39,18 @@ export default function Projeto() {
 
       if (response.status === 200) {
         successSwal("Projeto cadastrado com sucesso!");
+        setProjectId(response.data.model.projectId);
+        console.log(projectId);
+        setTriggerUpdate(() => () => {});
       }
     } catch (error) {
         errorSwal("Erro ao cadastrar projeto");
     }
   };
+
+  const handleAddAnexo = () => {
+    setQuantidade([...quantidadeAnexos, quantidadeAnexos.length]);
+  }
 
   return (
     <>
@@ -136,8 +148,16 @@ export default function Projeto() {
             <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
           </select>
         </div>
+
+        <div >
+          {quantidadeAnexos.map((n) => <AddAnexo projectId={projectId} triggerUpdate={triggerUpdate}/>)  }
+          <button type="button" onClick={handleAddAnexo}>Adicionar anexo</button>
+        </div>
+
         <button type="submit">Cadastrar</button>
       </form>
+
+
     </>
   );
 }
