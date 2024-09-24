@@ -1,7 +1,4 @@
-import axios from 'axios';
 import React, { useContext } from 'react';
-import { successSwal } from '../../components/swal/sucessSwal';
-import { errorSwal } from '../../components/swal/errorSwal';
 import './styles.css';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
