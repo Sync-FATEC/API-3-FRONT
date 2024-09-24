@@ -85,6 +85,14 @@
     color: var(--blue-color);
 }
 
+.input:focus ~ .placeholder,
+.input:not(:placeholder-shown) ~ .placeholder {
+  top: -10px;
+  left: 10px;
+  font-size: 13px;
+  color: var(--blue-color);
+}
+
 form button {
     height: var(--border);
     border-radius: var(--padding-input);
