@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import api from "../../api/api";
+import api, { links } from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import { errorSwal } from "../swal/errorSwal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -16,7 +16,7 @@ export default function ProjetosPortal() {
   useEffect(() => {
     const fetchProjetos = async () => {
       try {
-        const response = await api.get('/projects/list');
+        const response = await links.getAllProjects();
         if (response.data && response.data.model) {
           const allProjetos = response.data.model;
           setProjetos(allProjetos);

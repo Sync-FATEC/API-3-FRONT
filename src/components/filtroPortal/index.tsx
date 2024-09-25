@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../api/api";
+import api, { links } from "../../api/api";
 import './styles.css';
 
 export default function FiltroPortal() {
@@ -21,8 +21,8 @@ export default function FiltroPortal() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const responseCoordinators = await api.get("projects/list/coordinators");
-        const responseCompanies = await api.get("projects/list/companies");
+        const responseCoordinators = await links.getCoordinators();
+        const responseCompanies = await links.getCompanies()
         setCoordenadores(responseCoordinators.data.model);
         setEmpresas(responseCompanies.data.model);
       } catch (error) {

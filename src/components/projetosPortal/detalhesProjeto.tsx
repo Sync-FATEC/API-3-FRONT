@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
-import api from "../../api/api";
+import api, { links } from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import "./styles.css"
 import Loading from "../loading";
@@ -22,7 +22,7 @@ export default function ProjetoDetalhes() {
 
   const fetchProjetoById = async (projectId: string) => {
     try {
-      const response = await api.get(`/projects/read/${projectId}`);
+      const response = await links.getProject(projectId);
       console.log("Dados recebidos da API:", response.data);
       if (response.data) {
         setProjectData(response.data.model);
@@ -222,7 +222,7 @@ export default function ProjetoDetalhes() {
             {contratos.length > 0 ? (
               <div>
                 {contratos.map((cont) => (
-                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -236,7 +236,7 @@ export default function ProjetoDetalhes() {
             {planos.length > 0 ? (
               <div>
                 {planos.map((cont) => (
-                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -250,7 +250,7 @@ export default function ProjetoDetalhes() {
             {termos.length > 0 ? (
               <div>
                 {termos.map((cont) => (
-                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -264,7 +264,7 @@ export default function ProjetoDetalhes() {
             {outros.length > 0 ? (
               <div>
                 {outros.map((cont) => (
-                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
                 ))}
               </div>
             ) : (

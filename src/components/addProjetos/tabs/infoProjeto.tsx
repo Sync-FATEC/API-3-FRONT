@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import "../styles.css";
-import api from "../../../api/api";
+import api, { links } from "../../../api/api";
 import { errorSwal } from "../../swal/errorSwal";
 import { successSwal } from "../../swal/sucessSwal";
 import AddAnexo from "../../addAnexo";
+import createProject from "../../../type/createProject";
 
 export default function Projeto() {
-  const [quantidadeAnexos, setQuantidade] = useState<number[]>([0]);
+  const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
   const [projectId, setProjectId] = useState<string>("");
   const [referencia, setReferencia] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
@@ -19,12 +20,19 @@ export default function Projeto() {
   const [classificacao, setClassificacao] = useState<string>("");
 
   const formRef = useRef<HTMLDivElement>(null);
+  const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([0]);
 
-  const handleSubmitProjeto = async (e: any) => {
+  const handleAddAnexo = (index: number, anexo: { file: File | null; tipo: string }) => {
+    const newAnexos = [...anexos];
+    newAnexos[index] = anexo;
+    setAnexos(newAnexos);
+  };
+
+  const handleSubmitProjeto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
-      let response = await api.post("/projects/create", {
+      const projeto: createProject = {
         projectReference: referencia,
         nameCoordinator: coordenador,
         projectCompany: empresa,
@@ -34,22 +42,20 @@ export default function Projeto() {
         projectStartDate: new Date(dataInicio),
         projectEndDate: new Date(dataTermino),
         projectClassification: classificacao,
-      });
+      };
 
-      if (response.status === 200) {
+      const response = await links.createProject(projeto);
+
+      if (response.status === 201) {
+        await Promise.all(anexos.map(anexo => {
+          if (anexo.file) {
+            return links.AddAnexo(response.data.model.projectId, anexo.file, anexo.tipo);
+          }
+        }));
+
         successSwal("Projeto cadastrado com sucesso!");
         setProjectId(response.data.model.projectId);
-        setReferencia("");
-        setEmpresa("");
-        setCoordenador("");
-        setValor("");
-        setDataInicio("");
-        setDataTermino("");
-        setObjeto("");
-        setDescricao("");
-        setClassificacao("");
-        setQuantidade([0]);
-
+        resetForm();
         formRef.current?.scrollIntoView({ behavior: "smooth" });
       }
     } catch (error) {
@@ -57,13 +63,27 @@ export default function Projeto() {
     }
   };
 
-  const handleAddAnexo = () => {
-    setQuantidade([...quantidadeAnexos, quantidadeAnexos.length]);
+  const resetForm = () => {
+    setReferencia("");
+    setEmpresa("");
+    setCoordenador("");
+    setValor("");
+    setDataInicio("");
+    setDataTermino("");
+    setObjeto("");
+    setDescricao("");
+    setClassificacao("");
+    setAnexos([]);
+    setAddAnexoComponents([0]);
+  };
+
+  const handleAddAnexoComponent = () => {
+    setAddAnexoComponents((prev) => [...prev, prev.length]);
   };
 
   return (
     <div ref={formRef} className="form-container">
-      <form action="submit" className="addProjetos" onSubmit={handleSubmitProjeto}>
+      <form className="addProjetos" onSubmit={handleSubmitProjeto}>
         <div className="input-flex-container">
           <div className="input-placeholder-container">
             <input
@@ -113,7 +133,6 @@ export default function Projeto() {
             <input
               type="date"
               className="input"
-              placeholder=" "
               value={dataInicio}
               onChange={(e) => setDataInicio(e.target.value)}
             />
@@ -123,7 +142,6 @@ export default function Projeto() {
             <input
               type="date"
               className="input"
-              placeholder=" "
               value={dataTermino}
               onChange={(e) => setDataTermino(e.target.value)}
             />
@@ -134,7 +152,6 @@ export default function Projeto() {
           <div className="input-placeholder-container" id="inputBig">
             <input
               type="text"
-              id="inputBig"
               className="input"
               placeholder=" "
               value={objeto}
@@ -174,10 +191,10 @@ export default function Projeto() {
           </div>
           <div className="cadastrar">
             <div className="addfile">
-              {quantidadeAnexos.map((n) => (
-                <AddAnexo key={n} projectId={projectId} triggerUpdate={handleAddAnexo} />
+              {addAnexoComponents.map((_, index) => (
+                <AddAnexo key={index} onAddAnexo={(anexo) => handleAddAnexo(index, anexo)} />
               ))}
-              <button type="button" onClick={handleAddAnexo}>Adicionar anexo</button>
+              <button type="button" onClick={handleAddAnexoComponent}>Adicionar anexo</button>
             </div>
           </div>
           <button type="submit">Cadastrar</button>
