@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Auth from './pages/auth';
-import PrivateComponent from './components/Private';
 import './global.css';
 import PortalTransparencia from './pages/portalTransparencia';
 import { AuthProvider } from './contexts/auth/AuthContext';
@@ -19,12 +18,10 @@ function App() {
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route path='/' element={<PortalTransparencia />} />
-            <Route path='/private' element={<RequireAuthAdmin><PrivateComponent /></RequireAuthAdmin>} />
-            <Route path='/sidebar' element={<RequireAuthAdmin><Sidebar /></RequireAuthAdmin>} />
             <Route path="/detalhe/:id" element={<ProjetoDetalhe />} />
             <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
-            <Route path='/addprojetos' element={<AddProjetos />}></Route>
-            <Route path='/gerenciarProjetos' element={<GerenciarProjetos />}></Route>
+            <Route path='/addprojetos' element={<RequireAuthAdmin><AddProjetos /></RequireAuthAdmin>}></Route>
+            <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>
