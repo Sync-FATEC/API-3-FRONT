@@ -120,15 +120,48 @@ export default function ProjetoDetalhes() {
       </div>
 
       <div className="tabs2">
-        {["Informações do Projeto", "Contratos", "Planos de trabalhos", "Termos aditivo", "Outros"].map((tab) => (
+        <button
+          className={`tab2 ${activeTab === "Informações do Projeto" ? "active" : ""}`}
+          onClick={() => handleTabClick("Informações do Projeto")}
+        >
+          Informações do Projeto
+        </button>
+
+        {contratos.length > 0 && (
           <button
-            key={tab}
-            className={`tab2 ${activeTab === tab ? "active" : ""}`}
-            onClick={() => handleTabClick(tab)}
+            className={`tab2 ${activeTab === "Contratos" ? "active" : ""}`}
+            onClick={() => handleTabClick("Contratos")}
           >
-            {tab}
+            Contratos
           </button>
-        ))}
+        )}
+
+        {planos.length > 0 && (
+          <button
+            className={`tab2 ${activeTab === "Planos de trabalhos" ? "active" : ""}`}
+            onClick={() => handleTabClick("Planos de trabalhos")}
+          >
+            Planos de Trabalhos
+          </button>
+        )}
+
+        {termos.length > 0 && (
+          <button
+            className={`tab2 ${activeTab === "Termos aditivo" ? "active" : ""}`}
+            onClick={() => handleTabClick("Termos aditivo")}
+          >
+            Termos Aditivo
+          </button>
+        )}
+
+        {outros.length > 0 && (
+          <button
+            className={`tab2 ${activeTab === "Outros" ? "active" : ""}`}
+            onClick={() => handleTabClick("Outros")}
+          >
+            Outros
+          </button>
+        )}
       </div>
 
       <div className="detalhes-projeto">
@@ -189,7 +222,7 @@ export default function ProjetoDetalhes() {
             {contratos.length > 0 ? (
               <div>
                 {contratos.map((cont) => (
-                  <Anexos link={cont.fileUrl} nome={cont.fileName} />
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -202,9 +235,9 @@ export default function ProjetoDetalhes() {
           <div>
             {planos.length > 0 ? (
               <div>
-              {planos.map((cont) => (
-                <Anexos link={cont.fileUrl} nome={cont.fileName} />
-              ))}
+                {planos.map((cont) => (
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                ))}
               </div>
             ) : (
               <p>Nenhum plano de trabalho disponível.</p>
@@ -216,10 +249,10 @@ export default function ProjetoDetalhes() {
           <div>
             {termos.length > 0 ? (
               <div>
-              {termos.map((cont) => (
-                <Anexos link={cont.fileUrl} nome={cont.fileName} />
-              ))}
-            </div>
+                {termos.map((cont) => (
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                ))}
+              </div>
             ) : (
               <p>Nenhum termo aditivo disponível.</p>
             )}
@@ -230,12 +263,12 @@ export default function ProjetoDetalhes() {
           <div>
             {outros.length > 0 ? (
               <div>
-              {outros.map((cont) => (
-                <Anexos link={cont.fileUrl} nome={cont.fileName} />
-              ))}
-            </div>
+                {outros.map((cont) => (
+                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                ))}
+              </div>
             ) : (
-              <p>Nenhum outro anexos disponíveis.</p>
+              <p>Nenhum documento disponível.</p>
             )}
           </div>
         )}
