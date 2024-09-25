@@ -47,8 +47,8 @@
     transition: border 0.3s;
 }
 #inputBig{
-    width: 420px;
-    height: 64px;
+    width: 418px;
+    height: 50px;
 }
 .input-flex-container{
     display: flex;
@@ -130,4 +130,47 @@ form button {
     gap: 64px;
     margin: 16px 0;
     border-bottom: 2px solid var(--gray-color);
+  }
+
+  .classification select {
+    display: flex;
+    height: 35px;
+    padding: 8px;
+    background-color: var(--lightgray-color);
+    border-radius: var(--padding-input);
+    
+  }
+.headerPortal input{
+    gap: 10px;
+    height: 40px;
+    padding: 8px;
+    background-color: var(--lightgray-color);
+    border-radius: var(--padding-input);
+    
+ }
+
+ .headerPortal select {
+    gap: 20px;
+    height: 40px;
+    padding: 8px;
+    background-color: var(--lightgray-color);
+    border-radius: var(--padding-input);
+ }
+ .right-side {
+    display: flex;
+    flex-direction: column; 
+    gap: 10px;
+  }
+  .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: 4px; /* Espaçamento acima da mensagem de erro */
+  }
+  .files{
+    gap: 20px;
+    height: 40px;
+    padding: 8px;
+    background-color: var(--lightgray-color);
+    border-radius: var(--padding-input);
+    border: none;
   }
