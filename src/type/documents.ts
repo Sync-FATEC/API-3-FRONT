@@ -1,5 +1,5 @@
 type documents = {
-    documentsId: string;
+    documentId: string;
     fileName: string;
     fileType: string;
     fileUrl: string;
