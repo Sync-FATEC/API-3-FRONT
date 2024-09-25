@@ -4,9 +4,11 @@ import { successSwal } from "../swal/sucessSwal";
 
 enum TipoAnexo {
     CONTRATO = "CONTRATO",
-    ARTIGO = "ARTIGO",
-    PROPOSTA = "PROPOSTA"
+    TERMO_ADITIVO = "TERMO_ADITIVO",
+    PLANO_DE_TRABALHO = "PLANO_DE_TRABALHO",
+    OUTROS = "OUTROS"
 }
+
 
 interface Anexo {
     id: number;
@@ -70,8 +72,9 @@ export default function AddAnexo({ projectId, triggerUpdate }: AddAnexoProps) {
                 <label htmlFor="tipoAnexo">Tipo de Anexo</label>
                 <select id="tipoAnexo" name="tipoAnexo" value={tipoAnexo} onChange={handleTipoAnexoChange}>
                     <option value={TipoAnexo.CONTRATO}>Contrato</option>
-                    <option value={TipoAnexo.ARTIGO}>Artigo</option>
-                    <option value={TipoAnexo.PROPOSTA}>Proposta</option>
+                    <option value={TipoAnexo.PLANO_DE_TRABALHO}>Plano de Trabalho</option>
+                    <option value={TipoAnexo.TERMO_ADITIVO}>Termo Aditivo</option>
+                    <option value={TipoAnexo.OUTROS}>Outros</option>
                 </select>
             </form>
         </div>

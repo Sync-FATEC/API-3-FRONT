@@ -222,7 +222,7 @@ export default function ProjetoDetalhes() {
             {contratos.length > 0 ? (
               <div>
                 {contratos.map((cont) => (
-                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -236,7 +236,7 @@ export default function ProjetoDetalhes() {
             {planos.length > 0 ? (
               <div>
                 {planos.map((cont) => (
-                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -250,7 +250,7 @@ export default function ProjetoDetalhes() {
             {termos.length > 0 ? (
               <div>
                 {termos.map((cont) => (
-                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
@@ -264,7 +264,7 @@ export default function ProjetoDetalhes() {
             {outros.length > 0 ? (
               <div>
                 {outros.map((cont) => (
-                  <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
+                  <Anexos key={cont.documentId} documentId={cont.documentId} nome={cont.fileName} />
                 ))}
               </div>
             ) : (
