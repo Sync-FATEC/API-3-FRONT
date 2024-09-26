@@ -17,9 +17,6 @@ export default function GerenciarProjetos() {
             <div className='admin_center-padding'>
                 <ProjetosPortal />
             </div>
-
-
-
         </>
     );
 }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import api, { links } from "../../api/api";
 import { Projetos } from "../../type/projeto";
@@ -6,6 +6,7 @@ import "./styles.css"
 import Loading from "../loading";
 import documents from "../../type/documents";
 import Anexos from "./anexos";
+import { AuthContext } from "../../contexts/auth/AuthContext"; 
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -19,7 +20,9 @@ export default function ProjetoDetalhes() {
   const [planos, setPlanos] = useState<documents[]>([]);
   const [termos, setTermos] = useState<documents[]>([]);
   const [outros, setOutros] = useState<documents[]>([]);
-
+  const { isAuthenticated } = useContext(AuthContext);
+  
+  
   const fetchProjetoById = async (projectId: string) => {
     try {
       const response = await links.getProject(projectId);
@@ -71,6 +74,9 @@ export default function ProjetoDetalhes() {
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+  const handleBackButtonClick = () => {
+    navigate(isAuthenticated ? "/dashboard" : "/");
+  };
 
   if (error) {
     return (
@@ -114,9 +120,7 @@ export default function ProjetoDetalhes() {
       </div>
       <div className="title">
         <h2>Detalhes do Projeto</h2>
-        <button className="botao-voltar" onClick={() => navigate("/")}>
-          Voltar
-        </button>
+        <button  className="botao-voltar" onClick={handleBackButtonClick}>Voltar</button>
       </div>
 
       <div className="tabs2">
