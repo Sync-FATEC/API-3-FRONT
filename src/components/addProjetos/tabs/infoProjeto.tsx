@@ -28,8 +28,18 @@ export default function Projeto() {
     setAnexos(newAnexos);
   };
 
+  const validateValor = (value: string): boolean => {
+    const numberValue = Number(value);
+    return !isNaN(numberValue) && numberValue >= 0 && /^[0-9]*$/.test(value);
+  };
+
   const handleSubmitProjeto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateValor(valor)) {
+      errorSwal("Valor do projeto inválido. Certifique-se de que não é negativo e não contém símbolos.");
+      return;
+    }
 
     try {
       const projeto: createProject = {
@@ -119,11 +129,15 @@ export default function Projeto() {
           </div>
           <div className="input-placeholder-container">
             <input
-              type="text"
+              type="number"
               className="input"
               placeholder=" "
               value={valor}
-              onChange={(e) => setValor(e.target.value)}
+              onChange={(e) => {
+                if (validateValor(e.target.value)) {
+                  setValor(e.target.value);
+                }
+              }}
             />
             <label className="placeholder">Valor do projeto</label>
           </div>
