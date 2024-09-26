@@ -41,6 +41,21 @@ export default function Projeto() {
       return;
     }
 
+    if (dataInicio > dataTermino) {
+      errorSwal("Data de início não pode ser maior que a data de término.");
+      return;
+    }
+
+    if (anexos.some((anexo) => !anexo.file)) {
+      errorSwal("Todos os anexos devem ser preenchidos.");
+      return;
+    }
+
+    if (isNaN(Date.parse(dataInicio)) || isNaN(Date.parse(dataTermino))) {
+      errorSwal("Data inválida.");
+      return;
+    }
+
     try {
       const projeto: createProject = {
         projectReference: referencia,
