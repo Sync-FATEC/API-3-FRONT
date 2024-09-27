@@ -174,3 +174,10 @@ form button {
     border-radius: var(--padding-input);
     border: none;
   }
+
+  .addfile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
