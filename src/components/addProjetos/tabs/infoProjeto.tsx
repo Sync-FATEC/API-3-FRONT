@@ -20,7 +20,7 @@ export default function Projeto() {
   const [classificacao, setClassificacao] = useState<string>("");
 
   const formRef = useRef<HTMLDivElement>(null);
-  const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([0]);
+  const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]); // Começa vazio
 
   const handleAddAnexo = (index: number, anexo: { file: File | null; tipo: string }) => {
     const newAnexos = [...anexos];
@@ -43,6 +43,15 @@ export default function Projeto() {
 
     if (dataInicio > dataTermino) {
       errorSwal("Data de início não pode ser maior que a data de término.");
+      return;
+    }
+
+    const currentDate = new Date();
+    const maxStartDate = new Date(currentDate);
+    maxStartDate.setDate(currentDate.getDate() + 7);
+
+    if (new Date(dataInicio) > maxStartDate) {
+      errorSwal("Data de início não pode ser maior que 7 dias a partir da data atual.");
       return;
     }
 
@@ -99,11 +108,11 @@ export default function Projeto() {
     setDescricao("");
     setClassificacao("");
     setAnexos([]);
-    setAddAnexoComponents([0]);
+    setAddAnexoComponents([]); // Reseta para não mostrar anexos após o envio
   };
 
   const handleAddAnexoComponent = () => {
-    setAddAnexoComponents((prev) => [...prev, prev.length]);
+    setAddAnexoComponents((prev) => [...prev, prev.length]); // Adiciona um novo componente
   };
 
   return (
@@ -223,7 +232,7 @@ export default function Projeto() {
               {addAnexoComponents.map((_, index) => (
                 <AddAnexo key={index} onAddAnexo={(anexo) => handleAddAnexo(index, anexo)} />
               ))}
-              <button type="button" onClick={handleAddAnexoComponent}>Adicionar anexo</button>
+              <button type="button" onClick={handleAddAnexoComponent}>Adicionar anexo</button> {/* Adiciona o componente */}
             </div>
           </div>
           <button type="submit">Cadastrar</button>
