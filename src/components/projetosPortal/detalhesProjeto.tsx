@@ -75,7 +75,7 @@ export default function ProjetoDetalhes() {
     setActiveTab(tab);
   };
   const handleBackButtonClick = () => {
-    navigate(isAuthenticated ? "/dashboard" : "/");
+    navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
   };
 
   if (error) {
