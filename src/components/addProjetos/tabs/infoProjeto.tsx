@@ -19,6 +19,8 @@ export default function Projeto() {
   const [descricao, setDescricao] = useState<string>("");
   const [classificacao, setClassificacao] = useState<string>("");
 
+  const [enviado, setEnviado] = useState<boolean>(false);
+
   const formRef = useRef<HTMLDivElement>(null);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]); // Começa vazio
 
@@ -90,6 +92,7 @@ export default function Projeto() {
         successSwal("Projeto cadastrado com sucesso!");
         setProjectId(response.data.model.projectId);
         resetForm();
+        setEnviado(true);
         formRef.current?.scrollIntoView({ behavior: "smooth" });
       }
     } catch (error) {
@@ -230,7 +233,7 @@ export default function Projeto() {
           <div className="cadastrar">
             <div className="addfile">
               {addAnexoComponents.map((_, index) => (
-                <AddAnexo key={index} onAddAnexo={(anexo) => handleAddAnexo(index, anexo)} />
+                <AddAnexo key={index} onAddAnexo={(anexo) => handleAddAnexo(index, anexo)} resetFile={enviado} />
               ))}
               <button type="button" onClick={handleAddAnexoComponent}>Adicionar anexo</button> {/* Adiciona o componente */}
             </div>

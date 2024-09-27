@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 enum TipoAnexo {
     CONTRATO = "CONTRATO",
@@ -9,11 +9,13 @@ enum TipoAnexo {
 
 interface AddAnexoProps {
     onAddAnexo: (anexo: { file: File | null; tipo: string }) => void;
+    resetFile: boolean;
 }
 
-export default function AddAnexo({ onAddAnexo }: AddAnexoProps) {
+export default function AddAnexo({ onAddAnexo, resetFile }: AddAnexoProps) {
     const [file, setFile] = useState<File | null>(null);
     const [tipoAnexo, setTipoAnexo] = useState<TipoAnexo>(TipoAnexo.CONTRATO);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = e.target.files?.[0] || null;
@@ -26,6 +28,16 @@ export default function AddAnexo({ onAddAnexo }: AddAnexoProps) {
         setTipoAnexo(selectedTipo);
         onAddAnexo({ file, tipo: selectedTipo });
     };
+
+    useEffect(() => {
+        if (resetFile && fileInputRef.current) {
+            fileInputRef.current.value = '';
+            setFile(null);
+        }
+    }, [resetFile]);
+
+
+
 
     return (
         <div className="add-anexo">
