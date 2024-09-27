@@ -1,61 +1,56 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import "./AddAnexo.css";
 
 interface AddAnexoProps {
-  onAddAnexo: (id: string, anexo: { file: File | null; tipo: string }) => void;
-  resetFile?: boolean;
-  handleRemoveAnexoComponent: (id: string) => void;
-  id: string;
+    onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;
+    resetFile?: boolean;
+    handleRemoveAnexoComponent: (id: number) => void;
+    id: number;
 }
 
 enum TipoAnexo {
-  CONTRATO = "CONTRATO",
-  TERMO_ADITIVO = "TERMO_ADITIVO",
-  PLANO_DE_TRABALHO = "PLANO_DE_TRABALHO",
-  OUTROS = "OUTROS",
+    CONTRATO = "CONTRATO",
+    TERMO_ADITIVO = "TERMO_ADITIVO",
+    PLANO_DE_TRABALHO = "PLANO_DE_TRABALHO",
+    OUTROS = "OUTROS"
 }
 
-export default function AddAnexo({ onAddAnexo, resetFile = false, handleRemoveAnexoComponent, id }: AddAnexoProps) {
-  const [file, setFile] = useState<File | null>(null);
-  const [tipoAnexo, setTipoAnexo] = useState<TipoAnexo | "">("");
+export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoComponent, id }: AddAnexoProps) {
+    const [file, setFile] = useState<File | null>(null);
+    const [tipoAnexo, setTipoAnexo] = useState<TipoAnexo>(TipoAnexo.CONTRATO);
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const selectedFile = e.target.files ? e.target.files[0] : null;
-    setFile(selectedFile);
-    onAddAnexo(id, { file: selectedFile, tipo: tipoAnexo });
-  };
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files?.[0] || null;
+        setFile(selectedFile);
+        onAddAnexo(id, { file: selectedFile, tipo: tipoAnexo });
+    };
 
-  const handleTipoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedTipo = e.target.value as TipoAnexo;
-    setTipoAnexo(selectedTipo);
-    onAddAnexo(id, { file, tipo: selectedTipo });
-  };
+    const handleTipoAnexoChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const selectedTipo = e.target.value as TipoAnexo;
+        setTipoAnexo(selectedTipo);
+        onAddAnexo(id, { file, tipo: selectedTipo });
+    };
 
-  const handleReset = () => {
-    setFile(null);
-    setTipoAnexo("");
-  };
+    useEffect(() => {
+        if (resetFile && fileInputRef.current) {
+            fileInputRef.current.value = '';
+            setFile(null);
+        }
+    }, [resetFile]);
 
-  if (resetFile) {
-    handleReset();
-  }
-
-  return (
-    <div className="add-anexo">
-      <select value={tipoAnexo} onChange={handleTipoChange}>
-        <option value="">Selecione o tipo de anexo</option>
-        <option value={TipoAnexo.CONTRATO}>Contrato</option>
-        <option value={TipoAnexo.TERMO_ADITIVO}>Termo Aditivo</option>
-        <option value={TipoAnexo.PLANO_DE_TRABALHO}>Plano de Trabalho</option>
-        <option value={TipoAnexo.OUTROS}>Outros</option>
-      </select>
-      <input
-        type="file"
-        accept=".pdf,.doc,.docx"
-        onChange={handleFileChange}
-      />
-      <button type="button" onClick={() => handleRemoveAnexoComponent(id)}>
-        Remover
-      </button>
-    </div>
-  );
+    return (
+        <div className="add-anexo">
+            <select value={tipoAnexo} onChange={handleTipoAnexoChange}>
+                <option value={TipoAnexo.CONTRATO}>Contrato</option>
+                <option value={TipoAnexo.TERMO_ADITIVO}>Termo Aditivo</option>
+                <option value={TipoAnexo.PLANO_DE_TRABALHO}>Plano de Trabalho</option>
+                <option value={TipoAnexo.OUTROS}>Outros</option>
+            </select>
+            <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} ref={fileInputRef} />
+            <button type="button" onClick={() => handleRemoveAnexoComponent(id)}>
+                Remover
+            </button>
+        </div>
+    );
 }
