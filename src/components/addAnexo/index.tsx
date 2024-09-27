@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./AddAnexo.css";
 
 enum TipoAnexo {
     CONTRATO = "CONTRATO",
