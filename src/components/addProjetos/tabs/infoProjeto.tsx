@@ -5,9 +5,10 @@ import { errorSwal } from "../../swal/errorSwal";
 import { successSwal } from "../../swal/sucessSwal";
 import AddAnexo from "../../addAnexo";
 import createProject from "../../../type/createProject";
+import { v4 as uuidv4 } from 'uuid';
 
 export default function Projeto() {
-  const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
+  const [anexos, setAnexos] = useState<{ id: string; file: File | null; tipo: string }[]>([]);
   const [projectId, setProjectId] = useState<string>("");
   const [referencia, setReferencia] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
@@ -22,12 +23,22 @@ export default function Projeto() {
   const [enviado, setEnviado] = useState<boolean>(false);
 
   const formRef = useRef<HTMLDivElement>(null);
-  const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]); // Começa vazio
+  const [addAnexoComponents, setAddAnexoComponents] = useState([uuidv4()]);
 
-  const handleAddAnexo = (index: number, anexo: { file: File | null; tipo: string }) => {
-    const newAnexos = [...anexos];
-    newAnexos[index] = anexo;
-    setAnexos(newAnexos);
+  const handleAddAnexoComponent = () => {
+    setAddAnexoComponents([...addAnexoComponents, uuidv4()]);
+  };
+
+  const handleRemoveAnexoComponent = (id: string) => {
+    setAddAnexoComponents((prev) => prev.filter((anexoId) => anexoId !== id));
+    setAnexos((prevAnexos) => prevAnexos.filter((anexo) => anexo.id !== id));
+  };
+
+  const handleAddAnexo = (id: string, anexo: { file: File | null; tipo: string }) => {
+    setAnexos((prevAnexos) => {
+      const updatedAnexos = prevAnexos.map((a) => (a.id === id ? { ...a, ...anexo } : a));
+      return updatedAnexos;
+    });
   };
 
   const validateValor = (value: string): boolean => {
@@ -83,11 +94,13 @@ export default function Projeto() {
       const response = await links.createProject(projeto);
 
       if (response.status === 201) {
-        await Promise.all(anexos.map(anexo => {
-          if (anexo.file) {
-            return links.AddAnexo(response.data.model.projectId, anexo.file, anexo.tipo);
-          }
-        }));
+        await Promise.all(
+          anexos.map((anexo) => {
+            if (anexo.file) {
+              return links.AddAnexo(response.data.model.projectId, anexo.file, anexo.tipo);
+            }
+          })
+        );
 
         successSwal("Projeto cadastrado com sucesso!");
         setProjectId(response.data.model.projectId);
@@ -112,10 +125,6 @@ export default function Projeto() {
     setClassificacao("");
     setAnexos([]);
     setAddAnexoComponents([]); // Reseta para não mostrar anexos após o envio
-  };
-
-  const handleAddAnexoComponent = () => {
-    setAddAnexoComponents((prev) => [...prev, prev.length]); // Adiciona um novo componente
   };
 
   return (
@@ -230,17 +239,27 @@ export default function Projeto() {
               <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
-          <div className="cadastrar">
-            <div className="addfile">
-              {addAnexoComponents.map((_, index) => (
-                <AddAnexo key={index} onAddAnexo={(anexo) => handleAddAnexo(index, anexo)} resetFile={enviado} />
-              ))}
-              <button type="button" onClick={handleAddAnexoComponent}>Adicionar anexo</button> {/* Adiciona o componente */}
-            </div>
+          <div className="adicionar-anexos">
+            {addAnexoComponents.map((id) => (
+              <AddAnexo
+                key={id}
+                id={id}
+                onAddAnexo={handleAddAnexo}
+                handleRemoveAnexoComponent={handleRemoveAnexoComponent}
+              />
+            ))}
+            <button type="button" className="adicionar-btn" onClick={handleAddAnexoComponent}>
+              Adicionar anexo
+            </button>
           </div>
-          <button type="submit">Cadastrar</button>
+          <div className="form-btn">
+            <button type="submit" className="submit-btn">
+              Enviar
+            </button>
+          </div>
         </div>
       </form>
     </div>
   );
 }
+
