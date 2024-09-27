@@ -176,8 +176,8 @@ export default function ProjetoDetalhes() {
               <span>{projectData?.projectReference || "Referência não disponível"}</span>
             </div>
             <div className="campo-projeto">
-              <label><strong>Entidade:</strong></label>
-              <span>{projectData?.projectCompany || "Entidade não disponível"}</span>
+              <label><strong>Empresa:</strong></label>
+              <span>{projectData?.projectCompany || "Empresa não disponível"}</span>
             </div>
             <div className="campo-projeto">
               <label><strong>Objeto:</strong></label>
