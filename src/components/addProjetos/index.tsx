@@ -21,11 +21,11 @@ export default function Projetos() {
         </div>
       </div>
 
-      <div className="tabs3">
+      <div className="tabs4">
         {["Informações dos Projetos"].map((tab) => (
           <button
             key={tab}
-            className={`tab3 ${activeTab === tab ? "active" : ""}`}
+            className={`tab4 ${activeTab === tab ? "active" : ""}`}
             onClick={() => handleTabClick(tab)}
           >
             {tab}
@@ -33,7 +33,7 @@ export default function Projetos() {
         ))}
       </div>
 
-      <div className="tabs3">
+      <div className="tabs4">
         {activeTab === "Informações dos Projetos" && (
           <div>
             <Projeto />

@@ -4,9 +4,8 @@ export default function Header() {
             <nav>
                 <div>
                     <img src="/static/img/logo.svg" alt="logo" />
-                    <h1>Portal da Transparência</h1>
                 </div>
-                <input type="text" placeholder='Pesquisar' />
+                <h1>Portal Transparência</h1>
             </nav>
         </header>
     )

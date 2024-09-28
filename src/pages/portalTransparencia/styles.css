@@ -113,3 +113,8 @@
     color: var(--blue-color);
 }
 /* Fim Componente projetos */
+
+.MainDados {
+    padding: var(--padding-global);
+  }
+  

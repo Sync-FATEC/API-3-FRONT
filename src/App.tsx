@@ -3,7 +3,6 @@ import Auth from './pages/auth';
 import './global.css';
 import PortalTransparencia from './pages/portalTransparencia';
 import { AuthProvider } from './contexts/auth/AuthContext';
-import Sidebar from './components/sideBar/static';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
 import DashBoard from './components/dashBoard';

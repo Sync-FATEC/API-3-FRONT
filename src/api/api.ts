@@ -34,7 +34,7 @@ const links = {
         });
     },
 
-    getAnexos: (link: string) => api.get(link),
+    getAnexos: (link: string) => api.get(link, { responseType: 'blob' }),
 };
 
 export { links };

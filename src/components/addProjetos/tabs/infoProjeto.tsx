@@ -18,7 +18,6 @@ export default function Projeto() {
   const [objeto, setObjeto] = useState<string>("");
   const [descricao, setDescricao] = useState<string>("");
   const [classificacao, setClassificacao] = useState<string>("");
-
   const [enviado, setEnviado] = useState<boolean>(false);
 
   const formRef = useRef<HTMLDivElement>(null);
@@ -48,6 +47,12 @@ export default function Projeto() {
       return;
     }
 
+    if (!referencia || !empresa || !coordenador || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
+      errorSwal("Todos os campos devem ser preenchidos.");
+      return;
+    }
+
+
     if (dataInicio > dataTermino) {
       errorSwal("Data de início não pode ser maior que a data de término.");
       return;
@@ -62,11 +67,7 @@ export default function Projeto() {
       return;
     }
 
-    if (anexos.some((anexo) => !anexo.file)) {
-      errorSwal("Todos os anexos devem ser preenchidos.");
-      return;
-    }
-
+    
     if (isNaN(Date.parse(dataInicio)) || isNaN(Date.parse(dataTermino))) {
       errorSwal("Data inválida.");
       return;
@@ -124,8 +125,9 @@ export default function Projeto() {
   };
 
   return (
-    <div ref={formRef} className="form-container">
+    <div ref={formRef} className="form-containerAdd">
       <form className="addProjetos" onSubmit={handleSubmitProjeto}>
+        <div>
         <div className="input-flex-container">
           <div className="input-placeholder-container">
             <input
@@ -215,27 +217,31 @@ export default function Projeto() {
             />
             <label className="placeholder">Descrição</label>
           </div>
+        
         </div>
+        <div className="classification">
+          
+          <select
+            name="classificacao"
+            id="classificacao"
+            value={classificacao}
+            onChange={(e) => setClassificacao(e.target.value)}
+          >
+            <option value="" disabled>Classificação</option>
+            <option value="OUTROS">AS, OF, PC e/ou outros</option>
+            <option value="CONTRATOS">Contrato</option>
+            <option value="CONVENIO">Convênio</option>
+            <option value="PATROCINIO">Patrocínio</option>
+            <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
+            <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
+          </select>
+        </div>
+        <button type="submit">Cadastrar</button>
 
+        </div>
+        <div>
         <div className="right-side">
-          <div className="classification">
-            <label htmlFor="classificacao">Classificação</label>
-            <select
-              name="classificacao"
-              id="classificacao"
-              value={classificacao}
-              onChange={(e) => setClassificacao(e.target.value)}
-            >
-              <option value=""></option>
-              <option value="OUTROS">AS, OF, PC e/ou outros</option>
-              <option value="CONTRATOS">Contrato</option>
-              <option value="CONVENIO">Convênio</option>
-              <option value="PATROCINIO">Patrocínio</option>
-              <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
-              <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
-            </select>
-          </div>
-          <div className="cadastrar">
+  
             <div className="addfile">
               {addAnexoComponents.map((id) => (
                 <AddAnexo
@@ -249,8 +255,9 @@ export default function Projeto() {
                 Adicionar anexo
               </button>
             </div>
-            <button type="submit">Cadastrar</button>
-          </div>
+  
+          
+        </div>
         </div>
       </form>
     </div>

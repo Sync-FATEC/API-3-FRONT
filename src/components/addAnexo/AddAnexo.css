@@ -1,12 +1,12 @@
 .add-anexo {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    margin-top: 16px;
+    gap: 24px;
+    
 }
-
 .add-anexo select {
     padding: 8px;
+    height: 48px;
     border: 2px solid silver;
     border-radius: 10px;
     background-color: var(--lightgray-color);
@@ -14,22 +14,20 @@
     font-size: 16px;
     transition: border 0.3s;
 }
-
 .add-anexo select:focus {
     border: 2px solid var(--blue-color);
     outline: none;
 }
-
 .add-anexo input[type="file"] {
-    padding: 8px;
+    padding: 10px;
     border: 2px solid silver;
     border-radius: 10px;
     background-color: var(--lightgray-color);
     color: var(--blue-color);
     font-size: 16px;
     transition: border 0.3s;
+    
 }
-
 .add-anexo input[type="file"]:focus {
     border: 2px solid var(--blue-color);
     outline: none;

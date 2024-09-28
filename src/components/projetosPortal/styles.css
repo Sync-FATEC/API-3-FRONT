@@ -1,23 +1,7 @@
-.detalhes-projeto {
-  margin: var(--padding-global);
-  padding: 32px;
-  border: 1px;
-  border-radius: 8px;
-  background-color: #f9f9f9;
-  box-shadow: 7px 7px 7px 7px rgba(0, 0, 0, 0.1);
-}
-
-.detalhes-projeto h2 {
-  text-align: left;
-  margin-bottom: 20px;
-  color: #003383;
-}
-
 .campo-projeto {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
-
+  padding: 16px;
 }
 
 .campo-projeto label {
@@ -64,8 +48,8 @@
   transform: rotate(135deg);
 }
 
-
-.background2 {
+.background2,
+#fundo {
   background:
     linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)),
     url(/src/pages/portalTransparencia/static/img/fundo.png) no-repeat center center;
@@ -73,8 +57,10 @@
   padding: var(--padding-global);
   width: auto;
   height: 100px;
+}
 
-
+.fundo {
+  padding: var(--padding-global);
 }
 
 .background2 h1 {
@@ -83,15 +69,16 @@
   gap: 10vh;
   padding-left: 1vh;
 }
-
-.title {
-  padding: var(--padding-global);
+.anexos a{
+  color: var(--blue-color);
 }
+
 
 .tabs2 {
   display: flex;
   justify-content: space-evenly;
-  margin-bottom: 20px;
+  margin-bottom: 32px;
+  margin-top: 32px;
 }
 
 .tab2 {
@@ -102,7 +89,9 @@
   text-align: center;
   color: #000;
   transition: color 0.3s;
+  padding-bottom: 8px;
   box-shadow: none;
+  
 }
 
 .tab2:hover {
@@ -117,4 +106,15 @@
 
 button {
   box-shadow: none !important;
+}
+
+.anexos {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 16px;
+}
+
+.MainDadoss{
+  padding-bottom: 12px;
 }

@@ -11,7 +11,7 @@
 }
 
 :root {
-    --padding-global: 10px 120px;
+    --padding-global: 12px 120px;
     --title-font: 24px;
     --padding-input: 16px;
     --padding-sizes: 0 16px;

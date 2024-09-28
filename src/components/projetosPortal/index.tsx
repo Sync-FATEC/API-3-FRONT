@@ -10,6 +10,7 @@ export default function ProjetosPortal() {
   const [projetos, setProjetos] = useState<Projetos[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const projetosPerPage = 15;
   const navigate = useNavigate();
 
@@ -42,11 +43,16 @@ export default function ProjetosPortal() {
   };
 
   const handleProjetoClick = (projeto: Projetos) => {
-    navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
+    if (isLoggedIn) {
+      navigate(`/detalhes/${projeto.projectId}`, { state: projeto });
+    } else {
+      navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
+    }
   };
   
   return (
-    <main className="MainDados">
+    <div className='MainDados'>
+      <h2>Projetos</h2>
       <div className="background-projects">
         <div className="Referencias">
           <p>Referência do projeto</p>
@@ -92,6 +98,6 @@ export default function ProjetosPortal() {
           </button>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

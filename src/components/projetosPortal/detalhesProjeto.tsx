@@ -6,7 +6,10 @@ import "./styles.css"
 import Loading from "../loading";
 import documents from "../../type/documents";
 import Anexos from "./anexos";
+import Header from "../header"
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -99,12 +102,7 @@ export default function ProjetoDetalhes() {
   if (!projectData) {
     return (
       <div id="fundo">
-        <div className="background2">
-          <h1>
-            <img src="/static/img/logo.svg" alt="" />
-            Portal da Transparência
-          </h1>
-        </div>
+        <Header />
         <Loading />
       </div>
     );
@@ -112,15 +110,12 @@ export default function ProjetoDetalhes() {
 
   return (
     <div id="fundo">
-      <div className="background2">
-        <h1>
-          <img src="/static/img/logo.svg" alt="" />
-          Portal da Transparência
-        </h1>
-      </div>
+      <Header />
       <div className="title">
         <h2>Detalhes do Projeto</h2>
-        <button  className="botao-voltar" onClick={handleBackButtonClick}>Voltar</button>
+        <button  className="botao-voltar" onClick={handleBackButtonClick}>
+        <FontAwesomeIcon icon={faChevronCircleLeft} />
+        Voltar</button>
       </div>
 
       <div className="tabs2">
@@ -167,10 +162,10 @@ export default function ProjetoDetalhes() {
           </button>
         )}
       </div>
-
-      <div className="detalhes-projeto">
+      <div className="MainDadoss">
+      <div className="background-projects">
         {activeTab === "Informações do Projeto" && (
-          <div>
+          <>
             <div className="campo-projeto">
               <label><strong>Referência:</strong></label>
               <span>{projectData?.projectReference || "Referência não disponível"}</span>
@@ -218,7 +213,7 @@ export default function ProjetoDetalhes() {
               <label><strong>Descrição:</strong></label>
               <span>{projectData?.projectDescription || "Descrição não disponível"}</span>
             </div>
-          </div>
+        </>
         )}
 
         {activeTab === "Contratos" && (
@@ -276,6 +271,7 @@ export default function ProjetoDetalhes() {
             )}
           </div>
         )}
+      </div>
       </div>
     </div>
   );

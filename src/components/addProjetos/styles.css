@@ -5,32 +5,35 @@
     padding-left: 270px;
     margin-bottom: 64px;
 }
-
-
+.form-containerAdd{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: space-around;
+}
 .addProjetos {
     display: flex;
     width: 100%;
-    flex-direction: column;
+    flex-direction: row;
     margin-top: 32px;
     margin-bottom: 64px;
+    justify-content:left;
+    gap: 200px
 }
-
-
 .title-form {
     width: 100%;
     font-weight: 500;
     font-size: 40px;
     margin-bottom: 30px;
 }
-
+/* Início Input Add Projetos*/
 .input-placeholder-container {
     width: 200px;
     height: 48px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
     caret-color: transparent;
     position: relative;
 }
-
 .input {
     position: absolute;
     width: 100%;
@@ -57,26 +60,23 @@
 .input-big-container{
     display: flex;
     flex-direction: column;
-    
 }
 .placeholder {
     position: absolute;
-    left: 10%;
+    left: 10px;
     top: 50%;
     transform: translateY(-50%);
     user-select: none;
     padding: 0 4px;
     background: var(--lightgray-color);
-    color: silver;
+    color: var(--blue-color);
     font-size: 16.5px;
     pointer-events: none;
     transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s;
 }
-
 .input:focus {
     border: 2px solid var(--blue-color);
 }
-
 .input:focus+.placeholder {
     top: 0%;
     left: 15px;
@@ -84,62 +84,27 @@
     font-weight: 500;
     color: var(--blue-color);
 }
-
-.input:focus ~ .placeholder,
-.input:not(:placeholder-shown) ~ .placeholder {
-  top: -10px;
-  left: 10px;
+.input:not(:placeholder-shown) + .placeholder,
+.input:focus + .placeholder {
+  top: 0%;
+  left: 15px;
   font-size: 13px;
+  font-weight: 500;
   color: var(--blue-color);
 }
+/* Fim Input Add Projetos*/
 
 form button {
-    height: var(--border);
-    border-radius: var(--padding-input);
+    border-radius: 12px;
     border: none;
     background-color: var(--blue-color);
     color: var(--white-color);
     font-weight: bold;
     width: 200px;
+    height: 48px;
   }
   
 
-  /* Tabs de anexos */
-  
-
-  .documents button{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    gap: var(--padding-input);
-    padding: var(--padding-input);
-    border-radius: var(--padding-input);
-    border: none;
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    font-weight: bold;
-    width: 120px;
-    height: 50px;
-  }
-  
-  .anexado{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 64px;
-    margin: 16px 0;
-    border-bottom: 2px solid var(--gray-color);
-  }
-
-  .classification select {
-    display: flex;
-    height: 35px;
-    padding: 8px;
-    background-color: var(--lightgray-color);
-    border-radius: var(--padding-input);
-    
-  }
 .headerPortal input{
     gap: 10px;
     height: 40px;
@@ -158,8 +123,9 @@ form button {
  }
  .right-side {
     display: flex;
+    width: 360px;
     flex-direction: column; 
-    gap: 10px;
+    
   }
   .error-message {
     color: red;
@@ -179,5 +145,59 @@ form button {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    margin-top: 16px;
+    
+}
+
+/* Tab apenas da página de cadastro de projetos */ 
+.tabs4 {
+  padding-left: 270px;
+}
+
+.tab4 {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  color: #000;
+  transition: color 0.3s;
+  box-shadow: none;
+  color: var(--gray-color);
+  border-bottom: 2px solid var(--gray-color);
+  padding-bottom: 4px;
+}
+
+
+.tab4:hover {
+  color: var(--blue-color);
+}
+
+.tab4.active {
+  color: var(--blue-color);
+  border-bottom: 2px solid var(--blue-color);
+  box-shadow: none;
+
+}
+/* Fim Tab apenas da página de cadastro de projetos */ 
+
+/* Select Classificação */
+.classification{
+  display: flex;
+  flex-direction: column;
+}
+.classification select {
+  padding: 8px;
+  height: 48px;
+  margin-bottom: 24px;
+  gap: 24px;
+  border: 2px solid silver;
+  color: var(--blue-color);
+  border-radius: 10px;
+  background-color: var(--lightgray-color);
+  font-size: 16px;
+  transition: border 0.3s;
+}
+.classification select:focus {
+  border: 2px solid var(--blue-color);
+  outline: none;
 }

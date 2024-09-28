@@ -47,28 +47,14 @@ button {
 
 /* Página do Coordenador */
 
-  .coordenador .container-principal {
-    margin: 3vh 3vh;
-    padding: 32px;
-    border: 1px;
-    border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 3px 3px 3px 3px rgba(0, 0, 0, 0.1);
-    display: flex;
-    justify-content: space-evenly;
-  }
-
   .coordenador .container-secundario{
-    margin: 3vh 3vh;
-    padding: 32px;
+    margin: 32px 0;
     border: 1px;
     border-radius: 8px;
-    background-color: #f9f9f9;
-    box-shadow: 3px 3px 3px 3px rgba(114, 113, 113, 0.1);
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    gap: 16px;
   }
-
 
   /*  Loading provisório  */
   .Loading {

@@ -28,12 +28,6 @@
 }
 
 /* Filtro */
-
-.MainDados {
-  padding: var(--padding-global);
-
-}
-
 .containerForm,
 .containerData {
   align-items: center;
