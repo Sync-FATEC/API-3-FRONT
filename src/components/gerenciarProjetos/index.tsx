@@ -1,6 +1,6 @@
 import './styles.css';
 import Sidebar from '../sideBar/static';
-import ProjetosPortal from "../projetosPortal";
+import VerDetalhes from './verProjetos';
 
 export default function GerenciarProjetos() {
 
@@ -15,7 +15,7 @@ export default function GerenciarProjetos() {
                 </div>
             </div>
             <div className='admin_center-padding'>
-                <ProjetosPortal />
+                <VerDetalhes/>
             </div>
         </>
     );

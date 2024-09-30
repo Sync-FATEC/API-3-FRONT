@@ -20,3 +20,32 @@
     gap: 8px;
     align-items: center;
 }
+
+.fundo-verdetalhes{
+    
+    width: 80%;
+    margin-left: 14%;
+    padding-top: 20px;
+}
+.background2 h1 {
+    display: flex;
+    align-items: center;
+    gap: 10vh;
+    padding-left: 1vh;
+  }
+  .anexos a{
+    color: var(--blue-color);
+  }
+  #title2 {
+    padding-top: 10px;
+    margin: auto;
+    color: var(--blue-color);
+    font-size: 25px;
+    
+  }
+  #MainDadoss{
+    padding-bottom: 12px;
+    width: 50%;
+    margin-left: 10px;
+  }
+  
