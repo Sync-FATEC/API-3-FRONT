@@ -2,6 +2,7 @@ import axios from "axios";
 import createProject from "../type/createProject";
 import AddAnexo from "../components/addAnexo";
 import { get } from "http";
+import filterDTO from "../type/filterDTO";
 
 const api = axios.create({
     baseURL: "http://localhost:8080"
@@ -35,6 +36,8 @@ const links = {
     },
 
     getAnexos: (link: string) => api.get(link, { responseType: 'blob' }),
+
+    filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
 };
 
 export { links };

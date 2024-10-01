@@ -5,19 +5,26 @@ import { errorSwal } from "../swal/errorSwal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import filterDTO from "../../type/filterDTO";
 
-export default function ProjetosPortal() {
+interface ProjetosPortalProps {
+  filterData: filterDTO | null; // Adicione esta linha para definir o tipo
+}
+
+export default function ProjetosPortal({ filterData }: ProjetosPortalProps) {
   const [projetos, setProjetos] = useState<Projetos[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const projetosPerPage = 15;
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchProjetos = async () => {
       try {
-        const response = await links.getAllProjects();
+        const response = filterData
+          ? await links.filterProjects(filterData)
+          : await links.getAllProjects();
+
         if (response.data && response.data.model) {
           const allProjetos = response.data.model;
           setProjetos(allProjetos);
@@ -32,7 +39,7 @@ export default function ProjetosPortal() {
     };
 
     fetchProjetos();
-  }, []);
+  }, [filterData]);
 
   const indexOfLastProjeto = currentPage * projetosPerPage;
   const indexOfFirstProjeto = indexOfLastProjeto - projetosPerPage;
@@ -43,13 +50,9 @@ export default function ProjetosPortal() {
   };
 
   const handleProjetoClick = (projeto: Projetos) => {
-    if (isLoggedIn) {
-      navigate(`/detalhes/${projeto.projectId}`, { state: projeto });
-    } else {
-      navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
-    }
+    navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
   };
-  
+
   return (
     <div className='MainDados'>
       <h2>Projetos</h2>
@@ -69,11 +72,10 @@ export default function ProjetosPortal() {
             <p>{new Date(projeto.projectEndDate).toLocaleDateString('pt-BR')}</p>
             <p>{projeto.nameCoordinator}</p>
             <p>{projeto.projectValue}</p>
-            
             <img
               src="/static/img/pesquisar.svg"
               alt="Visualizar detalhes do projeto"
-              onClick={() => handleProjetoClick(projeto)} 
+              onClick={() => handleProjetoClick(projeto)}
               style={{ cursor: "pointer", transition: "transform 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}

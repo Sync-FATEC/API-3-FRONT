@@ -1,12 +1,22 @@
 import { useEffect, useState } from "react";
 import api, { links } from "../../api/api";
 import './styles.css';
+import filterDTO from "../../type/filterDTO";
 
-export default function FiltroPortal() {
+interface FiltroPortalProps {
+  onFilterSubmit: (data: filterDTO) => void; // Defina o tipo do parâmetro
+}
+
+export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   const [coordenadores, setCoordenadores] = useState<string[]>([]);
   const [empresas, setEmpresas] = useState<string[]>([]);
+  const [textoReferencia, setTextoReferencia] = useState('');
   const [textoEmpresas, setTextoEmpresas] = useState('');
   const [textoCoordenadores, setTextoCoordenadores] = useState('');
+  const [textoClassificacao, setTextoClassificacao] = useState('');
+  const [textoSituacao, setTextoSituacao] = useState('');
+  const [textoDataInicio, setTextoDataInicio] = useState<string | null>(null);
+  const [textoDataTermino, setTextoDataTermino] = useState<string | null>(null);
   const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
   const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
 
@@ -22,7 +32,7 @@ export default function FiltroPortal() {
     const fetchData = async () => {
       try {
         const responseCoordinators = await links.getCoordinators();
-        const responseCompanies = await links.getCompanies()
+        const responseCompanies = await links.getCompanies();
         setCoordenadores(responseCoordinators.data.model);
         setEmpresas(responseCompanies.data.model);
       } catch (error) {
@@ -33,10 +43,26 @@ export default function FiltroPortal() {
     fetchData();
   }, []);
 
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const filterData: filterDTO = {
+      projectReference: textoReferencia,
+      projectCompany: textoEmpresas,
+      nameCoordinator: textoCoordenadores,
+      projectClassification: textoClassificacao,
+      projectStatus: textoSituacao,
+      projectStartDate: textoDataInicio,
+      projectEndDate: textoDataTermino,
+    };
+
+    onFilterSubmit(filterData);
+  };
+
   return (
     <main className="MainDados">
       <h2>Filtro de dados</h2>
-      <form action="" method="post" className="filter">
+      <form onSubmit={handleSubmit} className="filter">
         <div className="containerForm">
           <div>
             <label htmlFor="referenciaDeDados">Ref. do projeto</label>
@@ -44,6 +70,8 @@ export default function FiltroPortal() {
               type="text"
               name="referenciaDeDados"
               id="referenciaDeDados"
+              value={textoReferencia}
+              onChange={(e) => setTextoReferencia(e.target.value)}
             />
           </div>
           <div className="pesquisa-container">
@@ -88,7 +116,12 @@ export default function FiltroPortal() {
           </div>
           <div>
             <label htmlFor="classificacao">Classificação</label>
-            <select name="classificacao" id="classificacao">
+            <select 
+              name="classificacao" 
+              id="classificacao" 
+              value={textoClassificacao} 
+              onChange={(e) => setTextoClassificacao(e.target.value)}
+            >
               <option value=""></option>
               <option value="OUTROS">AS, OF, PC e/ou outros</option>
               <option value="CONTRATOS">Contrato</option>
@@ -100,27 +133,43 @@ export default function FiltroPortal() {
           </div>
           <div>
             <label htmlFor="situacaoDoProjeto">Situação do projeto</label>
-            <select name="situacaoDoProjeto" id="situacaoDoProjeto">
+            <select 
+              name="situacaoDoProjeto" 
+              id="situacaoDoProjeto" 
+              value={textoSituacao} 
+              onChange={(e) => setTextoSituacao(e.target.value)}
+            >
               <option value=""></option>
               <option value="NAO_INICIADOS">Projetos não iniciados</option>
               <option value="EM_ANDAMENTO">Projetos em andamento</option>
               <option value="FINALIZADOS">Projetos concluídos</option>
             </select>
           </div>
-
           <div>
             <label htmlFor="dataInicio">Data de início</label>
-            <input type="date" name="dataInicio" id="dataInicio" />
+            <input 
+              type="date" 
+              name="dataInicio" 
+              id="dataInicio" 
+              value={textoDataInicio || ''} 
+              onChange={(e) => setTextoDataInicio(e.target.value || null)}
+            />
           </div>
           <div>
             <label htmlFor="dataTermino">Data de término</label>
-            <input type="date" name="dataTermino" id="dataTermino" />
+            <input 
+              type="date" 
+              name="dataTermino" 
+              id="dataTermino" 
+              value={textoDataTermino || ''} 
+              onChange={(e) => setTextoDataTermino(e.target.value || null)}
+            />
           </div>
         </div>
         <div>
           <button type="submit" className="searchButton">
-          <img src="/static/img/pesquisar.svg" alt="logo" />
-          <p>Buscar</p>
+            <img src="/static/img/pesquisar.svg" alt="logo" />
+            <p>Buscar</p>
           </button>
         </div>
       </form>
