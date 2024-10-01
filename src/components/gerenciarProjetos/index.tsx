@@ -2,7 +2,6 @@
 import './styles.css';
 import Sidebar from '../sideBar/static';
 import ProjetosPortal from "../projetosPortal";
-import filterDTO from '../../type/filterDTO';
 
 export default function GerenciarProjetos() {
     const filterData = {} as filterDTO; 
@@ -18,7 +17,7 @@ export default function GerenciarProjetos() {
                 </div>
             </div>
             <div className='admin_center-padding'>
-                <ProjetosPortal filterData={filterData} />
+                <ProjetosPortal />
             </div>
         </>
     );

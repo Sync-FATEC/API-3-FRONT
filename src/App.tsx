@@ -8,6 +8,7 @@ import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
 import DashBoard from './components/dashBoard';
 import AddProjetos from './components/addProjetos';
 import GerenciarProjetos from './components/gerenciarProjetos';
+import VerDetalhes from './components/gerenciarProjetos/projetoDetalhesAdmin';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
             <Route path='/addprojetos' element={<RequireAuthAdmin><AddProjetos /></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
+            <Route path="/verdetalhes/:id" element={<RequireAuthAdmin><VerDetalhes/></RequireAuthAdmin>}/>
           </Routes>
         </AuthProvider>
       </Router>
