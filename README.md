@@ -1,5 +1,5 @@
 <h1>Repositório Frontend</h1>
-<h2>🛠️ Execução do sistema</h3>
+<h2>🛠️ Execução do sistema</h2>
   <h3>Passo 1: Instale as Dependências</h3>
   <p>Certifique-se de ter o Node.js instalado no seu sistema.</p>
   <p>Para baixar o Node.js <a href="https://nodejs.org/">https://nodejs.org/</a>.</p>

@@ -1,11 +1,17 @@
 // GerenciarProjetos.tsx
+import { useState } from 'react';
 import './styles.css';
 import Sidebar from '../sideBar/static';
-import ProjetosPortal from "../projetosPortal";
+import VerProjetos from "./verProjetos";
 import filterDTO from '../../type/filterDTO';
+import FiltroPortal from '../filtroPortal';
 
 export default function GerenciarProjetos() {
-    const filterData = {} as filterDTO; 
+    const [filterData, setFilterData] = useState<filterDTO | null>(null)
+
+    const handleFilterSubmit = (data: filterDTO) => {
+        setFilterData(data);
+    };
 
     return (
         <>
@@ -18,7 +24,8 @@ export default function GerenciarProjetos() {
                 </div>
             </div>
             <div className='admin_center-padding'>
-                <ProjetosPortal filterData={filterData} />
+                <FiltroPortal onFilterSubmit={handleFilterSubmit}/>
+                <VerProjetos filterData={filterData} />
             </div>
         </>
     );

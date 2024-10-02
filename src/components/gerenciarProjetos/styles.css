@@ -21,10 +21,9 @@
     align-items: center;
 }
 
-.fundo-verdetalhes{
+.fundo-verdetalhes{  
     
-    width: 80%;
-    margin-left: 14%;
+    padding-left: 270px;
     padding-top: 20px;
 }
 .background2 h1 {
