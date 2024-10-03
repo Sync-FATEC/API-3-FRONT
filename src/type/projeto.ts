@@ -1,3 +1,4 @@
+import { ProjectStatus } from "../enums/ProjectStatus";
 import documents from "./documents";
 
 
@@ -12,7 +13,7 @@ export type Projetos = {
     projectStartDate: string;
     projectEndDate: string;
     projectClassification: string;
-    projectStatus: string;
+    projectStatus: ProjectStatus;
     documents: documents[];
     historyProject: any[];
 };

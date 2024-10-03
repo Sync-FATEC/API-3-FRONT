@@ -10,6 +10,7 @@ import Header from "../header"
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
+import { ProjectStatus } from "../../enums/ProjectStatus";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -212,6 +213,10 @@ export default function ProjetoDetalhes() {
             <div className="campo-projeto">
               <label><strong>Descrição:</strong></label>
               <span>{projectData?.projectDescription || "Descrição não disponível"}</span>
+            </div>
+            <div className="campo-projeto">
+              <label><strong>Status:</strong></label>
+              <span>{ProjectStatus[projectData?.projectStatus as unknown as keyof typeof ProjectStatus] || "Status não disponível"}</span>
             </div>
         </>
         )}
