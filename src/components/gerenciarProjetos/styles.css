@@ -1,50 +1,80 @@
-.admin_center-padding{
-    padding-left: 150px;
+.admin_center-padding {
+  padding-left: 150px;
 }
 
-.admin_center-header{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    font-weight: 700;
-    size: 24px;
-    padding-top: 8vh;
-    padding-bottom: 32px;
-    padding-left: 270px;
-    padding-right: 150px;
+.admin_center-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  size: 24px;
+  padding-top: 8vh;
+  padding-bottom: 32px;
+  padding-left: 270px;
+  padding-right: 150px;
 }
 
-.user{
-    display: flex;
-    flex-direction: row;
-    gap: 8px;
-    align-items: center;
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
 }
 
-.fundo-verdetalhes{  
-    
-    padding-left: 270px;
-    padding-top: 20px;
+.fundo-verdetalhes {
+  padding-left: 270px;
+  padding-top: 20px;
 }
+
 .background2 h1 {
-    display: flex;
-    align-items: center;
-    gap: 10vh;
-    padding-left: 1vh;
-  }
-  .anexos a{
-    color: var(--blue-color);
-  }
-  #title2 {
-    padding-top: 10px;
-    margin: auto;
-    color: var(--blue-color);
-    font-size: 25px;
-    
-  }
-  #MainDadoss{
-    padding-bottom: 12px;
-    width: 50%;
-    margin-left: 10px;
-  }
-  
+  display: flex;
+  align-items: center;
+  gap: 10vh;
+  padding-left: 1vh;
+}
+
+.anexos a {
+  color: var(--blue-color);
+}
+
+#title2 {
+  padding-top: 10px;
+  margin: auto;
+  color: var(--blue-color);
+  font-size: 25px;
+}
+
+#MainDadoss {
+  padding-bottom: 12px;
+  width: 50%;
+  margin-left: 10px;
+}
+
+/* Estilos para o contêiner dos botões */
+.buttons-container {
+  display: flex;
+  gap: 10px; /* Espaçamento entre os botões */
+  justify-content: flex; /* Alinha os botões à direita */
+  padding: 10px 0; /* Espaçamento em cima e embaixo dos botões */
+}
+
+/* Estilos para os botões */
+.buttons {
+  background-color: var(--blue-color); /* Cor de fundo */
+  color: white; /* Cor do texto */
+  border: none; /* Sem borda */
+  border-radius: 5px; /* Bordas arredondadas */
+  padding: 10px 20px; /* Padding interno */
+  cursor: pointer; /* Cursor de ponteiro ao passar sobre */
+  transition: background-color 0.3s; /* Transição suave para mudança de cor */
+}
+
+.buttons:hover {
+  background-color: darkblue; /* Cor ao passar o mouse */
+}
+
+.buttons:disabled {
+  background-color: lightgray; /* Cor para botões desativados */
+  cursor: not-allowed; /* Cursor de não permitido */
+}
+
