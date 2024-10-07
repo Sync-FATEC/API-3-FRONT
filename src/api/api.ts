@@ -1,7 +1,5 @@
 import axios from "axios";
 import createProject from "../type/createProject";
-import AddAnexo from "../components/addAnexo";
-import { get } from "http";
 
 const api = axios.create({
     baseURL: "http://localhost:8080"
@@ -37,5 +35,4 @@ const links = {
     getAnexos: (link: string) => api.get(link, { responseType: 'blob' }),
 };
 
-export { links };
-export default api;
+export { api, links };
