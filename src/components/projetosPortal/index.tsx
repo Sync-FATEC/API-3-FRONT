@@ -21,9 +21,9 @@ export default function ProjetosPortal({ filterData }: ProjetosPortalProps) {
   useEffect(() => {
     const fetchProjetos = async () => {
       try {
-        const response = filterData
+        const response = filterData?.keywordFilter == ""
           ? await links.filterProjects(filterData)
-          : await links.getAllProjects();
+          : await links.getFiltered(filterData?.keywordFilter || "", "", "", "", "");
 
         if (response.data && response.data.model) {
           const allProjetos = response.data.model;
@@ -53,6 +53,12 @@ export default function ProjetosPortal({ filterData }: ProjetosPortalProps) {
     navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
   };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return localDate.toLocaleDateString('pt-BR');
+  };
+
   return (
     <div className='MainDados'>
       <h2>Projetos</h2>
@@ -68,8 +74,8 @@ export default function ProjetosPortal({ filterData }: ProjetosPortalProps) {
         {currentProjetos.map((projeto) => (
           <div className="Projetos" key={projeto.projectId}>
             <p>{projeto.projectReference}</p>
-            <p>{new Date(projeto.projectStartDate).toLocaleDateString('pt-BR')}</p>
-            <p>{new Date(projeto.projectEndDate).toLocaleDateString('pt-BR')}</p>
+            <p>{formatDate(projeto.projectStartDate)}</p>
+            <p>{formatDate(projeto.projectEndDate)}</p>
             <p>{projeto.nameCoordinator}</p>
             <p>{projeto.projectValue}</p>
             <img

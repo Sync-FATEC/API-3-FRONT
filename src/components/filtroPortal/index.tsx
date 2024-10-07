@@ -19,6 +19,8 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   const [textoDataTermino, setTextoDataTermino] = useState<string | null>(null);
   const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
   const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
+  const [keywordFilter, setKeywordFilter] = useState<string>("");
+  const [withFilter, setWithFilter] = useState(false);
 
   const filtrarOpcoesEmpresas = empresas.filter(opcao =>
     opcao.toLowerCase().includes(textoEmpresas.toLowerCase())
@@ -27,6 +29,10 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   const filtrarOpcoesCoordenadores = coordenadores.filter(opcao =>
     opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
   );
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setKeywordFilter(event.target.value);
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,11 +60,15 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
       projectStatus: textoSituacao,
       projectStartDate: textoDataInicio,
       projectEndDate: textoDataTermino,
+      keywordFilter: keywordFilter,
     };
 
+
+    console.log(filterData);
     onFilterSubmit(filterData);
   };
 
+  if(withFilter) {
   return (
     <main className="MainDados">
       <h2>Filtro de dados</h2>
@@ -165,6 +175,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
               onChange={(e) => setTextoDataTermino(e.target.value || null)}
             />
           </div>
+          <button className="buscarSimples" onClick={() => setWithFilter(false)}>Filtro simples</button>
         </div>
         <div>
           <button type="submit" className="searchButton">
@@ -175,4 +186,21 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
       </form>
     </main>
   );
+  } else {
+    return (
+        <div>
+        <form onSubmit={handleSubmit} className="filter">
+            <input 
+                type="text" 
+                value={keywordFilter} 
+                onChange={handleInputChange} 
+                placeholder="Digite a palavra-chave" 
+                className="searchInput"
+            />
+            <button onClick={() => setWithFilter(true)}>Filtros avançados</button>
+            <button type="submit">Buscar</button>
+        </form>
+        </div>
+    );
+  }
 }

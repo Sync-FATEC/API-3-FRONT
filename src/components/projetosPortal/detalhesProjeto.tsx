@@ -82,6 +82,12 @@ export default function ProjetoDetalhes() {
     navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
   };
 
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+    return localDate.toLocaleDateString('pt-BR');
+  };
+
   if (error) {
     return (
       <div id="fundo">
@@ -198,7 +204,7 @@ export default function ProjetoDetalhes() {
               <label><strong>Data de Início:</strong></label>
               <span>
                 {projectData?.projectStartDate
-                  ? new Date(projectData.projectStartDate).toLocaleDateString('pt-BR')
+                  ? formatDate(projectData.projectStartDate)
                   : "Data de início não disponível"}
               </span>
             </div>
@@ -206,7 +212,7 @@ export default function ProjetoDetalhes() {
               <label><strong>Data de Término:</strong></label>
               <span>
                 {projectData?.projectEndDate
-                  ? new Date(projectData.projectEndDate).toLocaleDateString('pt-BR')
+                  ? formatDate(projectData.projectEndDate)
                   : "Data de término não disponível"}
               </span>
             </div>

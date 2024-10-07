@@ -4,6 +4,7 @@ import Header from '../../components/header';
 import './styles.css';
 import FiltroPortal from '../../components/filtroPortal';
 import filterDTO from '../../type/filterDTO';
+import FiltroPorPalavraChave from '../../components/filtroPortal/porPalavraChave';
 
 export default function PortalTransparencia() {
     const [filterData, setFilterData] = useState<filterDTO | null>(null);
@@ -24,7 +25,7 @@ export default function PortalTransparencia() {
                 </section>
             </div>
             <FiltroPortal onFilterSubmit={handleFilterSubmit} />    
-            <ProjetosPortal filterData={filterData} />   
+            <ProjetosPortal filterData={filterData}/>   
         </>
     );
 }

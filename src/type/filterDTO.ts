@@ -6,6 +6,7 @@ type filterDTO = {
     projectStatus: string;
     projectStartDate: string | null;
     projectEndDate: string | null;
+    keywordFilter: string;
 }
 
 export default filterDTO;

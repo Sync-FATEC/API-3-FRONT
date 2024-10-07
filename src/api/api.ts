@@ -5,39 +5,51 @@ import { get } from "http";
 import filterDTO from "../type/filterDTO";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080"
+  baseURL: "http://localhost:8080",
 });
 
 const links = {
-    getAllProjects: () => api.get("/projects/getAll"),
-    
-    getProject: (id: string) => api.get(`/projects/get/${id}`),
+  getAllProjects: () => api.get("/projects/getAll"),
 
-    getCoordinators: () => api.get("/projects/get/coordinators"),
+  getProject: (id: string) => api.get(`/projects/get/${id}`),
 
-    getCompanies: () => api.get("/projects/get/companies"),
+  getCoordinators: () => api.get("/projects/get/coordinators"),
 
-    createProject: (data: createProject) => api.post("/projects/create", data),
+  getCompanies: () => api.get("/projects/get/companies"),
 
-    AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
+  createProject: (data: createProject) => api.post("/projects/create", data),
 
-        const formData = new FormData();
-        formData.append('projectId', projectId);
-        if (file) {
-            formData.append('file', file);
-        }
-        formData.append('typeFile', tipoAnexo);
+  AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
+    const formData = new FormData();
+    formData.append("projectId", projectId);
+    if (file) {
+      formData.append("file", file);
+    }
+    formData.append("typeFile", tipoAnexo);
 
-        return api.post("/documents/create", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-    },
+    return api.post("/documents/create", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 
-    getAnexos: (link: string) => api.get(link, { responseType: 'blob' }),
+  getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
-    filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
+  filterProjects: (data: filterDTO) =>
+    api.get("/projects/filter", { params: data }),
+
+  getFiltered: (
+    keyword: string,
+    dataInicio: string,
+    dataFim: string,
+    status: string,
+    classificacao: string
+  ) => {
+    return api.get(
+      `/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}`
+    );
+  },
 };
 
 export { links };

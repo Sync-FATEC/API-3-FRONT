@@ -73,8 +73,9 @@
   border-radius: var(--padding-input);
 }
 
+
 .MainDados form button {
-  width: 100px;
+  min-width: 100px;
   margin-top: var(--padding-input);
   padding: 12px;
   height: 40px;
@@ -113,4 +114,21 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;   
   }
+}
+
+.searchInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.buscarSimples {
+  width: auto;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--blue-color);
+  border: none;
+  border-radius: var(--padding-input);
 }
