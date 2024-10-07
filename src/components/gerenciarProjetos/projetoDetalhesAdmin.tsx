@@ -32,6 +32,7 @@ export default function VerDetalhes() {
     try {
       const response = await links.getProject(projectId);
       if (response.data) {
+        console.log(response.data)
         setProjectData(response.data.model);
         setOriginalData(response.data.model); 
       } else {
@@ -94,6 +95,16 @@ export default function VerDetalhes() {
     setIsEditing(false); 
   };
 
+  const  handleDelete = async (projectId: string) => {
+    try {
+      await links.deleteProjects(projectId); // Ajuste a URL conforme sua API
+      handleBackButtonClick()
+    } catch (error) {
+      console.error('Erro ao deletar projeto:', error);
+    }
+  
+
+  }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (projectData) {
       setProjectData({
@@ -106,8 +117,9 @@ export default function VerDetalhes() {
   const handleSave = async () => {
     // try {
     //   if (projectData && id) {
-    //     await links.updateProjects(id, projectData);
-    //     setOriginalData(projectData);
+    //     let projectUpdate = await links.updateProjects(id, projectData);
+    //     setOriginalData(projectUpdate.data);
+    //     console.log(projectData)
     //     setIsEditing(false); 
     //   }
     // } catch (error) {
@@ -362,6 +374,7 @@ export default function VerDetalhes() {
                 <FontAwesomeIcon icon={faSave} />
                 Salvar
               </button>
+             
               <button className="buttons" onClick={handleCancel}>Cancelar</button>
             </>
           )}
@@ -370,6 +383,9 @@ export default function VerDetalhes() {
               <FontAwesomeIcon icon={faEdit} />
               Editar
             </button>
+          )}
+          {!isEditing && (
+            <button className="delet-buttons" onClick={() => handleDelete(projectData.projectId)}> Deletar Projeto</button>
           )}
         </div>
       </div>

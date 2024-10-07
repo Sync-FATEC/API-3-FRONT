@@ -3,6 +3,7 @@ import createProject from "../type/createProject";
 import AddAnexo from "../components/addAnexo";
 import { get } from "http";
 import filterDTO from "../type/filterDTO";
+import { Projetos } from "../type/projeto";
 
 const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -36,9 +37,6 @@ const links = {
 
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
-  filterProjects: (data: filterDTO) =>
-    api.get("/projects/filter", { params: data }),
-
   getFiltered: (
     keyword: string,
     dataInicio: string,
@@ -50,6 +48,10 @@ const links = {
       `/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}`
     );
   },
+
+  filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
+
+  deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`)
 };
 
 export { links };
