@@ -36,23 +36,20 @@
   padding: var(--padding-input);
   background-color: var(--white-color);
   border-radius: var(--padding-input);
-  box-shadow: 2px 2px 2px #bebebe,
-    -2px -2px 6px var(--white-color);
+  box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   /* 4 colunas */
   grid-template-rows: repeat(2, 1fr);
   /* 3 linhas */
-
 }
 
-.searchButton{
- display: flex;
- flex-direction: row;
- justify-content: center;
- align-items: center;
- gap: 8px;
- 
+.searchButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
 }
 
 .containerForm div {
@@ -72,7 +69,6 @@
   border: none;
   border-radius: var(--padding-input);
 }
-
 
 .MainDados form button {
   min-width: 100px;
@@ -95,16 +91,16 @@
 @media (max-width: 1138px) {
   .containerForm,
   .containerData {
-    grid-template-columns: repeat(3, 1fr); 
-    grid-template-rows: auto;              
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
   }
 }
 
 @media (max-width: 931px) {
   .containerForm,
   .containerData {
-    grid-template-columns: repeat(2, 1fr); 
-    grid-template-rows: auto;              
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
   }
 }
 
@@ -112,7 +108,7 @@
   .containerForm,
   .containerData {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;   
+    grid-template-rows: auto;
   }
 }
 
@@ -131,4 +127,58 @@
   background-color: var(--blue-color);
   border: none;
   border-radius: var(--padding-input);
+}
+
+.formularioPesquisaPalavra {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.MainDados form .barraNavegacao {
+  border-radius: 10px 0 0 10px;
+  border: none;
+  box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
+  height: 47px;
+  flex-grow: 8;
+  padding-left: 10px; /* Adiciona espaçamento interno à esquerda */
+}
+
+.MainDados form .botaoFiltro {
+  height: 50px;
+  border-radius: 0px;
+  flex-grow: 1;
+  box-shadow: 2px 2px 2px #bebebe, 0px -2px 6px var(--white-color) !important;
+  width: min-content;
+  margin: 0;
+}
+
+.MainDados form .botaoPesquisa {
+  border-radius: 0 10px 10px 0;
+  border-left: 2px solid var(--gray-color);
+  height: 50px;
+  box-shadow: 2px 2px 2px #bebebe, 5px -2px 6px var(--white-color) !important;
+  width: min-content;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.containerForm .divBuscaFiltro {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerForm .filtro {
+  border-radius: 10px 0 0 10px;
+  width: 100%;
+  border-right: 1px solid var(--gray-color);
+}
+
+.containerForm .busca {
+  width: 100%;
+  border-radius: 0 10px 10px 0;
 }

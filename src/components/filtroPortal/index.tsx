@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import api, { links } from "../../api/api";
 import './styles.css';
 import filterDTO from "../../type/filterDTO";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 interface FiltroPortalProps {
   onFilterSubmit: (data: filterDTO) => void; // Defina o tipo do parâmetro
@@ -175,32 +177,34 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
               onChange={(e) => setTextoDataTermino(e.target.value || null)}
             />
           </div>
-          <button className="buscarSimples" onClick={() => setWithFilter(false)}>Filtro simples</button>
+          <div className="divBuscaFiltro">
+            <button className="filtro" onClick={() => setWithFilter(false)}><FontAwesomeIcon icon={faFilter} /></button>
+            <button type="submit" className="busca">
+            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+            </button>
+          </div>
         </div>
         <div>
-          <button type="submit" className="searchButton">
-            <img src="/static/img/pesquisar.svg" alt="logo" />
-            <p>Buscar</p>
-          </button>
         </div>
       </form>
     </main>
   );
   } else {
     return (
-        <div>
-        <form onSubmit={handleSubmit} className="filter">
+        <main className="MainDados">
+        <h2>Busca de projetos</h2>
+        <form onSubmit={handleSubmit} className="filter formularioPesquisaPalavra">
             <input 
                 type="text" 
                 value={keywordFilter} 
                 onChange={handleInputChange} 
                 placeholder="Digite a palavra-chave" 
-                className="searchInput"
+                className="barraNavegacao"
             />
-            <button onClick={() => setWithFilter(true)}>Filtros avançados</button>
-            <button type="submit">Buscar</button>
-        </form>
-        </div>
+            <button className="botaoFiltro" onClick={() => setWithFilter(true)}><FontAwesomeIcon icon={faFilter} /></button>
+            <button className="botaoPesquisa" type="submit"><FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></button>
+        </form> 
+        </main>
     );
   }
 }
