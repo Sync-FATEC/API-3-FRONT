@@ -51,6 +51,25 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
     fetchData();
   }, []);
 
+  const handleSubmitDados = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const filterData: filterDTO = {
+      projectReference: textoReferencia,
+      projectCompany: textoEmpresas,
+      nameCoordinator: textoCoordenadores,
+      projectClassification: textoClassificacao,
+      projectStatus: textoSituacao,
+      projectStartDate: textoDataInicio,
+      projectEndDate: textoDataTermino,
+      keywordFilter: '',
+    };
+
+
+    console.log(filterData);
+    onFilterSubmit(filterData);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -74,7 +93,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   return (
     <main className="MainDados">
       <h2>Filtro de dados</h2>
-      <form onSubmit={handleSubmit} className="filter">
+      <form onSubmit={handleSubmitDados} className="filter">
         <div className="containerForm">
           <div>
             <label htmlFor="referenciaDeDados">Ref. do projeto</label>
