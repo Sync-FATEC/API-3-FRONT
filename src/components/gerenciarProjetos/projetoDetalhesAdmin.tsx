@@ -10,7 +10,7 @@ import Header from "../header";
 import Sidebar from "../sideBar/static";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft, faEdit, faSave } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faChevronCircleLeft, faEdit, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export default function VerDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -27,12 +27,14 @@ export default function VerDetalhes() {
   const [outros, setOutros] = useState<documents[]>([]);
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const { isAuthenticated } = useContext(AuthContext);
-  
+
+  // Estado para pop-up de confirmação de exclusão
+  const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
+
   const fetchProjetoById = async (projectId: string) => {
     try {
       const response = await links.getProject(projectId);
       if (response.data) {
-        console.log(response.data)
         setProjectData(response.data.model);
         setOriginalData(response.data.model); 
       } else {
@@ -95,16 +97,26 @@ export default function VerDetalhes() {
     setIsEditing(false); 
   };
 
-  const  handleDelete = async (projectId: string) => {
+  const handleDeleteClick = () => {
+    setShowConfirmDelete(true); // Abre o pop-up de confirmação
+  };
+
+  const handleConfirmDelete = async () => {
+    setShowConfirmDelete(false);
+    if (projectData) {
+      await handleDelete(projectData.projectId);
+    }
+  };
+
+  const handleDelete = async (projectId: string) => {
     try {
-      await links.deleteProjects(projectId); // Ajuste a URL conforme sua API
-      handleBackButtonClick()
+      await links.deleteProjects(projectId); 
+      handleBackButtonClick();
     } catch (error) {
       console.error('Erro ao deletar projeto:', error);
     }
-  
+  };
 
-  }
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (projectData) {
       setProjectData({
@@ -119,7 +131,6 @@ export default function VerDetalhes() {
     //   if (projectData && id) {
     //     let projectUpdate = await links.updateProjects(id, projectData);
     //     setOriginalData(projectUpdate.data);
-    //     console.log(projectData)
     //     setIsEditing(false); 
     //   }
     // } catch (error) {
@@ -374,8 +385,7 @@ export default function VerDetalhes() {
                 <FontAwesomeIcon icon={faSave} />
                 Salvar
               </button>
-             
-              <button className="buttons" onClick={handleCancel}>Cancelar</button>
+              <button className="delete-buttons" onClick={handleCancel}>Cancelar</button>
             </>
           )}
           {!isEditing && (
@@ -385,9 +395,22 @@ export default function VerDetalhes() {
             </button>
           )}
           {!isEditing && (
-            <button className="delet-buttons" onClick={() => handleDelete(projectData.projectId)}> Deletar Projeto</button>
+            <button className="delete-buttons" onClick={handleDeleteClick}>
+              <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
+            </button>
           )}
         </div>
+
+        
+        {showConfirmDelete && (
+          <div className="modal">
+            <div className="modal-content">
+              <h1>Você tem certeza que deseja deletar este projeto?</h1>
+              <button className="buttons" onClick={handleConfirmDelete}>Sim</button>
+              <button className="delete-buttons" onClick={() => setShowConfirmDelete(false)}>Não</button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
