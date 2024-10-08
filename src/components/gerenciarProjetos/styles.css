@@ -53,28 +53,70 @@
 /* Estilos para o contêiner dos botões */
 .buttons-container {
   display: flex;
-  gap: 10px; /* Espaçamento entre os botões */
-  justify-content: flex; /* Alinha os botões à direita */
-  padding: 10px 0; /* Espaçamento em cima e embaixo dos botões */
+  gap: 10px;
+  justify-content: flex; 
+  padding: 10px 0; 
 }
 
 /* Estilos para os botões */
 .buttons {
-  background-color: var(--blue-color); /* Cor de fundo */
-  color: white; /* Cor do texto */
-  border: none; /* Sem borda */
-  border-radius: 5px; /* Bordas arredondadas */
-  padding: 10px 20px; /* Padding interno */
-  cursor: pointer; /* Cursor de ponteiro ao passar sobre */
-  transition: background-color 0.3s; /* Transição suave para mudança de cor */
+  background-color: var(--blue-color);
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  transition: background-color 0.5s; 
 }
 
 .buttons:hover {
-  background-color: darkblue; /* Cor ao passar o mouse */
+  background-color: rgb(5, 5, 93); 
 }
 
 .buttons:disabled {
-  background-color: lightgray; /* Cor para botões desativados */
-  cursor: not-allowed; /* Cursor de não permitido */
+  background-color: lightgray;
+  cursor: not-allowed; 
 }
 
+.delete-buttons {
+  background-color: red;
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  transition: background-color 0.5s; 
+}
+
+.delete-buttons:hover {
+  background-color: rgb(165, 3, 3);
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  padding-top: 20px;
+  font-size:large;
+  width: 425px;
+  height: 240px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  margin: 10px;
+  margin-top: 50px;
+}
