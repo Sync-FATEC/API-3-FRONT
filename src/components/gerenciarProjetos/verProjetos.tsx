@@ -50,7 +50,7 @@ export default function VerProjetos({ filterData }: ProjetosPortalProps) {
   };
 
   const handleProjetoClick = (projeto: Projetos) => {
-    navigate(`/verdetalhesadm/${projeto.projectId}`, { state: projeto });
+    navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
   };
 
   return (

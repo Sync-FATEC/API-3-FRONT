@@ -5,7 +5,7 @@ interface AddAnexoProps {
     onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;
     resetFile?: boolean;
     handleRemoveAnexoComponent: (id: number) => void;
-    id: number;
+    id: number ;
 }
 
 enum TipoAnexo {

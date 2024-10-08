@@ -9,8 +9,8 @@ import Anexos from "./anexos";
 import Header from "../header"
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { ProjectStatus } from "../../enums/ProjectStatus";
+import { faCancel, faChevronCircleLeft, faEdit, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -283,6 +283,13 @@ export default function ProjetoDetalhes() {
           </div>
         )}
       </div>
+      {isAuthenticated && (<button className="buttons" onClick={()=> navigate(`/editar-projeto/${id}`)}>
+              <FontAwesomeIcon icon={faEdit} />
+              Editar
+            </button>)}
+      {isAuthenticated && ( <button className="delete-buttons" >
+              <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
+            </button>)}
       </div>
     </div>
   );

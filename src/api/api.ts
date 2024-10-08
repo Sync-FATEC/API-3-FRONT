@@ -4,6 +4,7 @@ import AddAnexo from "../components/addAnexo";
 import { get } from "http";
 import filterDTO from "../type/filterDTO";
 import { Projetos } from "../type/projeto";
+import { UpdateProject } from "../type/updateProject";
 
 const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -35,6 +36,8 @@ const links = {
     });
   },
 
+  removeAnexo: (anexos: string[]) => api.put(`/documents`,{params: anexos}),
+
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
   getFiltered: (
@@ -51,7 +54,9 @@ const links = {
 
   filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
 
-  deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`)
+  deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`),
+
+  updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,{params: data})
 };
 
 export { links };
