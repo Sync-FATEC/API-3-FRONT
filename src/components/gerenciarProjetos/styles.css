@@ -201,3 +201,30 @@ form button {
   border: 2px solid var(--blue-color);
   outline: none;
 }
+
+.admin_center-padding {
+  padding-left: 150px;
+}
+
+.admin_center-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 700;
+  size: 24px;
+  padding-top: 8vh;
+  padding-bottom: 32px;
+  padding-left: 270px;
+  padding-right: 150px;
+}
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.form-containerAdd{
+  padding-left: 260px;
+}

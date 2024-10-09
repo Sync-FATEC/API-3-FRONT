@@ -5,6 +5,10 @@ import documents from "../../../type/documents";
 import { Projetos } from "../../../type/projeto";
 import { ProjectStatus } from "../../../enums/ProjectStatus";
 import "../styles.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEdit } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+
 
 interface ProjetoFormProps {
   onSubmit: (projeto: any, anexos: any, anexosRemovidos: any) => void;
@@ -103,7 +107,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="coordenador"
                 placeholder=" "
                 value={projeto.nameCoordinator}
-                onChange={handleChange}
+                onChange={(e) =>handleChange(e)}
               />
               <label className="placeholder">Coordenador</label>
             </div>
@@ -181,7 +185,8 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
               <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
-          <button type="submit">Cadastrar</button>
+          <button type="submit">
+          <FontAwesomeIcon icon={faEdit}/>Salvar Edição</button>
         </div>
         <div>
           <div className="right-side">

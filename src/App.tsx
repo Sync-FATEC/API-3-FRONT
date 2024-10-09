@@ -23,8 +23,8 @@ function App() {
             <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
             <Route path='/addprojetos' element={<RequireAuthAdmin><AddProjetos /></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
-            <Route path="/verdetalhesadm/:id" element={<RequireAuthAdmin><VerProjetos/></RequireAuthAdmin>}/>
-            <Route path='/editar-projeto/:id' element={<EditarProjeto/>}></Route>
+
+            <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>
