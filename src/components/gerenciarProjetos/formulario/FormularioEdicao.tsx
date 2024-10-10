@@ -7,31 +7,35 @@ import { ProjectStatus } from "../../../enums/ProjectStatus";
 import "../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate } from "react-router-dom";
+import { RemoveAnexos } from "../../removeAnexos/RemoveAnexos";
+import { UpdateProject } from "../../../type/updateProject";
 
-
-interface ProjetoFormProps {
-  onSubmit: (projeto: any, anexos: any, anexosRemovidos: any) => void;
-  initialData?: Projetos | null
+interface FormularioEdicaoProjetoProps {
+  onSubmit: (projeto: UpdateProject, anexos: any, anexosRemovidos: documents[]) => void;
+  initialData?: Projetos | null;
 }
 
-export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps) {
-    const [projeto, setProjeto] = useState<Projetos>({
-        projectId: '',
-        projectReference: '',
-        nameCoordinator: '',
-        projectCompany: '',
-        projectObjective: '',
-        projectDescription: '',
-        projectValue: 0,
-        projectStartDate: '',
-        projectEndDate: '',
-        projectClassification: '',
-        projectStatus: ProjectStatus.NAO_INICIADOS, 
-        documents: [],
-        historyProject: [],
-      });
+export default function FormularioEdicaoProjeto({
+  onSubmit,
+  initialData,
+}: FormularioEdicaoProjetoProps) {
+  const [projeto, setProjeto] = useState<Projetos>({
+    projectId: "",
+    projectReference: "",
+    nameCoordinator: "",
+    projectCompany: "",
+    projectObjective: "",
+    projectDescription: "",
+    projectValue: 0,
+    projectStartDate: "",
+    projectEndDate: "",
+    projectClassification: "",
+    projectStatus: ProjectStatus.NAO_INICIADOS,
+    documents: [],
+    historyProject: [],
+  });
   const [anexos, setAnexos] = useState<documents[]>([]);
+  const [novoAnexo, setNovoAnexo] = useState<{ file: File | null; tipo: string }[]>([])
   const [anexosRemovidos, setAnexosRemovidos] = useState<documents[]>([]);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
   const formRef = useRef<HTMLDivElement>(null);
@@ -39,36 +43,59 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
   useEffect(() => {
     if (initialData && initialData !== null) {
       setProjeto(initialData);
-      setAnexos(initialData.documents || []);
+     
+      setAnexos(initialData.documents || [])
     }
   }, [initialData]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-    const { name, value } = e.target;
-    setProjeto((prev) => ({ ...prev, [name]: value }));
-  };
-  const handleAddAnexoComponent = () => {
-    setAddAnexoComponents((prev) => [...prev, prev.length]);
+  //Muda os campos do documento
+  const handleChangeSelect = (field: keyof Projetos,
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    setProjeto((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
+  const handleChange = (field:keyof Projetos,novoValor: React.ChangeEvent<HTMLInputElement>)=>{
+    setProjeto((prev) => ({...prev, [field]:novoValor.target.value }))
+  }
+
+  // Adicionar novo documento
+  const handleAddAnexoComponent = () => {
+    setAddAnexoComponents((prev) => [...prev, prev.length]);
+  }
+
   const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
-    setAnexos((prev) => {
-      const updated = prev.map((a, index) => (index === id ? { ...a, ...anexo } : a));
-      return updated;
-    });
+    const newAnexos = [...novoAnexo];
+    newAnexos[id] = anexo;
+    setNovoAnexo(newAnexos);
   };
-  
 
   const handleRemoveAnexoComponent = (id: number) => {
     setAddAnexoComponents((prev) => prev.filter((anexoId) => anexoId !== id));
-    setAnexosRemovidos((prev) => prev.filter((_, index) => index !== id));
-    setAnexos((prevAnexos) => prevAnexos.filter((_, index) => index !== id));
-  };
+    setNovoAnexo((prev) => prev.filter((_, index) => index !== id));
+  }
 
+  // Remover documentos existentes
+  const handleDeleteDocument = (documento: documents) => {
+    setAnexosRemovidos((prev) => [...prev, documento]); 
+    setAnexos((prev) => prev.filter((doc) => doc.documentId !== documento.documentId));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(projeto, anexos, anexosRemovidos);
+    const updateProject: UpdateProject = {
+      projectReference: projeto.projectReference,
+      nameCoordinator: projeto.nameCoordinator,
+      projectCompany: projeto.projectCompany,
+      projectObjective: projeto.projectObjective,
+      projectDescription: projeto.projectDescription,
+      projectValue: projeto.projectValue,
+      projectStartDate: projeto.projectStartDate,
+      projectEndDate: projeto.projectEndDate,
+      projectClassification: projeto.projectClassification,
+      projectStatus: projeto.projectStatus,
+    };
+    onSubmit(updateProject, novoAnexo, anexosRemovidos);
   };
 
   return (
@@ -83,7 +110,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="referencia"
                 placeholder=" "
                 value={projeto.projectReference}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectReference", e)}
               />
               <label className="placeholder">Referência do projeto</label>
             </div>
@@ -94,7 +121,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="empresa"
                 placeholder=" "
                 value={projeto.projectCompany}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectCompany", e)}
               />
               <label className="placeholder">Empresa</label>
             </div>
@@ -107,7 +134,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="coordenador"
                 placeholder=" "
                 value={projeto.nameCoordinator}
-                onChange={(e) =>handleChange(e)}
+                onChange={(e) => handleChange("nameCoordinator", e)}
               />
               <label className="placeholder">Coordenador</label>
             </div>
@@ -118,7 +145,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="valor"
                 placeholder=" "
                 value={projeto.projectValue}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectValue", e)}
               />
               <label className="placeholder">Valor do projeto</label>
             </div>
@@ -130,7 +157,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 className="input"
                 name="dataInicio"
                 value={projeto.projectStartDate}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectStartDate", e)}
               />
               <label className="placeholder">Data de início</label>
             </div>
@@ -140,7 +167,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 className="input"
                 name="dataTermino"
                 value={projeto.projectEndDate}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectEndDate", e)}
               />
               <label className="placeholder">Data de término</label>
             </div>
@@ -153,7 +180,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="objeto"
                 placeholder=" "
                 value={projeto.projectObjective}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectObjective", e)}
               />
               <label className="placeholder">Objeto</label>
             </div>
@@ -164,7 +191,7 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                 name="descricao"
                 placeholder=" "
                 value={projeto.projectDescription}
-                onChange={handleChange}
+                onChange={(e) => handleChange("projectDescription", e)}
               />
               <label className="placeholder">Descrição</label>
             </div>
@@ -174,9 +201,11 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
               name="classificacao"
               id="classificacao"
               value={projeto.projectClassification}
-              onChange={handleChange}
+              onChange={(e) => handleChangeSelect("projectClassification", e)}
             >
-              <option value="" disabled>Classificação</option>
+              <option value="" disabled>
+                Classificação
+              </option>
               <option value="OUTROS">AS, OF, PC e/ou outros</option>
               <option value="CONTRATOS">Contrato</option>
               <option value="CONVENIO">Convênio</option>
@@ -185,19 +214,19 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
               <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
-          <button type="submit">
-          <FontAwesomeIcon icon={faEdit}/>Salvar Edição</button>
+           <button type="submit">
+          <FontAwesomeIcon icon={faEdit} />
+          Salvar Edição
+        </button>
         </div>
         <div>
           <div className="right-side">
             <div className="addfile">
-            {anexos.map((anexo, index) => ( // Fixed map syntax
-                <AddAnexo
-                  key={anexo.documentId || index} // Use anexo.id if available, otherwise fallback to index
-                  id={Number(anexo.documentId) || index}
-                  onAddAnexo={handleAddAnexo}
-                  handleRemoveAnexoComponent={handleRemoveAnexoComponent}
-                />
+              {anexos.map((anexo, index) => (
+                <RemoveAnexos
+                key={index}
+                 documento={anexo} 
+                 onDeleteDocument={handleDeleteDocument}/>
               ))}
               {addAnexoComponents.map((id) => (
                 <AddAnexo
@@ -207,7 +236,11 @@ export default function ProjetoForm({ onSubmit, initialData }: ProjetoFormProps)
                   handleRemoveAnexoComponent={handleRemoveAnexoComponent}
                 />
               ))}
-              <button type="button" className="adicionar-btn" onClick={handleAddAnexoComponent}>
+              <button
+                type="button"
+                className="adicionar-btn"
+                onClick={handleAddAnexoComponent}
+              >
                 Adicionar anexo
               </button>
             </div>

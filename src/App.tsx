@@ -8,7 +8,6 @@ import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
 import DashBoard from './components/dashBoard';
 import AddProjetos from './components/addProjetos';
 import GerenciarProjetos from './components/gerenciarProjetos';
-import VerProjetos from './components/gerenciarProjetos/projetoDetalhesAdmin';
 import EditarProjeto from './components/gerenciarProjetos/EditarProjeto';
 
 function App() {
@@ -23,7 +22,6 @@ function App() {
             <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
             <Route path='/addprojetos' element={<RequireAuthAdmin><AddProjetos /></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
-
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>

@@ -254,7 +254,7 @@ export default function ProjetoDetalhes() {
 
           {activeTab === "Contratos" && (
             <div>
-              {contratos.length > 0 ? (
+              {contratos.filter((documento) => !documento.removed).length > 0 ? (
                 <div>
                   {contratos.map((cont) => (
                     <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
@@ -268,7 +268,7 @@ export default function ProjetoDetalhes() {
 
           {activeTab === "Planos de trabalhos" && (
             <div>
-              {planos.length > 0 ? (
+              {planos.filter((documento) => !documento.removed).length > 0 ? (
                 <div>
                   {planos.map((cont) => (
                     <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
@@ -282,7 +282,7 @@ export default function ProjetoDetalhes() {
 
           {activeTab === "Termos aditivo" && (
             <div>
-              {termos.length > 0 ? (
+              {termos.filter((documento) => !documento.removed).length > 0 ? (
                 <div>
                   {termos.map((cont) => (
                     <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
@@ -296,7 +296,7 @@ export default function ProjetoDetalhes() {
 
           {activeTab === "Outros" && (
             <div>
-              {outros.length > 0 ? (
+              {outros.filter((documento) => !documento.removed).length > 0 ? (
                 <div>
                   {outros.map((cont) => (
                     <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />

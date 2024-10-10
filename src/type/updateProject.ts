@@ -3,7 +3,6 @@ import documents from "./documents";
 
 
 export type UpdateProject = {
-    projectId: string;
     projectReference: string;
     nameCoordinator: string;
     projectCompany: string;

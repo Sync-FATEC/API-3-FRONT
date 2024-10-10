@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import ProjetoForm from "./formulario/FormularioEdicao";
 import api, { links } from "../../api/api";
 import { UpdateProject } from "../../type/updateProject";
 import Sidebar from "../sideBar/static";
@@ -11,6 +10,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import { useContext } from "react";
+import FormularioEdicaoProjeto from "./formulario/FormularioEdicao";
+import documents from "../../type/documents";
 
 
 export default function EditarProjeto() {
@@ -48,24 +49,29 @@ export default function EditarProjeto() {
   const handleProjetoSubmit = async (
     projeto: UpdateProject,
     anexosAdicionados: any[],
-    anexosRemovidos: string[]
+    anexosRemovidos: documents[]
   ) => {
     try {
-      if (id && projectData) {
-        const response = await links.updateProject(id, projeto);
+      if (id) {
+        const response = await links.updateProject(id, projeto)
         if (response.status === 200) {
-          if (anexosRemovidos) {
-            await links.removeAnexo(anexosRemovidos);
+          if (anexosRemovidos.length >= 1) {
+            const idsAnexosRemovidos = anexosRemovidos.map((anexo) => anexo.documentId)
+            await links.removeAnexo(idsAnexosRemovidos);
           }
-          await Promise.all(
+          if(anexosAdicionados.length >= 1){
+            await Promise.all(
             anexosAdicionados.map(async (anexo: any) => {
               if (anexo.file) {
                 await links.AddAnexo(id, anexo.file, anexo.tipo);
               }
             })
           );
-          setEnviado(true);
+          }
+          
         }
+        setEnviado(true);
+        navigate('/gerenciarprojetos')
       }
     } catch (error) {
       console.error("Erro ao editar o projeto:", error);
@@ -90,7 +96,7 @@ export default function EditarProjeto() {
         </div>
       </div>
       {error && <p>{error}</p>}
-      <ProjetoForm 
+      <FormularioEdicaoProjeto
         onSubmit={handleProjetoSubmit} 
         initialData={originalData} 
       />

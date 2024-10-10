@@ -36,7 +36,7 @@ const links = {
     });
   },
 
-  removeAnexo: (anexos: string[]) => api.put(`/documents`,{params: anexos}),
+  removeAnexo: (anexos: string[]) => api.put(`/documents/removed`,anexos),
 
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
@@ -56,7 +56,7 @@ const links = {
 
   deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`),
 
-  updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,{params: data})
+  updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,data)
 };
 
 export { links };
