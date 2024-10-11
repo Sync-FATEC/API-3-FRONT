@@ -9,6 +9,7 @@ import DashBoard from './components/dashBoard';
 import AddProjetos from './components/addProjetos';
 import GerenciarProjetos from './components/gerenciarProjetos';
 import EditarProjeto from './components/gerenciarProjetos/EditarProjeto';
+import ProjectsDue from './components/projectsDue';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
             <Route path='/dashboard' element={<RequireAuthAdmin><DashBoard /></RequireAuthAdmin>}></Route>
             <Route path='/addprojetos' element={<RequireAuthAdmin><AddProjetos /></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
+            <Route path='/projetosVencimentos' element={<RequireAuthAdmin><ProjectsDue /></RequireAuthAdmin>}></Route>
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>

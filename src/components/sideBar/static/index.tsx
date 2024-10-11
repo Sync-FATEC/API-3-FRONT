@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faFolder, faUsers, faSignOutAlt, faUsersGear, faCirclePlus, faCube } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faFolder, faUsers, faSignOutAlt, faUsersGear, faCirclePlus, faCube, faCalendarDays } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./sidebar.css";
 import Logout from '../../../contexts/auth/logout';
@@ -27,6 +27,12 @@ export default function Sidebar  () {
                 <div className="menu-item" id="gerenciarprojetos">
                 <Link to="/gerenciarprojetos"style={{ textDecoration: 'none', color: '#8B909A' }}>
                     <FontAwesomeIcon icon={faCube} style={{color: "#969696"}} /> Gerenciar Projetos
+                    </Link>
+                </div>
+
+                <div className="menu-item" id="gerenciarprojetos">
+                <Link to="/projetosVencimentos"style={{ textDecoration: 'none', color: '#8B909A' }}>
+                    <FontAwesomeIcon icon={faCalendarDays} style={{color: "#969696"}} /> Proximos vencimentos
                     </Link>
                 </div>
               
