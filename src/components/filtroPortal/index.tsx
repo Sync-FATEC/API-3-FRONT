@@ -197,10 +197,10 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
             />
           </div>
           <div className="divBuscaFiltro">
-            <button className="filtro" onClick={() => setWithFilter(false)}><FontAwesomeIcon icon={faFilter} /></button>
             <button type="submit" className="busca">
             <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
             </button>
+            <button className="filtro" onClick={() => setWithFilter(false)}><FontAwesomeIcon icon={faFilter} /></button>
           </div>
         </div>
         <div>
@@ -220,8 +220,8 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
                 placeholder="Digite a palavra-chave" 
                 className="barraNavegacao"
             />
-            <button className="botaoFiltro" onClick={() => setWithFilter(true)}><FontAwesomeIcon icon={faFilter} /></button>
             <button className="botaoPesquisa" type="submit"><FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></button>
+            <button className="botaoFiltro" onClick={() => setWithFilter(true)}><FontAwesomeIcon icon={faFilter} /></button>
         </form> 
         </main>
     );
