@@ -194,7 +194,6 @@ export default function ProjetoDetalhes() {
         )}
       </div>
 
-      <div className="MainDados">
         <div className="background-projects">
           {activeTab === "Informações do Projeto" && (
             <>
@@ -321,7 +320,6 @@ export default function ProjetoDetalhes() {
           </>
         )}
         </div>
-      </div>
       {showConfirmDelete && (
           <div className="modal">
             <div className="modal-content">
