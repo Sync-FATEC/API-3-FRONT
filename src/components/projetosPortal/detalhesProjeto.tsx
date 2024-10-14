@@ -194,7 +194,7 @@ export default function ProjetoDetalhes() {
         )}
       </div>
 
-      <div className="MainDadoss">
+      <div className="MainDados">
         <div className="background-projects">
           {activeTab === "Informações do Projeto" && (
             <>

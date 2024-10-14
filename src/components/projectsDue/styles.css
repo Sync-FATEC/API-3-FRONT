@@ -225,10 +225,6 @@ form button {
   align-items: center;
 }
 
-.form-containerAdd{
-  padding-left: 260px;
-}
-
 .background-projects {
   background-color: var(--white-color);
   border-radius: var(--padding-input);
