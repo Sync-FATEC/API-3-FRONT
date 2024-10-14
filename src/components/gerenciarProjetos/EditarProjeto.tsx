@@ -43,7 +43,7 @@ export default function EditarProjeto() {
     }
   };
   const handleBackButtonClick = () => {
-    navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
+    navigate(-1);
   };
 
   const handleProjetoSubmit = async (

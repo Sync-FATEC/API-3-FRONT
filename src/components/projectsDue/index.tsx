@@ -15,7 +15,7 @@ export default function ProjectsDue() {
 
     const getProjects = async () => {
         try {
-            const response = await links.getAllProjects();
+            const response = await links.getProectsNearEnd();
             if (Array.isArray(response.data.model)) {
                 setProjects(response.data.model);
             } else {
