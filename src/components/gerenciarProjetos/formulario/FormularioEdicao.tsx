@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RemoveAnexos } from "../../removeAnexos/RemoveAnexos";
 import { UpdateProject } from "../../../type/updateProject";
+import { errorSwal } from "../../swal/errorSwal";
 
 interface FormularioEdicaoProjetoProps {
   onSubmit: (projeto: UpdateProject, anexos: any, anexosRemovidos: documents[]) => void;
@@ -82,7 +83,27 @@ export default function FormularioEdicaoProjeto({
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+    e.preventDefault()
+
+    if (projeto.projectStartDate > projeto.projectEndDate) {
+      errorSwal("Data de início não pode ser maior que a data de término.");
+      return;
+    }
+
+    const currentDate = new Date();
+    const maxStartDate = new Date(currentDate);
+    maxStartDate.setDate(currentDate.getDate() + 7);
+
+    if (new Date(projeto.projectStartDate) > maxStartDate) {
+      errorSwal("Data de início não pode ser maior que 7 dias a partir da data atual.");
+      return;
+    }
+
+    if (isNaN(Date.parse(projeto.projectStartDate)) || isNaN(Date.parse(projeto.projectEndDate))) {
+      errorSwal("Data inválida.");
+      return;
+    }
+
     const updateProject: UpdateProject = {
       projectReference: projeto.projectReference,
       nameCoordinator: projeto.nameCoordinator,
@@ -94,7 +115,8 @@ export default function FormularioEdicaoProjeto({
       projectEndDate: projeto.projectEndDate,
       projectClassification: projeto.projectClassification,
       projectStatus: projeto.projectStatus,
-    };
+    }
+
     onSubmit(updateProject, novoAnexo, anexosRemovidos);
   };
 
