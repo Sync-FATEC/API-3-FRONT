@@ -11,6 +11,13 @@
   gap: 32px;
   justify-content: space-around;
 }
+.form-containeredit{
+  display: flex;
+  flex-direction: row;
+  margin-left: 260px;
+  gap: 32px;
+  justify-content: space-around;
+}
 .addProjetos {
     display: flex;
     width: 100%;
@@ -223,4 +230,46 @@ form button {
   flex-direction: row;
   gap: 8px;
   align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  padding-top: 20px;
+  font-size:large;
+  width: 440px;
+  height: 250px;
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.modal-content button {
+  margin: 10px;
+  margin-top: 50px;
+}
+
+.delete-buttons {
+  background-color: red;
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  transition: background-color 0.5s; 
+}
+
+.delete-buttons:hover {
+  background-color: rgb(165, 3, 3);
 }

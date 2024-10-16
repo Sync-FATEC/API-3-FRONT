@@ -4,7 +4,6 @@ import AddAnexo from "../../addAnexo";
 import documents from "../../../type/documents";
 import { Projetos } from "../../../type/projeto";
 import { ProjectStatus } from "../../../enums/ProjectStatus";
-import "../styles.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RemoveAnexos } from "../../removeAnexos/RemoveAnexos";
@@ -36,34 +35,30 @@ export default function FormularioEdicaoProjeto({
     historyProject: [],
   });
   const [anexos, setAnexos] = useState<documents[]>([]);
-  const [novoAnexo, setNovoAnexo] = useState<{ file: File | null; tipo: string }[]>([])
+  const [novoAnexo, setNovoAnexo] = useState<{ file: File | null; tipo: string }[]>([]);
   const [anexosRemovidos, setAnexosRemovidos] = useState<documents[]>([]);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
+  const [modalIsOpen, setModalIsOpen] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (initialData && initialData !== null) {
       setProjeto(initialData);
-     
-      setAnexos(initialData.documents || [])
+      setAnexos(initialData.documents || []);
     }
   }, [initialData]);
 
-  //Muda os campos do documento
-  const handleChangeSelect = (field: keyof Projetos,
-    e: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleChangeSelect = (field: keyof Projetos, e: React.ChangeEvent<HTMLSelectElement>) => {
     setProjeto((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleChange = (field:keyof Projetos,novoValor: React.ChangeEvent<HTMLInputElement>)=>{
-    setProjeto((prev) => ({...prev, [field]:novoValor.target.value }))
-  }
+  const handleChange = (field: keyof Projetos, novoValor: React.ChangeEvent<HTMLInputElement>) => {
+    setProjeto((prev) => ({ ...prev, [field]: novoValor.target.value }));
+  };
 
-  // Adicionar novo documento
   const handleAddAnexoComponent = () => {
     setAddAnexoComponents((prev) => [...prev, prev.length]);
-  }
+  };
 
   const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
     const newAnexos = [...novoAnexo];
@@ -74,17 +69,19 @@ export default function FormularioEdicaoProjeto({
   const handleRemoveAnexoComponent = (id: number) => {
     setAddAnexoComponents((prev) => prev.filter((anexoId) => anexoId !== id));
     setNovoAnexo((prev) => prev.filter((_, index) => index !== id));
-  }
+  };
 
-  // Remover documentos existentes
   const handleDeleteDocument = (documento: documents) => {
-    setAnexosRemovidos((prev) => [...prev, documento]); 
+    setAnexosRemovidos((prev) => [...prev, documento]);
     setAnexos((prev) => prev.filter((doc) => doc.documentId !== documento.documentId));
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
+    setModalIsOpen(true); // Abre o modal ao submeter
+  };
 
+  const confirmSubmit = () => {
     if (projeto.projectStartDate > projeto.projectEndDate) {
       errorSwal("Data de início não pode ser maior que a data de término.");
       return;
@@ -115,13 +112,18 @@ export default function FormularioEdicaoProjeto({
       projectEndDate: projeto.projectEndDate,
       projectClassification: projeto.projectClassification,
       projectStatus: projeto.projectStatus,
-    }
+    };
 
     onSubmit(updateProject, novoAnexo, anexosRemovidos);
+    setModalIsOpen(false); // Fecha o modal após enviar
+  };
+
+  const handleCancel = () => {
+    setModalIsOpen(false); // Fecha o modal sem fazer alterações
   };
 
   return (
-    <div ref={formRef} className="form-containerAdd">
+    <div ref={formRef} className="form-containeredit">
       <form className="addProjetos" onSubmit={handleSubmit}>
         <div>
           <div className="input-flex-container">
@@ -236,19 +238,20 @@ export default function FormularioEdicaoProjeto({
               <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
-           <button type="submit">
-          <FontAwesomeIcon icon={faEdit} />
-          Salvar Edição
-        </button>
+          <button type="submit">
+            <FontAwesomeIcon icon={faEdit} />
+            Salvar Edição
+          </button>
         </div>
         <div>
           <div className="right-side">
             <div className="addfile">
               {anexos.map((anexo, index) => (
                 <RemoveAnexos
-                key={index}
-                 documento={anexo} 
-                 onDeleteDocument={handleDeleteDocument}/>
+                  key={index}
+                  documento={anexo}
+                  onDeleteDocument={handleDeleteDocument}
+                />
               ))}
               {addAnexoComponents.map((id) => (
                 <AddAnexo
@@ -269,6 +272,16 @@ export default function FormularioEdicaoProjeto({
           </div>
         </div>
       </form>
+
+      {modalIsOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <h1>Você tem certeza que deseja salvar as alterações?</h1>
+            <button className="buttons" onClick={confirmSubmit}>Sim</button>
+            <button className="delete-buttons" onClick={handleCancel}>Não</button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

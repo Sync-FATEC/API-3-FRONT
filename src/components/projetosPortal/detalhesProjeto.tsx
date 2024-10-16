@@ -310,6 +310,7 @@ export default function ProjetoDetalhes() {
 
         {isAuthenticated && (
           <>
+          <div className="button-container">
             <button className="buttons" onClick={() => navigate(`/editar-projeto/${id}`)}>
               <FontAwesomeIcon icon={faEdit} />
               Editar
@@ -317,6 +318,7 @@ export default function ProjetoDetalhes() {
             <button className="delete-buttons" onClick={handleDeleteClick}>
               <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
             </button>
+          </div>
           </>
         )}
         </div>
