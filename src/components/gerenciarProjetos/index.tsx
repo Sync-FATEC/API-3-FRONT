@@ -10,6 +10,7 @@ export default function GerenciarProjetos() {
     const [filterData, setFilterData] = useState<filterDTO | null>(null)
 
     const handleFilterSubmit = (data: filterDTO) => {
+        console.log("DASDASDJKDSANDKASJK")
         setFilterData(data);
     };
 
