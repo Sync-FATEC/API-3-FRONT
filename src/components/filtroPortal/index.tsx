@@ -65,8 +65,6 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
       keywordFilter: '',
     };
 
-
-    console.log(filterData);
     onFilterSubmit(filterData);
   };
 
@@ -85,7 +83,6 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
     };
 
 
-    console.log(filterData);
     onFilterSubmit(filterData);
   };
 

@@ -31,7 +31,6 @@ export default function ProjetoDetalhes() {
   const fetchProjetoById = async (projectId: string) => {
     try {
       const response = await links.getProject(projectId);
-      console.log("Dados recebidos da API:", response.data);
       if (response.data) {
         setProjectData(response.data.model);
       } else {

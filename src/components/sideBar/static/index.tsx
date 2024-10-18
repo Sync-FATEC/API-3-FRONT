@@ -32,7 +32,7 @@ export default function Sidebar  () {
 
                 <div className="menu-item" id="gerenciarprojetos">
                 <Link to="/projetosVencimentos"style={{ textDecoration: 'none', color: '#8B909A' }}>
-                    <FontAwesomeIcon icon={faCalendarDays} style={{color: "#969696"}} /> Proximos vencimentos
+                    <FontAwesomeIcon icon={faCalendarDays} style={{color: "#969696"}} /> Próximos vencimentos
                     </Link>
                 </div>
               

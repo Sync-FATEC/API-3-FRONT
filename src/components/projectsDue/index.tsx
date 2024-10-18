@@ -45,7 +45,7 @@ export default function ProjectsDue() {
         <>
             <Sidebar />
             <div className="admin_center-header">
-                <h1>Projetos próximos do vencimento</h1>
+                <h1>Projetos a serem concluídos esta semana</h1>
                 <div className="user">
                     <img src="/static/img/user.svg" alt="logo" />
                     <p>Admin</p>

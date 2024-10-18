@@ -35,12 +35,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       
       const decodedToken = jwtDecode(token);
       const jsonUserInfo = JSON.parse(decodedToken.sub as string);
-      console.log(jsonUserInfo);
       setUser(jsonUserInfo);
       setIsAuthenticated(true);
       navigate('/dashboard')
     } catch (error) {
-      console.log(error);
       errorSwal((error as any).response.data.error);
     };
   };
