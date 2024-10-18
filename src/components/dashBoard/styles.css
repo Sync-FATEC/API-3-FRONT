@@ -96,9 +96,9 @@ button {
     100% {transform: rotate(1turn)}
   }
 
-  .testeteste {
+  .AllContent {
     flex-grow: 1;
-    margin-left: 270px;
+    margin-top: 50px;
   }
   
   .MainDadosAuth {

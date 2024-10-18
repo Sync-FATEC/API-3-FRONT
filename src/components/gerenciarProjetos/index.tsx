@@ -16,7 +16,11 @@ export default function GerenciarProjetos() {
 
     return (
         <>
+        <div className='MainDadosAuth'>
+            
             <Sidebar />
+            <div className='AllContent'>
+
             <div className="admin_center-header">
                 <h1>Gerenciar Projetos</h1>
                 <div className="user">
@@ -27,6 +31,8 @@ export default function GerenciarProjetos() {
             <div className='admin_center-padding'>
                 <FiltroPortal onFilterSubmit={handleFilterSubmit}/>
                 <VerProjetos filterData={filterData} />
+            </div>
+        </div>
             </div>
         </>
     );

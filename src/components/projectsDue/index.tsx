@@ -42,8 +42,12 @@ export default function ProjectsDue() {
     };
 
     return (
-        <>
+        <>  
+        <div className='MainDadosAuth'>
+
             <Sidebar />
+            <div className='AllContent'>
+
             <div className="admin_center-header">
                 <h1>Projetos a serem concluídos esta semana</h1>
                 <div className="user">
@@ -75,6 +79,8 @@ export default function ProjectsDue() {
                     </div>
                 </main>
             </div>
+            </div>
+        </div>
         </>
     );
 }

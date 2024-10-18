@@ -18,7 +18,7 @@ export default function DashBoard() {
   return (
     <div className="MainDadosAuth">
       <Sidebar />
-      <div className="testeteste">
+      <div className="AllContent">
       <div className="admin_center-header">
         <h1>Dashboard</h1>
         <div className="user">
