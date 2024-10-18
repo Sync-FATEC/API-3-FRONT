@@ -2,7 +2,6 @@
     font-weight: 700;
     size: 24px;
     padding-top: 8vh;
-    padding-left: 270px;
     margin-bottom: 64px;
 }
 .form-containerAdd{
@@ -148,10 +147,6 @@ form button {
     
 }
 
-/* Tab apenas da página de cadastro de projetos */ 
-.tabs4 {
-  padding-left: 270px;
-}
 
 .tab4 {
   background-color: transparent;
@@ -202,10 +197,6 @@ form button {
   outline: none;
 }
 
-.admin_center-padding {
-  padding-left: 150px;
-}
-
 .admin_center-header {
   display: flex;
   align-items: center;
@@ -214,7 +205,6 @@ form button {
   size: 24px;
   padding-top: 8vh;
   padding-bottom: 32px;
-  padding-left: 270px;
   padding-right: 150px;
 }
 

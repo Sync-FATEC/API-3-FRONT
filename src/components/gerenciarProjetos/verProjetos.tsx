@@ -20,6 +20,8 @@ export default function VerProjetos({ filterData }: ProjetosPortalProps) {
 
   useEffect(() => {
     const fetchProjetos = async () => {
+      console.log(1);
+      
       try {
         const response = filterData
           ? await links.filterProjects(filterData)
