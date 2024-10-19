@@ -2,7 +2,6 @@
     font-weight: 700;
     size: 24px;
     padding-top: 8vh;
-    padding-left: 270px;
     margin-bottom: 64px;
 }
 .form-containerAdd{
@@ -146,11 +145,6 @@ form button {
     flex-direction: column;
     gap: 16px;
     
-}
-
-/* Tab apenas da página de cadastro de projetos */ 
-.tabs4 {
-  padding-left: 270px;
 }
 
 .tab4 {

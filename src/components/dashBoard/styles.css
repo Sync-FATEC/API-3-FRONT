@@ -5,8 +5,6 @@
 .tabs3 {
   display: flex;
   justify-content: space-between;
-  padding-left: 270px;
-
 }
 
 .tab3 {
@@ -97,4 +95,18 @@ button {
   @keyframes s3 {
     100% {transform: rotate(1turn)}
   }
+
+  .AllContent {
+    flex-grow: 1;
+    margin-top: 50px;
+  }
   
+  .MainDadosAuth {
+    display: flex;
+  }
+
+  @media (max-width:500px) {
+    .testeteste {
+        margin-left: 0;
+    }
+}
