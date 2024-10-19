@@ -27,6 +27,13 @@
     --yellow-color: #F0CE00;
 }
 
+@media screen and (max-width: 768px) {
+    :root {
+        --padding-global: 5px 20px;
+    }
+    
+}
+
 h1 {
     color: var(--blue-color);
     font-size: 20px;

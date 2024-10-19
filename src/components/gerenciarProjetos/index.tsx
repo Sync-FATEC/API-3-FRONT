@@ -2,15 +2,14 @@
 import { useState } from 'react';
 import './styles.css';
 import Sidebar from '../sideBar/static';
-import VerProjetos from "./verProjetos";
 import filterDTO from '../../type/filterDTO';
 import FiltroPortal from '../filtroPortal';
+import ListarProjetos from '../listaProjetos/listaProjetos';
 
 export default function GerenciarProjetos() {
     const [filterData, setFilterData] = useState<filterDTO | null>(null)
 
     const handleFilterSubmit = (data: filterDTO) => {
-        console.log("DASDASDJKDSANDKASJK")
         setFilterData(data);
     };
 
@@ -26,7 +25,7 @@ export default function GerenciarProjetos() {
             </div>
             <div className='admin_center-padding'>
                 <FiltroPortal onFilterSubmit={handleFilterSubmit}/>
-                <VerProjetos filterData={filterData} />
+                <ListarProjetos filterData={filterData} />
             </div>
         </>
     );

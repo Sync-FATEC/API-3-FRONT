@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import ProjetosPortal from '../../components/projetosPortal';
+import ProjetosPortal from '../../components/listaProjetos/listaProjetos';
 import Header from '../../components/header';
 import './styles.css';
 import FiltroPortal from '../../components/filtroPortal';

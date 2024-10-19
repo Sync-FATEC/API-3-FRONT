@@ -4,9 +4,6 @@ import './styles.css';
 import Sidebar from '../sideBar/static';
 import ReferênciaProjeto from "./static/referenciaProjeto";
 import CoordenadorPage from "./static/coordenadorPage";
-import Empresas from "./static/empresas";
-import Classificacao from "./static/classificacao";
-import SituacaoProjeto from "./static/situacaodoProjeto";
 
 export default function DashBoard() {
   const [activeTab, setActiveTab] = useState<string>("Coordenador");
