@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react";
+import {useContext, useEffect, useState } from "react";
 import api, { links } from "../../api/api";
-import './styles.css';
+import './filtroPortal.css';
 import filterDTO from "../../type/filterDTO";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../contexts/auth/AuthContext"; 
 
 interface FiltroPortalProps {
-  onFilterSubmit: (data: filterDTO) => void; // Defina o tipo do parâmetro
+  onFilterSubmit: (data: filterDTO) => void; 
 }
 
 export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
@@ -23,6 +24,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
   const [keywordFilter, setKeywordFilter] = useState<string>("");
   const [withFilter, setWithFilter] = useState(false);
+  const { isAuthenticated } = useContext(AuthContext);
 
   const filtrarOpcoesEmpresas = empresas.filter(opcao =>
     opcao.toLowerCase().includes(textoEmpresas.toLowerCase())
@@ -88,7 +90,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
 
   if(withFilter) {
   return (
-    <main className="MainDados">
+    <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
       <h2>Filtro de dados</h2>
       <form onSubmit={handleSubmitDados} className="filter">
         <div className="containerForm">
@@ -203,11 +205,11 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
         <div>
         </div>
       </form>
-    </main>
+    </div>
   );
   } else {
     return (
-        <main className="MainDados">
+      <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
         <h2>Busca de projetos</h2>
         <form onSubmit={handleSubmit} className="filter formularioPesquisaPalavra">
             <input 
@@ -220,7 +222,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
             <button className="botaoPesquisa" type="submit"><FontAwesomeIcon icon={faSearch}></FontAwesomeIcon></button>
             <button className="botaoFiltro" onClick={() => setWithFilter(true)}><FontAwesomeIcon icon={faFilter} /></button>
         </form> 
-        </main>
+        </div>
     );
   }
 }

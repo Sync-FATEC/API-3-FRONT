@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import {useContext, useState, useEffect } from "react";
 import { links } from "../../api/api";
 import { Projetos } from "../../type/projeto";
 import { errorSwal } from "../swal/errorSwal";
@@ -7,6 +7,7 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import { useNavigate } from "react-router-dom";
 import filterDTO from "../../type/filterDTO";
 import "./listaProjetos.css";
+import { AuthContext } from "../../contexts/auth/AuthContext"; 
 
 interface ProjetosPortalProps {
   filterData: filterDTO | null; // Adicione esta linha para definir o tipo
@@ -18,6 +19,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
   const [totalPages, setTotalPages] = useState(1);
   const projetosPerPage = 15;
   const navigate = useNavigate();
+  const { isAuthenticated } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchProjetos = async () => {
@@ -61,7 +63,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
   };
 
   return (
-    <div className='MainDados'>
+    <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
         <h2>Projetos</h2>
         <div className="background-projects">
             <div className="Referencias">
@@ -74,11 +76,13 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
             </div>
             {currentProjetos.map((projeto) => (
                 <div className="Projetos Projetos_Responsivo" key={projeto.projectId}>
-                    <p> <label className="Referencias_Responsivo">Referencia: </label>{projeto.projectReference}</p>
-                    <p> <label className="Referencias_Responsivo">Referencia: </label>{formatDate(projeto.projectStartDate)}</p>
-                    <p> <label className="Referencias_Responsivo">Referencia: </label>{formatDate(projeto.projectEndDate)}</p>
-                    <p> <label className="Referencias_Responsivo">Referencia: </label>{projeto.nameCoordinator}</p>
-                    <p> <label className="Referencias_Responsivo">Referencia: </label>{projeto.projectValue}</p>
+                    <p> <label className="Referencias_Responsivo">Referência do projeto
+
+: </label>{projeto.projectReference}</p>
+                    <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate)}</p>
+                    <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate)}</p>
+                    <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator}</p>
+                    <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue}</p>
                     <img
                         src="/static/img/pesquisar.svg" 
                         alt="Visualizar detalhes do projeto"

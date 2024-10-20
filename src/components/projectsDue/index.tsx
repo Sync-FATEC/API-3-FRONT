@@ -1,5 +1,5 @@
-import './styles.css';
-import Sidebar from '../sideBar/static';
+import './projectsDue.css';
+import Sidebar from '../sideBar';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Projetos } from '../../type/projeto';
@@ -42,45 +42,41 @@ export default function ProjectsDue() {
     };
 
     return (
-        <>  
-        <div className='MainDadosAuth'>
+        <>
+        <Sidebar />
+            <div className='MainDadosAuth'>
+                <div className='mainDadosMobile'>
 
-            <Sidebar />
-            <div className='AllContent'>
-
-            <div className="admin_center-header">
-                <h1>Projetos a serem concluídos esta semana</h1>
-                <div className="user">
-                    <img src="/static/img/user.svg" alt="logo" />
-                    <p>Admin</p>
+                    <div className="admin_center-header">
+                        <h1>Projetos a serem concluídos esta semana</h1>
+                        <div className="user">
+                            <img src="/static/img/user.svg" alt="logo" />
+                            <p>Admin</p>
+                        </div>
+                    </div>
+                   
+                        <div className="background-projects">
+                            <div className="projetos-due">
+                                <p>Empresa</p>
+                                <p>Coordenador</p>
+                                <p>Data de inicio</p>
+                                <p>Data de fim</p>
+                                <p>Editar</p>
+                            </div>
+                            {projects.map((projeto) => (
+                                <div className="Projetos projetos-due" key={projeto.projectId}>
+                                    <p>{projeto.projectCompany}</p>
+                                    <p>{projeto.nameCoordinator}</p>
+                                    <p>{formatDate(projeto.projectStartDate)}</p>
+                                    <p>{formatDate(projeto.projectEndDate)}</p>
+                                    <Link to={`/editar-projeto/${projeto.projectId}`}>
+                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                    </Link>
+                                </div>
+                            ))}
+                        </div>
                 </div>
             </div>
-            <div className='admin_center-padding'>
-                <main className='MainDados'>
-                    <div className="background-projects">
-                        <div className="Referencias projetos-due">
-                            <p>Empresa</p>
-                            <p>Coordenador</p>
-                            <p>Data de inicio</p>
-                            <p>Data de fim</p>
-                            <p>Editar</p>
-                        </div>
-                        {projects.map((projeto) => (
-                            <div className="Projetos projetos-due" key={projeto.projectId}>
-                                <p>{projeto.projectCompany}</p>
-                                <p>{projeto.nameCoordinator}</p>
-                                <p>{formatDate(projeto.projectStartDate)}</p>
-                                <p>{formatDate(projeto.projectEndDate)}</p>
-                                <Link to={`/editar-projeto/${projeto.projectId}`}>
-                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                </Link>
-                            </div>
-                        ))}
-                    </div>
-                </main>
-            </div>
-            </div>
-        </div>
         </>
     );
 }

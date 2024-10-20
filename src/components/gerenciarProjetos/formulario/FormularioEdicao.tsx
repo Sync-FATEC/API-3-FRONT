@@ -1,12 +1,12 @@
 import { useState, useRef, useEffect } from "react";
-import "../styles.css";
+import "../gerenciarProjetos.css";
 import AddAnexo from "../../addAnexo";
 import documents from "../../../type/documents";
 import { Projetos } from "../../../type/projeto";
 import { ProjectStatus } from "../../../enums/ProjectStatus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { RemoveAnexos } from "../../removeAnexos/RemoveAnexos";
+import { RemoveAnexos } from "../../removeAnexos";
 import { UpdateProject } from "../../../type/updateProject";
 import { errorSwal } from "../../swal/errorSwal";
 
@@ -123,104 +123,110 @@ export default function FormularioEdicaoProjeto({
   };
 
   return (
-    <div ref={formRef} className="form-containeredit">
-      <form className="addProjetos" onSubmit={handleSubmit}>
+    <div ref={formRef} className="">
+      <form className="background-projects" onSubmit={handleSubmit}>
         <div>
-          <div className="input-flex-container">
-            <div className="input-placeholder-container">
-              <input
-                type="text"
-                className="input"
-                name="referencia"
-                placeholder=" "
-                value={projeto.projectReference}
-                onChange={(e) => handleChange("projectReference", e)}
-              />
-              <label className="placeholder">Referência do projeto</label>
-            </div>
-            <div className="input-placeholder-container">
-              <input
-                type="text"
-                className="input"
-                name="empresa"
-                placeholder=" "
-                value={projeto.projectCompany}
-                onChange={(e) => handleChange("projectCompany", e)}
-              />
-              <label className="placeholder">Empresa</label>
-            </div>
+
+          <div className="campo-projeto">
+            <label className="placeholder">Referência do projeto</label>
+
+            <input
+              type="text"
+              className="input"
+              name="referencia"
+              placeholder=" "
+              value={projeto.projectReference}
+              onChange={(e) => handleChange("projectReference", e)}
+            />
           </div>
-          <div className="input-flex-container">
-            <div className="input-placeholder-container">
-              <input
-                type="text"
-                className="input"
-                name="coordenador"
-                placeholder=" "
-                value={projeto.nameCoordinator}
-                onChange={(e) => handleChange("nameCoordinator", e)}
-              />
-              <label className="placeholder">Coordenador</label>
-            </div>
-            <div className="input-placeholder-container">
-              <input
-                type="number"
-                className="input"
-                name="valor"
-                placeholder=" "
-                value={projeto.projectValue}
-                onChange={(e) => handleChange("projectValue", e)}
-              />
-              <label className="placeholder">Valor do projeto</label>
-            </div>
+          <div className="campo-projeto">
+            <label className="placeholder">Empresa</label>
+            <input
+              type="text"
+              className="input"
+              name="empresa"
+              placeholder=" "
+              value={projeto.projectCompany}
+              onChange={(e) => handleChange("projectCompany", e)}
+            />
+
           </div>
-          <div className="input-flex-container">
-            <div className="input-placeholder-container">
-              <input
-                type="date"
-                className="input"
-                name="dataInicio"
-                value={projeto.projectStartDate}
-                onChange={(e) => handleChange("projectStartDate", e)}
-              />
-              <label className="placeholder">Data de início</label>
-            </div>
-            <div className="input-placeholder-container">
-              <input
-                type="date"
-                className="input"
-                name="dataTermino"
-                value={projeto.projectEndDate}
-                onChange={(e) => handleChange("projectEndDate", e)}
-              />
-              <label className="placeholder">Data de término</label>
-            </div>
+
+
+          <div className="campo-projeto">
+            <label className="placeholder">Coordenador</label>
+            <input
+              type="text"
+              className="input"
+              name="coordenador"
+              placeholder=" "
+              value={projeto.nameCoordinator}
+              onChange={(e) => handleChange("nameCoordinator", e)}
+            />
+
           </div>
-          <div className="input-big-container">
-            <div className="input-placeholder-container" id="inputBig">
-              <input
-                type="text"
-                className="input"
-                name="objeto"
-                placeholder=" "
-                value={projeto.projectObjective}
-                onChange={(e) => handleChange("projectObjective", e)}
-              />
-              <label className="placeholder">Objeto</label>
-            </div>
-            <div className="input-placeholder-container" id="inputBig">
-              <input
-                type="text"
-                className="input"
-                name="descricao"
-                placeholder=" "
-                value={projeto.projectDescription}
-                onChange={(e) => handleChange("projectDescription", e)}
-              />
-              <label className="placeholder">Descrição</label>
-            </div>
+          <div className="campo-projeto">
+            <label className="placeholder">Valor do projeto</label>
+            <input
+              type="number"
+              className="input"
+              name="valor"
+              placeholder=" "
+              value={projeto.projectValue}
+              onChange={(e) => handleChange("projectValue", e)}
+            />
+
           </div>
-          <div className="classification">
+
+
+          <div className="campo-projeto">
+            <label className="placeholder">Data de início</label>
+            <input
+              type="date"
+              className="input"
+              name="dataInicio"
+              value={projeto.projectStartDate}
+              onChange={(e) => handleChange("projectStartDate", e)}
+            />
+
+          </div>
+          <div className="campo-projeto">
+            <label className="placeholder">Data de término</label>
+            <input
+              type="date"
+              className="input"
+              name="dataTermino"
+              value={projeto.projectEndDate}
+              onChange={(e) => handleChange("projectEndDate", e)}
+            />
+          </div>
+
+          <div className="campo-projeto">
+            <label className="placeholder">Objeto</label>
+            <input
+              type="text"
+              className="input"
+              name="objeto"
+              placeholder=" "
+              value={projeto.projectObjective}
+              onChange={(e) => handleChange("projectObjective", e)}
+            />
+
+          </div>
+          <div className="campo-projeto">
+            <label className="placeholder">Descrição</label>
+            <input
+              type="text"
+              className="input"
+              name="descricao"
+              placeholder=" "
+              value={projeto.projectDescription}
+              onChange={(e) => handleChange("projectDescription", e)}
+            />
+          </div>
+
+          <div className="campo-projeto">
+            <label className="placeholder">Classificação</label>
             <select
               name="classificacao"
               id="classificacao"
@@ -238,10 +244,12 @@ export default function FormularioEdicaoProjeto({
               <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
           </div>
-          <button type="submit">
-            <FontAwesomeIcon icon={faEdit} />
-            Salvar Edição
-          </button>
+          <div className="campo-projeto">
+            <button id="button-editar" type="submit">
+              <FontAwesomeIcon icon={faEdit} />
+              Salvar Edição
+            </button> 
+            </div>
         </div>
         <div>
           <div className="right-side">
@@ -261,6 +269,9 @@ export default function FormularioEdicaoProjeto({
                   handleRemoveAnexoComponent={handleRemoveAnexoComponent}
                 />
               ))}
+              <div className="add-anexo">
+
+             
               <button
                 type="button"
                 className="adicionar-btn"
@@ -268,6 +279,7 @@ export default function FormularioEdicaoProjeto({
               >
                 Adicionar anexo
               </button>
+               </div>
             </div>
           </div>
         </div>
@@ -277,8 +289,11 @@ export default function FormularioEdicaoProjeto({
         <div className="modal">
           <div className="modal-content">
             <h1>Você tem certeza que deseja salvar as alterações?</h1>
-            <button className="buttons" onClick={confirmSubmit}>Sim</button>
-            <button className="delete-buttons" onClick={handleCancel}>Não</button>
+            <div className="modal-button">
+              <button className="buttons" onClick={confirmSubmit}>Sim</button>
+              <button className="delete-buttons" onClick={handleCancel}>Não</button>
+            </div>
+
           </div>
         </div>
       )}

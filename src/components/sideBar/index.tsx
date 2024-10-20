@@ -1,9 +1,9 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faFolder, faUsers, faSignOutAlt, faUsersGear, faCirclePlus, faCube, faCalendarDays, faBars, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSignOutAlt, faCirclePlus, faCube, faCalendarDays, faBars, faClose } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import "./sidebar.css";
-import Logout from '../../../contexts/auth/logout';
-
+import Logout from '../../contexts/auth/logout';
+import '../../global.css';
 const toggleMenu = () => {
     const sidebar = document.querySelector('.sidebarMobile .menu');
     if (sidebar) {
@@ -59,9 +59,16 @@ export default function Sidebar  () {
                 <FontAwesomeIcon icon={faBars} style={{color: "#969696"}} /> Abrir menu
             </button>
             <div className="menu">
+                <div className='menu-logo'>
+
+                
+            <div className="logo">
+                    <img src="/static/img/logo.svg" alt="" />
+            </div>
                 <button onClick={toggleMenu} className='menu-item buttonClose'>
                     <FontAwesomeIcon icon={faClose} style={{color: "#969696"}} /> Fechar menu
                 </button>
+                </div>
                 <h4>Menu</h4>
                 <div className="menu-item dashBoard">
                     

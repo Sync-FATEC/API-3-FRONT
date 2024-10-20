@@ -1,33 +1,42 @@
 .add-anexo {
     display: flex;
     flex-direction: column;
-    gap: 24px;
-    
+    padding: 16px;
+    gap: 16px;
+
 }
+
 .add-anexo select {
-    padding: 8px;
-    height: 48px;
-    border: 2px solid silver;
+    padding: 10px;
+    width: 100%;
     border-radius: 10px;
+    border: none;
     background-color: var(--lightgray-color);
-    color: var(--blue-color);
-    font-size: 16px;
-    transition: border 0.3s;
 }
+
+.add-anexo label {
+    font-weight: bold;
+    width: 100%;
+    margin-bottom: 5px;
+    border-radius: 6px;
+  }
+  
+
+
 .add-anexo select:focus {
     border: 2px solid var(--blue-color);
     outline: none;
 }
+
 .add-anexo input[type="file"] {
     padding: 10px;
-    border: 2px solid silver;
+    width: 100%;
     border-radius: 10px;
+    border: none;
     background-color: var(--lightgray-color);
-    color: var(--blue-color);
-    font-size: 16px;
-    transition: border 0.3s;
-    
+
 }
+
 .add-anexo input[type="file"]:focus {
     border: 2px solid var(--blue-color);
     outline: none;

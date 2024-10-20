@@ -6,19 +6,25 @@
 
 .campo-projeto label {
   font-weight: bold;
-  width: 418px;
+  width: 100%;
   margin-bottom: 5px;
   border-radius: 6px;
 }
 
 .campo-projeto span {
   padding: 10px;
-  width: 500px;
+  width: 100%;
   border-radius: 10px;
   border: none;
   background-color: var(--lightgray-color);
 }
-
+.campo-projeto input {
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--lightgray-color);
+}
 .botao-voltar {
   display: flex;
   flex-direction: row;
@@ -48,22 +54,24 @@
   transform: rotate(135deg);
 }
 
-.background2,
 #fundo {
   background:
     linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)),
     url(/src/pages/portalTransparencia/static/img/fundo.png) no-repeat center center;
   background-color: #D9D9D9E5;
   padding: var(--padding-global);
-  width: auto;
-  height: 100px;
+  padding-bottom: 32px;
 }
 
-.fundo {
-  padding-left: 20px;
+.title{
+  display: flex;
+  flex-direction: column;
 }
+
 .main-conteiner-auth {
-  padding-top: 24px;
+  padding-top: 50px;
+  padding-left: 270px;
+  padding-right: 40px;
   
 }
 .background2 h1 {
@@ -107,9 +115,6 @@
   box-shadow: none;
 }
 
-button {
-  box-shadow: none !important;
-}
 
 .anexos {
   display: flex;
@@ -122,8 +127,8 @@ button {
   padding-bottom: 12px;
 }
 .button-container {
-  padding-left: 20px;
-  padding-top: 10px;
+  padding-left: 16px;
+  margin-bottom: 32px;
   display: flex;
   gap: 20px;
 }
@@ -135,6 +140,10 @@ button {
   padding: 10px 20px; 
   cursor: pointer; 
   transition: background-color 0.5s; 
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
 }
 
 .buttons:hover {
@@ -154,6 +163,10 @@ button {
   padding: 10px 20px; 
   cursor: pointer; 
   transition: background-color 0.5s; 
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
 }
 
 .delete-buttons:hover {
@@ -173,22 +186,22 @@ button {
   justify-content: center;
 }
 
-.modal-content {
-  padding-top: 20px;
-  font-size:large;
-  width: 425px;
-  height: 240px;
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-  border-radius: 5px;
+
+
+
+#detalhesProjeto{
+  padding: var(--padding-global);
 }
 
-.modal-content button {
-  margin: 10px;
-  margin-top: 50px;
-}
-.background-projects{
-  padding-left: 50px;
+
+@media (max-width: 768px) {
+  .campo-projeto span {
+    width: auto;
+  }
+  .main-conteiner-auth{
+    padding: 20px;
+    padding-top: 128px;
+
+  }
+  
 }

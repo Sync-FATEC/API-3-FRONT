@@ -1,10 +1,9 @@
 import { useState } from 'react';
-import ProjetosPortal from '../../components/listaProjetos/listaProjetos';
+import ProjetosPortal from '../../components/listaProjetos';
 import Header from '../../components/header';
-import './styles.css';
+import './portalTransparencia.css';
 import FiltroPortal from '../../components/filtroPortal';
 import filterDTO from '../../type/filterDTO';
-import FiltroPorPalavraChave from '../../components/filtroPortal/porPalavraChave';
 
 export default function PortalTransparencia() {
     const [filterData, setFilterData] = useState<filterDTO | null>(null);

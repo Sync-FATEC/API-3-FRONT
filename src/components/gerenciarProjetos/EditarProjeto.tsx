@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api, { links } from "../../api/api";
 import { UpdateProject } from "../../type/updateProject";
-import Sidebar from "../sideBar/static";
+import Sidebar from "../sideBar";
 import { Projetos } from "../../type/projeto";
-import '../addProjetos/';
-import './styles.css'
+import '../addProjetos';
+import './gerenciarProjetos.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
@@ -80,21 +80,25 @@ export default function EditarProjeto() {
 
   return (
   
-    <div>
+    <>
       <Sidebar />
+      <div className="main-conteiner-auth">
+     
+
       <div className="admin_center-header">
-        <div className="title">
+        <div>
         <h1>Editar Projeto</h1>
         <button className="botao-voltar" onClick={handleBackButtonClick}>
           <FontAwesomeIcon icon={faChevronCircleLeft} />
           Voltar
         </button>
         </div>
+        
         <div className="user">
           <img src="/static/img/user.svg" alt="logo" />
           <p>Admin</p>
         </div>
-      </div>
+        </div>
       {error && <p>{error}</p>}
       <FormularioEdicaoProjeto
         onSubmit={handleProjetoSubmit} 
@@ -102,5 +106,7 @@ export default function EditarProjeto() {
       />
       {enviado && <p>Projeto editado com sucesso!</p>}
     </div>
+   
+    </>
   );
 }

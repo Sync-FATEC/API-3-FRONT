@@ -1,0 +1,36 @@
+.document-view p {
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--lightgray-color);
+}
+.document-view{
+    gap: 24px;
+}
+.document-wrap{
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+
+}
+
+.add-anexo input[type="file"] {
+    padding: 10px;
+    width: 100%;
+    border-radius: 10px;
+    border: none;
+    background-color: var(--lightgray-color);
+
+}
+
+.remove-anexo {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+
+}
+
+

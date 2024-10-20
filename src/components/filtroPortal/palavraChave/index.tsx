@@ -35,7 +35,7 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
     };
 
     return (
-        <div>
+        <>
             <input 
                 type="text" 
                 value={keyword} 
@@ -43,7 +43,7 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
                 placeholder="Digite a palavra-chave" 
             />
             <button onClick={handleSearch}>Buscar</button>
-        </div>
+        </>
     );
 };
 

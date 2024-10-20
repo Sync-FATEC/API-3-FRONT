@@ -10,13 +10,6 @@
   gap: 32px;
   justify-content: space-around;
 }
-.form-containeredit{
-  display: flex;
-  flex-direction: row;
-  margin-left: 260px;
-  gap: 32px;
-  justify-content: space-around;
-}
 .addProjetos {
     display: flex;
     width: 100%;
@@ -32,7 +25,7 @@
     font-size: 40px;
     margin-bottom: 30px;
 }
-/* Início Input Add Projetos*/
+/* 
 .input-placeholder-container {
     width: 200px;
     height: 48px;
@@ -41,7 +34,7 @@
     position: relative;
 }
 .input {
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 100%;
     top: 0;
@@ -74,11 +67,11 @@
     transform: translateY(-50%);
     user-select: none;
     padding: 0 4px;
-    background: var(--lightgray-color);
+    background-color: var(--off-white-color);
     color: var(--blue-color);
     font-size: 16.5px;
     pointer-events: none;
-    transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s;
+    transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s; 
 }
 .input:focus {
     border: 2px solid var(--blue-color);
@@ -98,18 +91,15 @@
   font-weight: 500;
   color: var(--blue-color);
 }
-/* Fim Input Add Projetos*/
+*/
 
-form button {
-    border-radius: 12px;
-    border: none;
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    font-weight: bold;
-    width: 200px;
-    height: 48px;
-  }
-  
+.campo-projeto select {
+  padding: 10px;
+  width: 100%;
+  border-radius: 10px;
+  border: none;
+  background-color: var(--lightgray-color);
+}
 
 .headerPortal input{
     gap: 10px;
@@ -127,12 +117,14 @@ form button {
     background-color: var(--lightgray-color);
     border-radius: var(--padding-input);
  }
+ /*
  .right-side {
     display: flex;
     width: 360px;
     flex-direction: column; 
     
   }
+    */
   .error-message {
     color: red;
     font-size: 12px;
@@ -153,8 +145,7 @@ form button {
     gap: 16px;
     
 }
-
-
+/*
 .tab4 {
   background-color: transparent;
   border: none;
@@ -180,9 +171,10 @@ form button {
   box-shadow: none;
 
 }
-/* Fim Tab apenas da página de cadastro de projetos */ 
+  */ 
 
 /* Select Classificação */
+/*
 .classification{
   display: flex;
   flex-direction: column;
@@ -191,11 +183,10 @@ form button {
   padding: 8px;
   height: 48px;
   margin-bottom: 24px;
-  gap: 24px;
   border: 2px solid silver;
   color: var(--blue-color);
   border-radius: 10px;
-  background-color: var(--lightgray-color);
+  background-color: transparent;
   font-size: 16px;
   transition: border 0.3s;
 }
@@ -203,63 +194,26 @@ form button {
   border: 2px solid var(--blue-color);
   outline: none;
 }
+*/
+@media (max-width: 768px) {
+    .addProjetos {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
 
-.admin_center-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-weight: 700;
-  size: 24px;
-  padding-top: 8vh;
-  padding-bottom: 32px;
-  padding-right: 150px;
-}
+    .classification select{
+      width: 416px;
+    }
 
-.user {
-  display: flex;
-  flex-direction: row;
-  gap: 8px;
-  align-items: center;
+    .add-anexo select, .add-anexo input[type="file"]{
+      width: 416px;
+    }
+    .hidden {
+      display: none; /* Ou use visibility: hidden; se preferir */
+  }
+  
 }
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.modal-content {
-  padding-top: 20px;
-  font-size:large;
-  width: 440px;
-  height: 250px;
-  background: white;
-  padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-  border-radius: 5px;
-}
-
-.modal-content button {
-  margin: 10px;
-  margin-top: 50px;
-}
-
-.delete-buttons {
-  background-color: red;
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  transition: background-color 0.5s; 
-}
-
-.delete-buttons:hover {
-  background-color: rgb(165, 3, 3);
+.hidden {
+  display: none; /* Ou use visibility: hidden; se preferir */
 }

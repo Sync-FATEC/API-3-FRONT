@@ -1,5 +1,5 @@
 import documents from "../../type/documents";
-import "./style.css";
+import "./removeAnexos.css";
 
 interface RemoveAnexosProps {
     documento: documents;
@@ -21,17 +21,23 @@ export function RemoveAnexos({ documento, onDeleteDocument }: RemoveAnexosProps)
         <>
             {documento && !documento.removed && (
                 <div className="document-view">
-                    <p style={{ textDecoration: "none" }}>
-                        {capitalizeFirstLetter(documento.fileName)}
-                    </p>
-                    <br />
+                    <div className="document-wrap">
+                   
+                    
                     <p style={{ textDecoration: "none" }}>
                         {capitalizeFirstLetter(documento.fileType)}
                     </p>
-                    <br />
+                    <p style={{ textDecoration: "none" }}>
+                        {capitalizeFirstLetter(documento.fileName)}
+                    </p>
+                    </div>
+                    <div className="remove-anexo">
+
+                   
                     <button type="button" onClick={() => handleDeleteDocumento(documento)}>
                         Remover
-                    </button>
+                    </button> 
+                    </div>
                 </div>
             )}
         </>
