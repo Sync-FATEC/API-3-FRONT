@@ -31,8 +31,12 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
         if (response.data && response.data.model) {
           const allProjetos = response.data.model;
           setProjetos(allProjetos);
-          const total = Math.ceil(allProjetos.length / projetosPerPage);
+          let total = Math.ceil(allProjetos.length / projetosPerPage);
+          if(total == 0){
+            total = 1
+          }
           setTotalPages(total);
+          setCurrentPage(1);
         } else {
           errorSwal("Dados de projeto não encontrados.");
         }
