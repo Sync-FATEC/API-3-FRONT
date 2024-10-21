@@ -2,15 +2,15 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import api, { links } from "../../api/api";
 import { UpdateProject } from "../../type/updateProject";
-import Sidebar from "../sideBar/sideBar";
+import Sidebar from "../../components/sideBar/sideBar";
 import { Projects } from "../../type/projects";
-import '../gerenciarProjetos/gerenciarProjetos.css'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import { useContext } from "react";
-import FormularioEdicaoProjeto from "../formulario/FormularioEdicao";
+import FormularioEdicaoProjeto from "../../components/formulario/FormularioEdicao";
 import documents from "../../type/documents";
+import './EditProjects.css';
 
 
 export default function EditarProjeto() {

@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import "../gerenciarProjetos/gerenciarProjetos.css";
+import "../../pages/GerenciarProjetos/gerenciarProjetos.css";
 import AddAnexo from "../addAnexo/addAnexos";
 import documents from "../../type/documents";
 import { Projects } from "../../type/projects";

@@ -1,10 +1,10 @@
 import './projectsDue.css';
-import Sidebar from '../sideBar/sideBar';
+import Sidebar from '../../components/sideBar/sideBar';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { Projects } from '../../type/projects';
 import { links } from '../../api/api';
-import Loading from '../loading/loading';
+import Loading from '../../components/loading/loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 

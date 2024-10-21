@@ -1,13 +1,13 @@
 import './addProjects.css';
 import { useState, useRef } from "react";
-import Sidebar from '../sideBar/sideBar';
+import Sidebar from '../../components/sideBar/sideBar';
 import api, { links } from "../../api/api";
-import { errorSwal } from "../swal/errorSwal";
-import { successSwal } from "../swal/sucessSwal";
-import AddAnexo from '../addAnexo/addAnexos';
+import { errorSwal } from "../../components/swal/errorSwal";
+import { successSwal } from "../../components/swal/sucessSwal";
+import AddAnexo from '../../components/addAnexo/addAnexos';
 import createProject from "../../type/createProject";
 
-export default function AddProjetos() {
+export default function AddProjects() {
   const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
   const [projectId, setProjectId] = useState<string>("");
   const [referencia, setReferencia] = useState<string>("");

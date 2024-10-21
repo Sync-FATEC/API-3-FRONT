@@ -1,18 +1,12 @@
 import { useEffect, useRef, useState } from "react";
-import "./addAnexo.css";
+import "./AddAnexo.css";
+import { TipoAnexo } from "../../enums/TipoAnexos";
 
 interface AddAnexoProps {
     onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;
     resetFile?: boolean;
     handleRemoveAnexoComponent: (id: number) => void;
     id: number ;
-}
-
-enum TipoAnexo {
-    CONTRATO = "CONTRATO",
-    TERMO_ADITIVO = "TERMO_ADITIVO",
-    PLANO_DE_TRABALHO = "PLANO_DE_TRABALHO",
-    OUTROS = "OUTROS"
 }
 
 export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoComponent, id }: AddAnexoProps) {

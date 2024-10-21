@@ -6,10 +6,10 @@ import { AuthProvider } from './contexts/auth/AuthContext';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
 import DashBoard from './components/dashBoard/dashBoard';
-import AddProjetos from './components/addProjects/addProjects';
-import GerenciarProjetos from './components/gerenciarProjetos/gerenciarProjetos';
-import EditarProjeto from './components/editProjects/EditProjects';
-import ProjectsDue from './components/projectsDue/projectsDue';
+import AddProjetos from './pages/addProjects/addProjects';
+import EditarProjeto from './pages/editProjects/EditProjects';
+import ProjectsDue from './pages/projectsDue/projectsDue';
+import GerenciarProjetos from './pages/GerenciarProjetos/GerenciarProjetos';
 
 function App() {
   return (
