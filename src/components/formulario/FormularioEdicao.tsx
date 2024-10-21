@@ -1,25 +1,25 @@
 import { useState, useRef, useEffect } from "react";
-import "../gerenciarProjetos.css";
-import AddAnexo from "../../addAnexo";
-import documents from "../../../type/documents";
-import { Projetos } from "../../../type/projeto";
-import { ProjectStatus } from "../../../enums/ProjectStatus";
+import "../gerenciarProjetos/gerenciarProjetos.css";
+import AddAnexo from "../addAnexo/addAnexos";
+import documents from "../../type/documents";
+import { Projects } from "../../type/projects";
+import { ProjectStatus } from "../../enums/ProjectStatus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit } from "@fortawesome/free-solid-svg-icons";
-import { RemoveAnexos } from "../../removeAnexos";
-import { UpdateProject } from "../../../type/updateProject";
-import { errorSwal } from "../../swal/errorSwal";
+import { RemoveAnexos } from "../removeAnexos/removeAnexos";
+import { UpdateProject } from "../../type/updateProject";
+import { errorSwal } from "../swal/errorSwal";
 
 interface FormularioEdicaoProjetoProps {
   onSubmit: (projeto: UpdateProject, anexos: any, anexosRemovidos: documents[]) => void;
-  initialData?: Projetos | null;
+  initialData?: Projects | null;
 }
 
 export default function FormularioEdicaoProjeto({
   onSubmit,
   initialData,
 }: FormularioEdicaoProjetoProps) {
-  const [projeto, setProjeto] = useState<Projetos>({
+  const [projeto, setProjeto] = useState<Projects>({
     projectId: "",
     projectReference: "",
     nameCoordinator: "",
@@ -48,11 +48,11 @@ export default function FormularioEdicaoProjeto({
     }
   }, [initialData]);
 
-  const handleChangeSelect = (field: keyof Projetos, e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelect = (field: keyof Projects, e: React.ChangeEvent<HTMLSelectElement>) => {
     setProjeto((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleChange = (field: keyof Projetos, novoValor: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (field: keyof Projects, novoValor: React.ChangeEvent<HTMLInputElement>) => {
     setProjeto((prev) => ({ ...prev, [field]: novoValor.target.value }));
   };
 

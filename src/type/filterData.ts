@@ -1,4 +1,4 @@
-type filterDTO = {
+type filterData = {
     projectReference: string;
     projectCompany: string;
     nameCoordinator: string;
@@ -9,4 +9,4 @@ type filterDTO = {
     keywordFilter: string;
 }
 
-export default filterDTO;
+export default filterData;

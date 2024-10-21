@@ -1,9 +1,9 @@
 import axios from "axios";
 import createProject from "../type/createProject";
-import AddAnexo from "../components/addAnexo";
+import AddAnexo from "../components/addAnexo/addAnexos";
 import { get } from "http";
-import filterDTO from "../type/filterDTO";
-import { Projetos } from "../type/projeto";
+import filterDTO from "../type/filterData";
+import { Projects } from "../type/projects";
 import { UpdateProject } from "../type/updateProject";
 
 const api = axios.create({

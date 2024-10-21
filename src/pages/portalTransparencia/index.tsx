@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import ProjetosPortal from '../../components/listaProjetos';
-import Header from '../../components/header';
+import Header from '../../components/header/header';
 import './portalTransparencia.css';
-import FiltroPortal from '../../components/filtroPortal';
-import filterDTO from '../../type/filterDTO';
+import FiltroPortal from '../../components/filtroPortal/filtroPortal';
+import filterData from '../../type/filterData';
+import ListarProjetos from '../../components/listaProjetos/listaProjetos';
 
 export default function PortalTransparencia() {
-    const [filterData, setFilterData] = useState<filterDTO | null>(null);
+    const [filterData, setFilterData] = useState<filterData | null>(null);
 
-    const handleFilterSubmit = (data: filterDTO) => {
+    const handleFilterSubmit = (data: filterData) => {
         setFilterData(data);
     };
 
@@ -24,7 +24,7 @@ export default function PortalTransparencia() {
                 </section>
             </div>
             <FiltroPortal onFilterSubmit={handleFilterSubmit} />    
-            <ProjetosPortal filterData={filterData}/>   
+            <ListarProjetos filterData={filterData}/>   
         </>
     );
 }

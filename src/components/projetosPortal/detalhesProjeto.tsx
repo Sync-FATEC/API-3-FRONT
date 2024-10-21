@@ -1,24 +1,24 @@
 import { useContext, useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import api, { links } from "../../api/api";
-import { Projetos } from "../../type/projeto";
+import { Projects } from "../../type/projects";
 import "./projetosPortal.css";
-import Loading from "../loading";
+import Loading from "../loading/loading";
 import documents from "../../type/documents";
-import Anexos from "./anexos";
-import Header from "../header";
+import Anexos from "../anexos/anexos";
+import Header from "../header/header";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProjectStatus } from "../../enums/ProjectStatus";
 import { faCancel, faChevronCircleLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
-import Sidebar from "../sideBar";
+import Sidebar from "../sideBar/sideBar";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
   const location = useLocation();
   const navigate = useNavigate();
-  const { projeto } = (location.state as { projeto?: Projetos }) || {};
-  const [projectData, setProjectData] = useState<Projetos | null>(projeto || null);
+  const { projeto } = (location.state as { projeto?: Projects }) || {};
+  const [projectData, setProjectData] = useState<Projects | null>(projeto || null);
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Informações do Projeto");
   const [contratos, setContratos] = useState<documents[]>([]);

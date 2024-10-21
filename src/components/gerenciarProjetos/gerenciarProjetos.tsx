@@ -1,10 +1,10 @@
 // GerenciarProjetos.tsx
 import { useState } from 'react';
 import './gerenciarProjetos.css';
-import Sidebar from '../sideBar';
-import filterDTO from '../../type/filterDTO';
-import FiltroPortal from '../filtroPortal';
-import ListarProjetos from '../listaProjetos';
+import Sidebar from '../sideBar/sideBar';
+import filterDTO from '../../type/filterData';
+import FiltroPortal from '../filtroPortal/filtroPortal';
+import ListarProjetos from '../listaProjetos/listaProjetos';
 
 export default function GerenciarProjetos() {
     const [filterData, setFilterData] = useState<filterDTO | null>(null)

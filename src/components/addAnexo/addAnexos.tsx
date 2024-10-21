@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./AddAnexo.css";
+import "./addAnexo.css";
 
 interface AddAnexoProps {
     onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;

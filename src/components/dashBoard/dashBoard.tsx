@@ -1,6 +1,6 @@
 import { useState } from "react";
 import './dashBoard.css';
-import Sidebar from '../sideBar';
+import Sidebar from '../sideBar/sideBar';
 import CoordenadorPage from "./tabs/coordenadorPage";
 
 export default function DashBoard() {

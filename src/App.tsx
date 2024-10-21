@@ -5,11 +5,11 @@ import PortalTransparencia from './pages/portalTransparencia';
 import { AuthProvider } from './contexts/auth/AuthContext';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
 import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
-import DashBoard from './components/dashBoard';
-import AddProjetos from './components/addProjetos';
-import GerenciarProjetos from './components/gerenciarProjetos';
-import EditarProjeto from './components/gerenciarProjetos/EditarProjeto';
-import ProjectsDue from './components/projectsDue';
+import DashBoard from './components/dashBoard/dashBoard';
+import AddProjetos from './components/addProjects/addProjects';
+import GerenciarProjetos from './components/gerenciarProjetos/gerenciarProjetos';
+import EditarProjeto from './components/editProjects/EditProjects';
+import ProjectsDue from './components/projectsDue/projectsDue';
 
 function App() {
   return (

@@ -1,11 +1,11 @@
 import {useContext, useState, useEffect } from "react";
 import { links } from "../../api/api";
-import { Projetos } from "../../type/projeto";
+import { Projects } from "../../type/projects";
 import { errorSwal } from "../swal/errorSwal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import filterDTO from "../../type/filterDTO";
+import filterDTO from "../../type/filterData";
 import "./listaProjetos.css";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 
@@ -14,7 +14,7 @@ interface ProjetosPortalProps {
 }
 
 export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
-  const [projetos, setProjetos] = useState<Projetos[]>([]);
+  const [projetos, setProjetos] = useState<Projects[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const projetosPerPage = 15;
@@ -56,7 +56,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
     setCurrentPage(newPage);
   };
 
-  const handleProjetoClick = (projeto: Projetos) => {
+  const handleProjetoClick = (projeto: Projects) => {
     navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
   };
 

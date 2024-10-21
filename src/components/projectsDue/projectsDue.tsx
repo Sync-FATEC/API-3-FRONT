@@ -1,15 +1,15 @@
 import './projectsDue.css';
-import Sidebar from '../sideBar';
+import Sidebar from '../sideBar/sideBar';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { Projetos } from '../../type/projeto';
+import { Projects } from '../../type/projects';
 import { links } from '../../api/api';
-import Loading from '../loading';
+import Loading from '../loading/loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
 
 export default function ProjectsDue() {
-    const [projects, setProjects] = useState<Projetos[]>([]);
+    const [projects, setProjects] = useState<Projects[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 

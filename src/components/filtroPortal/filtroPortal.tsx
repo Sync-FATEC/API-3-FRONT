@@ -1,7 +1,7 @@
 import {useContext, useEffect, useState } from "react";
 import api, { links } from "../../api/api";
 import './filtroPortal.css';
-import filterDTO from "../../type/filterDTO";
+import filterDTO from "../../type/filterData";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFilter, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
