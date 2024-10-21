@@ -95,6 +95,29 @@ section.formAuth div.formAuthImg .card {
 input:focus,
 button:hover {
   outline: none;
-  box-shadow: 6px 6px 6px #bebebe,
-    -6px -6px 12px var(--white-color);
+}
+
+.logo-mobile{
+  display: none;
+}
+@media (max-width: 768px) {
+  .formAuthImg {
+      display: none  !important;
+    }
+
+    section.formAuth form {
+      width: 100%;
+    }
+
+    .logo-mobile{
+      display: flex;
+      padding-bottom: 32px;
+    }
+  
+}
+@media (max-width: 568px) {
+  
+}
+@media (max-width: 320px) {
+  
 }

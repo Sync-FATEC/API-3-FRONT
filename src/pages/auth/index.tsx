@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import './styles.css';
+import './auth.css';
 import { AuthContext } from '../../contexts/auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -25,6 +25,7 @@ export default function Auth() {
     <main>
       <section className='formAuth Login'>
         <form onSubmit={handleSubmitLogin}>
+        <img className='logo-mobile' src="/static/img/logo.svg" alt="" />
           <h1>Portal Transparência</h1>
           <p>Acesso Admin</p>
           <input type='text' id='text' name='text' placeholder='Email' required />

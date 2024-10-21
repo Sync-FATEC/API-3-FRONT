@@ -2,8 +2,7 @@ import { ProjectStatus } from "../enums/ProjectStatus";
 import documents from "./documents";
 
 
-export type Projetos = {
-    projectId: string;
+export type UpdateProject = {
     projectReference: string;
     nameCoordinator: string;
     projectCompany: string;
@@ -14,6 +13,4 @@ export type Projetos = {
     projectEndDate: string;
     projectClassification: string;
     projectStatus: ProjectStatus;
-    documents: documents[];
-    historyProject: any[];
 };

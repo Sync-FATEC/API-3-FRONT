@@ -9,8 +9,6 @@ interface RequireAuthProps {
 const RequireAuthAdmin: React.FC<RequireAuthProps> = ({ children }) => {
     const { isAuthenticated, user } = useContext(AuthContext);
 
-    console.log(user?.role);
-
     if (!isAuthenticated || user?.role !== 'ADMIN') {
         return <Navigate to="/auth" />;
     }

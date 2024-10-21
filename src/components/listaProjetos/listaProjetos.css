@@ -1,0 +1,59 @@
+/* Estilos padrão */
+.MainDados {
+    padding: 20px;
+}
+/*
+.background-projects {
+    background-color: var(--white-color);
+    border-radius: var(--padding-input);
+    box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
+}
+*/
+.Referencias, .Projetos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+}
+
+.Referencias_Responsivo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .Referencias {
+        display: none !important;
+    }
+
+    .Referencias_Responsivo {
+        font-weight: bold;
+        display: inline;
+    }
+
+    .Projetos_Responsivo {
+        display: flex !important;
+        flex-direction: column;
+    }
+
+    .Projetos p {
+        text-align: start;
+    }    
+}
+

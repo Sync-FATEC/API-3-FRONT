@@ -1,0 +1,152 @@
+.sidebar {
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    position: fixed;
+}
+
+.sidebar .logo {
+    padding: 20px;
+    padding-left: 11px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.sidebar .menu {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+}
+
+.menu-logo{
+    display: flex;
+    justify-content: space-between;
+}
+
+.sidebar .menu .menu-item {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    color: #1b1919;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    text-decoration: none;
+    
+}
+
+.sidebar .menu .menu-item:hover {
+    background-color: #dcdada;
+    color: #070707;
+    border-radius: 16px;
+}
+
+.sidebar .menu .menu-item svg {
+    margin-right: 10px;
+}
+
+.sidebar .menu .menu-item.logout {
+    margin-top: auto;
+    color: #e74c3c;
+}
+
+.dashBoard img {
+    width: 22px;
+    height: 22px;
+}
+h4{
+    font-weight: 400;
+    size: 11px;
+    display: flex;
+    padding: 20px;
+    color: #8B909A;
+}
+
+.sidebarMobile {
+    display: none;
+    height: 90px;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 20px 0;
+}
+
+.sidebarMobile .logo {
+    padding: 0;
+    width: 0;
+    height: 0;
+    padding-left: 20px;
+}
+
+.sidebarMobile .logo img {
+    height: 50px;
+}
+
+.sidebarMobile .menu {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    background-color: white;
+}
+
+.sidebarMobile .menu-item.logout {
+    margin-top: 0 !important;
+}
+
+.sidebarMobile .menu.open {
+    display: flex;
+    z-index: 1;
+}
+
+
+
+.buttonClose {
+    width: max-content;
+    height: 50px;
+    border: none;
+    background-color: var(--white-color);
+    color: var(--blue-color) !important;
+}
+
+.buttonClose svg {
+    color: var(--blue-color) !important;
+}
+
+.buttonOpen {
+    padding-right: 20px;
+    
+}
+@media (max-width: 768px) {
+    .sidebarDesktop {
+        display: none
+    }
+    .sidebarMobile {
+        display: flex;
+    }
+}
+
+@keyframes openSidebar {
+    from {
+        width: 0;
+    }
+    to {
+        width: 250px;
+    }
+}
+
+@keyframes closeSidebar {
+    from {
+        width: 250px;
+    }
+    to {
+        width: 0;
+    }
+}

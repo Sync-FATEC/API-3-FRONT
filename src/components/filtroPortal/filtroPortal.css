@@ -1,0 +1,191 @@
+.pesquisa-container {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: none;
+  background-color: var(--lightgray-color);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-height: 200px;
+  width: 250px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+.dropdown li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown li:hover {
+  background-color: #f0f0f0;
+}
+
+/* Filtro */
+.containerForm,
+.containerData {
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-input);
+  padding: var(--padding-input);
+  background-color: var(--white-color);
+  border-radius: 10px;
+  box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  /* 4 colunas */
+  grid-template-rows: repeat(2, 1fr);
+  /* 3 linhas */
+}
+
+.searchButton {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.containerForm div {
+  display: flex;
+  flex-direction: column;
+}
+
+#MainDados form label,
+#MainDadosAuth form label {
+  color: var(--gray-color);
+}
+
+#MainDados form select,
+#MainDadosAuth form select,
+#MainDados form input,
+#MainDadosAuth form input {
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border: none;
+  border-radius: var(--padding-input);
+}
+
+#MainDados form button, #MainDadosAuth form button  {
+  min-width: 100px;
+  margin-top: var(--padding-input);
+  padding: 12px;
+  height: 40px;
+  border: none;
+  border-radius: var(--padding-input);
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+#referenciaDeDados,
+#dataInicio,
+#dataTermino {
+  box-shadow: none;
+}
+
+@media (max-width: 1138px) {
+  .containerForm,
+  .containerData {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 931px) {
+  .containerForm,
+  .containerData {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+  }
+}
+
+@media (max-width: 700px) {
+  .containerForm,
+  .containerData {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+  }
+}
+
+.searchInput {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.buscarSimples {
+  width: auto;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--blue-color);
+  border: none;
+  border-radius: var(--padding-input);
+}
+
+.formularioPesquisaPalavra {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#MainDados form .barraNavegacao,
+#MainDadosAuth form .barraNavegacao {
+  border-radius: 10px 0 0 10px;
+  border: none;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.3);
+  height: 47px;
+  flex-grow: 8;
+  padding-left: 10px;
+  background-color: var(--white-color);
+}
+
+#MainDados form .botaoFiltro,
+#MainDadosAuth form .botaoFiltro {
+  height: 50px;
+  border-radius: 0px;
+  flex-grow: 1;
+  width: min-content;
+  margin: 0;
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 2px 2px #bebebe, 5px -2px 6px var(--white-color) !important;
+}
+
+#MainDados form .botaoPesquisa,
+#MainDadosAuth form .botaoPesquisa {
+  border-radius: 0;
+  box-shadow: 2px 2px 2px #bebebe, 5px -2px 6px var(--white-color) !important;
+  height: 50px;
+  width: min-content;
+  flex-grow: 1;
+  margin: 0;
+}
+
+.containerForm .divBuscaFiltro {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.containerForm .filtro {
+  border-radius: 0px 10px 10px 0px;
+  width: 100%;
+  border-right: 1px solid var(--gray-color);
+}
+
+.containerForm .busca {
+  width: 100%;
+  border-radius: 10px 0px 0px 10px;
+}

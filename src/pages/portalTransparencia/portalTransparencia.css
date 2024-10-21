@@ -5,6 +5,7 @@
         url(./static/img/fundo.png) no-repeat center center;
     background-color: #D9D9D9E5;
     padding: var(--padding-global);
+    padding-bottom: 32px;
 }
 
 .headerPortal nav {
@@ -47,8 +48,6 @@
 }
 /* Final Tela inicial */
 
-
-
 /* Componente projetos */
 .Referencias {
     display: grid;
@@ -59,12 +58,6 @@
     padding: var(--padding-input);
 }
 
-.background-projects{
-    background-color: var(--white-color);
-    border-radius: var(--padding-input);
-    box-shadow: 2px 2px 2px #bebebe,
-    -2px -2px 6px var(--white-color);
-}
 
 .Projetos {
     display: grid;
@@ -117,4 +110,7 @@
 .MainDados {
     padding: var(--padding-global);
   }
-  
+#MainDados {
+    padding: var(--padding-global);
+  }
+

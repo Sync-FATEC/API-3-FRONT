@@ -1,38 +1,65 @@
 import axios from "axios";
 import createProject from "../type/createProject";
+import AddAnexo from "../components/addAnexo";
+import { get } from "http";
+import filterDTO from "../type/filterDTO";
+import { Projetos } from "../type/projeto";
+import { UpdateProject } from "../type/updateProject";
 
 const api = axios.create({
-    baseURL: "http://localhost:8080"
+  baseURL: "http://localhost:8080",
 });
 
 const links = {
-    getAllProjects: () => api.get("/projects/getAll"),
-    
-    getProject: (id: string) => api.get(`/projects/get/${id}`),
+  getAllProjects: () => api.get("/projects/getAll"),
 
-    getCoordinators: () => api.get("/projects/get/coordinators"),
+  getProject: (id: string) => api.get(`/projects/get/${id}`),
 
-    getCompanies: () => api.get("/projects/get/companies"),
+  getCoordinators: () => api.get("/projects/get/coordinators"),
 
-    createProject: (data: createProject) => api.post("/projects/create", data),
+  getCompanies: () => api.get("/projects/get/companies"),
 
-    AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
+  createProject: (data: createProject) => api.post("/projects/create", data),
 
-        const formData = new FormData();
-        formData.append('projectId', projectId);
-        if (file) {
-            formData.append('file', file);
-        }
-        formData.append('typeFile', tipoAnexo);
+  AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
+    const formData = new FormData();
+    formData.append("projectId", projectId);
+    if (file) {
+      formData.append("file", file);
+    }
+    formData.append("typeFile", tipoAnexo);
 
-        return api.post("/documents/create", formData, {
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        });
-    },
+    return api.post("/documents/create", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
+  },
 
-    getAnexos: (link: string) => api.get(link, { responseType: 'blob' }),
+  removeAnexo: (anexos: string[]) => api.put(`/documents/removed`,anexos),
+
+  getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
+
+  getFiltered: (
+    keyword: string,
+    dataInicio: string,
+    dataFim: string,
+    status: string,
+    classificacao: string
+  ) => {
+    return api.get(
+      `/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}`
+    );
+  },
+
+  filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
+
+  deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`),
+
+  updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,data),
+
+  getProectsNearEnd: () => api.get("/projects/get/all/near-end")
 };
 
-export { api, links };
+export { links };
+export default api;

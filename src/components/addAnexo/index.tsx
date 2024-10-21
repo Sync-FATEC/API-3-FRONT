@@ -5,7 +5,7 @@ interface AddAnexoProps {
     onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;
     resetFile?: boolean;
     handleRemoveAnexoComponent: (id: number) => void;
-    id: number;
+    id: number ;
 }
 
 enum TipoAnexo {
@@ -41,6 +41,7 @@ export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoCompo
 
     return (
         <div className="add-anexo">
+            <label className="placeholder">Tipo do documento</label>
             <select value={tipoAnexo} onChange={handleTipoAnexoChange}>
                 <option value={TipoAnexo.CONTRATO}>Contrato</option>
                 <option value={TipoAnexo.TERMO_ADITIVO}>Termo Aditivo</option>

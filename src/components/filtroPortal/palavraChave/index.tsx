@@ -1,6 +1,5 @@
-import { link, stat } from 'fs';
 import React, { useState } from 'react';
-import { api, links } from '../../../api/api';
+import { links } from '../../../api/api';
 import { errorSwal } from '../../swal/errorSwal';
 
 interface FiltroPorPalavraChaveProps {
@@ -13,6 +12,7 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
     const [dataFim, setDataFim] = useState('');
     const [status, setStatus] = useState('');
     const [classificacao, setClassificacao] = useState('');
+    const [projects, setProjects ] = useState([]);
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setKeyword(event.target.value);
@@ -20,8 +20,9 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
 
     const handleSearch = async () => {
         try {
-            const response = await api.get(`/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}`);
-            if(response.status === 200 && response.data != null) {
+            const response = await links.getFiltered(keyword, dataInicio, dataFim, status, classificacao);
+            if(response.data.length > 0) {
+                setProjects(response.data);
             } else {
                 errorSwal('Nenhum projeto encontrado');
             }
@@ -34,7 +35,7 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
     };
 
     return (
-        <div>
+        <>
             <input 
                 type="text" 
                 value={keyword} 
@@ -42,7 +43,7 @@ const FiltroPorPalavraChave: React.FC<FiltroPorPalavraChaveProps> = ({ onSearch 
                 placeholder="Digite a palavra-chave" 
             />
             <button onClick={handleSearch}>Buscar</button>
-        </div>
+        </>
     );
 };
 

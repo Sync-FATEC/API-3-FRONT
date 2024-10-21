@@ -27,6 +27,13 @@
     --yellow-color: #F0CE00;
 }
 
+@media screen and (max-width: 768px) {
+    :root {
+        --padding-global: 5px 20px;
+    }
+    
+}
+
 h1 {
     color: var(--blue-color);
     font-size: 20px;
@@ -45,3 +52,40 @@ p {
 body {
     background-color: var(--off-white-color);
 }
+
+/* Container de todas as páginas admin (sem a sidebar) */
+.MainDadosAuth {
+    display: flex;
+    padding-left: 270px;
+    padding-right: 40px;
+  }
+  .admin_center-header {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 32px;
+    align-items: center;
+  }
+  @media (max-width: 768px) {
+    .MainDadosAuth {
+        padding-top: 64px;
+        display: block;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      #MainDadosAuth {
+        padding-top: 64px;
+        
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+      .main-conteiner-auth{
+        padding: 20px;
+      }
+
+  }
+  @media (max-width: 568px) {
+   
+  }
+  @media (max-width: 320px) {
+   
+  }

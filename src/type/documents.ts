@@ -1,4 +1,5 @@
 type documents = {
+    removed:boolean
     documentId: string;
     fileName: string;
     fileType: string;

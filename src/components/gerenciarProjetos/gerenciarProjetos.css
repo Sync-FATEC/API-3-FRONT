@@ -2,12 +2,19 @@
     font-weight: 700;
     size: 24px;
     padding-top: 8vh;
-    padding-left: 270px;
     margin-bottom: 64px;
 }
+/* 
 .form-containerAdd{
   display: flex;
   flex-direction: row;
+  gap: 32px;
+  justify-content: space-around;
+} 
+.form-containeredit{
+  display: flex;
+  flex-direction: row;
+  margin-left: 260px;
   gap: 32px;
   justify-content: space-around;
 }
@@ -20,13 +27,14 @@
     justify-content:left;
     gap: 200px
 }
+*/
 .title-form {
     width: 100%;
     font-weight: 500;
     font-size: 40px;
     margin-bottom: 30px;
 }
-/* Início Input Add Projetos*/
+/*
 .input-placeholder-container {
     width: 200px;
     height: 48px;
@@ -53,14 +61,7 @@
     width: 418px;
     height: 50px;
 }
-.input-flex-container{
-    display: flex;
-    gap: 16px;
-}
-.input-big-container{
-    display: flex;
-    flex-direction: column;
-}
+
 .placeholder {
     position: absolute;
     left: 10px;
@@ -68,7 +69,7 @@
     transform: translateY(-50%);
     user-select: none;
     padding: 0 4px;
-    background: var(--lightgray-color);
+    background-color: var(--off-white-color);;
     color: var(--blue-color);
     font-size: 16.5px;
     pointer-events: none;
@@ -92,19 +93,9 @@
   font-weight: 500;
   color: var(--blue-color);
 }
-/* Fim Input Add Projetos*/
+*/
 
-form button {
-    border-radius: 12px;
-    border: none;
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    font-weight: bold;
-    width: 200px;
-    height: 48px;
-  }
-  
-
+/*
 .headerPortal input{
     gap: 10px;
     height: 40px;
@@ -121,16 +112,17 @@ form button {
     background-color: var(--lightgray-color);
     border-radius: var(--padding-input);
  }
+
  .right-side {
     display: flex;
     width: 360px;
     flex-direction: column; 
     
-  }
+  }*/
   .error-message {
     color: red;
     font-size: 12px;
-    margin-top: 4px; /* Espaçamento acima da mensagem de erro */
+    margin-top: 4px;
   }
   .files{
     gap: 20px;
@@ -148,11 +140,7 @@ form button {
     
 }
 
-/* Tab apenas da página de cadastro de projetos */ 
-.tabs4 {
-  padding-left: 270px;
-}
-
+/*
 .tab4 {
   background-color: transparent;
   border: none;
@@ -178,9 +166,9 @@ form button {
   box-shadow: none;
 
 }
-/* Fim Tab apenas da página de cadastro de projetos */ 
 
-/* Select Classificação */
+
+
 .classification{
   display: flex;
   flex-direction: column;
@@ -200,4 +188,70 @@ form button {
 .classification select:focus {
   border: 2px solid var(--blue-color);
   outline: none;
+}
+*/
+
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  display: flex;
+  flex-direction: column;
+  margin: 64px;
+  background: white;
+  padding: 32px;
+  border-radius: 12px;
+  align-items: center;
+  text-align: center;
+  border-radius: 5px;
+  justify-content: center;
+  gap: 32px;
+}
+
+.modal-content button {
+  padding: 12px;
+  align-items: center;
+}
+.modal-button{
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+.delete-buttons {
+  background-color: red;
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  transition: background-color 0.5s; 
+}
+
+.delete-buttons:hover {
+  background-color: rgb(165, 3, 3);
+}
+
+#button-editar{
+  width: 200px;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  justify-content: center;
 }
