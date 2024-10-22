@@ -8,17 +8,25 @@ import documents from "../../type/documents";
 import Anexos from "../anexos/anexos";
 import Header from "../header/header";
 import { AuthContext } from "../../contexts/auth/AuthContext";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ProjectStatus } from "../../enums/ProjectStatus";
-import { faCancel, faChevronCircleLeft, faEdit, faFileCircleQuestion } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCancel,
+  faChevronCircleLeft,
+  faEdit,
+  faFileCircleQuestion,
+} from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../sideBar/sideBar";
+import ErrorComponent from "../error/error";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
   const location = useLocation();
   const navigate = useNavigate();
   const { projeto } = (location.state as { projeto?: Projects }) || {};
-  const [projectData, setProjectData] = useState<Projects | null>(projeto || null);
+  const [projectData, setProjectData] = useState<Projects | null>(
+    projeto || null
+  );
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Informações do Projeto");
   const [contratos, setContratos] = useState<documents[]>([]);
@@ -56,14 +64,16 @@ export default function ProjetoDetalhes() {
       const newOutros: documents[] = [];
 
       projectData.documents.forEach((doc) => {
-        if (doc.fileType === "CONTRATO") {
-          newContratos.push(doc);
-        } else if (doc.fileType === "PLANO_DE_TRABALHO") {
-          newPlanos.push(doc);
-        } else if (doc.fileType === "TERMO_ADITIVO") {
-          newTermos.push(doc);
-        } else {
-          newOutros.push(doc);
+        if (!doc.removed) {
+          if (doc.fileType === "CONTRATO") {
+            newContratos.push(doc);
+          } else if (doc.fileType === "PLANO_DE_TRABALHO") {
+            newPlanos.push(doc);
+          } else if (doc.fileType === "TERMO_ADITIVO") {
+            newTermos.push(doc);
+          } else {
+            newOutros.push(doc);
+          }
         }
       });
 
@@ -78,10 +88,6 @@ export default function ProjetoDetalhes() {
     setShowConfirmDelete(true); // Abre o pop-up de confirmação
   };
 
-  const handleHistoryClick = () => {
-    navigate(`/historico-projeto/${id}`)
-  }
-
   const handleConfirmDelete = async () => {
     setShowConfirmDelete(false);
     if (projectData) {
@@ -94,7 +100,7 @@ export default function ProjetoDetalhes() {
       await links.deleteProjects(projectId);
       handleBackButtonClick();
     } catch (error) {
-      console.error('Erro ao deletar projeto:', error);
+      console.error("Erro ao deletar projeto:", error);
     }
   };
 
@@ -108,26 +114,14 @@ export default function ProjetoDetalhes() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-    return localDate.toLocaleDateString('pt-BR');
+    const localDate = new Date(
+      date.getTime() + date.getTimezoneOffset() * 60000
+    );
+    return localDate.toLocaleDateString("pt-BR");
   };
 
   if (error) {
-    return (
-      <div id="fundo">
-        <div className="background2">
-          <h1>
-            <img src="/static/img/logo.svg" alt="" />
-            Portal da Transparência
-          </h1>
-        </div>
-        <div className="title">
-          <h2>Erro</h2>
-          <p>{error}</p>
-          <button onClick={() => navigate("/")}>Voltar</button>
-        </div>
-      </div>
-    );
+    return <ErrorComponent error={error} />;
   }
 
   if (!projectData) {
@@ -140,9 +134,9 @@ export default function ProjetoDetalhes() {
   }
 
   return (
-    <div >
+    <div>
       {isAuthenticated && <Sidebar />}
-      <div className={isAuthenticated ? "main-conteiner-auth" : ''}>
+      <div className={isAuthenticated ? "main-conteiner-auth" : ""}>
         <div id={isAuthenticated ? "fundo-autenticado" : "fundo"}>
           <div className="title">
             <h2>Detalhes do Projeto</h2>
@@ -155,13 +149,15 @@ export default function ProjetoDetalhes() {
         <div id={isAuthenticated ? "detalhesProjetoAuth" : "detalhesProjeto"}>
           <div className="tabs2">
             <button
-              className={`tab2 ${activeTab === "Informações do Projeto" ? "active" : ""}`}
+              className={`tab2 ${
+                activeTab === "Informações do Projeto" ? "active" : ""
+              }`}
               onClick={() => handleTabClick("Informações do Projeto")}
             >
               Informações do Projeto
             </button>
 
-            {contratos.length > 0 && (
+            {contratos.length > 0 && contratos.some((doc) => !doc.removed) && (
               <button
                 className={`tab2 ${activeTab === "Contratos" ? "active" : ""}`}
                 onClick={() => handleTabClick("Contratos")}
@@ -170,25 +166,29 @@ export default function ProjetoDetalhes() {
               </button>
             )}
 
-            {planos.length > 0 && (
+
+            {planos.length > 0 && planos.some((doc) => !doc.removed) && (
               <button
-                className={`tab2 ${activeTab === "Planos de trabalhos" ? "active" : ""}`}
+                className={`tab2 ${
+                  activeTab === "Planos de trabalhos" ? "active" : ""
+                }`}
                 onClick={() => handleTabClick("Planos de trabalhos")}
               >
                 Planos de Trabalhos
               </button>
             )}
 
-            {termos.length > 0 && (
+            {termos.length > 0 && termos.some((doc) => !doc.removed) && (
               <button
-                className={`tab2 ${activeTab === "Termos aditivo" ? "active" : ""}`}
+                className={`tab2 ${
+                  activeTab === "Termos aditivo" ? "active" : ""
+                }`}
                 onClick={() => handleTabClick("Termos aditivo")}
               >
                 Termos Aditivo
               </button>
             )}
-
-            {outros.length > 0 && (
+            {outros.length > 0 && outros.some((doc) => !doc.removed) && (
               <button
                 className={`tab2 ${activeTab === "Outros" ? "active" : ""}`}
                 onClick={() => handleTabClick("Outros")}
@@ -202,34 +202,56 @@ export default function ProjetoDetalhes() {
             {activeTab === "Informações do Projeto" && (
               <>
                 <div className="campo-projeto">
-                  <label><strong>Referência:</strong></label>
-                  <span>{projectData?.projectReference || "Referência não disponível"}</span>
+                  <label>
+                    <strong>Referência:</strong>
+                  </label>
+                  <span>
+                    {projectData?.projectReference ||
+                      "Referência não disponível"}
+                  </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Empresa:</strong></label>
-                  <span>{projectData?.projectCompany || "Empresa não disponível"}</span>
+                  <label>
+                    <strong>Empresa:</strong>
+                  </label>
+                  <span>
+                    {projectData?.projectCompany || "Empresa não disponível"}
+                  </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Objeto:</strong></label>
-                  <span>{projectData?.projectObjective || "Objeto não disponível"}</span>
+                  <label>
+                    <strong>Objeto:</strong>
+                  </label>
+                  <span>
+                    {projectData?.projectObjective || "Objeto não disponível"}
+                  </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Coordenador:</strong></label>
-                  <span>{projectData?.nameCoordinator || "Coordenador não disponível"}</span>
+                  <label>
+                    <strong>Coordenador:</strong>
+                  </label>
+                  <span>
+                    {projectData?.nameCoordinator ||
+                      "Coordenador não disponível"}
+                  </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Valor do Projeto:</strong></label>
+                  <label>
+                    <strong>Valor do Projeto:</strong>
+                  </label>
                   <span>
                     {projectData?.projectValue !== undefined
-                      ? projectData.projectValue.toLocaleString('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                      })
+                      ? projectData.projectValue.toLocaleString("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
+                        })
                       : "Valor não disponível"}
                   </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Data de Início:</strong></label>
+                  <label>
+                    <strong>Data de Início:</strong>
+                  </label>
                   <span>
                     {projectData?.projectStartDate
                       ? formatDate(projectData.projectStartDate)
@@ -237,7 +259,9 @@ export default function ProjetoDetalhes() {
                   </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Data de Término:</strong></label>
+                  <label>
+                    <strong>Data de Término:</strong>
+                  </label>
                   <span>
                     {projectData?.projectEndDate
                       ? formatDate(projectData.projectEndDate)
@@ -245,23 +269,41 @@ export default function ProjetoDetalhes() {
                   </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Descrição:</strong></label>
-                  <span>{projectData?.projectDescription || "Descrição não disponível"}</span>
+                  <label>
+                    <strong>Descrição:</strong>
+                  </label>
+                  <span>
+                    {projectData?.projectDescription ||
+                      "Descrição não disponível"}
+                  </span>
                 </div>
                 <div className="campo-projeto">
-                  <label><strong>Status:</strong></label>
-                  <span>{ProjectStatus[projectData?.projectStatus as unknown as keyof typeof ProjectStatus] || "Status não disponível"}</span>
+                  <label>
+                    <strong>Status:</strong>
+                  </label>
+                  <span>
+                    {ProjectStatus[
+                      projectData?.projectStatus as unknown as keyof typeof ProjectStatus
+                    ] || "Status não disponível"}
+                  </span>
                 </div>
               </>
             )}
 
             {activeTab === "Contratos" && (
               <div>
-                {contratos.filter((documento) => !documento.removed).length > 0 ? (
+                {contratos.filter((documento) => !documento.removed).length >
+                0 ? (
                   <div>
-                    {contratos.map((cont) => (
-                      <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
-                    ))}
+                    {contratos
+                      .filter((cont) => !cont.removed)
+                      .map((cont) => (
+                        <Anexos
+                          key={cont.fileUrl}
+                          link={cont.fileUrl}
+                          nome={cont.fileName}
+                        />
+                      ))}
                   </div>
                 ) : (
                   <p>Nenhum contrato disponível.</p>
@@ -272,11 +314,17 @@ export default function ProjetoDetalhes() {
             {activeTab === "Planos de trabalhos" && (
               <div>
                 {planos.filter((documento) => !documento.removed).length > 0 ? (
-                  <div>
-                    {planos.map((cont) => (
-                      <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
-                    ))}
-                  </div>
+                    <div>
+                    {planos
+                      .filter((cont) => !cont.removed)
+                      .map((cont) => (
+                      <Anexos
+                        key={cont.fileUrl}
+                        link={cont.fileUrl}
+                        nome={cont.fileName}
+                      />
+                      ))}
+                    </div>
                 ) : (
                   <p>Nenhum plano de trabalho disponível.</p>
                 )}
@@ -286,11 +334,17 @@ export default function ProjetoDetalhes() {
             {activeTab === "Termos aditivo" && (
               <div>
                 {termos.filter((documento) => !documento.removed).length > 0 ? (
-                  <div>
-                    {termos.map((cont) => (
-                      <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
-                    ))}
-                  </div>
+                    <div>
+                    {termos
+                      .filter((cont) => !cont.removed)
+                      .map((cont) => (
+                      <Anexos
+                        key={cont.fileUrl}
+                        link={cont.fileUrl}
+                        nome={cont.fileName}
+                      />
+                      ))}
+                    </div>
                 ) : (
                   <p>Nenhum termo aditivo disponível.</p>
                 )}
@@ -300,11 +354,17 @@ export default function ProjetoDetalhes() {
             {activeTab === "Outros" && (
               <div>
                 {outros.filter((documento) => !documento.removed).length > 0 ? (
-                  <div>
-                    {outros.map((cont) => (
-                      <Anexos key={cont.fileUrl} link={cont.fileUrl} nome={cont.fileName} />
-                    ))}
-                  </div>
+                    <div>
+                    {outros
+                      .filter((cont) => !cont.removed)
+                      .map((cont) => (
+                      <Anexos
+                        key={cont.fileUrl}
+                        link={cont.fileUrl}
+                        nome={cont.fileName}
+                      />
+                      ))}
+                    </div>
                 ) : (
                   <p>Nenhum documento disponível.</p>
                 )}
@@ -314,15 +374,23 @@ export default function ProjetoDetalhes() {
           {isAuthenticated && (
             <>
               <div className="button-container">
-                <button className="buttons" onClick={() => navigate(`/editar-projeto/${id}`)}>
+                <button
+                  className="buttons"
+                  onClick={() => navigate(`/editar-projeto/${id}`)}
+                >
                   <FontAwesomeIcon icon={faEdit} />
                   Editar
                 </button>
                 <button className="delete-buttons" onClick={handleDeleteClick}>
                   <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
                 </button>
-                <button className="history-buttons" onClick={handleHistoryClick}>
-                  <FontAwesomeIcon icon={faFileCircleQuestion} />Historico projeto</button>
+                <button
+                  className="history-buttons"
+                  onClick={() => navigate(`/historico-projeto/${id}`)}
+                >
+                  <FontAwesomeIcon icon={faFileCircleQuestion} />
+                  Historico projeto
+                </button>
               </div>
             </>
           )}
@@ -332,8 +400,15 @@ export default function ProjetoDetalhes() {
             <div className="modal-content">
               <h1>Você tem certeza que deseja deletar este projeto?</h1>
               <div className="modal-button">
-                <button className="buttons" onClick={handleConfirmDelete}>Sim</button>
-                <button className="delete-buttons" onClick={() => setShowConfirmDelete(false)}>Não</button>
+                <button className="buttons" onClick={handleConfirmDelete}>
+                  Sim
+                </button>
+                <button
+                  className="delete-buttons"
+                  onClick={() => setShowConfirmDelete(false)}
+                >
+                  Não
+                </button>
               </div>
             </div>
           </div>
