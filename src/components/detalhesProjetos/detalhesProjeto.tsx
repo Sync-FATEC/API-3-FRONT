@@ -10,7 +10,7 @@ import Header from "../header/header";
 import { AuthContext } from "../../contexts/auth/AuthContext";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ProjectStatus } from "../../enums/ProjectStatus";
-import { faCancel, faChevronCircleLeft, faEdit } from '@fortawesome/free-solid-svg-icons';
+import { faCancel, faChevronCircleLeft, faEdit, faFileCircleQuestion } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from "../sideBar/sideBar";
 
 export default function ProjetoDetalhes() {
@@ -77,6 +77,10 @@ export default function ProjetoDetalhes() {
   const handleDeleteClick = () => {
     setShowConfirmDelete(true); // Abre o pop-up de confirmação
   };
+
+  const handleHistoryClick = () => {
+    navigate(`/historico-projeto/${id}`)
+  }
 
   const handleConfirmDelete = async () => {
     setShowConfirmDelete(false);
@@ -317,6 +321,8 @@ export default function ProjetoDetalhes() {
                 <button className="delete-buttons" onClick={handleDeleteClick}>
                   <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
                 </button>
+                <button className="history-buttons" onClick={handleHistoryClick}>
+                  <FontAwesomeIcon icon={faFileCircleQuestion} />Historico projeto</button>
               </div>
             </>
           )}

@@ -173,6 +173,25 @@
   background-color: rgb(165, 3, 3);
 }
 
+.history-buttons {
+  background-color: var(--yellow-color);
+  color: white; 
+  border: none; 
+  border-radius: 5px; 
+  padding: 10px 20px; 
+  cursor: pointer; 
+  transition: background-color 0.5s; 
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+}
+
+.history-buttons:hover {
+  background-color: var(--yellow-hover-color);
+}
+
+
 
 .modal {
   position: fixed;
