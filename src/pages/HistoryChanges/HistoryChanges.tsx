@@ -6,14 +6,16 @@ import { links } from "../../api/api";
 import { useParams } from "react-router-dom";
 import Loading from "../../components/loading/loading";
 import ErrorComponent from "../../components/error/error";
+import PopUpHistoryChanges from "../../components/popUpHistoryChanges/popUpHistoryChanges";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 export default function HistoryChanges() {
-  const [changesHistory, setChangesHistory] = useState<
-    HistoryChangesProjects[]
-  >([]);
+  const [changesHistory, setChangesHistory] = useState<HistoryChangesProjects[]>([]);
   const { id } = useParams<{ id?: string }>();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [selectedHistory, setSelectedHistory] = useState<HistoryChangesProjects | null>(null);
 
   const getProjects = async () => {
     try {
@@ -35,10 +37,10 @@ export default function HistoryChanges() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    const localDate = new Date(
-      date.getTime() + date.getTimezoneOffset() * 60000
-    );
-    return localDate.toLocaleDateString("pt-BR");
+    return date.toLocaleString("pt-BR", {
+      dateStyle: "short",
+      timeStyle: "short",
+    });
   };
 
   if (loading) {
@@ -46,8 +48,9 @@ export default function HistoryChanges() {
   }
 
   if (error) {
-    return <ErrorComponent error={error}/>
+    return <ErrorComponent error={error} />;
   }
+
   return (
     <>
       <Sidebar />
@@ -61,19 +64,31 @@ export default function HistoryChanges() {
         </div>
         <div className="BackgroundChanges">
           <div className="GridCategoryChanges">
+            <p>ID</p>
             <p>Usuario</p>
             <p>Data</p>
             <p>Ver mais...</p>
           </div>
-          {changesHistory.map((history) => (
-            <div className="GridValuesChanges">
+          {changesHistory.slice().reverse().map((history, index) => (
+            <div className="GridValuesChanges" key={index}>
+              <p>{index + 1}</p>
               <p>{history.userEmail}</p>
               <p>{formatDate(history.changeDate)}</p>
-              <p>Ver mais...</p>
+              <p>
+                <button className="buttonDownload" onClick={() => setSelectedHistory(history)}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </button>
+              </p>
             </div>
           ))}
         </div>
       </div>
+      {selectedHistory && (
+        <PopUpHistoryChanges
+          historyChanges={selectedHistory}
+          onClose={() => setSelectedHistory(null)}
+        />
+      )}
     </>
   );
 }
