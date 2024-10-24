@@ -120,7 +120,11 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
             <p>
               {" "}
               <label className="Referencias_Responsivo">Valor: </label>
-              {projeto.projectValue}
+              {projeto.projectValue.toLocaleString("pt-BR", {
+                style: "currency",
+                currency: "BRL",
+                })
+              }
             </p>
             <img
               src="/static/img/pesquisar.svg"
