@@ -1,0 +1,33 @@
+h1 {
+    font-weight: 700;
+    size: 24px;
+    padding-top: 8vh;
+    margin-bottom: 64px;
+}
+
+.BackgroundChanges {
+    background-color: var(--white-color);
+    border-radius: var(--padding-input);
+    box-shadow: 2px 2px 2px 2px #bebebe;
+    margin-top: 20px;
+    margin-bottom: 32px;
+}
+
+.GridCategoryChanges {
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr;
+    border-bottom: 1px var(--lightgray-color) solid;
+    padding: var(--padding-input);
+}
+
+.GridValuesChanges {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}

@@ -1,0 +1,20 @@
+.background2 h1 {
+    display: flex;
+    align-items: center;
+    gap: 10vh;
+    padding-left: 1vh;
+}
+
+.title{
+display: flex;
+flex-direction: column;
+}
+
+#fundo {
+    background:
+      linear-gradient(rgba(217, 217, 217, 0.9), rgba(217, 217, 217, 0.9)),
+      url(/src/pages/portalTransparencia/static/img/fundo.png) no-repeat center center;
+    background-color: #D9D9D9E5;
+    padding: var(--padding-global);
+    padding-bottom: 32px;
+  }

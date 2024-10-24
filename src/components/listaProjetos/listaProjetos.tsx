@@ -1,14 +1,18 @@
-import {useContext, useState, useEffect } from "react";
+import { useContext, useState, useEffect } from "react";
 import { links } from "../../api/api";
 import { Projects } from "../../type/projects";
 import { errorSwal } from "../swal/errorSwal";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import {
+  faChevronLeft,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import filterDTO from "../../type/filterData";
 import "./listaProjetos.css";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
 import BlurText from "../blurText/blurText";
+import { formatDate } from "../../utils/utils";
 
 interface ProjetosPortalProps {
   filterData: filterDTO | null; // Adicione esta linha para definir o tipo
@@ -25,16 +29,23 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
   useEffect(() => {
     const fetchProjetos = async () => {
       try {
-        const response = filterData?.keywordFilter == ""
-          ? await links.filterProjects(filterData)
-          : await links.getFiltered(filterData?.keywordFilter || "", "", "", "", "");
+        const response =
+          filterData?.keywordFilter == ""
+            ? await links.filterProjects(filterData)
+            : await links.getFiltered(
+                filterData?.keywordFilter || "",
+                "",
+                "",
+                "",
+                ""
+              );
 
         if (response.data && response.data.model) {
           const allProjetos = response.data.model;
           setProjetos(allProjetos);
           let total = Math.ceil(allProjetos.length / projetosPerPage);
-          if(total == 0){
-            total = 1
+          if (total == 0) {
+            total = 1;
           }
           setTotalPages(total);
           setCurrentPage(1);
@@ -51,7 +62,10 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
 
   const indexOfLastProjeto = currentPage * projetosPerPage;
   const indexOfFirstProjeto = indexOfLastProjeto - projetosPerPage;
-  const currentProjetos = projetos.slice(indexOfFirstProjeto, indexOfLastProjeto);
+  const currentProjetos = projetos.slice(
+    indexOfFirstProjeto,
+    indexOfLastProjeto
+  );
 
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
@@ -60,12 +74,6 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
   const handleProjetoClick = (projeto: Projects) => {
     navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
   };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-    return localDate.toLocaleDateString('pt-BR');
-  };
 
   return (
     <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
@@ -85,7 +93,8 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
                     <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate) ? projeto.projectStartDate : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate) ? projeto.projectEndDate : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator ? projeto.nameCoordinator : <BlurText/>}</p>
-                    <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue ? projeto.projectValue : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue ? 
+                    projeto.projectValue.toLocaleString("pt-BR", {style: "currency",currency: "BRL",}) : <BlurText/>}</p>
                     <img
                         src="/static/img/pesquisar.svg" 
                         alt="Visualizar detalhes do projeto"

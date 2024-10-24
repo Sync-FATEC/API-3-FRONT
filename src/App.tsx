@@ -1,15 +1,17 @@
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Auth from './pages/auth';
 import './global.css';
+import './colors.css'
 import PortalTransparencia from './pages/portalTransparencia';
 import { AuthProvider } from './contexts/auth/AuthContext';
 import RequireAuthAdmin from './contexts/auth/RequireAuthAdmin';
-import ProjetoDetalhe from './components/projetosPortal/detalhesProjeto';
+import ProjetoDetalhe from './components/detalhesProjetos/detalhesProjeto';
 import DashBoard from './components/dashBoard/dashBoard';
 import AddProjetos from './pages/addProjects/addProjects';
 import EditarProjeto from './pages/editProjects/EditProjects';
 import ProjectsDue from './pages/projectsDue/projectsDue';
 import GerenciarProjetos from './pages/GerenciarProjetos/GerenciarProjetos';
+import HistoryChanges from './pages/HistoryChanges/HistoryChanges';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
             <Route path='/gerenciarProjetos' element={<RequireAuthAdmin><GerenciarProjetos /></RequireAuthAdmin>}></Route>
             <Route path='/projetosVencimentos' element={<RequireAuthAdmin><ProjectsDue /></RequireAuthAdmin>}></Route>
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
+            <Route path='/historico-projeto/:id' element={<RequireAuthAdmin><HistoryChanges/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>

@@ -1,19 +1,41 @@
-import React, { useContext } from 'react';
-import { Navigate } from 'react-router-dom';
-import { AuthContext } from './AuthContext';
+import React, { useContext, useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext";
+import Loading from "../../components/loading/loading";
 
 interface RequireAuthProps {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }
 
 const RequireAuthAdmin: React.FC<RequireAuthProps> = ({ children }) => {
-    const { isAuthenticated, user } = useContext(AuthContext);
+  const { isAuthenticated, user, validateToken } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
 
-    if (!isAuthenticated || user?.role !== 'ADMIN') {
-        return <Navigate to="/auth" />;
-    }
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    const validate = async () => {
+      try {
+        if (token) {
+          validateToken();
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(true);
+      }
+    };
+    validate();
+  }, []);
 
-    return <>{children}</>;
+  if (!loading) {
+    return <Loading />;
+  }
+
+  if (!isAuthenticated || user?.role !== "ADMIN") {
+    return <Navigate to="/auth" />;
+  }
+
+  return <>{children}</>;
 };
 
 export default RequireAuthAdmin;

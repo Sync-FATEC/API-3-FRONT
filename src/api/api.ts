@@ -58,7 +58,9 @@ const links = {
 
   updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,data),
 
-  getProectsNearEnd: () => api.get("/projects/get/all/near-end")
+  getProectsNearEnd: () => api.get("/projects/get/all/near-end"),
+  
+  getHistoryChangesProjects: (id: string) => api.get(`/projects/get/history-projects/${id}`),
 };
 
 export { links };
