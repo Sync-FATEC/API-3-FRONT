@@ -13,6 +13,7 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  validateToken: () => {},
 });
 
 // Crie o provedor do contexto de autenticação
@@ -29,10 +30,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
         email: email,
         password: senha
       });
+      
       var token = response.data.model.token;
     
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
-      
+
+      localStorage.setItem('token', token);
+
       const decodedToken = jwtDecode(token);
       const jsonUserInfo = JSON.parse(decodedToken.sub as string);
       setUser(jsonUserInfo);
@@ -45,12 +49,26 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     api.defaults.headers.common.Authorization = ``;
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
     navigate('/')
   };
 
+  const validateToken = () => {
+    const token = localStorage.getItem('token');
+    console.log(`TOKE NO AUTHCONTEXT ${token}`)
+    if(token) {
+      const decodedToken = jwtDecode(token);
+      const jsonUserInfo = JSON.parse(decodedToken.sub as string);
+      setUser(jsonUserInfo);
+      setIsAuthenticated(true);
+    } else {
+      setIsAuthenticated(false);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, validateToken }}>
       {children}
     </AuthContext.Provider>
   );

@@ -22,9 +22,15 @@ export default function AddProjects() {
   const [enviado, setEnviado] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(prevState => !prevState);
-  }
+  const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
+  const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
+  const [coordenadorSensivel, setCoordenadorSensivel] = useState<boolean>(false);
+  const [valorSensivel, setValorSensivel] = useState<boolean>(false);
+  const [dataInicioSensivel, setDataInicioSensivel] = useState<boolean>(false);
+  const [dataTerminoSensivel, setDataTerminoSensivel] = useState<boolean>(false);
+  const [objetoSensivel, setObjetoSensivel] = useState<boolean>(false);
+  const [descricaoSensivel, setDescricaoSensivel] = useState<boolean>(false);
+  const [classificacaoSensivel, setClassificacaoSensivel] = useState<boolean>(false);
 
   const formRef = useRef<HTMLDivElement>(null);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
@@ -58,7 +64,6 @@ export default function AddProjects() {
       return;
     }
 
-
     if (dataInicio > dataTermino) {
       errorSwal("Data de início não pode ser maior que a data de término.");
       return;
@@ -73,7 +78,6 @@ export default function AddProjects() {
       return;
     }
 
-
     if (isNaN(Date.parse(dataInicio)) || isNaN(Date.parse(dataTermino))) {
       errorSwal("Data inválida.");
       return;
@@ -82,14 +86,23 @@ export default function AddProjects() {
     try {
       const projeto: createProject = {
         projectReference: referencia,
+        projectReferenceSensitive: referenciaSensivel,
         nameCoordinator: coordenador,
+        nameCoordinatorSensitive: coordenadorSensivel,
         projectCompany: empresa,
+        projectCompanySensitive: empresaSensivel,
         projectObjective: objeto,
+        projectObjectiveSensitive: objetoSensivel,
         projectDescription: descricao,
+        projectDescriptionSensitive: descricaoSensivel,
         projectValue: Number(valor),
+        projectValueSensitive: valorSensivel,
         projectStartDate: new Date(dataInicio),
+        projectStartDateSensitive: dataInicioSensivel,
         projectEndDate: new Date(dataTermino),
+        projectEndDateSensitive: dataTerminoSensivel,
         projectClassification: classificacao,
+        projectClassificationSensitive: classificacaoSensivel
       };
 
       const response = await links.createProject(projeto);
@@ -134,7 +147,6 @@ export default function AddProjects() {
     <>
       <Sidebar />
       <div className='main-conteiner-auth'>
-
         <div className="admin_center-header">
           <h1>Adicionar Projetos</h1>
           <div className="user">
@@ -142,8 +154,7 @@ export default function AddProjects() {
             <p>Admin</p>
           </div>
         </div>
-        <div ref={formRef} className="">
-
+        <div ref={formRef} style={{ maxWidth: "800px"}}>
           <form className="background-projects" onSubmit={handleSubmitProjeto}>
             <div>
               <div className="campo-projeto">
@@ -155,7 +166,14 @@ export default function AddProjects() {
                   value={referencia}
                   onChange={(e) => setReferencia(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={referenciaSensivel}
+                    onChange={(e) => setReferenciaSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
               <div className="campo-projeto">
                 <label className="placeholder">Empresa</label>
@@ -166,9 +184,15 @@ export default function AddProjects() {
                   value={empresa}
                   onChange={(e) => setEmpresa(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={empresaSensivel}
+                    onChange={(e) => setEmpresaSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
-
               <div className="campo-projeto">
                 <label className="placeholder">Coordenador</label>
                 <input
@@ -178,7 +202,14 @@ export default function AddProjects() {
                   value={coordenador}
                   onChange={(e) => setCoordenador(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={coordenadorSensivel}
+                    onChange={(e) => setCoordenadorSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
               <div className="campo-projeto">
                 <label className="placeholder">Valor do projeto</label>
@@ -193,9 +224,15 @@ export default function AddProjects() {
                     }
                   }}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={valorSensivel}
+                    onChange={(e) => setValorSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
-
               <div className="campo-projeto">
                 <label className="placeholder">Data de início</label>
                 <input
@@ -204,7 +241,14 @@ export default function AddProjects() {
                   value={dataInicio}
                   onChange={(e) => setDataInicio(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={dataInicioSensivel}
+                    onChange={(e) => setDataInicioSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
               <div className="campo-projeto">
                 <label className="placeholder">Data de término</label>
@@ -214,9 +258,15 @@ export default function AddProjects() {
                   value={dataTermino}
                   onChange={(e) => setDataTermino(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={dataTerminoSensivel}
+                    onChange={(e) => setDataTerminoSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
-
               <div className="campo-projeto">
                 <label className="placeholder">Objeto</label>
                 <input
@@ -226,7 +276,14 @@ export default function AddProjects() {
                   value={objeto}
                   onChange={(e) => setObjeto(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={objetoSensivel}
+                    onChange={(e) => setObjetoSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
               <div className="campo-projeto">
                 <label className="placeholder">Descrição</label>
@@ -237,10 +294,15 @@ export default function AddProjects() {
                   value={descricao}
                   onChange={(e) => setDescricao(e.target.value)}
                 />
-
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={descricaoSensivel}
+                    onChange={(e) => setDescricaoSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
-
-
               <div className="campo-projeto">
                 <label className="placeholder">Classificação</label>
                 <select
@@ -257,16 +319,21 @@ export default function AddProjects() {
                   <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
                   <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
                 </select>
+                <label className='checkBoxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={classificacaoSensivel}
+                    onChange={(e) => setClassificacaoSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
               </div>
               <div className="campo-projeto">
                 <button type="submit">Cadastrar</button>
               </div>
-
-
             </div>
             <div>
               <div className="right-side">
-
                 <div className="addfile">
                   {addAnexoComponents.map((id) => (
                     <AddAnexo
@@ -277,18 +344,15 @@ export default function AddProjects() {
                     />
                   ))}
                   <div className='add-anexo'>
-
                     <button type="button" className="adicionar-btn" onClick={handleAddAnexoComponent}>
                       Adicionar anexo
                     </button>
-
                   </div>
                 </div>
               </div>
             </div>
           </form>
         </div>
-
       </div>
     </>
   );

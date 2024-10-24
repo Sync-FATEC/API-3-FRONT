@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import filterDTO from "../../type/filterData";
 import "./listaProjetos.css";
 import { AuthContext } from "../../contexts/auth/AuthContext"; 
+import BlurText from "../blurText/blurText";
 
 interface ProjetosPortalProps {
   filterData: filterDTO | null; // Adicione esta linha para definir o tipo
@@ -80,13 +81,11 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
             </div>
             {currentProjetos.map((projeto) => (
                 <div className="Projetos Projetos_Responsivo" key={projeto.projectId}>
-                    <p> <label className="Referencias_Responsivo">Referência do projeto
-
-: </label>{projeto.projectReference}</p>
-                    <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate)}</p>
-                    <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate)}</p>
-                    <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator}</p>
-                    <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue}</p>
+                    <p> <label className="Referencias_Responsivo">Referência do projeto: </label>{projeto.projectReference ? projeto.projectReference : <BlurText/>} </p>
+                    <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate) ? projeto.projectStartDate : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate) ? projeto.projectEndDate : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator ? projeto.nameCoordinator : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue ? projeto.projectValue : <BlurText/>}</p>
                     <img
                         src="/static/img/pesquisar.svg" 
                         alt="Visualizar detalhes do projeto"

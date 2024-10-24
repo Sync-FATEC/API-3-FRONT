@@ -217,3 +217,17 @@ outline: none;
 .hidden {
 display: none; /* Ou use visibility: hidden; se preferir */
 }
+
+.checkBoxDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: start;
+}
+
+
+input[type="checkbox"] {
+  width: min-content !important;
+  margin: 8px 5px 8px;
+}
+
+
