@@ -59,13 +59,16 @@ export default function EditarProjeto() {
             await links.removeAnexo(idsAnexosRemovidos);
           }
           if(anexosAdicionados.length >= 1){
+            const idsAnexosAdd: string[] = [];
             await Promise.all(
             anexosAdicionados.map(async (anexo: any) => {
               if (anexo.file) {
-                await links.AddAnexo(id, anexo.file, anexo.tipo);
+                const newId = await links.AddAnexo(id, anexo.file, anexo.tipo);
+                idsAnexosAdd.push(newId.data.documents_id);
               }
-            })
+            }),
           );
+          await links.addAnexoTeste(idsAnexosAdd);
           }
           
         }

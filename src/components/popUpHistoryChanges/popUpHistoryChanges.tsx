@@ -42,44 +42,57 @@ export default function PopUpHistoryChanges({
 
   const handleDownloadDocument = async (name: string, fileUrl: string) => {
     try {
-        fileUrl = '/documents/get/' + fileUrl;
-        const response = await links.getAnexos(fileUrl);
+      fileUrl = "/documents/get/" + fileUrl;
+      const response = await links.getAnexos(fileUrl);
 
-        if (response.status === 200) {
-            const blob = new Blob([response.data], { type: response.headers['content-type'] });
-            const url = window.URL.createObjectURL(blob);
+      if (response.status === 200) {
+        const blob = new Blob([response.data], {
+          type: response.headers["content-type"],
+        });
+        const url = window.URL.createObjectURL(blob);
 
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = name;
-            document.body.appendChild(a);
-            a.click();
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = name;
+        document.body.appendChild(a);
+        a.click();
 
-            setTimeout(() => {
-                a.remove();
-                window.URL.revokeObjectURL(url);
-            }, 0);
-        } else {
-            console.error("Erro no download do documento:", response.status);
-        }
+        setTimeout(() => {
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      } else {
+        console.error("Erro no download do documento:", response.status);
+      }
     } catch (error) {
-        console.error("Erro ao baixar o documento:", error);
+      console.error("Erro ao baixar o documento:", error);
     }
-  }
+  };
 
-  if (historyChanges.documents?.removed) {
+  if (
+    (historyChanges.changedFields === "removed" && historyChanges.documents) ||
+    (historyChanges.changedFields === "add" && historyChanges.documents)
+  ) {
     return (
       <>
         <div className="PopUpHistoryChanges">
           <div className="BackgroundChanges">
             <button className="CloseButton" onClick={onClose}>
-                <FontAwesomeIcon icon={faXmark} />
+              <FontAwesomeIcon icon={faXmark} />
             </button>
             <div className="Changes">
-              <h2>Removendo documentação do projeto</h2>
+            {historyChanges.changedFields === "add" ? (
+                    <h2>Adicionando documentação no projeto</h2>
+                  ) : (
+                    <h2>Removendo documentação do projeto</h2>
+                  )}
               <div className="ChangesContent">
                 <div className="Change">
-                  <h3>Documento removido</h3>
+                  {historyChanges.changedFields === "add" ? (
+                    <h3>Documento adicionado</h3>
+                  ) : (
+                    <h3>Documento removido</h3>
+                  )}
                   <div className="Values">
                     <p>Nome do documento:</p>
                     <p>{historyChanges.documents.fileName}</p>
@@ -88,9 +101,21 @@ export default function PopUpHistoryChanges({
                     <p>Enviado por:</p>
                     <p>{historyChanges.userEmail}</p>
                     <p>Enviado em:</p>
-                    <p>{historyChanges.documents.uploadedAt ? formatDate(historyChanges.documents.uploadedAt) : "N/A"}</p>
+                    <p>
+                      {historyChanges.documents.uploadedAt
+                        ? formatDate(historyChanges.documents.uploadedAt)
+                        : "N/A"}
+                    </p>
                     {historyChanges.documents?.documents_id && (
-                      <button className="buttonDownload" onClick={() => handleDownloadDocument(historyChanges.documents!.fileName, historyChanges.documents!.documents_id)}>
+                      <button
+                        className="buttonDownload"
+                        onClick={() =>
+                          handleDownloadDocument(
+                            historyChanges.documents!.fileName,
+                            historyChanges.documents!.documents_id
+                          )
+                        }
+                      >
                         <FontAwesomeIcon icon={faDownload} />
                       </button>
                     )}
@@ -99,7 +124,9 @@ export default function PopUpHistoryChanges({
               </div>
             </div>
             <div className="ChangesDate">
-              <p>Data da alteração: {formatDateHour(historyChanges.changeDate)}</p>
+              <p>
+                Data da alteração: {formatDateHour(historyChanges.changeDate)}
+              </p>
             </div>
           </div>
         </div>
@@ -114,7 +141,7 @@ export default function PopUpHistoryChanges({
             <FontAwesomeIcon icon={faXmark} />
           </button>
           <div className="Changes">
-            <h2>Alterações</h2>
+            <h2>Alterações no projeto</h2>
             <div className="ChangesContent">
               {changes.map((change, index) => (
                 <div key={index} className="Change">
@@ -159,7 +186,9 @@ export default function PopUpHistoryChanges({
             </div>
           </div>
           <div className="ChangesDate">
-            <p>Data da alteração: {formatDateHour(historyChanges.changeDate)}</p>
+            <p>
+              Data da alteração: {formatDateHour(historyChanges.changeDate)}
+            </p>
           </div>
         </div>
       </div>

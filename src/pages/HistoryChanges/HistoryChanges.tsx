@@ -59,12 +59,20 @@ export default function HistoryChanges() {
           <div className="GridCategoryChanges">
             <p>Usuario</p>
             <p>Data</p>
+            <p>Mudança</p>
             <p>Ver mais...</p>
           </div>
           {changesHistory.map((history, index) => (
             <div className="GridValuesChanges" key={index}>
               <p>{history.userEmail}</p>
               <p>{formatDateHour(history.changeDate)}</p>
+              {history.changedFields === "add" ? (
+                <p>Adicionando documento</p>
+              ) : history.changedFields === "removed" ? (
+                <p>Removendo documento</p>
+              ) : (
+                <p>Alterações no projeto</p>
+              )}
               <p>
                 <button className="buttonDownload" onClick={() => setSelectedHistory(history)}>
                   <FontAwesomeIcon icon={faPlus} />

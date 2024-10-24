@@ -38,6 +38,8 @@ const links = {
 
   removeAnexo: (anexos: string[]) => api.put(`/documents/removed`,anexos),
 
+  addAnexoTeste: (anexos: string[]) => api.put(`/documents/add`,anexos),
+
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
   getFiltered: (

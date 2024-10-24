@@ -17,14 +17,14 @@ h1 {
     display: grid;
     align-items: center;
     justify-items: center;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     border-bottom: 1px var(--lightgray-color) solid;
     padding: var(--padding-input);
 }
 
 .GridValuesChanges {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 10px;
     align-items: center;
     justify-items: center;
