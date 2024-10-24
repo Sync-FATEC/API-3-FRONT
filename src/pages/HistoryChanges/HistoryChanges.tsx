@@ -9,6 +9,7 @@ import ErrorComponent from "../../components/error/error";
 import PopUpHistoryChanges from "../../components/popUpHistoryChanges/popUpHistoryChanges";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { formatDate, formatDateHour } from "../../utils/utils";
 
 export default function HistoryChanges() {
   const [changesHistory, setChangesHistory] = useState<HistoryChangesProjects[]>([]);
@@ -35,14 +36,6 @@ export default function HistoryChanges() {
     getProjects();
   }, []);
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("pt-BR", {
-      dateStyle: "short",
-      timeStyle: "short",
-    });
-  };
-
   if (loading) {
     return <Loading />;
   }
@@ -64,16 +57,14 @@ export default function HistoryChanges() {
         </div>
         <div className="BackgroundChanges">
           <div className="GridCategoryChanges">
-            <p>ID</p>
             <p>Usuario</p>
             <p>Data</p>
             <p>Ver mais...</p>
           </div>
-          {changesHistory.slice().reverse().map((history, index) => (
+          {changesHistory.map((history, index) => (
             <div className="GridValuesChanges" key={index}>
-              <p>{index + 1}</p>
               <p>{history.userEmail}</p>
-              <p>{formatDate(history.changeDate)}</p>
+              <p>{formatDateHour(history.changeDate)}</p>
               <p>
                 <button className="buttonDownload" onClick={() => setSelectedHistory(history)}>
                   <FontAwesomeIcon icon={faPlus} />

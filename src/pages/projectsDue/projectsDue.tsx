@@ -7,6 +7,7 @@ import { links } from '../../api/api';
 import Loading from '../../components/loading/loading';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPenToSquare } from '@fortawesome/free-solid-svg-icons';
+import { formatDate } from '../../utils/utils';
 
 export default function ProjectsDue() {
     const [projects, setProjects] = useState<Projects[]>([]);
@@ -34,12 +35,6 @@ export default function ProjectsDue() {
 
     if (loading) return <Loading />;
     if (error) return <div>{error}</div>;
-
-    const formatDate = (dateString: string) => {
-        const date = new Date(dateString);
-        const localDate = new Date(date.getTime() + date.getTimezoneOffset() * 60000);
-        return localDate.toLocaleDateString('pt-BR');
-    };
 
     return (
         <>

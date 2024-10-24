@@ -3,6 +3,7 @@ import { links } from "../../api/api";
 import { HistoryChangesProjects } from "../../type/historyChangesProjects";
 import "./popUpHistoryChanges.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { formatDate, formatDateHour } from "../../utils/utils";
 
 interface PopUpHistoryChangesProps {
   historyChanges: HistoryChangesProjects;
@@ -66,13 +67,6 @@ export default function PopUpHistoryChanges({
     }
   }
 
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return date.toLocaleString("pt-BR", {
-      dateStyle: "short",
-      timeStyle: "short",
-    });
-  };
   if (historyChanges.documents?.removed) {
     return (
       <>
@@ -85,7 +79,7 @@ export default function PopUpHistoryChanges({
               <h2>Removendo documentação do projeto</h2>
               <div className="ChangesContent">
                 <div className="Change">
-                  <p>Documento removido</p>
+                  <h3>Documento removido</h3>
                   <div className="Values">
                     <p>Nome do documento:</p>
                     <p>{historyChanges.documents.fileName}</p>
@@ -105,7 +99,7 @@ export default function PopUpHistoryChanges({
               </div>
             </div>
             <div className="ChangesDate">
-              <p>Data da alteração: {formatDate(historyChanges.changeDate)}</p>
+              <p>Data da alteração: {formatDateHour(historyChanges.changeDate)}</p>
             </div>
           </div>
         </div>
@@ -124,7 +118,7 @@ export default function PopUpHistoryChanges({
             <div className="ChangesContent">
               {changes.map((change, index) => (
                 <div key={index} className="Change">
-                  <p>{fieldTranslations[change.field] || change.field}</p>
+                  <h3>{fieldTranslations[change.field] || change.field}</h3>
                   <div className="Values">
                     {change.field === "projectStartDate" ||
                     change.field === "projectEndDate" ? (
@@ -165,7 +159,7 @@ export default function PopUpHistoryChanges({
             </div>
           </div>
           <div className="ChangesDate">
-            <p>Data da alteração: {formatDate(historyChanges.changeDate)}</p>
+            <p>Data da alteração: {formatDateHour(historyChanges.changeDate)}</p>
           </div>
         </div>
       </div>

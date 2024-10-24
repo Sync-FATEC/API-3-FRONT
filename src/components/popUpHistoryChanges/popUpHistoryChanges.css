@@ -1,7 +1,24 @@
-h2 {
+.PopUpHistoryChanges h2 {
     text-align: center;
 }
 
+.PopUpHistoryChanges h3 {
+    font-size: 22px;
+    color: var(--black-color);
+    border-top: 1px solid var(--blue-color);
+    padding: 16px 0;
+}
+
+h3::before {
+    content: '';
+    display: inline-block;
+    width: 7px;
+    height: 7px;
+    background-color: var(--black-color);
+    border-radius: 50%;
+    margin-right: 8px;
+    vertical-align: middle; /* Alinha verticalmente com o texto */
+}
 .CloseButton, .buttonDownload{
     display: flex;
     justify-content: center;
@@ -19,57 +36,48 @@ h2 {
     border: none;
 }
 
-.PopUpHistoryChanges{
+.PopUpHistoryChanges {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100%; /* Deixa a altura adaptável sem limitar */
     background-color: rgba(128, 128, 128, 0.397);
     border-radius: var(--padding-input);
     box-shadow: 2px 2px 2px 2px #bebebe;
     margin: auto;
-    padding: var(--padding-input);
+    padding: 20px 150px;
     z-index: 1000;
-    display: grid;
-    overflow: auto;
-    max-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto; 
 }
 
 .BackgroundChanges {
     background-color: var(--white-color);
     border-radius: var(--padding-input);
     box-shadow: 2px 2px 2px 2px #bebebe;
-    margin-top: 20px;
-    margin-bottom: 32px;
+    width: 100%;
+    padding: 20px;
 }
 
-.Change {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr;
-    border-bottom: 1px var(--lightgray-color) solid;
-    padding: var(--padding-input);
+.ChangesContent {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
     width: 100%;
 }
 
-.Change p {
-    max-width: 40vw;
-    word-wrap: break-word;
-    text-overflow: ellipsis;
-    font-size: 22px;
+.ChangesContent p {
+    font-size: 24px;
     color: var(--blue-color);
-    font-weight: bold;
+    margin: 5px 0;
 }
 
-.Values {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    justify-content: space-between;
-    width: 40vw;
+.Change {
+    width: 100%;
 }
 
 .Values p:nth-child(odd) {
@@ -82,6 +90,12 @@ h2 {
     font-size: 16px;
     color: black;
     font-weight: 700;
+    background-color: var(--lightgray-color);
+    padding: var(--padding-input);
+    border-radius: 10px;
+    word-wrap: break-word;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .ChangesDate p {

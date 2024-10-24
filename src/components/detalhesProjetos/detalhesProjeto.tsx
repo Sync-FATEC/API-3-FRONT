@@ -18,6 +18,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
+import { formatDate } from "../../utils/utils";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -110,14 +111,6 @@ export default function ProjetoDetalhes() {
 
   const handleBackButtonClick = () => {
     navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const localDate = new Date(
-      date.getTime() + date.getTimezoneOffset() * 60000
-    );
-    return localDate.toLocaleDateString("pt-BR");
   };
 
   if (error) {

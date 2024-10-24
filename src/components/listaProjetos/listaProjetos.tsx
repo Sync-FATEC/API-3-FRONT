@@ -11,6 +11,7 @@ import { useNavigate } from "react-router-dom";
 import filterDTO from "../../type/filterData";
 import "./listaProjetos.css";
 import { AuthContext } from "../../contexts/auth/AuthContext";
+import { formatDate } from "../../utils/utils";
 
 interface ProjetosPortalProps {
   filterData: filterDTO | null; // Adicione esta linha para definir o tipo
@@ -71,14 +72,6 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
 
   const handleProjetoClick = (projeto: Projects) => {
     navigate(`/detalhe/${projeto.projectId}`, { state: projeto });
-  };
-
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const localDate = new Date(
-      date.getTime() + date.getTimezoneOffset() * 60000
-    );
-    return localDate.toLocaleDateString("pt-BR");
   };
 
   return (
