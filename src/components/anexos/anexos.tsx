@@ -1,7 +1,7 @@
 import React from 'react';
 import { links } from '../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass, faDownload} from '@fortawesome/free-solid-svg-icons';
+import { faMagnifyingGlass, faDownload, faFile} from '@fortawesome/free-solid-svg-icons';
 interface AnexosProps {
     nome: string;
     link: string;
@@ -39,7 +39,7 @@ export default function Anexos({ nome, link }: AnexosProps) {
 
     return (
         <div className='anexos'>
-            <p>Nome do arquivo: {nome}</p>
+            <p><FontAwesomeIcon icon={faFile}/> Nome do arquivo: {nome}</p>
             {link.includes("https://fapg.org.br") ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
