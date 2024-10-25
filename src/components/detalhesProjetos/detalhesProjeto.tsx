@@ -159,7 +159,6 @@ export default function ProjetoDetalhes() {
               </button>
             )}
 
-
             {planos.length > 0 && planos.some((doc) => !doc.removed) && (
               <button
                 className={`tab2 ${
@@ -234,7 +233,7 @@ export default function ProjetoDetalhes() {
                   </label>
                   <span>
                     {projectData?.projectValue !== undefined
-                      ? projectData.projectValue.toLocaleString("pt-BR", {
+                      ?   projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
                         })
@@ -409,4 +408,5 @@ export default function ProjetoDetalhes() {
       </div>
     </div>
   );
+
 }

@@ -46,7 +46,7 @@ h3::before {
     border-radius: var(--padding-input);
     box-shadow: 2px 2px 2px 2px #bebebe;
     margin: auto;
-    padding: 20px 200px;
+    padding: 20px 10%;
     z-index: 1000;
     display: flex;
     justify-content: center;

@@ -3,13 +3,13 @@ import Sidebar from "../../components/sideBar/sideBar";
 import "./HistoryChanges.css";
 import { HistoryChangesProjects } from "../../type/historyChangesProjects";
 import { links } from "../../api/api";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Loading from "../../components/loading/loading";
 import ErrorComponent from "../../components/error/error";
 import PopUpHistoryChanges from "../../components/popUpHistoryChanges/popUpHistoryChanges";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { formatDate, formatDateHour } from "../../utils/utils";
+import { faChevronCircleLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { formatDateHour } from "../../utils/utils";
 
 export default function HistoryChanges() {
   const [changesHistory, setChangesHistory] = useState<HistoryChangesProjects[]>([]);
@@ -17,6 +17,7 @@ export default function HistoryChanges() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedHistory, setSelectedHistory] = useState<HistoryChangesProjects | null>(null);
+  const navigate = useNavigate();
 
   const getProjects = async () => {
     try {
@@ -34,7 +35,7 @@ export default function HistoryChanges() {
 
   useEffect(() => {
     getProjects();
-  }, []);
+  }, [id]);
 
   if (loading) {
     return <Loading />;
@@ -48,38 +49,51 @@ export default function HistoryChanges() {
     <>
       <Sidebar />
       <div className="main-conteiner-auth">
-        <div className="admin_center-header">
-          <h1>Historico de mudanças</h1>
-          <div className="user">
-            <img src="/static/img/user.svg" alt="logo" />
-            <p>Admin</p>
+        <div id="fundo-autenticado">
+          <div className="title">
+            <h2>Histórico de mudanças</h2>
+            <button 
+              className="botao-voltar"
+              onClick={() => navigate(`/detalhe/${id}`)}
+            >
+              <FontAwesomeIcon icon={faChevronCircleLeft} />
+              Voltar
+            </button>
           </div>
         </div>
         <div className="BackgroundChanges">
+          {/* Cabeçalho das colunas */}
           <div className="GridCategoryChanges">
-            <p>Usuario</p>
+            <p>Usuário</p>
             <p>Data</p>
             <p>Mudança</p>
             <p>Ver mais...</p>
           </div>
-          {changesHistory.map((history, index) => (
-            <div className="GridValuesChanges" key={index}>
-              <p>{history.userEmail}</p>
-              <p>{formatDateHour(history.changeDate)}</p>
-              {history.changedFields === "add" ? (
-                <p>Adicionando documento</p>
-              ) : history.changedFields === "removed" ? (
-                <p>Removendo documento</p>
-              ) : (
-                <p>Alterações no projeto</p>
-              )}
-              <p>
-                <button className="buttonDownload" onClick={() => setSelectedHistory(history)}>
-                  <FontAwesomeIcon icon={faPlus} />
-                </button>
-              </p>
-            </div>
-          ))}
+          <div className="GridValuesChangesContainer">
+            {/* Conteúdo da tabela */}
+            {changesHistory.map((history, index) => (
+              <div className="GridValuesChanges" key={index}>
+                <div className="history-column">
+                  <p>{history.userEmail}</p>
+                </div>
+                <div className="history-column">
+                  <p>{formatDateHour(history.changeDate)}</p>
+                </div>
+                <div className="history-column">
+                  <p>
+                    {history.changedFields === "add" ? "Adicionando documento" :
+                     history.changedFields === "removed" ? "Removendo documento" :
+                     "Alterações no projeto"}
+                  </p>
+                </div>
+                <div className="history-column">
+                  <button className="botao-vermais" onClick={() => setSelectedHistory(history)}>
+                    <FontAwesomeIcon icon={faPlus} /> Ver mais
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
       {selectedHistory && (

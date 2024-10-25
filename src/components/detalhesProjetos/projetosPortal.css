@@ -220,7 +220,35 @@
   .main-conteiner-auth{
     padding: 20px;
     padding-top: 128px;
-
   }
-  
+  .tabs2 {
+    flex-direction: column;
+  }
+  .tab2 {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .button-container {
+    flex-direction: column;
+  }
+  .buttons, .delete-buttons, .history-buttons {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .campo-projeto {
+    padding: 8px;
+  }
+  .campo-projeto label, .campo-projeto span {
+    font-size: 14px;
+  }
+  .botao-voltar {
+    width: 100%;
+    justify-content: center;
+    gap: 6px;
+  }
+  .button-container {
+    padding-left: 0;
+  }
 }

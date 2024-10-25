@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import "./addAnexo.css";
+import "./AddAnexo.css";
 import { TipoAnexo } from "../../enums/TipoAnexos";
 
 interface AddAnexoProps {
