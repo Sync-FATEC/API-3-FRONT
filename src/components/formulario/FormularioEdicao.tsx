@@ -210,6 +210,7 @@ export default function FormularioEdicaoProjeto({
               placeholder=" "
               value={projeto.projectObjective}
               onChange={(e) => handleChange("projectObjective", e)}
+              maxLength={2500}
             />
 
           </div>
@@ -222,6 +223,7 @@ export default function FormularioEdicaoProjeto({
               placeholder=" "
               value={projeto.projectDescription}
               onChange={(e) => handleChange("projectDescription", e)}
+              maxLength={2500}
             />
           </div>
 
