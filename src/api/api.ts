@@ -63,6 +63,15 @@ const links = {
   getProectsNearEnd: () => api.get("/projects/get/all/near-end"),
   
   getHistoryChangesProjects: (id: string) => api.get(`/projects/get/history-projects/${id}`),
+
+  getCountStatusCoordinator: (nameCoordinator: string) => 
+    api.get("/dashboard/count/status/coordinator", { params: { nameCoordinator } }),
+  
+  getCountClassificationCoordinator: (nameCoordinator: string) => 
+    api.get("/dashboard/count/classification/coordinator", { params: { nameCoordinator } }),
+  
+  getCountMonthCoordinator: (nameCoordinator: string) => 
+    api.get("/dashboard/count/month/coordinator", { params: { nameCoordinator } })
 };
 
 export { links };
