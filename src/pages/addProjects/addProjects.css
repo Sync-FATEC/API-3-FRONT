@@ -195,6 +195,12 @@ border: 2px solid var(--blue-color);
 outline: none;
 }
 */
+.checkboxDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
 @media (max-width: 768px) {
   .addProjetos {
     display: flex;
@@ -211,19 +217,27 @@ outline: none;
   }
   .hidden {
     display: none; /* Ou use visibility: hidden; se preferir */
-}
+} 
+  .campo-projeto button{
+    margin: 0 auto;
+  }
+  .add-anexo{
+    align-items: center;
+  }
+  
+  .admin_center-header h1{
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .campo-projeto select{
+    padding: 10px;
+    width: 100%;
+  }
 
 }
 .hidden {
 display: none; /* Ou use visibility: hidden; se preferir */
 }
-
-.checkBoxDiv{
-  display: flex;
-  flex-direction: row;
-  align-items: start;
-}
-
 
 input[type="checkbox"] {
   width: min-content !important;
