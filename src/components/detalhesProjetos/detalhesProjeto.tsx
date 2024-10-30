@@ -232,7 +232,7 @@ export default function ProjetoDetalhes() {
                     <strong>Valor do Projeto:</strong>
                   </label>
                   <span>
-                    {projectData?.projectValue !== undefined
+                    {projectData?.projectValue != undefined
                       ?   projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
