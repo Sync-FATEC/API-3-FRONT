@@ -64,14 +64,32 @@ const links = {
   
   getHistoryChangesProjects: (id: string) => api.get(`/projects/get/history-projects/${id}`),
 
-  getCountStatusCoordinator: (nameCoordinator: string) => 
-    api.get("/dashboard/count/status/coordinator", { params: { nameCoordinator } }),
+  getCountStatusCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
+    api.get("/dashboard/count/status/coordinator", { 
+      params: { 
+          nameCoordinator, 
+          projectStartDate, 
+          projectEndDate
+      } 
+  }),
   
-  getCountClassificationCoordinator: (nameCoordinator: string) => 
-    api.get("/dashboard/count/classification/coordinator", { params: { nameCoordinator } }),
+  getCountClassificationCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
+    api.get("/dashboard/count/classification/coordinator", { 
+      params: { 
+        nameCoordinator, 
+        projectStartDate, 
+        projectEndDate
+    } 
+  }),
   
-  getCountMonthCoordinator: (nameCoordinator: string) => 
-    api.get("/dashboard/count/month/coordinator", { params: { nameCoordinator } })
+  getCountMonthCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
+    api.get("/dashboard/count/month/coordinator", { 
+      params: { 
+        nameCoordinator, 
+        projectStartDate, 
+        projectEndDate
+    } 
+  })
 };
 
 export { links };
