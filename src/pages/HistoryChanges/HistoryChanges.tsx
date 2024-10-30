@@ -48,21 +48,29 @@ export default function HistoryChanges() {
       setFilteredChangesHistory(changesHistory);
       return;
     }
-
+  
     console.log("Datas de filtro formatadas:", projectStartDate, projectEndDate);
   
-    // Filtra dados somente se houver data de início ou término
     const filteredData = changesHistory.filter((history) => {
       const historyDate = new Date(history.changeDate);
-      const startDate = projectStartDate ? new Date(projectStartDate) : null;
-      const endDate = projectEndDate ? new Date(projectEndDate) : null;
-
+  
+      // Ajusta a data de início para 00:00:00 em UTC
+      const startDate = projectStartDate ? new Date(new Date(projectStartDate).setUTCHours(0, 0, 0, 0)) : null;
+  
+      // Ajusta a data de término para 23:59:59 em UTC
+      let endDate = null;
+      if (projectEndDate) {
+        endDate = new Date(new Date(projectEndDate).setUTCHours(23, 59, 59, 999));
+      }
+  
       return (!startDate || historyDate >= startDate) && (!endDate || historyDate <= endDate);
     });
   
-    console.log("Dados filtrados:", filteredData);
+    // console.log("Dados filtrados:", filteredData);
     setFilteredChangesHistory(filteredData);
   };
+  
+  
 
   if (loading) {
     return <Loading />;
