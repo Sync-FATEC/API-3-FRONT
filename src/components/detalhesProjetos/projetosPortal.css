@@ -17,6 +17,7 @@
   border-radius: 10px;
   border: none;
   background-color: var(--lightgray-color);
+  overflow-wrap: break-word;
 }
 .campo-projeto input {
   padding: 10px;
@@ -24,6 +25,7 @@
   border-radius: 10px;
   border: none;
   background-color: var(--lightgray-color);
+  overflow-wrap: break-word;
 }
 .botao-voltar {
   display: flex;
