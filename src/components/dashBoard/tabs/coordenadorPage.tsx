@@ -18,8 +18,13 @@ export default function SimpleCharts() {
   const [dataInicial, setDataInicial] = useState("");
   const [dataFinal, setDataFinal] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const [isFiltered, setIsFiltered] = useState(false);
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const handleDataInicialChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDataInicial(event.target.value);
@@ -31,72 +36,108 @@ export default function SimpleCharts() {
 
   const fetchData = async () => {
     setLoading(true);
-    setError(null); 
+    setError(null);
 
     try {
-      const countClassification = await links.getCountClassificationCoordinator(textoCoordenadores, dataInicial, dataFinal);
-      const countMonth = await links.getCountMonthCoordinator(textoCoordenadores, dataInicial, dataFinal);
-      const countStatus = await links.getCountStatusCoordinator(textoCoordenadores, dataInicial, dataFinal);
-      const responseCoordinators = await links.getCoordinators();
+      const [countClassification, countMonth, countStatus, responseCoordinators] = await Promise.all([
+        links.getCountClassificationCoordinator(textoCoordenadores, dataInicial, dataFinal),
+        links.getCountMonthCoordinator(textoCoordenadores, dataInicial, dataFinal),
+        links.getCountStatusCoordinator(textoCoordenadores, dataInicial, dataFinal),
+        links.getCoordinators()
+      ]);
 
       setCountByClassification(countClassification.data);
       setCountByMonth(countMonth.data);
       setCountByStatus(countStatus.data);
       setCoordenadores(responseCoordinators.data.model);
+      
     } catch (error) {
       console.error(error);
-      setError("Erro ao buscar os dados."); 
+      setError("Erro ao buscar os dados.");
     } finally {
       setLoading(false);
     }
   };
 
   const handleBuscarClick = () => {
+    setIsFiltered(false); 
+    if (dataInicial && !dataFinal) {
+      setError("Se uma data inicial for fornecida, uma data final também deve ser informada.");
+      return;
+    }
     if (dataInicial && dataFinal && dataInicial > dataFinal) {
       setError("A data inicial não pode ser maior que a data final.");
       return;
     }
-    setCountByClassification(null)
-    setCountByMonth(null)
-    setCountByStatus(null)
+
+    setCountByClassification(null);
+    setCountByMonth(null);
+    setCountByStatus(null);
     fetchData();
+    setIsFiltered(true); 
   };
-
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  if (loading) {
-    return <CircularProgress />;
-  }
 
   const filtrarOpcoesCoordenadores = coordenadores.filter(opcao =>
     opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
   );
 
-  function filterMoth(
-    dados: { [key: string]: number },
-    mesInicial: string,
-    mesFinal: string
-  ): { [key: string]: number } {
-    const meses = Object.keys(dados);
-    const novoObjeto: { [key: string]: number } = {};
-  
-    const indiceInicial = meses.indexOf(mesInicial);
-    const indiceFinal = meses.indexOf(mesFinal);
+  function filterMonthData(data: { [key: string]: number }, startMonth: number, endMonth: number) {
+    const months = [
+        "janeiro", "fevereiro", "marco", "abril", "maio", "junho", 
+        "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+    ];
+    const filteredData: { [key: string]: number } = {};
 
-    if (indiceInicial === -1 || indiceFinal === -1 || indiceInicial > indiceFinal) {
-      return novoObjeto;
+    if (startMonth <= endMonth) {
+        for (let i = startMonth; i <= endMonth; i++) {
+            const month = months[i];
+            filteredData[month] = data[month] || 0;
+        }
+    }else {
+        for (let i = startMonth; i < months.length; i++) {
+            const month = months[i];
+            filteredData[month] = data[month] || 0; 
+        }
     }
-  
-    for (let i = indiceInicial; i <= indiceFinal; i++) {
-      const mes = meses[i];
-      novoObjeto[mes] = dados[mes] || 0;
+    return filteredData;
+}
+
+const filteredCountByMonth = () => {
+    if (!isFiltered || !countByMonth) {
+        return countByMonth; 
     }
-  
-    return novoObjeto;
+
+    if (dataInicial && dataFinal) {
+        const startDate = new Date(dataInicial);
+        const endDate = new Date(dataFinal);
+        startDate.setDate(startDate.getDate()+1)
+        endDate.setDate(endDate.getDate() + 1);
+
+        const startYear = startDate.getFullYear();
+        const endYear = endDate.getFullYear();
+
+        let startMonth = 0
+        let endMonth = 11
+
+        if (startYear === endYear) {
+            startMonth = startDate.getMonth();
+            endMonth = endDate.getMonth(); 
+        } 
+
+        const result = filterMonthData(countByMonth, startMonth, endMonth);
+        console.log("startMonth:", startMonth, "endMonth:", endMonth);
+        console.log("startDate:", startDate);
+        console.log("endDate:", endDate);
+        return result;
+    }
+
+    return countByMonth; 
+};
+
+
+  if (loading) {
+    return <CircularProgress />;
   }
-  
 
   return (
     <>
@@ -139,66 +180,52 @@ export default function SimpleCharts() {
         />
       </div>
 
-      {error && <Typography color="error">{error}</Typography>} {/* Mostra a mensagem de erro se houver */}
+      {error && <Typography color="error">{error}</Typography>}
       
       <Button variant="contained" color="primary" onClick={handleBuscarClick} style={{ marginTop: '10px' }}>
         Buscar
       </Button>
 
-      <Box padding={smDown ? 0 : 4} margin={smDown ? 0 : 2} display="flex" flexDirection="row">
-        {countByClassification && (
-          <BarChart
-            xAxis={[
-              {
-                id: "barCategories",
-                data: Object.keys(countByClassification),
-                scaleType: "band",
-              },
-            ]}
-            series={[
-              {
-                data: Object.values(countByClassification),
-              },
-            ]}
-            width={500}
-            height={300}
-            colors={["#003383"]}
-          />
-        )}
+      <Box display="flex" justifyContent="center" flexDirection={"column"} gap={1}>
+        <Box padding={smDown ? 0 : 6} margin={smDown ? 0 : 6} display="flex" flex={"row"} justifyContent={"space-between"} width={"100%"}>
+          {countByClassification && (
+            <BarChart
+              xAxis={[{ id: "barCategories", data: Object.keys(countByClassification), scaleType: "band" }]}
+              series={[{ data: Object.values(countByClassification) }]}
+              width={700}
+              height={300}
+              colors={["#F0CE00"]}
+            />
+          )}
 
-        {countByStatus && (
-          <PieChart
-            series={[
-              {
+          {countByStatus && (
+            <PieChart
+              series={[{
                 data: Object.entries(countByStatus).map(([status, value]) => ({
-                  label: status.toUpperCase(),
+                  label: status,
                   value: Number(value),
                 })),
                 highlightScope: { fade: "global", highlight: "item" },
                 faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-              },
-            ]}
-            height={250}
-            colors={["#003383", "#F0CE00", "#2299AA"]}
-          />
-        )}
+              }]}
+              width={700}
+              height={200}
+              colors={["#003383", "#F0CE00", "#2299AA"]}
+            />
+          )}
+        </Box> 
       </Box>
-
-      <Box padding={smDown ? 0 : 4} margin={smDown ? 0 : 2} display="flex" justifyContent="center">
+      
+      <Box padding={smDown ? 0 : 5} margin={smDown ? 0 : 2} display="flex" justifyContent="center">
         {countByMonth && (
           <BarChart
-            xAxis={[
-              {
-                scaleType: "band",
-                data: Object.keys(filterMoth(countByMonth, new Date(dataInicial).getMonth().toString(), new Date(dataFinal).getMonth().toString())),
-              },
-            ]}
-            series={[
-              {
-                data: Object.values(filterMoth(countByMonth, new Date(dataInicial).getMonth().toString(), new Date(dataFinal).getMonth().toString()))
-              },
-            ]}
-            width={500}
+            xAxis={[{
+              scaleType: "band",
+              data: Object.keys(filteredCountByMonth() || {}),
+            }]}
+            series={[{
+              data: Object.values(filteredCountByMonth() || {})
+            }]}
             height={300}
             colors={["#003383"]}
           />
