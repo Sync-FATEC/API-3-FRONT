@@ -16,4 +16,5 @@ export type Projects = {
     projectStatus: ProjectStatus;
     documents: documents[];
     historyProject: any[];
+    sensitiveFields?: string[];
 };
