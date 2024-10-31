@@ -42,7 +42,7 @@ export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoCompo
                 <option value={TipoAnexo.OUTROS}>Outros</option>
             </select>
             <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} ref={fileInputRef} />
-            <button type="button" onClick={() => handleRemoveAnexoComponent(id)}>
+            <button className="delete-buttons" type="button" onClick={() => handleRemoveAnexoComponent(id)}>
             Remover
             </button>
         </div>

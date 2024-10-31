@@ -139,12 +139,12 @@ background-color: var(--lightgray-color);
   border: none;
 }
 
-.addfile {
+/* .addfile {
   display: flex;
   flex-direction: column;
   gap: 16px;
   
-}
+} */
 /*
 .tab4 {
 background-color: transparent;
@@ -201,6 +201,11 @@ outline: none;
   align-items: baseline;
 }
 
+/* .btn-add{
+  margin: 0 0 16px 16px;
+  
+} */
+
 @media (max-width: 768px) {
   .addProjetos {
     display: flex;
@@ -213,7 +218,7 @@ outline: none;
   }
 
   .add-anexo select, .add-anexo input[type="file"]{
-    width: 416px;
+    width: 100%;
   }
   .hidden {
     display: none; /* Ou use visibility: hidden; se preferir */

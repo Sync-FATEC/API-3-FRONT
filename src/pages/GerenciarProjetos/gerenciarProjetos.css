@@ -133,12 +133,12 @@
     border: none;
   }
 
-  .addfile {
+  /* .addfile {
     display: flex;
     flex-direction: column;
     gap: 16px;
     
-}
+} */
 
 /*
 .tab4 {

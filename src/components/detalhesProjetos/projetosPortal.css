@@ -239,7 +239,7 @@
 }
 
 @media (max-width: 480px) {
-  .campo-projeto {
+  .campo-projeto, .addfile {
     padding: 8px;
   }
   .campo-projeto label, .campo-projeto span {

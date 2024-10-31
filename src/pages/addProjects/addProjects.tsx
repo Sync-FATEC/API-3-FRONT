@@ -329,7 +329,7 @@ export default function AddProjects() {
                 </label>
               </div>
               <div className="campo-projeto">
-                <button type="submit">Cadastrar</button>
+                <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
               </div>
             </div>
             <div>
@@ -344,7 +344,7 @@ export default function AddProjects() {
                     />
                   ))}
                   <div className='add-anexo'>
-                    <button type="button" className="adicionar-btn" onClick={handleAddAnexoComponent}>
+                    <button className="btn btn-add" type="button" onClick={handleAddAnexoComponent}>
                       Adicionar anexo
                     </button>
                   </div>

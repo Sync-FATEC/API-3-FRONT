@@ -349,7 +349,7 @@ export default function FormularioEdicaoProjeto({
             </label>
           </div>
           <div className="campo-projeto">
-            <button id="button-editar" type="submit">
+            <button className="btn-flex" id="button-editar" type="submit">
               <FontAwesomeIcon icon={faEdit} />
               Salvar Edição
             </button> 
@@ -376,9 +376,9 @@ export default function FormularioEdicaoProjeto({
               <div className="add-anexo">
 
              
-              <button
+              <button 
                 type="button"
-                className="adicionar-btn"
+                className="btn btn-add"
                 onClick={handleAddAnexoComponent}
               >
                 Adicionar anexo
