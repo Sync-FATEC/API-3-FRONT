@@ -93,7 +93,17 @@ export default function SimpleCharts() {
             const month = months[i];
             filteredData[month] = data[month] || 0;
         }
-    }else {
+    }else if (startMonth > endMonth){
+      for (let i = startMonth; i < months.length ; i++) {
+        const month = months[i];
+        filteredData[month] = data[month] || 0;
+    }
+    for (let i = 0; i <= endMonth ; i++) {
+      const month = months[i];
+      filteredData[month] = data[month] || 0;
+  }
+    }
+    else {
         for (let i = startMonth; i < months.length; i++) {
             const month = months[i];
             filteredData[month] = data[month] || 0; 
@@ -116,12 +126,14 @@ const filteredCountByMonth = () => {
         const startYear = startDate.getFullYear();
         const endYear = endDate.getFullYear();
 
-        let startMonth = 0
-        let endMonth = 11
+        let startMonth = startDate.getMonth();
+        let endMonth = endDate.getMonth(); 
 
-        if (startYear === endYear) {
-            startMonth = startDate.getMonth();
-            endMonth = endDate.getMonth(); 
+        if (startYear < endYear) {
+          if(startMonth === endMonth || startMonth < endMonth){
+            startMonth = 0
+            endMonth = 11
+          }
         } 
 
         const result = filterMonthData(countByMonth, startMonth, endMonth);
@@ -186,8 +198,8 @@ const filteredCountByMonth = () => {
         Buscar
       </Button>
 
-      <Box display="flex" justifyContent="center" flexDirection={"column"} gap={1}>
-        <Box padding={smDown ? 0 : 6} margin={smDown ? 0 : 6} display="flex" flex={"row"} justifyContent={"space-between"} width={"100%"}>
+      <Box display="flex" justifyContent="center" flexDirection={"column"} gap={1} marginLeft={5}>
+        <Box padding={smDown ? 0 : 6} margin={smDown ? 0 : 7} display="flex" flex={"row"} justifyContent={"space-between"} width={"100%"}>
           {countByClassification && (
             <BarChart
               xAxis={[{ id: "barCategories", data: Object.keys(countByClassification), scaleType: "band" }]}
@@ -214,9 +226,9 @@ const filteredCountByMonth = () => {
             />
           )}
         </Box> 
-      </Box>
-      
-      <Box padding={smDown ? 0 : 5} margin={smDown ? 0 : 2} display="flex" justifyContent="center">
+
+
+         <Box padding={smDown ? 0 : 5} margin={smDown ? 0 : 10} display="flex" justifyContent="center">
         {countByMonth && (
           <BarChart
             xAxis={[{
@@ -231,6 +243,9 @@ const filteredCountByMonth = () => {
           />
         )}
       </Box>
+      </Box>
+      
+     
     </>
   );
 }

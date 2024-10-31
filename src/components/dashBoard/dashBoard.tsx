@@ -23,7 +23,7 @@ export default function DashBoard() {
             </div>
           </div>
           <div className="tabs3">
-            {["Coordenador", "Empresa", "Classificação"].map((tab) => (
+            {["Coordenador"].map((tab) => (
               <button
                 key={tab}
                 className={`tab3 ${activeTab === tab ? "active" : ""}`}
@@ -36,16 +36,6 @@ export default function DashBoard() {
 
           <div className="tabs3">
             {activeTab === "Coordenador" && (
-              <div>
-                <CoordenadorPage />
-              </div>
-            )}
-            {activeTab === "Empresa" && (
-              <div>
-                <CoordenadorPage />
-              </div>
-            )}
-            {activeTab === "Classificação" && (
               <div>
                 <CoordenadorPage />
               </div>

@@ -2,6 +2,7 @@
     height: 100%;
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -73,6 +74,7 @@ h4{
     display: none;
     height: 90px;
     width: 100%;
+    z-index: 1;
     flex-direction: row;
     justify-content: space-between;
     padding: 20px 0;
