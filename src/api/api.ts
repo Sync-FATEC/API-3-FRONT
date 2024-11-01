@@ -89,6 +89,42 @@ const links = {
         projectStartDate, 
         projectEndDate
     } 
+  }),
+
+getCountStatusCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+  api.get("/dashboard/count/status/company", { 
+    params: { 
+      companyName, 
+      projectStartDate, 
+      projectEndDate
+    } 
+  }),
+
+getCountClassificationCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+  api.get("/dashboard/count/classification/company", { 
+    params: { 
+      companyName, 
+      projectStartDate, 
+      projectEndDate
+    } 
+  }),
+
+getCountMonthCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+  api.get("/dashboard/count/month/company", { 
+    params: { 
+      companyName, 
+      projectStartDate, 
+      projectEndDate
+    } 
+  }),
+
+getInvestmentCompany: (companyName: string, projectStartDate?: string, projectEndDate?: string) => 
+  api.get("/dashboard/count/investment/company", { 
+    params: { 
+      companyName,
+      projectStartDate,
+      projectEndDate
+    } 
   })
 };
 
