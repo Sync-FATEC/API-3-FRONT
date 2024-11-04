@@ -3,6 +3,7 @@ import './dashBoard.css';
 import Sidebar from '../sideBar/sideBar';
 import CoordenadorPage from "./tabs/coordenadorPage";
 import api from "../../api/api";
+import EmpresaPage from "./tabs/empresaPage";
 
 export default function DashBoard() {
   const [activeTab, setActiveTab] = useState<string>("Coordenador");
@@ -47,7 +48,7 @@ export default function DashBoard() {
             </div>
           </div>
           <div className="tabs3">
-            {["Coordenador"].map((tab) => (
+            {["Coordenador", "Empresa"].map((tab) => (
               <button
                 key={tab}
                 className={`tab3 ${activeTab === tab ? "active" : ""}`}
@@ -62,6 +63,17 @@ export default function DashBoard() {
             {activeTab === "Coordenador" && (
               <div>
                 <CoordenadorPage />
+                <div className="export-buttons-coordenador">
+                  <button onClick={() => handleExport("pdf")}>Exportar como PDF</button>
+                  <button onClick={() => handleExport("excel")}>Exportar como Excel</button>
+                </div>
+              </div>
+            )}
+          </div>
+          <div className="tabs3">
+            {activeTab === "Empresa" && (
+              <div>
+                <EmpresaPage />
                 <div className="export-buttons">
                   <button onClick={() => handleExport("pdf")}>Exportar como PDF</button>
                   <button onClick={() => handleExport("excel")}>Exportar como Excel</button>

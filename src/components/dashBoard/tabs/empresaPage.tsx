@@ -100,7 +100,7 @@ export default function EmpresaPage() {
         Buscar
       </Button>
 
-      <Box display="flex" justifyContent="center" flexDirection={"column"} gap={1} marginLeft={5}>
+      <Box display="flex" justifyContent="center" flexDirection={"row"} gap={1} marginLeft={5}>
         <Box padding={smDown ? 0 : 6} display="flex" flexDirection="row" justifyContent="space-between" width="100%">
           {countByClassification && (
             <BarChart
@@ -142,7 +142,7 @@ export default function EmpresaPage() {
 
         {investmentByCompany && (
           <Box padding={smDown ? 0 : 5} display="flex" justifyContent="center">
-            <Typography variant="h6" color="primary">Investimento Total</Typography>
+            <Typography variant="h6" color="primary"></Typography>
             <BarChart
               xAxis={[{ id: "investmentCategories", data: ["Investimento Total"], scaleType: "band" }]}
               series={[{ data: [investmentByCompany.totalInvestment] }]}
