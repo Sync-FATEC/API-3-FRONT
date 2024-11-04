@@ -2,6 +2,7 @@ import { useState } from "react";
 import './dashBoard.css';
 import Sidebar from '../sideBar/sideBar';
 import CoordenadorPage from "./tabs/coordenadorPage";
+import api from "../../api/api";
 
 export default function DashBoard() {
   const [activeTab, setActiveTab] = useState<string>("Coordenador");
@@ -10,9 +11,32 @@ export default function DashBoard() {
     setActiveTab(tab);
   };
 
+  const handleExport = async (format: string) => {
+    try {
+      const response = await api.get(`/dashboard/export/${format}`, {
+        responseType: "blob",
+        headers: {
+          "Accept": format === "pdf" ? "application/pdf" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        },
+      });
+  
+      // Criação do link para download do arquivo
+      const url = window.URL.createObjectURL(new Blob([response.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      const fileExtension = format === "pdf" ? "pdf" : "xlsx";
+      link.setAttribute("download", `dashboard_report.${fileExtension}`);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (error) {
+      console.error("Erro ao exportar dados:", error);
+    }
+  };
+
   return (
     <>
-     <Sidebar />
+      <Sidebar />
       <div className="MainDadosAuth">
         <div className="mainDadosMobile">
           <div className="admin_center-header">
@@ -38,6 +62,10 @@ export default function DashBoard() {
             {activeTab === "Coordenador" && (
               <div>
                 <CoordenadorPage />
+                <div className="export-buttons">
+                  <button onClick={() => handleExport("pdf")}>Exportar como PDF</button>
+                  <button onClick={() => handleExport("excel")}>Exportar como Excel</button>
+                </div>
               </div>
             )}
           </div>
