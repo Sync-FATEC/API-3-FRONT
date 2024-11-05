@@ -207,13 +207,24 @@
   justify-content: center;
 }
 
-
-
-
 #detalhesProjeto{
   padding: var(--padding-global);
+  width: 100%;
 }
 
+.dividir {
+  display: flex;
+  gap: 20px;
+}
+
+#detalhesProjetoAuth {
+  flex-grow: 1;
+}
+
+.button-container {
+  flex-direction: column !important;
+  margin-top: 20px;
+}
 
 @media (max-width: 768px) {
   .campo-projeto span {

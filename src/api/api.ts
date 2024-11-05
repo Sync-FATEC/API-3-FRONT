@@ -42,6 +42,8 @@ const links = {
 
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
+  getExport: (link: string) => api.get(link, { responseType: "blob" }),
+
   getFiltered: (
     keyword: string,
     dataInicio: string,

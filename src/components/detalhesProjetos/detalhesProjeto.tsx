@@ -19,6 +19,7 @@ import {
 import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
+import ExportProjectButton from "../exportProjectButton/exportProjectButton";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -139,7 +140,6 @@ export default function ProjetoDetalhes() {
             </button>
           </div>
         </div>
-        <div id={isAuthenticated ? "detalhesProjetoAuth" : "detalhesProjeto"}>
           <div className="tabs2">
             <button
               className={`tab2 ${
@@ -189,6 +189,8 @@ export default function ProjetoDetalhes() {
               </button>
             )}
           </div>
+        <div className="dividir">
+        <div id={isAuthenticated ? "detalhesProjetoAuth" : "detalhesProjeto"}>
 
           <div className="background-projects">
             {activeTab === "Informações do Projeto" && (
@@ -363,9 +365,20 @@ export default function ProjetoDetalhes() {
               </div>
             )}
           </div>
-          {isAuthenticated && (
+          
+          
+        </div>
+        {isAuthenticated && (
             <>
               <div className="button-container">
+                <ExportProjectButton id={projectData.projectId} format="pdf" nome={projectData.projectReference ?? "Referencia_Indisponivel"}/>
+                <button
+                  className="history-buttons"
+                  onClick={() => navigate(`/historico-projeto/${id}`)}
+                >
+                  <FontAwesomeIcon icon={faFileCircleQuestion} />
+                  Historico projeto
+                </button>
                 <button
                   className="buttons"
                   onClick={() => navigate(`/editar-projeto/${id}`)}
@@ -376,17 +389,11 @@ export default function ProjetoDetalhes() {
                 <button className="delete-buttons" onClick={handleDeleteClick}>
                   <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
                 </button>
-                <button
-                  className="history-buttons"
-                  onClick={() => navigate(`/historico-projeto/${id}`)}
-                >
-                  <FontAwesomeIcon icon={faFileCircleQuestion} />
-                  Historico projeto
-                </button>
               </div>
             </>
-          )}
+          )}  
         </div>
+
         {showConfirmDelete && (
           <div className="modal">
             <div className="modal-content">

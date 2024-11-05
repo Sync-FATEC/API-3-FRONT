@@ -1,7 +1,7 @@
 import './addProjects.css';
 import { useState, useRef } from "react";
 import Sidebar from '../../components/sideBar/sideBar';
-import api, { links } from "../../api/api";
+import { links } from "../../api/api";
 import { errorSwal } from "../../components/swal/errorSwal";
 import { successSwal } from "../../components/swal/sucessSwal";
 import AddAnexo from '../../components/addAnexo/addAnexos';
