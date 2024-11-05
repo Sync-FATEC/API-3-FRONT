@@ -32,6 +32,7 @@
   box-shadow: none;
 
 }
+
 .titulo h1 {
   font-weight: 700;
   size: 24px;
@@ -40,46 +41,79 @@
 
 /* Página do Coordenador */
 
-  .coordenador .container-secundario{
-    margin: 32px 0;
-    border: 1px;
-    border-radius: 8px;
+.coordenador .container-secundario {
+  margin: 32px 0;
+  border: 1px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mainDadosMobile {
+  flex-grow: 1;
+  margin-top: 50px;
+}
+
+
+@media (max-width: 768px) {
+  .container-secundario {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .mainDadosMobile {
-    flex-grow: 1;
-    margin-top: 50px;
+  .tab3s {
+    width: 200px;
   }
-  
+}
 
-  @media (max-width: 768px) {
-    .container-secundario {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+.export-buttons, .export-buttons-coordenador {
+  display: flex;
+  justify-content: center;
 
-    
-  }
+  gap: 10px;
+  margin-top: 20px;
+}
 
-  .export-buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 20px;
-  }
-  
-  .export-buttons button {
-    padding: 10px 15px;
-    border: none;
-    background-color: #007bff;
-    color: white;
-    cursor: pointer;
-  }
-  
-  .export-buttons button:hover {
-    background-color: #0056b3;
-  }
-  
+.export-buttons, .export-buttons-coordenador button {
+  padding: 10px 15px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.export-buttons, .export-buttons-coordenador button:hover {
+  background-color: #0056b3;
+}
+
+.container-pesquisa input {
+  align-items: center;
+  justify-content: center;
+  gap: var(--padding-input);
+  padding: var(--padding-input);
+  background-color: var(--white-color);
+  border-radius: 10px;
+  box-shadow: none;
+  width: 300px;
+  text-decoration: none;
+}
+
+.botao-pesquisar {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  box-shadow: none;
+  height: 50px;
+  border-radius: 10px;
+  gap: 8px;
+  cursor: pointer;
+  border: none;
+  width: '300px ';
+  margin-top: '10px';
+}
+
+.botao-pesquisar:hover {
+  background-color: #0457af;
+  transition: 0.5s;
+}
