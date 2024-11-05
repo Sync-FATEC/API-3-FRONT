@@ -68,26 +68,33 @@
   }
 }
 
-.export-buttons, .export-buttons-coordenador {
+.export-buttons{
   display: flex;
   justify-content: center;
-
   gap: 10px;
   margin-top: 20px;
 }
 
-.export-buttons, .export-buttons-coordenador button {
+#pdf {
   padding: 10px 15px;
   border: none;
-  background-color: #007bff;
+  background-color: #A62534;
   color: white;
   cursor: pointer;
+  border-radius: 5px;
+}
+#excel {
+  padding: 10px 15px;
+  border: none;
+  background-color: #008148;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-.export-buttons, .export-buttons-coordenador button:hover {
+.export-buttons button:hover {
   background-color: #0056b3;
 }
-
 .container-pesquisa input {
   align-items: center;
   justify-content: center;

@@ -4,6 +4,8 @@ import Sidebar from '../sideBar/sideBar';
 import CoordenadorPage from "./tabs/coordenadorPage";
 import api from "../../api/api";
 import EmpresaPage from "./tabs/empresaPage";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile, faTable } from "@fortawesome/free-solid-svg-icons";
 
 export default function DashBoard() {
   const [activeTab, setActiveTab] = useState<string>("Coordenador");
@@ -20,8 +22,6 @@ export default function DashBoard() {
           "Accept": format === "pdf" ? "application/pdf" : "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
         },
       });
-  
-      // Criação do link para download do arquivo
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
       link.href = url;
@@ -63,9 +63,9 @@ export default function DashBoard() {
             {activeTab === "Coordenador" && (
               <div>
                 <CoordenadorPage />
-                <div className="export-buttons-coordenador">
-                  <button onClick={() => handleExport("pdf")}>Exportar como PDF</button>
-                  <button onClick={() => handleExport("excel")}>Exportar como Excel</button>
+                <div className="export-buttons">
+                  <button id="pdf" onClick={() => handleExport("pdf")}>Exportar como PDF <FontAwesomeIcon icon={faFile} /></button>
+                  <button id="excel" onClick={() => handleExport("excel")}>Exportar como Excel <FontAwesomeIcon icon={faTable} /></button>
                 </div>
               </div>
             )}
@@ -75,8 +75,8 @@ export default function DashBoard() {
               <div>
                 <EmpresaPage />
                 <div className="export-buttons">
-                  <button onClick={() => handleExport("pdf")}>Exportar como PDF</button>
-                  <button onClick={() => handleExport("excel")}>Exportar como Excel</button>
+                  <button id="pdf" onClick={() => handleExport("pdf")}>Exportar como PDF  <FontAwesomeIcon icon={faFile}/></button>
+                  <button id="excel" onClick={() => handleExport("excel")}>Exportar como Excel <FontAwesomeIcon icon={faTable} /></button>
                 </div>
               </div>
             )}

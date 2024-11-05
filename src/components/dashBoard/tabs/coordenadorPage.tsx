@@ -24,7 +24,7 @@ export default function SimpleCharts() {
   const [isFiltered, setIsFiltered] = useState(false);
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
-
+  const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   useEffect(() => {
     fetchData();
   }, []);
@@ -149,123 +149,155 @@ export default function SimpleCharts() {
     return countByMonth;
   };
 
-
   if (loading) {
     return <CircularProgress />;
   }
-
-  const formatLabel = (label: string): string => {
-    return label.charAt(0).toUpperCase() + label.slice(1).toLowerCase();
+  const formatTitleFromMapping = (title: string): string => {
+    const titleMapping: Record<string, string> = {
+      "outros": "Outros",
+      "contratos": "Contratos",
+      "convenio": "Convênio",
+      "patrocinio": "Patrocínio",
+      "termoDeCooperacao": "Termo De Cooperação",
+      "termoDeOutorga": "Termo De Outorga"
+    };
+    return titleMapping[title] || title;
   };
+  const formatClassificationLabel = (label: string): string => {
+    const mapping: Record<string, string> = {
+      "naoIniciados": "Não Iniciados",
+      "emAndamento": "Em Andamento",
+      "finalizados": "Finalizados"
+    };
+    return mapping[label] || label;
+  };
+  const formatMonthFromMapping = (month: string): string => {
+    const monthMapping: Record<string, string> = {
+      "janeiro": "Janeiro",
+      "fevereiro": "Fevereiro",
+      "marco": "Março",
+      "abril": "Abril",
+      "maio": "Maio",
+      "junho": "Junho",
+      "julho": "Julho",
+      "agosto": "Agosto",
+      "setembro": "Setembro",
+      "outubro": "Outubro",
+      "novembro": "Novembro",
+      "dezembro": "Dezembro"
+    };
+    return monthMapping[month.toLowerCase()] || month;
+  };
+
 
   return (
     <>
       <div className="container-pesquisa">
         <br />
-        <Box  display="flex" justifyContent="space-between" flexDirection={"column"} gap={1} marginLeft={smDown? 5 : 75}>
-            <div className="pesquisa-container">
-              <p>Coodenador:</p>
-              <label htmlFor="coordenador"></label>
-              <input
-                type="text"
-                value={textoCoordenadores}
-                onChange={(e) => setTextoCoordenadores(e.target.value)}
-                onFocus={() => setExibirDropdownCoordenadores(true)}
-                onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
-                placeholder="Pesquise"
-              />
-              {exibirDropdownCoordenadores && textoCoordenadores && (
-                <ul className="dropdown">
-                  {filtrarOpcoesCoordenadores.map((opcao, index) => (
-                    <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
-                      {opcao}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="data-inicial">
-              <p>Data-Inicial:</p>
-              <label htmlFor="dataInicial"></label>
-              <input
+        <Box display="flex" justifyContent="center" flexDirection={"column"}  paddingLeft={smDown ? 5 : mdDown ? 0 : 50}>
+          <div className="pesquisa-container">
+            <p>Coodenador:</p>
+            <label htmlFor="coordenador"></label>
+            <input
+              type="text"
+              value={textoCoordenadores}
+              onChange={(e) => setTextoCoordenadores(e.target.value)}
+              onFocus={() => setExibirDropdownCoordenadores(true)}
+              onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+              placeholder="Pesquise"
+            />
+            {exibirDropdownCoordenadores && textoCoordenadores && (
+              <ul className="dropdown">
+                {filtrarOpcoesCoordenadores.map((opcao, index) => (
+                  <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
+                    {opcao}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className="data-inicial">
+            <p>Data-Inicial:</p>
+            <label htmlFor="dataInicial"></label>
+            <input
               placeholder="Data-Inicial:"
-                type="month"
-                id="dataInicial"
-                value={dataInicial}
-                onChange={handleDataInicialChange}
-              />
-            </div>
-            <div className="data-final">
-              <p>Data-Final:</p>
-              <label htmlFor="dataFinal"></label>
-              <input
-                type="month"
-                id="dataFinal"
-                value={dataFinal}
-                onChange={handleDataFinalChange}
-              />
-            </div>
-            <button className="botao-pesquisar"  color="primary" onClick={handleBuscarClick} style={{ width:'300px ', marginTop: '10px' }}>
-              Buscar
-              <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
-            </button>
-            {error && <Typography color="error">{error}</Typography>}
+              type="month"
+              id="dataInicial"
+              value={dataInicial}
+              onChange={handleDataInicialChange}
+            />
+          </div>
+          <div className="data-final">
+            <p>Data-Final:</p>
+            <label htmlFor="dataFinal"></label>
+            <input
+              type="month"
+              id="dataFinal"
+              value={dataFinal}
+              onChange={handleDataFinalChange}
+            />
+          </div>
+          <button className="botao-pesquisar" color="primary" onClick={handleBuscarClick} style={{ width: '300px ', marginTop: '10px' }}>
+            Buscar
+            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+          </button>
+          {error && <Typography color="error">{error}</Typography>}
         </Box>
       </div>
-
-      <Box display="flex" justifyContent="center" flexDirection={"column"} gap={1} marginLeft={smDown? -9 : 15}>
-        <Box padding={smDown ? 0 : 6} margin={smDown ? 0 : 6} display="flex" flex={"row"} justifyContent={"space-between"} width={"100%"}>
-          <Typography color=""></Typography>
-          {countByClassification && (
-            <BarChart
-              xAxis={[{ id: "barCategories", data: Object.keys(countByClassification), scaleType: "band" }]}
-              series={[{ data: Object.values(countByClassification) }]}
-              width={smDown? 250 : 1000}
-              height={smDown? 200 : 300}
-              colors={["#F0CE00"]}
-            />
-          )}
-        </Box>
-
-        <Box padding={smDown ? 0 : 5} margin={smDown ? 0 : 9} display="flex" >
+      <Box marginLeft={smDown ? 7 : mdDown ? 0 : 6}>
+  <Box display="flex" flexDirection={smDown ? "column" : "row"}>
+    <Box display="flex" flexDirection={smDown ? "row" : "column"}>
+      {countByClassification && (
+        <PieChart
+          series={[{
+            data: Object.entries(countByClassification).map(([classification, value]) => ({
+              label: smDown ? '' : formatTitleFromMapping(classification), 
+              value: Number(value),
+            })),
+            highlightScope: { fade: "global", highlight: "item" },
+            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+          }]}
+          width={smDown ? 280 : 600}
+          height={250}
+          colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
+        />
+      )}
+    </Box>
+    <Box display="flex" flexDirection={smDown ? "row" : "column"} padding={smDown ? 5 : 10}>
       {countByStatus && (
         <PieChart
-          series={[
-            {
-              data: Object.entries(countByStatus).map(([status, value]) => ({
-                label: formatLabel(status), 
-                value: Number(value),
-              })),
-              highlightScope: { fade: "global", highlight: "item" },
-              faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-            },
-          ]}
-          width={smDown? 400 :1000}
-          height={smDown? 160 :375}
+          series={[{
+            data: Object.entries(countByStatus).map(([status, value]) => ({
+              label: smDown ? '' : formatClassificationLabel(status), // Oculta a label em telas pequenas
+              value: Number(value),
+            })),
+            highlightScope: { fade: "global", highlight: "item" },
+            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+          }]}
+          width={smDown ? 280 : 500}
+          height={smDown ? 250 : 250}
           colors={["#003383", "#F0CE00", "#2299AA"]}
         />
       )}
     </Box>
-        <Box padding={smDown ? 5 : 5} margin={smDown ? 8 : 15} display="flex" >
-          {countByMonth && (
-            <BarChart
-              xAxis={[{
-                scaleType: "band",
-                data: Object.keys(filteredCountByMonth() || {}),
-              }]}
-              series={[{
-                data: Object.values(filteredCountByMonth() || {})
-                
-              }]}
-              
-              height={smDown ? 250 : 400}
-              width={smDown ? 350: 1000}
-              colors={["#003383"]}
-            />
-          )}
-        </Box>
-      </Box>
-
+  </Box>
+  <Box display="flex" marginLeft={smDown ? 0 : mdDown ? 0 : 6}>
+    {countByMonth && (
+      <BarChart
+        xAxis={[{
+          scaleType: "band",
+          data: Object.keys(filteredCountByMonth() || {}).map(month => formatMonthFromMapping(month)),
+        }]}
+        series={[{
+          data: Object.values(filteredCountByMonth() || {}),
+        }]}
+        width={smDown ? 300 : 700}
+        height={smDown ? 300 : 500}
+        colors={["#003383"]}
+      />
+    )}
+  </Box>
+</Box>
 
     </>
   );
