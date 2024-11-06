@@ -247,6 +247,10 @@
   .buttons, .delete-buttons, .history-buttons {
     width: 100%;
   }
+  .dividir{
+    gap: 0px;
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 480px) {
@@ -263,5 +267,9 @@
   }
   .button-container {
     padding-left: 0;
+  }
+  .dividir{
+    flex-direction: column;
+    gap: 0px;
   }
 }
