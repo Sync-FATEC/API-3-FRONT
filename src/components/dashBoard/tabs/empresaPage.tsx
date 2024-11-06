@@ -1,7 +1,6 @@
 import * as React from "react";
 import { BarChart, PieChart } from "@mui/x-charts";
 import { Box, CircularProgress, useTheme, useMediaQuery, Button, Typography } from "@mui/material";
-import { Tooltip } from "@mui/material";
 import { useEffect, useState } from "react";
 import { projectClassificationCount } from "../../../type/projectClassificationCount";
 import { links } from "../../../api/api";
@@ -127,8 +126,8 @@ export default function EmpresaPage() {
       "contratos": "Contratos",
       "convenio": "Convênio",
       "patrocinio": "Patrocínio",
-      "termoDeCooperacao": "Termo De Cooperação",
-      "termoDeOutorga": "Termo De Outorga"
+      "termoDeCooperacao": "Cooperação",
+      "termoDeOutorga": "Outorga"
     };
     return titleMapping[title] || title;
   };
@@ -140,6 +139,14 @@ export default function EmpresaPage() {
     };
     return mapping[label] || label;
   };
+
+  const formatInvestmentLabel = (label: string): string => {
+    const investmentMapping: Record<string, string> = {
+      "totalInvestment": "Investimento Total",
+    };
+    return investmentMapping[label] || label;
+  };
+  
 
   const formatMonthFromMapping = (month: string): string => {
     const monthMapping: Record<string, string> = {
@@ -254,43 +261,41 @@ export default function EmpresaPage() {
       
   <Box marginLeft={smDown ? 2 : mdDown ? 0 : 6} display="flex" flexDirection="column">
   <Box display="flex" flexDirection={smDown ? "column" : "row"} gap={smDown ? 3 : 10}>
-    {/* Gráfico de Classificação */}
-    <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend">
-      {countByClassification && (
-        <PieChart
-          series={[{
-            data: Object.entries(countByClassification).map(([classification, value]) => ({
-              label: smDown ? '' : formatTitleFromMapping(classification), // Exibe legenda apenas em telas maiores
-              value: Number(value),
-            })),
-            highlightScope: { fade: "global", highlight: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-          }]}
-          width={smDown ? 280 : 600}
-          height={250}
-          colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
-        />
-      )}
-    </Box>
+  {/* Gráfico de Classificação */}
+  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend">
+    {countByClassification && (
+      <BarChart
+        xAxis={[{
+          scaleType: "band",
+          data: Object.keys(countByClassification).map(classification => formatTitleFromMapping(classification)), 
+        }]}
+        series={[{
+          data: Object.values(countByClassification).map(value => Number(value)), 
+        }]}
+        width={smDown ? 280 : 600}
+        height={250}
+        colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
+      />
+    )}
+  </Box>
 
-    {/* Gráfico de Status */}
-    <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
-      {countByStatus && (
-        <PieChart
-          series={[{
-            data: Object.entries(countByStatus).map(([status, value]) => ({
-              label: smDown ? '' : formatClassificationLabel(status), // Exibe legenda apenas em telas maiores
-              value: Number(value),
-            })),
-            highlightScope: { fade: "global", highlight: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-          }]}
-          width={smDown ? 280 : 500}
-          height={250}
-          colors={["#003383", "#F0CE00", "#2299AA"]}
-        />
-      )}
-    </Box>
+  {/* Gráfico de Status */}
+  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
+    {countByStatus && (
+      <BarChart
+        xAxis={[{
+          scaleType: "band",
+          data: Object.keys(countByStatus).map(status => formatClassificationLabel(status)), 
+        }]}
+        series={[{
+          data: Object.values(countByStatus).map(value => Number(value)), 
+        }]}
+        width={smDown ? 280 : 500}
+        height={250}
+        colors={["#003383", "#F0CE00", "#2299AA"]}
+      />
+    )}
+  </Box>
   </Box>
 
   {/* Gráfico de Meses */}
@@ -304,30 +309,30 @@ export default function EmpresaPage() {
         series={[{
           data: Object.values(filteredCountByMonth() || {}).map(value => Number(value)),
         }]}
-        width={smDown ? 300 : 700}
+        width={smDown ? 300 : 1000}
         height={smDown ? 300 : 500}
         colors={["#003383"]}
       />
     )}
   </Box>
 
-  {/* Gráfico de Investimento por Empresa */}
-  <Box display="flex" justifyContent="center" marginY={4} className="hide-legend">
-    {investmentByCompany && (
-      <BarChart
-        xAxis={[{
-          scaleType: "band",
-          data: Object.keys(investmentByCompany).map(company => company),
-        }]}
-        series={[{
-          data: Object.values(investmentByCompany).map(value => Number(value)),
-        }]}
-        width={smDown ? 300 : 700}
-        height={smDown ? 300 : 500}
-        colors={["#003383"]}
-      />
-    )}
-  </Box>
+{/* Gráfico de Investimento por Empresa */}
+<Box display="flex" justifyContent="center" marginY={4} className="hide-legend">
+  {investmentByCompany && (
+    <BarChart
+      xAxis={[{
+        scaleType: "band",
+        data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), // Aplica a formatação ao nome da empresa
+      }]}
+      series={[{
+        data: Object.values(investmentByCompany).map(value => Number(value)), // Mantém os valores numéricos para o eixo Y
+      }]}
+      width={smDown ? 300 : 700}
+      height={smDown ? 300 : 500}
+      colors={["#003383"]}
+    />
+  )}
+</Box>
 </Box>
     </>
   );

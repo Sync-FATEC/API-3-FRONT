@@ -158,8 +158,8 @@ export default function SimpleCharts() {
       "contratos": "Contratos",
       "convenio": "Convênio",
       "patrocinio": "Patrocínio",
-      "termoDeCooperacao": "Termo De Cooperação",
-      "termoDeOutorga": "Termo De Outorga"
+      "termoDeCooperacao": "Cooperação",
+      "termoDeOutorga": "Outorga"
     };
     return titleMapping[title] || title;
   };
@@ -244,42 +244,40 @@ export default function SimpleCharts() {
           {error && <Typography color="error">{error}</Typography>}
         </Box>
       </div>
-      <Box marginLeft={smDown ? 7 : mdDown ? 0 : 6}>
-  <Box display="flex" flexDirection={smDown ? "column" : "row"}>
-    <Box display="flex" flexDirection={smDown ? "row" : "column"}>
-      {countByClassification && (
-        <PieChart
-          series={[{
-            data: Object.entries(countByClassification).map(([classification, value]) => ({
-              label: smDown ? '' : formatTitleFromMapping(classification), 
-              value: Number(value),
-            })),
-            highlightScope: { fade: "global", highlight: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-          }]}
-          width={smDown ? 280 : 600}
-          height={250}
-          colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
-        />
-      )}
-    </Box>
-    <Box display="flex" flexDirection={smDown ? "row" : "column"} padding={smDown ? 5 : 10}>
-      {countByStatus && (
-        <PieChart
-          series={[{
-            data: Object.entries(countByStatus).map(([status, value]) => ({
-              label: smDown ? '' : formatClassificationLabel(status), // Oculta a label em telas pequenas
-              value: Number(value),
-            })),
-            highlightScope: { fade: "global", highlight: "item" },
-            faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
-          }]}
-          width={smDown ? 280 : 500}
-          height={smDown ? 250 : 250}
-          colors={["#003383", "#F0CE00", "#2299AA"]}
-        />
-      )}
-    </Box>
+      <Box marginLeft={smDown ? 2 : mdDown ? 0 : 6} display="flex" flexDirection="column">
+  <Box display="flex" flexDirection={smDown ? "column" : "row"} gap={smDown ? 3 : 10}>
+  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend">
+    {countByClassification && (
+      <BarChart
+        xAxis={[{
+          scaleType: "band",
+          data: Object.keys(countByClassification).map(classification => formatTitleFromMapping(classification)),
+        }]}
+        series={[{
+          data: Object.values(countByClassification).map(value => Number(value)),
+        }]}
+        width={smDown ? 280 : 600}
+        height={250}
+        colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
+      />
+    )}
+  </Box>
+  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
+    {countByStatus && (
+      <BarChart
+        xAxis={[{
+          scaleType: "band",
+          data: Object.keys(countByStatus).map(status => formatClassificationLabel(status)), 
+        }]}
+        series={[{
+          data: Object.values(countByStatus).map(value => Number(value)), 
+        }]}
+        width={smDown ? 280 : 500}
+        height={250}
+        colors={["#003383", "#F0CE00", "#2299AA"]}
+      />
+    )}
+  </Box>
   </Box>
   <Box display="flex" marginLeft={smDown ? 0 : mdDown ? 0 : 6}>
     {countByMonth && (
