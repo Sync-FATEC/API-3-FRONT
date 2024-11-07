@@ -208,7 +208,7 @@ export default function EmpresaPage() {
     <>
       <div className="container-pesquisa">
         <br />
-        <Box display="flex" justifyContent="center" flexDirection={"column"}  paddingLeft={smDown ? 5 : mdDown ? 0 : 50}>
+        <Box display="flex" justifyContent="center" justifyItems="center" gap={smDown? 0 :10} flexDirection={smDown? "column" :"row"} paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
             <div className="pesquisa-container">
               <p>Empresa:</p>
               <label htmlFor="empresa"></label>
@@ -251,18 +251,23 @@ export default function EmpresaPage() {
                 onChange={handleDataFinalChange}
               />
             </div>
-            <button className="botao-pesquisar" color="primary" onClick={handleBuscarClick} style={{ width: '300px ', marginTop: '10px' }}>
+            
+        </Box>
+        <Box display="flex" justifyContent={smDown? "" :"center"} justifyItems="center" flexDirection="row" paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
+          <button className="botao-pesquisar" color="primary" onClick={handleBuscarClick} style={{ width: '300px ', marginTop: '10px' }}>
             Buscar
+            <br />
             <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
           </button>
           {error && <Typography color="error">{error}</Typography>}
-        </Box>
+          </Box>
       </div>
       
-  <Box marginLeft={smDown ? 2 : mdDown ? 0 : 6} display="flex" flexDirection="column">
-  <Box display="flex" flexDirection={smDown ? "column" : "row"} gap={smDown ? 3 : 10}>
+      <Box marginLeft={smDown ? 0 : mdDown ? 0 : 6} display="flex" flexDirection="column" >
+      <Box display="flex" justifyContent="center" flexDirection={smDown ? "column" : "row"} gap={smDown ? 0 : 10}>
   {/* Gráfico de Classificação */}
-  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend">
+  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend" padding={smDown? 2 :10}>
+  <Typography>Classificação dos Projetos</Typography>
     {countByClassification && (
       <BarChart
         xAxis={[{
@@ -281,6 +286,7 @@ export default function EmpresaPage() {
 
   {/* Gráfico de Status */}
   <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
+  <Typography>Status dos Projetos</Typography>
     {countByStatus && (
       <BarChart
         xAxis={[{
@@ -299,7 +305,8 @@ export default function EmpresaPage() {
   </Box>
 
   {/* Gráfico de Meses */}
-  <Box display="flex" justifyContent="center" marginY={4} className="hide-legend">
+  <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" >
+  <Typography>Projetos por mês</Typography>
     {countByMonth && (
       <BarChart
         xAxis={[{
@@ -317,17 +324,18 @@ export default function EmpresaPage() {
   </Box>
 
 {/* Gráfico de Investimento por Empresa */}
-<Box display="flex" justifyContent="center" marginY={4} className="hide-legend">
+<Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" className="hide-legend" >
+  <Typography>Total Investimentos</Typography>
   {investmentByCompany && (
     <BarChart
       xAxis={[{
         scaleType: "band",
-        data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), // Aplica a formatação ao nome da empresa
+        data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), 
       }]}
       series={[{
-        data: Object.values(investmentByCompany).map(value => Number(value)), // Mantém os valores numéricos para o eixo Y
+        data: Object.values(investmentByCompany).map(value => Number(value)), 
       }]}
-      width={smDown ? 300 : 700}
+      width={smDown ? 350 : 700}
       height={smDown ? 300 : 500}
       colors={["#003383"]}
     />
