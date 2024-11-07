@@ -312,12 +312,8 @@ export default function AddProjects() {
                   onChange={(e) => setClassificacao(e.target.value)}
                 >
                   <option value="" disabled>Classificação</option>
-                  <option value="OUTROS">AS, OF, PC e/ou outros</option>
                   <option value="CONTRATOS">Contrato</option>
-                  <option value="CONVENIO">Convênio</option>
                   <option value="PATROCINIO">Patrocínio</option>
-                  <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
-                  <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
                 </select>
                 <label className='checkBoxDiv'>
                   <input

@@ -20,6 +20,7 @@ import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
 import ExportProjectButton from "../exportProjectButton/exportProjectButton";
+import BlurText from "../blurText/blurText";
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -201,7 +202,7 @@ export default function ProjetoDetalhes() {
                   </label>
                   <span>
                     {projectData?.projectReference ||
-                      "Referência não disponível"}
+                      <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -209,7 +210,7 @@ export default function ProjetoDetalhes() {
                     <strong>Empresa:</strong>
                   </label>
                   <span>
-                    {projectData?.projectCompany || "Empresa não disponível"}
+                    {projectData?.projectCompany || <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -217,7 +218,7 @@ export default function ProjetoDetalhes() {
                     <strong>Objeto:</strong>
                   </label>
                   <span>
-                    {projectData?.projectObjective || "Objeto não disponível"}
+                    {projectData?.projectObjective || <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -226,7 +227,7 @@ export default function ProjetoDetalhes() {
                   </label>
                   <span>
                     {projectData?.nameCoordinator ||
-                      "Coordenador não disponível"}
+                      <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -239,7 +240,7 @@ export default function ProjetoDetalhes() {
                           style: "currency",
                           currency: "BRL",
                         })
-                      : "Valor não disponível"}
+                      : <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -249,7 +250,7 @@ export default function ProjetoDetalhes() {
                   <span>
                     {projectData?.projectStartDate
                       ? formatDate(projectData.projectStartDate)
-                      : "Data de início não disponível"}
+                      : <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -259,7 +260,7 @@ export default function ProjetoDetalhes() {
                   <span>
                     {projectData?.projectEndDate
                       ? formatDate(projectData.projectEndDate)
-                      : "Data de término não disponível"}
+                      : <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -268,7 +269,7 @@ export default function ProjetoDetalhes() {
                   </label>
                   <span>
                     {projectData?.projectDescription ||
-                      "Descrição não disponível"}
+                      <BlurText />}
                   </span>
                 </div>
                 <div className="campo-projeto">
@@ -278,7 +279,7 @@ export default function ProjetoDetalhes() {
                   <span>
                     {ProjectStatus[
                       projectData?.projectStatus as unknown as keyof typeof ProjectStatus
-                    ] || "Status não disponível"}
+                    ] || <BlurText />}
                   </span>
                 </div>
               </>

@@ -7,9 +7,9 @@ import { links } from "../../../api/api";
 import { projectMonthCount } from "../../../type/projectMonthCount";
 import { projectStatusCount } from "../../../type/projectStatusCount";
 import { projectInvestment } from "../../../type/projectInvestment"; 
-import "../dashBoard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import "../dashBoard.css";
 
 export default function EmpresaPage() {
   const [countByClassification, setCountByClassification] = useState<projectClassificationCount | null>(null);
@@ -28,11 +28,14 @@ export default function EmpresaPage() {
   const theme = useTheme();
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
-
+  
+  const [textoCoordenadores, setTextoCoordenadores] = useState(''); // Faltava essa variável
+  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false); // Faltava essa variável
+  
   useEffect(() => {
     fetchData();
   }, []);
-
+  
   const handleDataInicialChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setDataInicial(event.target.value);
   };
@@ -52,7 +55,6 @@ export default function EmpresaPage() {
         links.getInvestmentCompany(selectedCompany, dataInicial, dataFinal),
         links.getCompanies()
      ]);
-
 
       setCountByClassification(countClassification.data);
       setCountByMonth(countMonth.data);
@@ -131,6 +133,7 @@ export default function EmpresaPage() {
     };
     return titleMapping[title] || title;
   };
+
   const formatClassificationLabel = (label: string): string => {
     const mapping: Record<string, string> = {
       "naoIniciados": "Não Iniciados",
@@ -146,7 +149,6 @@ export default function EmpresaPage() {
     };
     return investmentMapping[label] || label;
   };
-  
 
   const formatMonthFromMapping = (month: string): string => {
     const monthMapping: Record<string, string> = {
@@ -208,140 +210,132 @@ export default function EmpresaPage() {
     <>
       <div className="container-pesquisa">
         <br />
-        <Box display="flex" justifyContent="center" justifyItems="center" gap={smDown? 0 :10} flexDirection={smDown? "column" :"row"} paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
-            <div className="pesquisa-container">
-              <p>Empresa:</p>
-              <label htmlFor="empresa"></label>
-              <input
-                type="text"
-                value={textoEmpresas}
-                onChange={(e) => setTextoEmpresas(e.target.value)}
-                onFocus={() => setExibirDropdownEmpresas(true)}
-                onBlur={() => setTimeout(() => setExibirDropdownEmpresas(false), 200)}
-                placeholder="Pesquise"
-              />
-              {exibirDropdownEmpresas && textoEmpresas && (
-                <ul className="dropdown">
-                  {filtrarOpcoesEmpresas.map((opcao, index) => (
-                    <li key={index} onMouseDown={() => setTextoEmpresas(opcao)}>
-                      {opcao}
-                    </li>
-                  ))}
-                </ul>
-              )}
-            </div>
-            <div className="data-inicial">
-              <p>Data-Inicial:</p>
-              <label htmlFor="dataInicial"></label>
-              <input
+        <Box className={"divPesquisar"}>
+          <div className="pesquisa-container input-container">
+            <p>Empresa:</p>
+            <label htmlFor="coordenador"></label>
+            <input
+              type="text"
+              value={textoCoordenadores}
+              onChange={(e) => setTextoCoordenadores(e.target.value)}
+              onFocus={() => setExibirDropdownCoordenadores(true)}
+              onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+              placeholder="Pesquise"
+            />
+            {exibirDropdownCoordenadores && textoCoordenadores && (
+              <ul className="dropdown">
+                {filtrarOpcoesEmpresas.map((opcao, index) => (
+                  <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
+                    {opcao}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+          <div className="data-inicial input-container">
+            <p>Data inicial:</p>
+            <label htmlFor="dataInicial"></label>
+            <input
               placeholder="Data-Inicial:"
-                type="month"
-                id="dataInicial"
-                value={dataInicial}
-                onChange={handleDataInicialChange}
-              />
-            </div>
-            <div className="data-final">
-              <p>Data-Final:</p>
-              <label htmlFor="dataFinal"></label>
-              <input
-                type="month"
-                id="dataFinal"
-                value={dataFinal}
-                onChange={handleDataFinalChange}
-              />
-            </div>
-            
+              type="month"
+              id="dataInicial"
+              value={dataInicial}
+              onChange={handleDataInicialChange}
+            />
+          </div>
+          <div className="data-final input-container">
+            <p>Data final:</p>
+            <label htmlFor="dataFinal"></label>
+            <input
+              type="month"
+              id="dataFinal"
+              value={dataFinal}
+              onChange={handleDataFinalChange}
+            />
+          </div>
         </Box>
-        <Box display="flex" justifyContent={smDown? "" :"center"} justifyItems="center" flexDirection="row" paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
-          <button className="botao-pesquisar" color="primary" onClick={handleBuscarClick} style={{ width: '300px ', marginTop: '10px' }}>
+        <Box display="flex" justifyContent={"center"} justifyItems="center" className="search-button-container">
+          <button className="botao-pesquisar" onClick={handleBuscarClick}>
             Buscar
             <br />
-            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faSearch} />
           </button>
           {error && <Typography color="error">{error}</Typography>}
-          </Box>
+        </Box>
       </div>
-      
-      <Box marginLeft={smDown ? 0 : mdDown ? 0 : 6} display="flex" flexDirection="column" >
-      <Box display="flex" justifyContent="center" flexDirection={smDown ? "column" : "row"} gap={smDown ? 0 : 10}>
-  {/* Gráfico de Classificação */}
-  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend" padding={smDown? 2 :10}>
-  <Typography>Classificação dos Projetos</Typography>
-    {countByClassification && (
-      <BarChart
-        xAxis={[{
-          scaleType: "band",
-          data: Object.keys(countByClassification).map(classification => formatTitleFromMapping(classification)), 
-        }]}
-        series={[{
-          data: Object.values(countByClassification).map(value => Number(value)), 
-        }]}
-        width={smDown ? 280 : 600}
-        height={250}
-        colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
-      />
-    )}
-  </Box>
+      <Box className="chart-container">
+        <Box className={smDown ? "flex-column" : "flex-row chart-container-row"}>
+          <Box className="chart-section">
+            <Typography>Classificação dos Projetos</Typography>
+            {countByClassification && (
+              <BarChart
+                xAxis={[{
+                  scaleType: "band",
+                  data: Object.keys(countByClassification).map(classification => formatTitleFromMapping(classification)),
+                }]}
+                series={[{
+                  data: Object.values(countByClassification).map(value => Number(value)),
+                }]}
+                height={250}
+                colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
+              />
+            )}
+          </Box>
+          <Box className="chart-section">
+            <Typography>Status dos Projetos</Typography>
+            {countByStatus && (
+              <BarChart
+                xAxis={[{
+                  scaleType: "band",
+                  data: Object.keys(countByStatus).map(status => formatClassificationLabel(status)),
+                }]}
+                series={[{
+                  data: Object.values(countByStatus).map(value => Number(value)),
+                }]}
+                height={250}
+                colors={["#003383", "#F0CE00", "#2299AA"]}
+              />
+            )}
+          </Box>
+        </Box>
+        <div className="chart-container-row">
+          <Box className="chart-section chart-section-last">
+            <Typography>Projetos por mês</Typography>
+            {countByMonth && (
+              <BarChart
+                xAxis={[{
+                  scaleType: "band",
+                  data: Object.keys(filteredCountByMonth() || {}).map(month => formatMonthFromMapping(month)),
+                }]}
+                series={[{
+                  data: Object.values(filteredCountByMonth() || {}),
+                }]}
+                colors={["#003383"]}
+              />
+            )}
+          </Box>
+        </div>
+        <div className="chart-container-row">
+          <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" className="hide-legend" >
+            <Typography>Total Investimentos</Typography>
+            {investmentByCompany && (
+              <BarChart
+                xAxis={[{
+                  scaleType: "band",
+                  data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), 
+                }]}
+                series={[{
+                  data: Object.values(investmentByCompany).map(value => Number(value)), 
+                }]}
+                width={smDown ? 350 : 700}
+                height={smDown ? 300 : 500}
+                colors={["#003383"]}
+              />
+            )}
+          </Box>
+        </div>
+      </Box>
 
-  {/* Gráfico de Status */}
-  <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
-  <Typography>Status dos Projetos</Typography>
-    {countByStatus && (
-      <BarChart
-        xAxis={[{
-          scaleType: "band",
-          data: Object.keys(countByStatus).map(status => formatClassificationLabel(status)), 
-        }]}
-        series={[{
-          data: Object.values(countByStatus).map(value => Number(value)), 
-        }]}
-        width={smDown ? 280 : 500}
-        height={250}
-        colors={["#003383", "#F0CE00", "#2299AA"]}
-      />
-    )}
-  </Box>
-  </Box>
-
-  {/* Gráfico de Meses */}
-  <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" >
-  <Typography>Projetos por mês</Typography>
-    {countByMonth && (
-      <BarChart
-        xAxis={[{
-          scaleType: "band",
-          data: Object.keys(filteredCountByMonth() || {}).map(month => formatMonthFromMapping(month)),
-        }]}
-        series={[{
-          data: Object.values(filteredCountByMonth() || {}).map(value => Number(value)),
-        }]}
-        width={smDown ? 300 : 1000}
-        height={smDown ? 300 : 500}
-        colors={["#003383"]}
-      />
-    )}
-  </Box>
-
-{/* Gráfico de Investimento por Empresa */}
-<Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" className="hide-legend" >
-  <Typography>Total Investimentos</Typography>
-  {investmentByCompany && (
-    <BarChart
-      xAxis={[{
-        scaleType: "band",
-        data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), 
-      }]}
-      series={[{
-        data: Object.values(investmentByCompany).map(value => Number(value)), 
-      }]}
-      width={smDown ? 350 : 700}
-      height={smDown ? 300 : 500}
-      colors={["#003383"]}
-    />
-  )}
-</Box>
-</Box>
     </>
   );
 }

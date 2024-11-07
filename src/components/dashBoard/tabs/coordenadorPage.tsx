@@ -6,9 +6,9 @@ import { projectClassificationCount } from "../../../type/projectClassificationC
 import { links } from "../../../api/api";
 import { projectMonthCount } from "../../../type/projectMonthCount";
 import { projectStatusCount } from "../../../type/projectStatusCount";
-import "../dashBoard.css"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import "../dashBoard.css"
 
 export default function SimpleCharts() {
   const [countByClassification, setCountByClassification] = useState<projectClassificationCount | null>(null);
@@ -49,6 +49,8 @@ export default function SimpleCharts() {
         links.getCoordinators()
       ]);
 
+      console.log("countClassification", countClassification.data);
+      
       setCountByClassification(countClassification.data);
       setCountByMonth(countMonth.data);
       setCountByStatus(countStatus.data);
@@ -154,12 +156,8 @@ export default function SimpleCharts() {
   }
   const formatTitleFromMapping = (title: string): string => {
     const titleMapping: Record<string, string> = {
-      "outros": "Outros",
       "contratos": "Contratos",
-      "convenio": "Convênio",
-      "patrocinio": "Patrocínio",
-      "termoDeCooperacao": "Cooperação",
-      "termoDeOutorga": "Outorga"
+      "patrocinio": "Patrocínio"
     };
     return titleMapping[title] || title;
   };
@@ -194,8 +192,8 @@ export default function SimpleCharts() {
     <>
       <div className="container-pesquisa">
         <br />
-        <Box display="flex" justifyContent="center" justifyItems="center" gap={smDown? 0 :10} flexDirection={smDown? "column" :"row"} paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
-          <div className="pesquisa-container">
+        <Box className={"divPesquisar"}>
+          <div className="pesquisa-container input-container">
             <p>Coodenador:</p>
             <label htmlFor="coordenador"></label>
             <input
@@ -216,7 +214,7 @@ export default function SimpleCharts() {
               </ul>
             )}
           </div>
-          <div className="data-inicial">
+          <div className="data-inicial input-container">
             <p>Data-Inicial:</p>
             <label htmlFor="dataInicial"></label>
             <input
@@ -227,7 +225,7 @@ export default function SimpleCharts() {
               onChange={handleDataInicialChange}
             />
           </div>
-          <div className="data-final">
+          <div className="data-final input-container">
             <p>Data-Final:</p>
             <label htmlFor="dataFinal"></label>
             <input
@@ -237,21 +235,20 @@ export default function SimpleCharts() {
               onChange={handleDataFinalChange}
             />
           </div>
-          
         </Box>
-        <Box display="flex" justifyContent={smDown? "" :"center"} justifyItems="center" flexDirection="row" paddingLeft={smDown ? 5 : mdDown ? 0 : 5}>
-        <button className="botao-pesquisar" color="primary" onClick={handleBuscarClick} style={{ width: '300px ', marginTop: '10px' }}>
+        <Box display="flex" justifyContent={"center"} justifyItems="center" className="search-button-container">
+          <button className="botao-pesquisar" onClick={handleBuscarClick}>
             Buscar
             <br />
-            <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
+            <FontAwesomeIcon icon={faSearch} />
           </button>
           {error && <Typography color="error">{error}</Typography>}
         </Box>
       </div>
-      <Box marginLeft={smDown ? 0 : mdDown ? 0 : 6} display="flex" flexDirection="column" >
-        <Box display="flex" justifyContent="center" flexDirection={smDown ? "column" : "row"} gap={smDown ? 0 : 10}>
-          <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} className="hide-legend" padding={smDown? 2 :10}>
-          <Typography>Classificação dos Projetos</Typography>
+      <Box className="chart-container">
+        <Box className={smDown ? "flex-column" : "flex-row chart-container-row"}>
+          <Box className="chart-section">
+            <Typography>Classificação dos Projetos</Typography>
             {countByClassification && (
               <BarChart
                 xAxis={[{
@@ -261,14 +258,13 @@ export default function SimpleCharts() {
                 series={[{
                   data: Object.values(countByClassification).map(value => Number(value)),
                 }]}
-                width={smDown ? 280 : 600}
                 height={250}
                 colors={["#F0CE00", "#D76A03", "#BF3100", "#2B4162", "#2D728F", "#407F99"]}
               />
             )}
           </Box>
-          <Box display="flex" flexDirection="column" alignItems="center" width={smDown ? "100%" : "50%"} padding={smDown ? 5 : 10} className="hide-legend">
-          <Typography>Status dos Projetos</Typography>
+          <Box className="chart-section">
+            <Typography>Status dos Projetos</Typography>
             {countByStatus && (
               <BarChart
                 xAxis={[{
@@ -278,32 +274,30 @@ export default function SimpleCharts() {
                 series={[{
                   data: Object.values(countByStatus).map(value => Number(value)),
                 }]}
-                width={smDown ? 280 : 500}
                 height={250}
                 colors={["#003383", "#F0CE00", "#2299AA"]}
               />
             )}
           </Box>
         </Box>
-        <Box display="flex" flexDirection="column" alignItems="center" marginLeft={smDown ? 0 : mdDown ? 0 : 0}>
-        <Typography>Projetos por mês</Typography>
-          {countByMonth && (
-            <BarChart
-              xAxis={[{
-                scaleType: "band",
-                data: Object.keys(filteredCountByMonth() || {}).map(month => formatMonthFromMapping(month)),
-              }]}
-              series={[{
-                data: Object.values(filteredCountByMonth() || {}),
-              }]}
-              width={smDown ? 300 : 1050}
-              height={smDown ? 300 : 400}
-              colors={["#003383"]}
-            />
-          )}
-        </Box>
+        <div className="chart-container-row">
+          <Box className="chart-section chart-section-last">
+            <Typography>Projetos por mês</Typography>
+            {countByMonth && (
+              <BarChart
+                xAxis={[{
+                  scaleType: "band",
+                  data: Object.keys(filteredCountByMonth() || {}).map(month => formatMonthFromMapping(month)),
+                }]}
+                series={[{
+                  data: Object.values(filteredCountByMonth() || {}),
+                }]}
+                colors={["#003383"]}
+              />
+            )}
+          </Box>
+        </div>
       </Box>
-
     </>
   );
 }

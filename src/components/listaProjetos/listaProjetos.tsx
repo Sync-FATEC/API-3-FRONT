@@ -90,8 +90,8 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
             {currentProjetos.map((projeto) => (
                 <div className="Projetos Projetos_Responsivo" key={projeto.projectId}>
                     <p> <label className="Referencias_Responsivo">Referência do projeto: </label>{projeto.projectReference ? projeto.projectReference : <BlurText/>} </p>
-                    <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate) ? projeto.projectStartDate : <BlurText/>}</p>
-                    <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate) ? projeto.projectEndDate : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate) ? formatDate(projeto.projectStartDate) : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate) ? formatDate(projeto.projectEndDate) : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator ? projeto.nameCoordinator : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue ? 
                     projeto.projectValue.toLocaleString("pt-BR", {style: "currency",currency: "BRL",}) : <BlurText/>}</p>
