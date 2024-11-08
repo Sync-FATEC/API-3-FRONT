@@ -93,37 +93,37 @@ const links = {
     } 
   }),
 
-getCountStatusCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+getCountStatusCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
   api.get("/dashboard/count/status/company", { 
     params: { 
-      companyName, 
+      projectCompany, 
       projectStartDate, 
       projectEndDate
     } 
   }),
 
-getCountClassificationCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+getCountClassificationCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
   api.get("/dashboard/count/classification/company", { 
     params: { 
-      companyName, 
+      projectCompany, 
       projectStartDate, 
       projectEndDate
     } 
   }),
 
-getCountMonthCompany: (companyName: string, projectStartDate: string, projectEndDate: string) => 
+getCountMonthCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
   api.get("/dashboard/count/month/company", { 
     params: { 
-      companyName, 
+      projectCompany, 
       projectStartDate, 
       projectEndDate
     } 
   }),
 
-getInvestmentCompany: (companyName: string, projectStartDate?: string, projectEndDate?: string) => 
+getInvestmentCompany: (projectCompany: string, projectStartDate?: string, projectEndDate?: string) => 
   api.get("/dashboard/count/investment/company", { 
     params: { 
-      companyName,
+      projectCompany,
       projectStartDate,
       projectEndDate
     } 
