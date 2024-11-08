@@ -66,6 +66,9 @@ export default function EmpresaPage() {
   };
 
   const handleBuscarClick = () => {
+    setSelectedCompany(textoEmpresas);
+    console.log(selectedCompany);
+    
     setIsFiltered(false);
     if (dataInicial && !dataFinal) {
       setError("Se uma data inicial for fornecida, uma data final também deve ser informada.");
@@ -313,21 +316,20 @@ export default function EmpresaPage() {
           </Box>
         </div>
         <div className="chart-container-row">
-          <Box display="flex" justifyContent="center" flexDirection="column" alignItems="center" className="hide-legend" >
+          <Box className="chart-section chart-section-last" >
             <Typography>Total Investimentos</Typography>
             {investmentByCompany && (
-              <BarChart
-                xAxis={[{
-                  scaleType: "band",
-                  data: Object.keys(investmentByCompany).map(company => formatInvestmentLabel(company)), 
-                }]}
-                series={[{
-                  data: Object.values(investmentByCompany).map(value => Number(value)), 
-                }]}
-                width={smDown ? 350 : 700}
-                height={smDown ? 300 : 500}
-                colors={["#003383"]}
-              />
+              <PieChart
+              series={[
+                {
+                  data: Object.entries(investmentByCompany).map(([company, value]) => ({
+                    label: formatInvestmentLabel(company),
+                    value: Number(value),
+                  })),
+                },
+              ]}
+              colors={["#003383"]}
+            />
             )}
           </Box>
         </div>
