@@ -84,6 +84,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
                 <p>Início</p>
                 <p>Término</p>
                 <p>Coordenador</p>
+                <p>Empresa</p>
                 <p>Valor</p>
                 <p>Visualizar</p>
             </div>
@@ -93,6 +94,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
                     <p> <label className="Referencias_Responsivo">Início: </label>{formatDate(projeto.projectStartDate) ? formatDate(projeto.projectStartDate) : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Término: </label>{formatDate(projeto.projectEndDate) ? formatDate(projeto.projectEndDate) : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Coordenador: </label>{projeto.nameCoordinator ? projeto.nameCoordinator : <BlurText/>}</p>
+                    <p> <label className="Referencias_Responsivo">Empresa: </label>{projeto.projectCompany ? projeto.projectCompany : <BlurText/>}</p>
                     <p> <label className="Referencias_Responsivo">Valor: </label>{projeto.projectValue ? 
                     projeto.projectValue.toLocaleString("pt-BR", {style: "currency",currency: "BRL",}) : <BlurText/>}</p>
                     <img
