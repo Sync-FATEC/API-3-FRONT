@@ -29,9 +29,6 @@ export default function EmpresaPage() {
   const smDown = useMediaQuery(theme.breakpoints.down("sm"));
   const mdDown = useMediaQuery(theme.breakpoints.down("md"));
   
-  const [textoCoordenadores, setTextoCoordenadores] = useState(''); // Faltava essa variável
-  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false); // Faltava essa variável
-  
   useEffect(() => {
     fetchData();
   }, []);
@@ -213,19 +210,19 @@ export default function EmpresaPage() {
         <Box className={"divPesquisar"}>
           <div className="pesquisa-container input-container">
             <p>Empresa:</p>
-            <label htmlFor="coordenador"></label>
+            <label htmlFor="empresa"></label>
             <input
               type="text"
-              value={textoCoordenadores}
-              onChange={(e) => setTextoCoordenadores(e.target.value)}
-              onFocus={() => setExibirDropdownCoordenadores(true)}
-              onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+              value={textoEmpresas}
+              onChange={(e) => setTextoEmpresas(e.target.value)}
+              onFocus={() => setExibirDropdownEmpresas(true)}
+              onBlur={() => setTimeout(() => setExibirDropdownEmpresas(false), 200)}
               placeholder="Pesquise"
             />
-            {exibirDropdownCoordenadores && textoCoordenadores && (
+            {exibirDropdownEmpresas && textoEmpresas && (
               <ul className="dropdown">
                 {filtrarOpcoesEmpresas.map((opcao, index) => (
-                  <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
+                  <li key={index} onMouseDown={() => setTextoEmpresas(opcao)}>
                     {opcao}
                   </li>
                 ))}
@@ -335,7 +332,6 @@ export default function EmpresaPage() {
           </Box>
         </div>
       </Box>
-
     </>
   );
 }
