@@ -32,10 +32,7 @@ export default function ProjetoDetalhes() {
   );
   const [error, setError] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<string>("Informações do Projeto");
-  const [contratos, setContratos] = useState<documents[]>([]);
-  const [planos, setPlanos] = useState<documents[]>([]);
-  const [termos, setTermos] = useState<documents[]>([]);
-  const [outros, setOutros] = useState<documents[]>([]);
+  const [anexos, setAnexos] = useState<documents[]>([]);
   const { isAuthenticated } = useContext(AuthContext);
   const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
 
@@ -61,29 +58,8 @@ export default function ProjetoDetalhes() {
 
   useEffect(() => {
     if (projectData && projectData.documents) {
-      const newContratos: documents[] = [];
-      const newPlanos: documents[] = [];
-      const newTermos: documents[] = [];
-      const newOutros: documents[] = [];
-
-      projectData.documents.forEach((doc) => {
-        if (!doc.removed) {
-          if (doc.fileType === "CONTRATO") {
-            newContratos.push(doc);
-          } else if (doc.fileType === "PLANO_DE_TRABALHO") {
-            newPlanos.push(doc);
-          } else if (doc.fileType === "TERMO_ADITIVO") {
-            newTermos.push(doc);
-          } else {
-            newOutros.push(doc);
-          }
-        }
-      });
-
-      setContratos(newContratos);
-      setPlanos(newPlanos);
-      setTermos(newTermos);
-      setOutros(newOutros);
+      const filteredAnexos = projectData.documents.filter((doc) => !doc.removed);
+      setAnexos(filteredAnexos);
     }
   }, [projectData]);
 
@@ -141,238 +117,130 @@ export default function ProjetoDetalhes() {
             </button>
           </div>
         </div>
-          <div className="tabs2">
-            <button
-              className={`tab2 ${
-                activeTab === "Informações do Projeto" ? "active" : ""
+        <div className="tabs2">
+          <button
+            className={`tab2 ${activeTab === "Informações do Projeto" ? "active" : ""
               }`}
-              onClick={() => handleTabClick("Informações do Projeto")}
+            onClick={() => handleTabClick("Informações do Projeto")}
+          >
+            Informações do Projeto
+          </button>
+          {anexos.length > 0 && (
+            <button
+              className={`tab2 ${activeTab === "Anexos" ? "active" : ""}`}
+              onClick={() => handleTabClick("Anexos")}
             >
-              Informações do Projeto
+              Anexos
             </button>
-
-            {contratos.length > 0 && contratos.some((doc) => !doc.removed) && (
-              <button
-                className={`tab2 ${activeTab === "Contratos" ? "active" : ""}`}
-                onClick={() => handleTabClick("Contratos")}
-              >
-                Contratos
-              </button>
-            )}
-
-            {planos.length > 0 && planos.some((doc) => !doc.removed) && (
-              <button
-                className={`tab2 ${
-                  activeTab === "Planos de trabalhos" ? "active" : ""
-                }`}
-                onClick={() => handleTabClick("Planos de trabalhos")}
-              >
-                Planos de Trabalhos
-              </button>
-            )}
-
-            {termos.length > 0 && termos.some((doc) => !doc.removed) && (
-              <button
-                className={`tab2 ${
-                  activeTab === "Termos aditivo" ? "active" : ""
-                }`}
-                onClick={() => handleTabClick("Termos aditivo")}
-              >
-                Termos Aditivo
-              </button>
-            )}
-            {outros.length > 0 && outros.some((doc) => !doc.removed) && (
-              <button
-                className={`tab2 ${activeTab === "Outros" ? "active" : ""}`}
-                onClick={() => handleTabClick("Outros")}
-              >
-                Outros
-              </button>
-            )}
-          </div>
+          )}
+        </div>
         <div className="dividir">
-        <div id={isAuthenticated ? "detalhesProjetoAuth" : "detalhesProjeto"}>
-
-          <div className="background-projects">
-            {activeTab === "Informações do Projeto" && (
-              <>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Referência:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectReference ||
-                      <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Empresa:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectCompany || <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Objeto:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectObjective || <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Coordenador:</strong>
-                  </label>
-                  <span>
-                    {projectData?.nameCoordinator ||
-                      <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Valor do Projeto:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectValue != undefined
-                      ?   projectData.projectValue.toLocaleString("pt-BR", {
+          <div id={isAuthenticated ? "detalhesProjetoAuth" : "detalhesProjeto"}>
+            <div className="background-projects">
+              {activeTab === "Informações do Projeto" && (
+                <>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Referência:</strong>
+                    </label>
+                    <span>{projectData?.projectReference || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Empresa:</strong>
+                    </label>
+                    <span>{projectData?.projectCompany || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Objeto:</strong>
+                    </label>
+                    <span>{projectData?.projectObjective || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Coordenador:</strong>
+                    </label>
+                    <span>{projectData?.nameCoordinator || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Valor do Projeto:</strong>
+                    </label>
+                    <span>
+                      {projectData?.projectValue != undefined
+                        ? projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
                         })
-                      : <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Data de Início:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectStartDate
-                      ? formatDate(projectData.projectStartDate)
-                      : <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Data de Término:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectEndDate
-                      ? formatDate(projectData.projectEndDate)
-                      : <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Descrição:</strong>
-                  </label>
-                  <span>
-                    {projectData?.projectDescription ||
-                      <BlurText />}
-                  </span>
-                </div>
-                <div className="campo-projeto">
-                  <label>
-                    <strong>Status:</strong>
-                  </label>
-                  <span>
-                    {ProjectStatus[
-                      projectData?.projectStatus as unknown as keyof typeof ProjectStatus
-                    ] || <BlurText />}
-                  </span>
-                </div>
-              </>
-            )}
-
-            {activeTab === "Contratos" && (
-              <div>
-                {contratos.filter((documento) => !documento.removed).length >
-                0 ? (
-                  <div>
-                    {contratos
-                      .filter((cont) => !cont.removed)
-                      .map((cont) => (
-                        <Anexos
-                          key={cont.fileUrl}
-                          link={cont.fileUrl}
-                          nome={cont.fileName}
-                        />
-                      ))}
+                        : <BlurText />}
+                    </span>
                   </div>
-                ) : (
-                  <p>Nenhum contrato disponível.</p>
-                )}
-              </div>
-            )}
-
-            {activeTab === "Planos de trabalhos" && (
-              <div>
-                {planos.filter((documento) => !documento.removed).length > 0 ? (
-                    <div>
-                    {planos
-                      .filter((cont) => !cont.removed)
-                      .map((cont) => (
-                      <Anexos
-                        key={cont.fileUrl}
-                        link={cont.fileUrl}
-                        nome={cont.fileName}
-                      />
-                      ))}
-                    </div>
-                ) : (
-                  <p>Nenhum plano de trabalho disponível.</p>
-                )}
-              </div>
-            )}
-
-            {activeTab === "Termos aditivo" && (
-              <div>
-                {termos.filter((documento) => !documento.removed).length > 0 ? (
-                    <div>
-                    {termos
-                      .filter((cont) => !cont.removed)
-                      .map((cont) => (
-                      <Anexos
-                        key={cont.fileUrl}
-                        link={cont.fileUrl}
-                        nome={cont.fileName}
-                      />
-                      ))}
-                    </div>
-                ) : (
-                  <p>Nenhum termo aditivo disponível.</p>
-                )}
-              </div>
-            )}
-
-            {activeTab === "Outros" && (
-              <div>
-                {outros.filter((documento) => !documento.removed).length > 0 ? (
-                    <div>
-                    {outros
-                      .filter((cont) => !cont.removed)
-                      .map((cont) => (
-                      <Anexos
-                        key={cont.fileUrl}
-                        link={cont.fileUrl}
-                        nome={cont.fileName}
-                      />
-                      ))}
-                    </div>
-                ) : (
-                  <p>Nenhum documento disponível.</p>
-                )}
-              </div>
-            )}
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Data de Início:</strong>
+                    </label>
+                    <span>
+                      {projectData?.projectStartDate
+                        ? formatDate(projectData.projectStartDate)
+                        : <BlurText />}
+                    </span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Data de Término:</strong>
+                    </label>
+                    <span>
+                      {projectData?.projectEndDate
+                        ? formatDate(projectData.projectEndDate)
+                        : <BlurText />}
+                    </span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Descrição:</strong>
+                    </label>
+                    <span>{projectData?.projectDescription || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Status:</strong>
+                    </label>
+                    <span>
+                      {ProjectStatus[
+                        projectData?.projectStatus as unknown as keyof typeof ProjectStatus
+                      ] || <BlurText />}
+                    </span>
+                  </div>
+                </>
+              )}
+              {activeTab === "Anexos" && (
+                <div>
+                  {anexos.length > 0 ? (
+                    anexos.map((documento) => (
+                      <div key={documento.fileUrl} className="anexo-item">
+                        <Anexos
+                          link={documento.fileUrl}
+                          nome={documento.fileName}
+                          tipo={documento.fileType}
+                        />
+                      </div>
+                    ))
+                  ) : (
+                    <p>Nenhum documento disponível.</p>
+                  )}
+                </div>
+              )}
+            </div>
           </div>
-          
-          
-        </div>
-        {isAuthenticated && (
+          {isAuthenticated && (
             <>
               <div className="button-container">
-                <ExportProjectButton id={projectData.projectId} format="pdf" nome={projectData.projectReference ?? "Referencia_Indisponivel"}/>
+                <ExportProjectButton
+                  id={projectData.projectId}
+                  format="pdf"
+                  nome={projectData.projectReference ?? "Referencia_Indisponivel"}
+                />
                 <button
                   className="history-buttons"
                   onClick={() => navigate(`/historico-projeto/${id}`)}
@@ -392,7 +260,7 @@ export default function ProjetoDetalhes() {
                 </button>
               </div>
             </>
-          )}  
+          )}
         </div>
 
         {showConfirmDelete && (
@@ -416,5 +284,4 @@ export default function ProjetoDetalhes() {
       </div>
     </div>
   );
-
 }

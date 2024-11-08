@@ -273,3 +273,57 @@
     gap: 0px;
   }
 }
+.anexos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 15px;
+  flex-wrap: wrap; /* Permite que os itens se ajustem melhor em telas pequenas */
+}
+
+.anexos p {
+  margin: 4px 0;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  min-width: 150px; /* Define um tamanho mínimo para o texto */
+}
+
+.anexos a {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 5px;
+}
+
+@media (max-width: 600px) {
+  .anexos {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .anexos p {
+    min-width: unset; /* Remove o min-width quando em layout de coluna */
+  }
+
+  .anexos a {
+    margin-top: 10px;
+  }
+}
+
+/* Dentro do arquivo projetosPortal.css */
+
+.anexo-item {
+  margin-bottom: 10px;  /* Ajuste o valor conforme necessário */
+  padding: 10px;        /* Se desejar um preenchimento extra ao redor de cada anexo */
+  border: 1px solid #ddd; /* Adiciona uma borda sutil para cada anexo, se necessário */
+  border-radius: 5px;   /* Bordas arredondadas */
+}
+
+/* Estilo adicional para o conteúdo de anexos */
+.anexo-item .anexo-link {
+  display: block;
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+}

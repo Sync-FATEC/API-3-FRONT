@@ -152,18 +152,18 @@ export default function EmpresaPage() {
 
   const formatMonthFromMapping = (month: string): string => {
     const monthMapping: Record<string, string> = {
-      "janeiro": "Janeiro",
-      "fevereiro": "Fevereiro",
-      "marco": "Março",
-      "abril": "Abril",
-      "maio": "Maio",
-      "junho": "Junho",
-      "julho": "Julho",
-      "agosto": "Agosto",
-      "setembro": "Setembro",
-      "outubro": "Outubro",
-      "novembro": "Novembro",
-      "dezembro": "Dezembro"
+      "janeiro": "Jan",
+      "fevereiro": "Fev",
+      "marco": "Mar",
+      "abril": "Abr",
+      "maio": "Mai",
+      "junho": "Jun",
+      "julho": "Jul",
+      "agosto": "Ago",
+      "setembro": "Set",
+      "outubro": "Out",
+      "novembro": "Nov",
+      "dezembro": "Dez"
     };
     return monthMapping[month.toLowerCase()] || month;
   };
