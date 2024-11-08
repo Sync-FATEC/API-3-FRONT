@@ -1,43 +1,67 @@
 .add-anexo {
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    gap: 16px;
-
+    gap: 10px;
+    border-radius: 8px;
+    width: 300px;
 }
 
-.add-anexo select {
-    padding: 10px;
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-    background-color: var(--lightgray-color);
-}
-
-.add-anexo label {
+.placeholder {
     font-weight: bold;
-    width: 100%;
-    margin-bottom: 5px;
-    border-radius: 6px;
-  }
-  
-
-
-.add-anexo select:focus {
-    border: 2px solid var(--blue-color);
-    outline: none;
+    font-size: 0.9rem;
+    color: #555;
 }
 
-.add-anexo input[type="file"] {
-    padding: 10px;
-    width: 100%;
-    border-radius: 10px;
+select {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+select:focus {
+    border-color: #007bff;
+    outline: none;
+    box-shadow: 0 0 4px rgba(0, 123, 255, 0.5);
+}
+
+input[type="file"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 5px 10px;
+    margin-right: 10px;
     border: none;
-    background-color: var(--lightgray-color);
-
+    border-radius: 4px;
+    background-color: #0056b3;
+    color: #fff;
+    cursor: pointer;
+    font-size: 0.8rem;
 }
 
-.add-anexo input[type="file"]:focus {
-    border: 2px solid var(--blue-color);
-    outline: none;
+input[type="file"]::file-selector-button:hover {
+    background-color: #0056b3;
+}
+
+.delete-buttons {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+}
+
+.delete-buttons:hover {
+    background-color: #c0392b;
 }

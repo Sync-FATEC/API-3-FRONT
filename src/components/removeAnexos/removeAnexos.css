@@ -13,7 +13,6 @@
     flex-direction: column;
     padding: 16px;
     gap: 16px;
-
 }
 
 .add-anexo input[type="file"] {
@@ -25,12 +24,19 @@
 
 }
 
-.remove-anexo {
-    display: flex;
-    flex-direction: column;
-    padding: 16px;
-    gap: 16px;
-
+.delete-buttons {
+    background-color: #e74c3c;
+    color: #fff;
+    border: none;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    justify-content: center;
+    margin-left: 16px;
 }
 
-
+.delete-buttons:hover {
+    background-color: #c0392b;
+}

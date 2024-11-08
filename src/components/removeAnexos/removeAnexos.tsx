@@ -34,7 +34,7 @@ export function RemoveAnexos({ documento, onDeleteDocument }: RemoveAnexosProps)
                     <div className="remove-anexo">
 
                    
-                    <button type="button" onClick={() => handleDeleteDocumento(documento)}>
+                    <button className="delete-buttons" type="button" onClick={() => handleDeleteDocumento(documento)}>
                         Remover
                     </button> 
                     </div>
