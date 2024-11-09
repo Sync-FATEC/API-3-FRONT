@@ -10,16 +10,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../dashBoard.css"
 
-export default function SimpleCharts() {
+interface SimpleChartsProps {
+  dataInicial: string;
+  dataFinal: string;
+  setDataInicial: (data: string) => void;
+  setDataFinal: (data: string) => void;
+  textoCoordenadores: string;
+  setTextoCoordenadores: (texto: string) => void;
+}
+
+export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, setDataFinal, textoCoordenadores, setTextoCoordenadores }: SimpleChartsProps) {
   const [countByClassification, setCountByClassification] = useState<projectClassificationCount | null>(null);
   const [countByMonth, setCountByMonth] = useState<projectMonthCount | null>(null);
   const [countByStatus, setCountByStatus] = useState<projectStatusCount | null>(null);
   const [coordenadores, setCoordenadores] = useState<string[]>([]);
-  const [textoCoordenadores, setTextoCoordenadores] = useState('');
   const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [dataInicial, setDataInicial] = useState("");
-  const [dataFinal, setDataFinal] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [isFiltered, setIsFiltered] = useState(false);
   const theme = useTheme();

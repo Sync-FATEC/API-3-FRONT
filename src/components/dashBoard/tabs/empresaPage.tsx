@@ -11,16 +11,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import "../dashBoard.css";
 
-export default function EmpresaPage() {
+interface EmpresaPageProps {
+  dataInicial: string;
+  dataFinal: string;
+  setDataInicial: (data: string) => void;
+  setDataFinal: (data: string) => void;
+  textoEmpresas: string;
+  setTextoEmpresas: (texto: string) => void;
+}
+
+export default function EmpresaPage({ dataInicial, dataFinal, setDataInicial, setDataFinal, textoEmpresas, setTextoEmpresas }: EmpresaPageProps) {
   const [countByClassification, setCountByClassification] = useState<projectClassificationCount | null>(null);
   const [countByMonth, setCountByMonth] = useState<projectMonthCount | null>(null);
   const [countByStatus, setCountByStatus] = useState<projectStatusCount | null>(null);
   const [investmentByCompany, setInvestmentByCompany] = useState<projectInvestment | null>(null);
   const [companies, setCompanies] = useState<string[]>([]);
   const [selectedCompany, setSelectedCompany] = useState('');
-  const [textoEmpresas, setTextoEmpresas] = useState('');
-  const [dataInicial, setDataInicial] = useState("");
-  const [dataFinal, setDataFinal] = useState("");
   const [loading, setLoading] = useState(true);
   const [isFiltered, setIsFiltered] = useState(false);
   const [error, setError] = useState<string | null>(null);
