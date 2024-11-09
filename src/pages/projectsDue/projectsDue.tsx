@@ -50,26 +50,27 @@ export default function ProjectsDue() {
                         </div>
                     </div>
                    
+                        { projects.length === 0 ? <p>Nenhum projeto a ser concluído esta semana.</p> :
                         <div className="background-projects">
-                            <div className="projetos-due">
-                                <p>Empresa</p>
-                                <p>Coordenador</p>
-                                <p>Data de inicio</p>
-                                <p>Data de fim</p>
-                                <p>Editar</p>
-                            </div>
-                            {projects.map((projeto) => (
-                                <div className="Projetos projetos-due" key={projeto.projectId}>
-                                    <p>{projeto.projectCompany}</p>
-                                    <p>{projeto.nameCoordinator}</p>
-                                    <p>{formatDate(projeto.projectStartDate)}</p>
-                                    <p>{formatDate(projeto.projectEndDate)}</p>
-                                    <Link to={`/editar-projeto/${projeto.projectId}`}>
-                                        <FontAwesomeIcon icon={faPenToSquare} />
-                                    </Link>
-                                </div>
-                            ))}
+                        <div className="projetos-due">
+                            <p>Empresa</p>
+                            <p>Coordenador</p>
+                            <p>Data de inicio</p>
+                            <p>Data de fim</p>
+                            <p>Editar</p>
                         </div>
+                        {projects.map((projeto) => (
+                            <div className="Projetos projetos-due" key={projeto.projectId}>
+                                <p>{projeto.projectCompany}</p>
+                                <p>{projeto.nameCoordinator}</p>
+                                <p>{formatDate(projeto.projectStartDate)}</p>
+                                <p>{formatDate(projeto.projectEndDate)}</p>
+                                <Link to={`/editar-projeto/${projeto.projectId}`}>
+                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                </Link>
+                            </div>
+                        ))}
+                    </div>}
                 </div>
             </div>
         </>
