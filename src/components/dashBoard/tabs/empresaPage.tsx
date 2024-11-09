@@ -46,10 +46,10 @@ export default function EmpresaPage() {
 
     try {
        const [countClassification, countMonth, countStatus, investmentData, responseCompanies] = await Promise.all([
-        links.getCountClassificationCompany(selectedCompany, dataInicial, dataFinal),
-        links.getCountMonthCompany(selectedCompany, dataInicial, dataFinal),
-        links.getCountStatusCompany(selectedCompany, dataInicial, dataFinal),
-        links.getInvestmentCompany(selectedCompany, dataInicial, dataFinal),
+        links.getCountClassificationCompany(textoEmpresas, dataInicial, dataFinal),
+        links.getCountMonthCompany(textoEmpresas, dataInicial, dataFinal),
+        links.getCountStatusCompany(textoEmpresas, dataInicial, dataFinal),
+        links.getInvestmentCompany(textoEmpresas, dataInicial, dataFinal),
         links.getCompanies()
      ]);
 
@@ -66,8 +66,6 @@ export default function EmpresaPage() {
   };
 
   const handleBuscarClick = () => {
-    setSelectedCompany(textoEmpresas);
-    console.log(selectedCompany);
     
     setIsFiltered(false);
     if (dataInicial && !dataFinal) {
