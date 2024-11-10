@@ -52,7 +52,7 @@
 
 .mainDadosMobile {
   flex-grow: 1;
-  margin-top: 50px;
+ 
 }
 
 
@@ -80,7 +80,7 @@
 #pdf {
   padding: 10px 15px;
   border: none;
-  background-color: #A62534;
+  background-color: var(--red-color);
   color: white;
   cursor: pointer;
   border-radius: 5px;
@@ -88,28 +88,39 @@
 #excel {
   padding: 10px 15px;
   border: none;
-  background-color: #008148;
+  background-color: var(--green-color);
   color: white;
   cursor: pointer;
   border-radius: 5px;
 }
+#pdf:hover {
+  background-color: var(--red-hover-color);
+  
+}
+#excel:hover {
+  background-color: var(--green-hover-color);
+  
+}
 
 .botao-pesquisar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
   background-color: var(--blue-color);
   color: var(--white-color);
   box-shadow: none;
-  height: 50px;
-  border-radius: 10px;
-  gap: 8px;
+ 
+  border-radius: 16px;
+  gap: 16px;
+  padding: 16px;
   cursor: pointer;
   border: none;
-  width: 300px;
-  margin-top: 16px;
-  margin-bottom: 30px;
+  
 }
 
 .botao-pesquisar:hover {
-  background-color: #0457af;
+  background-color: var(--blue-hover-color);
   transition: 0.5s;
 }
 
@@ -212,6 +223,7 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  align-items: end;
   gap: 10px;
 }
 
@@ -223,16 +235,14 @@
 }
 
 .container-pesquisa input {
-  align-items: center;
-  justify-content: center;
-  gap: var(--padding-input);
   padding: var(--padding-input);
-  background-color: var(--white-color);
-  border-radius: 10px;
+  background-color: var(--lightgray-color);
+  border-radius: 16px;
+  border: none;
   box-shadow: none;
   text-decoration: none;
   width: 100%;
-  min-width: 0;
+
 }
 
 .data-inicial, .data-final {
@@ -240,13 +250,20 @@
   max-width: 200px;
   min-width: 200px;
 }
-
+@media (max-width: 968px) {
+  .divPesquisar {
+    flex-wrap: wrap;
+  }
+  
+}
 /* Responsividade para telas menores */
 @media (max-width: 768px) {
   .divPesquisar {
     flex-direction: column;
   }
-
+  .botao-pesquisar{
+    width: 100%;
+  }
   .input-container {
     width: 100%;
   }
@@ -257,4 +274,9 @@
     min-width: 100%;
   }
 }
+
+.container-pesquisa{
+  padding-top: 32px;
+}
+
 

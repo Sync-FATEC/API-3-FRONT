@@ -154,7 +154,7 @@ export default function AddProjects() {
             <p>Admin</p>
           </div>
         </div>
-        <div ref={formRef} style={{ maxWidth: "800px"}}>
+        <div ref={formRef}>
           <form className="background-projects" onSubmit={handleSubmitProjeto}>
             <div>
               <div className="campo-projeto">

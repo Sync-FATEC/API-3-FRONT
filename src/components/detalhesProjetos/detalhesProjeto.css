@@ -13,7 +13,6 @@
 
 .campo-projeto span {
   padding: 10px;
-  width: 100%;
   border-radius: 10px;
   border: none;
   background-color: var(--lightgray-color);
@@ -43,7 +42,7 @@
 }
 
 .botao-voltar:hover {
-  background-color: var(--blue-color);
+  background-color: var(--blue-hover-color);
 }
 
 .botao-voltar .icone {
@@ -93,6 +92,13 @@
   margin-bottom: 32px;
   margin-top: 32px;
 }
+.tabsNoAutenticated {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 32px;
+  margin-top: 32px;
+  padding: var(--padding-global);
+}
 
 .tab2 {
   background-color: transparent;
@@ -120,6 +126,7 @@
 
 .anexos {
   display: flex;
+  flex-wrap: wrap;
   flex-direction: row;
   justify-content: space-between;
   padding: 16px;
@@ -129,17 +136,17 @@
   padding-bottom: 12px;
 }
 .button-container {
-  padding-left: 16px;
-  margin-bottom: 32px;
   display: flex;
-  gap: 20px;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 200px;
 }
 .buttons {
   background-color: var(--blue-color);
   color: white; 
   border: none; 
-  border-radius: 5px; 
-  padding: 10px 20px; 
+  border-radius: 16px; 
+  padding: 16px; 
   cursor: pointer; 
   transition: background-color 0.5s; 
   display: flex;
@@ -148,48 +155,26 @@
   align-items: center;
 }
 
-.buttons:hover {
-  background-color: rgb(5, 5, 93); 
+#blue {
+  background-color: var(--blue-color);
+}
+#blue:hover {
+  background-color: var(--blue-hover-color); 
 }
 
-.buttons:disabled {
-  background-color: lightgray;
-  cursor: not-allowed; 
+#red {
+  background-color: var(--red-color);
 }
 
-.delete-buttons {
-  background-color: red;
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  transition: background-color 0.5s; 
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
+#red:hover {
+  background-color: var(--red-hover-color);
 }
 
-.delete-buttons:hover {
-  background-color: rgb(165, 3, 3);
-}
-
-.history-buttons {
+#yellow {
   background-color: var(--yellow-color);
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  transition: background-color 0.5s; 
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
 }
 
-.history-buttons:hover {
+#yellow:hover {
   background-color: var(--yellow-hover-color);
 }
 
@@ -221,9 +206,11 @@
   flex-grow: 1;
 }
 
-.button-container {
-  flex-direction: column !important;
-  margin-top: 20px;
+
+@media (max-width: 970px) {
+  .button-container {
+    min-width: none;
+  }
 }
 
 @media (max-width: 768px) {
@@ -234,9 +221,7 @@
     padding: 20px;
     padding-top: 128px;
   }
-  .tabs2 {
-    flex-direction: column;
-  }
+ 
   .tab2 {
     width: 100%;
     margin-bottom: 10px;
@@ -254,31 +239,14 @@
 }
 
 @media (max-width: 480px) {
-  .campo-projeto, .addfile {
-    padding: 8px;
-  }
+ 
   .campo-projeto label, .campo-projeto span {
     font-size: 14px;
   }
-  .botao-voltar {
-    width: 100%;
-    justify-content: center;
-    gap: 6px;
-  }
-  .button-container {
-    padding-left: 0;
-  }
+
   .dividir{
     flex-direction: column;
-    gap: 0px;
   }
-}
-.anexos {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 15px;
-  flex-wrap: wrap; /* Permite que os itens se ajustem melhor em telas pequenas */
 }
 
 .anexos p {
@@ -287,7 +255,8 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  min-width: 150px; /* Define um tamanho mínimo para o texto */
+  min-width: 150px; 
+  
 }
 
 .anexos a {
@@ -299,25 +268,22 @@
 @media (max-width: 600px) {
   .anexos {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
   }
-
   .anexos p {
-    min-width: unset; /* Remove o min-width quando em layout de coluna */
+    text-align: center;
+    align-items: center;
   }
 
-  .anexos a {
-    margin-top: 10px;
-  }
 }
 
 /* Dentro do arquivo projetosPortal.css */
 
 .anexo-item {
-  margin-bottom: 10px;  /* Ajuste o valor conforme necessário */
-  padding: 10px;        /* Se desejar um preenchimento extra ao redor de cada anexo */
-  border: 1px solid #ddd; /* Adiciona uma borda sutil para cada anexo, se necessário */
-  border-radius: 5px;   /* Bordas arredondadas */
+  margin-bottom: 10px; 
+  padding: 10px;       
+  border-bottom: 1px solid #ddd;
+  border-radius: 16px;   
 }
 
 /* Estilo adicional para o conteúdo de anexos */

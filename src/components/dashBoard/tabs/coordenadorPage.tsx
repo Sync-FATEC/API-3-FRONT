@@ -197,10 +197,9 @@ export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, 
   return (
     <>
       <div className="container-pesquisa">
-        <br />
         <Box className={"divPesquisar"}>
           <div className="pesquisa-container input-container">
-            <p>Coodenador:</p>
+            <p>Coodenador</p>
             <label htmlFor="coordenador"></label>
             <input
               type="text"
@@ -221,7 +220,7 @@ export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, 
             )}
           </div>
           <div className="data-inicial input-container">
-            <p>Data-Inicial:</p>
+            <p>Data Inicial</p>
             <label htmlFor="dataInicial"></label>
             <input
               placeholder="Data-Inicial:"
@@ -232,7 +231,7 @@ export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, 
             />
           </div>
           <div className="data-final input-container">
-            <p>Data-Final:</p>
+            <p>Data Final</p>
             <label htmlFor="dataFinal"></label>
             <input
               type="month"
@@ -241,8 +240,6 @@ export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, 
               onChange={handleDataFinalChange}
             />
           </div>
-        </Box>
-        <Box display="flex" justifyContent={"center"} justifyItems="center" className="search-button-container">
           <button className="botao-pesquisar" onClick={handleBuscarClick}>
             Buscar
             <br />
@@ -250,6 +247,7 @@ export default function SimpleCharts( { dataInicial, dataFinal, setDataInicial, 
           </button>
           {error && <Typography color="error">{error}</Typography>}
         </Box>
+       
       </div>
       <Box className="chart-container">
         <Box className={smDown ? "flex-column" : "flex-row chart-container-row"}>

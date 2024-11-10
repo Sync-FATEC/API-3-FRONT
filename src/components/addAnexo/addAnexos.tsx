@@ -6,7 +6,7 @@ interface AddAnexoProps {
     onAddAnexo: (id: number, anexo: { file: File | null; tipo: string }) => void;
     resetFile?: boolean;
     handleRemoveAnexoComponent: (id: number) => void;
-    id: number ;
+    id: number;
 }
 
 export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoComponent, id }: AddAnexoProps) {
@@ -43,9 +43,12 @@ export default function AddAnexo({ onAddAnexo, resetFile, handleRemoveAnexoCompo
                 <option value={TipoAnexo.OUTROS}>Outros</option>
             </select>
             <input type="file" accept=".pdf,.doc,.docx" onChange={handleFileChange} ref={fileInputRef} />
-            <button className="delete-buttons" type="button" onClick={() => handleRemoveAnexoComponent(id)}>
-            Remover
-            </button>
+            <div className="remove-anexo">
+                <button className="delete-buttons" type="button" onClick={() => handleRemoveAnexoComponent(id)}>
+                    Remover
+                </button>
+            </div>
+
         </div>
     );
 }

@@ -21,17 +21,9 @@
 
 .pagination {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 20px;
+    justify-content: right;
 }
 
-.pagination button {
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 1.2em;
-}
 
 .Referencias_Responsivo {
     display: none;
@@ -39,7 +31,7 @@
 
 @media (max-width: 768px) {
     .Referencias {
-        display: none !important;
+        display: none;
     }
 
     .Referencias_Responsivo {
@@ -48,7 +40,7 @@
     }
 
     .Projetos_Responsivo {
-        display: flex !important;
+        display: flex;
         flex-direction: column;
     }
 

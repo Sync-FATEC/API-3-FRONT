@@ -207,17 +207,11 @@
   gap: 8px;
   align-items: center;
 }
-.projetos-due a{
+
+.projetos-due a {
   color: var(--blue-color);
 }
 
-.background-projects {
-  background-color: var(--white-color);
-  border-radius: var(--padding-input);
-  box-shadow: 2px 2px 2px 2px#bebebe;
-  margin-top: 20px;
-  margin-bottom: 32px;
-}
 
 .projetos-due {
   display: grid;
@@ -233,84 +227,87 @@
   background-color: var(--white-color);
   border-radius: var(--padding-input);
   box-shadow: 2px 2px 2px 2px #bebebe;
-  margin-top: 20px;
   margin-bottom: 32px;
-  padding: 20px;
+
 }
 
-.project-title{
+.project-title {
   display: none;
 }
 
 
 @media (max-width: 930px) {
   .projetos-due {
-    display: none;
-    align-items: baseline;
+    align-items: center;
   }
-  /* Configuração para cards */
+
+  .Referencias {
+    display: none;
+  }
+
+  #none {
+    display: none;
+  }
+
   .Projetos {
     display: flex;
     flex-direction: column;
     padding: 20px;
     background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Sombra leve para efeito de card */
-    margin-bottom: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 16px;
+
   }
 
-  /* Estilos para cada par título-valor dentro do card */
   .project-item {
     display: flex;
     align-items: center;
-    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
-    margin-bottom: 8px;
+
   }
 
   .Projetos p {
     white-space: nowrap;
-    overflow: visible;
+    overflow: hidden;
     text-overflow: ellipsis;
     width: 100%;
     text-align: center;
-}
+  }
 
   /* Exibe os títulos (project-title) e define um estilo diferenciado */
   .project-title {
     font-weight: bold;
     color: var(--blue-color);
-    width: 40%; /* Largura fixa para alinhar à esquerda */
+    width: 40%;
+    /* Largura fixa para alinhar à esquerda */
     margin-right: 8px;
-    display: block; /* Aparece em tamanhos menores */
-    text-align: left; /* Garante que o título fique à esquerda */
-    white-space: normal; /* Allows text to wrap onto multiple lines if needed */
-    overflow: visible; /* Shows full text when space permits */
-    text-overflow: initial; /* Disables ellipsis */
+    display: block;
+    /* Aparece em tamanhos menores */
+    text-align: left;
+    /* Garante que o título fique à esquerda */
+    white-space: normal;
+    /* Allows text to wrap onto multiple lines if needed */
+    overflow: visible;
+    /* Shows full text when space permits */
+    text-overflow: initial;
+    /* Disables ellipsis */
   }
 
   /* Informações alinhadas à direita */
   .project-info {
-    width: 60%; /* Ocupa o restante do espaço */
-    text-align: left; /* Mantém o texto à esquerda */
+    width: 60%;
+    /* Ocupa o restante do espaço */
+    text-align: left;
+    /* Mantém o texto à esquerda */
   }
 }
 
 /* Responsividade para dispositivos pequenos */
 @media (max-width: 768px) {
-  .projetos-due {
-    display: none; /* Esconde o cabeçalho em telas menores */
+  #none {
+    display: none;
   }
 
-  .Projetos {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    margin-bottom: 15px;
-  }
+  /*
 
   .project-item {
     display: flex;
@@ -322,7 +319,6 @@
     margin: 0;
   }
 
-  /* Estilos para o título */
   .project-title {
     font-weight: bold;
     color: var(--blue-color);
@@ -337,14 +333,7 @@
     padding: 8px;
     text-align: center;
   }
+*/
 
-  .background-projects {
-    padding: 10px;
-  }
 
-  .botao-voltar {
-    width: 100%;
-    justify-content: center;
-    margin-bottom: 16px;
-  }
 }

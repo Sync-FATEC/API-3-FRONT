@@ -7,13 +7,13 @@
   top: 100%;
   left: 0;
   width: 100%;
-  border: none;
+  border-radius: 16px;
   background-color: var(--lightgray-color);
   list-style: none;
   padding: 0;
   margin: 0;
   max-height: 200px;
-  width: 250px;
+  width: 100%;
   overflow-y: auto;
   z-index: 1;
 }
@@ -38,12 +38,12 @@
   border-radius: 10px;
   box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  /* 4 colunas */
-  grid-template-rows: repeat(2, 1fr);
-  /* 3 linhas */
-}
+  grid-template-columns: repeat(3, 1fr);
 
+}
+#grid-four{
+  grid-template-columns: repeat(4, 1fr);
+}
 .searchButton {
   display: flex;
   flex-direction: row;
@@ -74,7 +74,7 @@
 }
 
 #MainDados form button, #MainDadosAuth form button  {
-  min-width: 100px;
+  min-width: 50px;
   margin-top: var(--padding-input);
   padding: 12px;
   height: 40px;
@@ -89,19 +89,26 @@
 #dataInicio,
 #dataTermino {
   box-shadow: none;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border: none;
+  border-radius: var(--padding-input);
 }
 
 @media (max-width: 1138px) {
   .containerForm,
-  .containerData {
+  .containerData,
+  #grid-four {
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
   }
 }
 
-@media (max-width: 931px) {
+@media (max-width: 950px) {
   .containerForm,
-  .containerData {
+  .containerData,
+  #grid-four {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
   }
@@ -109,7 +116,8 @@
 
 @media (max-width: 700px) {
   .containerForm,
-  .containerData {
+  .containerData,
+  #grid-four {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
@@ -193,5 +201,18 @@
 
 .containerForm .busca {
   width: 100%;
-  border-radius: 10px 0px 0px 10px;
+  min-width: 50px;
+  margin-top: var(--padding-input);
+  padding: 12px;
+  height: 40px;
+  border: none;
+  border-radius: var(--padding-input);
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  cursor: pointer;
 }
+
+.containerForm .busca:hover {
+  background-color: var(--blue-hover-color);
+}
+

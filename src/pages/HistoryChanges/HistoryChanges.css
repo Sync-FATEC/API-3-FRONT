@@ -1,12 +1,5 @@
-/* Estilo para título */
-h1 {
-    font-weight: 700;
-    size: 24px;
-    padding-top: 8vh;
-    margin-bottom: 32px;
-}
 
-/* Estilo para o fundo do histórico de mudanças */
+
 .BackgroundChanges {
     background-color: var(--white-color);
     border-radius: var(--padding-input);
@@ -33,7 +26,7 @@ h1 {
     align-items: center;
     padding: 10px 1rem;
     border-bottom: 1px solid var(--lightgray-color);
-    gap: 1rem;
+    gap: 16px;
 }
 
 .GridValuesChangesContainer {
@@ -41,25 +34,7 @@ h1 {
     overflow-y: auto;
 }
 
-/* Estilo para o botão de voltar */
-.botao-voltar {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100px;
-    margin-top: var(--padding-input);
-    padding: 12px;
-    align-items: center;
-    border: none;
-    border-radius: var(--padding-input);
-    background-color: var(--blue-color);
-    color: var(--white-color);
-    cursor: pointer;
-}
 
-.botao-voltar:hover {
-    background-color: var(--blue-color);
-}
 
 /* Estilo do botão "Ver Mais" */
 .botao-vermais {
@@ -91,7 +66,7 @@ h1 {
 @media (max-width: 931px) {
     .main-conteiner-auth {
         padding: 20px;
-        padding-top: 128px;
+        padding-top: 64px;
         padding-left: 16rem;
     }
 
@@ -105,7 +80,7 @@ h1 {
         align-items: flex-start;
         border-bottom: none;
         padding: 0;
-        gap: 1rem;
+        
     }
 
     .history-entry {
@@ -144,7 +119,7 @@ h1 {
         flex-direction: column;
         align-items: flex-start;
         border-bottom: none;
-        padding: 0;
+        margin-bottom: 16px;
         gap: 1rem;
     }
 
@@ -169,13 +144,6 @@ h1 {
     }
 }
 
-@media (max-width: 480px) {
-    .botao-voltar {
-        width: 100%;
-        justify-content: center;
-        margin-bottom: 16px;
-    }
-}
 
 /* Estilo do modal */
 .modal {
@@ -217,4 +185,7 @@ h1 {
         max-width: none;
         max-height: 95vh;
     }
+}
+.no-changes-message{
+    padding: 8px;
 }

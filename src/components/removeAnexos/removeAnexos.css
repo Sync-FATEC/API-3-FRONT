@@ -4,17 +4,21 @@
     border-radius: 10px;
     border: none;
     background-color: var(--lightgray-color);
+    overflow: hidden;
+    padding: 12px;
 }
-.document-view{
-    gap: 24px;
-}
+
 .document-wrap{
     display: flex;
     flex-direction: column;
-    padding: 16px;
     gap: 16px;
+    margin-bottom: 16px;
 }
-
+.document-view {
+  
+    width: 100%;
+  
+  }
 .add-anexo input[type="file"] {
     padding: 10px;
     width: 100%;
@@ -24,18 +28,3 @@
 
 }
 
-.delete-buttons {
-    background-color: #e74c3c;
-    color: #fff;
-    border: none;
-    padding: 8px;
-    border-radius: 4px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    justify-content: center;
-}
-
-.delete-buttons:hover {
-    background-color: #c0392b;
-}

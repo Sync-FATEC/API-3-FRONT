@@ -1,13 +1,6 @@
-.button-export {
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.5s;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    align-items: center;
+#green{
+    background-color: var(--green-color);
+}
+#green:hover{
+    background-color: var(--green-hover-color);
 }

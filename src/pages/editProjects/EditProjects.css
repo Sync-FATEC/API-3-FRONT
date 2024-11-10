@@ -232,19 +232,7 @@
   flex-direction: row;
   gap: 16px;
 }
-.delete-buttons {
-  background-color: red;
-  color: white; 
-  border: none; 
-  border-radius: 5px; 
-  padding: 10px 20px; 
-  cursor: pointer; 
-  transition: background-color 0.5s; 
-}
 
-.delete-buttons:hover {
-  background-color: rgb(165, 3, 3);
-}
 
 #button-editar{
   width: 200px;
@@ -254,4 +242,8 @@
   align-items: center;
   padding: 16px;
   justify-content: center;
+}
+
+#button-editar:hover{
+  background-color: var(--blue-hover-color);
 }

@@ -41,9 +41,8 @@ h3::before {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100%; /* Deixa a altura adaptável sem limitar */
+    height: 100%; 
     background-color: rgba(128, 128, 128, 0.397);
-    border-radius: var(--padding-input);
     box-shadow: 2px 2px 2px 2px #bebebe;
     margin: auto;
     padding: 20px 10%;

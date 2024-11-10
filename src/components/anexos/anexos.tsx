@@ -2,7 +2,6 @@ import React from 'react';
 import { links } from '../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faDownload, faFile } from '@fortawesome/free-solid-svg-icons';
-import "../detalhesProjetos/projetosPortal.css"
 
 interface AnexosProps {
     nome: string;

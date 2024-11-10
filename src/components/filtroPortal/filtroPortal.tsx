@@ -93,7 +93,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
     <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
       <h2>Filtro de dados</h2>
       <form onSubmit={handleSubmitDados} className="filter">
-        <div className="containerForm">
+        <div className="containerForm" id="grid-four">
           <div>
             <label htmlFor="referenciaDeDados">Ref. do projeto</label>
             <input

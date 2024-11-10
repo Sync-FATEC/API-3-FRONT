@@ -76,7 +76,7 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
   };
 
   return (
-    <div id={isAuthenticated ? "MainDadosAuth" : "MainDados"}>
+    <div id={isAuthenticated ? "main-conteiner-auth" : "MainDados"}>
         <h2>Projetos</h2>
         <div className="background-projects">
             <div className="Referencias">

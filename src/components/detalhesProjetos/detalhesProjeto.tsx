@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from "react";
 import { useLocation, useParams, useNavigate } from "react-router-dom";
 import api, { links } from "../../api/api";
 import { Projects } from "../../type/projects";
-import "./projetosPortal.css";
+import "./detalhesProjeto.css";
 import Loading from "../loading/loading";
 import documents from "../../type/documents";
 import Anexos from "../anexos/anexos";
@@ -117,7 +117,7 @@ export default function ProjetoDetalhes() {
             </button>
           </div>
         </div>
-        <div className="tabs2">
+        <div className={isAuthenticated ? "tabs2" : "tabsNoAutenticated"}>
           <button
             className={`tab2 ${activeTab === "Informações do Projeto" ? "active" : ""
               }`}
@@ -242,7 +242,8 @@ export default function ProjetoDetalhes() {
                   nome={projectData.projectReference ?? "Referencia_Indisponivel"}
                 />
                 <button
-                  className="history-buttons"
+                  className="buttons"
+                  id="yellow"
                   onClick={() => navigate(`/historico-projeto/${id}`)}
                 >
                   <FontAwesomeIcon icon={faFileCircleQuestion} />
@@ -250,12 +251,15 @@ export default function ProjetoDetalhes() {
                 </button>
                 <button
                   className="buttons"
+                  id="blue"
                   onClick={() => navigate(`/editar-projeto/${id}`)}
                 >
                   <FontAwesomeIcon icon={faEdit} />
                   Editar
                 </button>
-                <button className="delete-buttons" onClick={handleDeleteClick}>
+                <button className="buttons" 
+                id="red"
+                onClick={handleDeleteClick}>
                   <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
                 </button>
               </div>

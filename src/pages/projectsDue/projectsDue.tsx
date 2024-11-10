@@ -38,62 +38,62 @@ export default function ProjectsDue() {
 
     return (
         <>
-        <Sidebar />
-            <div className='MainDadosAuth'>
-                <div className='mainDadosMobile'>
+            <Sidebar />
+            <div className='main-conteiner-auth'>
 
-                    <div className="admin_center-header">
-                        <h1>Projetos a serem concluídos esta semana</h1>
-                        <div className="user">
-                            <img src="/static/img/user.svg" alt="logo" />
-                            <p>Admin</p>
-                        </div>
+
+                <div className="admin_center-header">
+                    <h1>Projetos a serem concluídos esta semana</h1>
+                    <div className="user">
+                        <img src="/static/img/user.svg" alt="logo" />
+                        <p>Admin</p>
                     </div>
-                   
-                        {projects.length === 0 ? (
-    <p>Nenhum projeto a ser concluído esta semana.</p>
-) : (
-    <div className="background-projects">
-        {/* Cabeçalho das colunas para telas grandes */}
-        <div className="projetos-due">
-            <p>Empresa</p>
-            <p>Coordenador</p>
-            <p>Data de inicio</p>
-            <p>Data de fim</p>
-            <p>Editar</p>
-        </div>
-        {/* Projetos com estrutura responsiva */}
-        {projects.map((projeto) => (
-            <div className="Projetos projetos-due" key={projeto.projectId}>
-                <div className="project-item">
-                    <p className="project-title">Empresa:</p>
-                    <p className="project-info"> {projeto.projectCompany}</p>
                 </div>
-                <div className="project-item">
-                    <p className="project-title">Coordenador:</p>
-                    <p className="project-info"> {projeto.nameCoordinator}</p>
-                </div>
-                <div className="project-item">
-                    <p className="project-title">Data de Início:</p>
-                    <p className="project-info"> {formatDate(projeto.projectStartDate)}</p>
-                </div>
-                <div className="project-item">
-                    <p className="project-title">Data de Fim:</p>
-                    <p className="project-info"> {formatDate(projeto.projectEndDate)}</p>
-                </div>
-                <div className="project-item">
-                    <p className="project-title">Editar:</p>
-                    <Link to={`/editar-projeto/${projeto.projectId}`}>
-                        <FontAwesomeIcon icon={faPenToSquare} />
-                    </Link>
-                </div>
-            </div>
-        ))}
-    </div>
-)}
 
-                </div>
+                {projects.length === 0 ? (
+                    <p>Nenhum projeto a ser concluído esta semana.</p>
+                ) : (
+                    <div className="background-projects">
+                        {/* Cabeçalho das colunas para telas grandes */}
+                        <div className="projetos-due" id='none'>
+                            <p>Empresa</p>
+                            <p>Coordenador</p>
+                            <p>Data de inicio</p>
+                            <p>Data de fim</p>
+                            <p>Editar</p>
+                        </div>
+                        {/* Projetos com estrutura responsiva */}
+                        {projects.map((projeto) => (
+                            <div className="Projetos projetos-due" key={projeto.projectId}>
+                                <div className="project-item">
+                                    <p className="project-title">Empresa:</p>
+                                    <p className="project-info"> {projeto.projectCompany}</p>
+                                </div>
+                                <div className="project-item">
+                                    <p className="project-title">Coordenador:</p>
+                                    <p className="project-info"> {projeto.nameCoordinator}</p>
+                                </div>
+                                <div className="project-item">
+                                    <p className="project-title">Data de Início:</p>
+                                    <p className="project-info"> {formatDate(projeto.projectStartDate)}</p>
+                                </div>
+                                <div className="project-item">
+                                    <p className="project-title">Data de Fim:</p>
+                                    <p className="project-info"> {formatDate(projeto.projectEndDate)}</p>
+                                </div>
+                                <div className="project-item">
+                                    <p className="project-title">Editar:</p>
+                                    <Link to={`/editar-projeto/${projeto.projectId}`}>
+                                        <FontAwesomeIcon icon={faPenToSquare} />
+                                    </Link>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                )}
+
             </div>
+
         </>
     );
 }

@@ -42,35 +42,35 @@ export default function HistoryChanges() {
 
   const handleFilterSubmit = (filterData: { projectStartDate: string | null, projectEndDate: string | null }) => {
     const { projectStartDate, projectEndDate } = filterData;
-    
+
     // Se as datas de filtro não forem fornecidas, exibe todos os registros
     if (!projectStartDate && !projectEndDate) {
       setFilteredChangesHistory(changesHistory);
       return;
     }
-  
+
     console.log("Datas de filtro formatadas:", projectStartDate, projectEndDate);
-  
+
     const filteredData = changesHistory.filter((history) => {
       const historyDate = new Date(history.changeDate);
-  
+
       // Ajusta a data de início para 00:00:00 em UTC
       const startDate = projectStartDate ? new Date(new Date(projectStartDate).setUTCHours(0, 0, 0, 0)) : null;
-  
+
       // Ajusta a data de término para 23:59:59 em UTC
       let endDate = null;
       if (projectEndDate) {
         endDate = new Date(new Date(projectEndDate).setUTCHours(23, 59, 59, 999));
       }
-  
+
       return (!startDate || historyDate >= startDate) && (!endDate || historyDate <= endDate);
     });
-  
+
     // console.log("Dados filtrados:", filteredData);
     setFilteredChangesHistory(filteredData);
   };
-  
-  
+
+
 
   if (loading) {
     return <Loading />;
@@ -79,15 +79,15 @@ export default function HistoryChanges() {
   if (error) {
     return <ErrorComponent error={error} />;
   }
-  
+
   return (
     <>
       <Sidebar />
       <div className="main-conteiner-auth">
         <div id="fundo-autenticado">
           <div className="title">
-            <h2>Histórico de mudanças</h2>
-            <button 
+            <h1>Histórico de mudanças</h1>
+            <button
               className="botao-voltar"
               onClick={() => navigate(`/detalhe/${id}`)}
             >
@@ -95,7 +95,7 @@ export default function HistoryChanges() {
               Voltar
             </button>
           </div>
-          <FiltroHistoricos onFilterSubmit={handleFilterSubmit} />  
+          <FiltroHistoricos onFilterSubmit={handleFilterSubmit} />
         </div>
         <div className="BackgroundChanges">
           {/* Cabeçalho das colunas */}
@@ -106,6 +106,11 @@ export default function HistoryChanges() {
             <p>Ver mais...</p>
           </div>
           <div className="GridValuesChangesContainer">
+
+            {filteredChangesHistory.length === 0 && (
+              <p className="no-changes-message">Não há alterações para este projeto.</p>
+            )}
+
             {/* Conteúdo da tabela com dados filtrados */}
             {filteredChangesHistory.map((history, index) => (
               <div className="GridValuesChanges" key={index}>
@@ -118,8 +123,8 @@ export default function HistoryChanges() {
                 <div className="history-column">
                   <p>
                     {history.changedFields === "add" ? "Adicionando documento" :
-                     history.changedFields === "removed" ? "Removendo documento" :
-                     "Alterações no projeto"}
+                      history.changedFields === "removed" ? "Removendo documento" :
+                        "Alterações no projeto"}
                   </p>
                 </div>
                 <div className="history-column">

@@ -63,8 +63,8 @@ export default function DashBoard() {
   return (
     <>
       <Sidebar />
-      <div className="MainDadosAuth">
-        <div className="mainDadosMobile">
+      <div className="main-conteiner-auth">
+        
           <div className="admin_center-header">
             <h1>Dashboard</h1>
             <div className="user">
@@ -120,7 +120,7 @@ export default function DashBoard() {
               </div>
             )}
           </div>
-        </div>
+     
       </div>
     </>
   );

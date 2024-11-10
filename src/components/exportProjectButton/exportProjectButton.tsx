@@ -51,7 +51,7 @@ const ExportProjectButton = (props: props) => {
     
     
     return (
-        <button onClick={() => exportProject(props.id, props.format, props.nome)} className="button-export">
+        <button onClick={() => exportProject(props.id, props.format, props.nome)} className="buttons" id="green">
            <FontAwesomeIcon icon={faFileExport} />  Exportar projeto
         </button>
     );
