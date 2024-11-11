@@ -1,5 +1,5 @@
 import './addProjects.css';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Sidebar from '../../components/sideBar/sideBar';
 import { links } from "../../api/api";
 import { errorSwal } from "../../components/swal/errorSwal";
@@ -13,6 +13,7 @@ export default function AddProjects() {
   const [referencia, setReferencia] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
   const [coordenador, setCoordenador] = useState<string>("");
+  const [textoCoordenadores, setTextoCoordenadores] = useState('');
   const [valor, setValor] = useState<string>("");
   const [dataInicio, setDataInicio] = useState<string>("");
   const [dataTermino, setDataTermino] = useState<string>("");
@@ -34,6 +35,26 @@ export default function AddProjects() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
+
+  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
+  const [listaCoordenadores, setListaCoordenadores] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseCoordinators = await links.getCoordinators();
+        setListaCoordenadores(responseCoordinators.data.model);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filtrarOpcoesCoordenadores = listaCoordenadores.filter(opcao =>
+    opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
+  );
 
   const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
     const newAnexos = [...anexos];
@@ -87,7 +108,7 @@ export default function AddProjects() {
       const projeto: createProject = {
         projectReference: referencia,
         projectReferenceSensitive: referenciaSensivel,
-        nameCoordinator: coordenador,
+        nameCoordinator: textoCoordenadores,
         nameCoordinatorSensitive: coordenadorSensivel,
         projectCompany: empresa,
         projectCompanySensitive: empresaSensivel,
@@ -129,6 +150,7 @@ export default function AddProjects() {
     setReferencia("");
     setEmpresa("");
     setCoordenador("");
+    setTextoCoordenadores('');
     setValor("");
     setDataInicio("");
     setDataTermino("");
@@ -194,14 +216,26 @@ export default function AddProjects() {
                 </label>
               </div>
               <div className="campo-projeto">
-                <label className="placeholder">Coordenador</label>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder=" "
-                  value={coordenador}
-                  onChange={(e) => setCoordenador(e.target.value)}
-                />
+                <div className="pesquisa-container">
+                  <label htmlFor="coordenador">Coordenador</label>
+                  <input
+                    type="text"
+                    value={textoCoordenadores}
+                    onChange={(e) => setTextoCoordenadores(e.target.value)}
+                    onFocus={() => setExibirDropdownCoordenadores(true)}
+                    onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+                    placeholder="Pesquise..."
+                  />
+                  {exibirDropdownCoordenadores && textoCoordenadores && (
+                    <ul className="dropdown">
+                      {filtrarOpcoesCoordenadores.map((opcao, index) => (
+                        <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
+                          {opcao}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <label className='checkboxDiv'>
                   <input
                     type="checkbox"
