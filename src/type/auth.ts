@@ -3,6 +3,7 @@ export type AuthContextType = {
     login: (email: string, senha: string) => void;
     logout: () => void;
     user?: UserInfo;
+    validateToken: () => void;
   };
   
 export type AuthProviderProps = {

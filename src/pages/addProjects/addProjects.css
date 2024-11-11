@@ -1,0 +1,253 @@
+.titulo h1 {
+  font-weight: 700;
+  size: 24px;
+  padding-top: 8vh;
+  margin-bottom: 64px;
+}
+.form-containerAdd{
+display: flex;
+flex-direction: row;
+gap: 32px;
+justify-content: space-around;
+}
+.addProjetos {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  margin-top: 32px;
+  margin-bottom: 64px;
+  justify-content:left;
+  gap: 200px
+}
+.title-form {
+  width: 100%;
+  font-weight: 500;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+/* 
+.input-placeholder-container {
+  width: 200px;
+  height: 48px;
+  margin-bottom: 24px;
+  caret-color: transparent;
+  position: relative;
+}
+.input {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  border: 2px solid silver;
+  border-radius: 10px;
+  outline: none;
+  caret-color: initial;
+  padding: 16px;
+  background: none;
+  transition: border 0.3s;
+}
+#inputBig{
+  width: 418px;
+  height: 50px;
+}
+.input-flex-container{
+  display: flex;
+  gap: 16px;
+}
+.input-big-container{
+  display: flex;
+  flex-direction: column;
+}
+.placeholder {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  user-select: none;
+  padding: 0 4px;
+  background-color: var(--off-white-color);
+  color: var(--blue-color);
+  font-size: 16.5px;
+  pointer-events: none;
+  transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s; 
+}
+.input:focus {
+  border: 2px solid var(--blue-color);
+}
+.input:focus+.placeholder {
+  top: 0%;
+  left: 15px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue-color);
+}
+.input:not(:placeholder-shown) + .placeholder,
+.input:focus + .placeholder {
+top: 0%;
+left: 15px;
+font-size: 13px;
+font-weight: 500;
+color: var(--blue-color);
+}
+*/
+
+.campo-projeto select, .add-anexo select
+{
+padding: 10px;
+width: 100%;
+border-radius: 10px;
+border: none;
+background-color: var(--lightgray-color);
+}
+
+.headerPortal input{
+  gap: 10px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+  
+}
+
+.headerPortal select {
+  gap: 20px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+}
+/*
+.right-side {
+  display: flex;
+  width: 360px;
+  flex-direction: column; 
+  
+}
+  */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px; /* Espaçamento acima da mensagem de erro */
+}
+.files{
+  gap: 20px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+  border: none;
+}
+
+/* .addfile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  
+} */
+/*
+.tab4 {
+background-color: transparent;
+border: none;
+cursor: pointer;
+flex: 1;
+text-align: center;
+color: #000;
+transition: color 0.3s;
+box-shadow: none;
+color: var(--gray-color);
+border-bottom: 2px solid var(--gray-color);
+padding-bottom: 4px;
+}
+
+
+.tab4:hover {
+color: var(--blue-color);
+}
+
+.tab4.active {
+color: var(--blue-color);
+border-bottom: 2px solid var(--blue-color);
+box-shadow: none;
+
+}
+*/ 
+
+/* Select Classificação */
+/*
+.classification{
+display: flex;
+flex-direction: column;
+}
+.classification select {
+padding: 8px;
+height: 48px;
+margin-bottom: 24px;
+border: 2px solid silver;
+color: var(--blue-color);
+border-radius: 10px;
+background-color: transparent;
+font-size: 16px;
+transition: border 0.3s;
+}
+.classification select:focus {
+border: 2px solid var(--blue-color);
+outline: none;
+}
+*/
+.checkboxDiv{
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+}
+
+/* .btn-add{
+  margin: 0 0 16px 16px;
+  
+} */
+
+@media (max-width: 768px) {
+  .addProjetos {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .classification select{
+    width: 416px;
+  }
+
+  .add-anexo select, .add-anexo input[type="file"]{
+    width: 100%;
+  }
+  .hidden {
+    display: none; /* Ou use visibility: hidden; se preferir */
+} 
+  .campo-projeto button{
+    margin: 0 auto;
+  }
+  .add-anexo{
+    align-items: center;
+  }
+  
+  .admin_center-header h1{
+    padding: 0;
+    margin-bottom: 0;
+  }
+  .campo-projeto select{
+    padding: 10px;
+    width: 100%;
+  }
+
+}
+.hidden {
+display: none; /* Ou use visibility: hidden; se preferir */
+}
+
+input[type="checkbox"] {
+  width: min-content !important;
+  margin: 8px 5px 8px;
+}
+
+

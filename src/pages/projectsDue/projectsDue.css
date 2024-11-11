@@ -1,0 +1,339 @@
+.titulo h1 {
+  font-weight: 700;
+  size: 24px;
+  padding-top: 8vh;
+  margin-bottom: 64px;
+}
+
+/*
+.form-containerAdd{
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  justify-content: space-around;
+}
+  
+.addProjetos {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    margin-top: 32px;
+    margin-bottom: 64px;
+    justify-content:left;
+    gap: 200px
+}*/
+.title-form {
+  width: 100%;
+  font-weight: 500;
+  font-size: 40px;
+  margin-bottom: 30px;
+}
+
+/*
+.input-placeholder-container {
+    width: 200px;
+    height: 48px;
+    margin-bottom: 24px;
+    caret-color: transparent;
+    position: relative;
+}
+.input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    border: 2px solid silver;
+    border-radius: 10px;
+    outline: none;
+    caret-color: initial;
+    padding: 16px;
+    background: none;
+    transition: border 0.3s;
+}
+
+
+
+.placeholder {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    user-select: none;
+    padding: 0 4px;
+    background: var(--lightgray-color);
+    color: var(--blue-color);
+    font-size: 16.5px;
+    pointer-events: none;
+    transition: top 0.2s, left 0.2s, font-size 0.2s, color 0.2s;
+}
+
+.input:focus {
+    border: 2px solid var(--blue-color);
+}
+.input:focus+.placeholder {
+    top: 0%;
+    left: 15px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue-color);
+}
+.input:not(:placeholder-shown) + .placeholder,
+.input:focus + .placeholder {
+  top: 0%;
+  left: 15px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--blue-color);
+}
+*/
+
+/* form button {
+  border-radius: 10px;
+  border: none;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  font-weight: bold;
+  width: 200px;
+  height: 48px;
+
+} */
+
+
+.headerPortal input {
+  gap: 10px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+
+}
+
+.headerPortal select {
+  gap: 20px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+}
+
+/*
+ .right-side {
+    display: flex;
+    width: 360px;
+    flex-direction: column; 
+    
+  }
+    */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  /* Espaçamento acima da mensagem de erro */
+}
+
+.files {
+  gap: 20px;
+  height: 40px;
+  padding: 8px;
+  background-color: var(--lightgray-color);
+  border-radius: var(--padding-input);
+  border: none;
+}
+
+/*
+  .addfile {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    
+}
+    */
+
+/*
+.tab4 {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  flex: 1;
+  text-align: center;
+  color: #000;
+  transition: color 0.3s;
+  box-shadow: none;
+  color: var(--gray-color);
+  border-bottom: 2px solid var(--gray-color);
+  padding-bottom: 4px;
+}
+
+
+.tab4:hover {
+  color: var(--blue-color);
+}
+
+.tab4.active {
+  color: var(--blue-color);
+  border-bottom: 2px solid var(--blue-color);
+  box-shadow: none;
+
+}
+*/
+
+/* 
+.classification{
+  display: flex;
+  flex-direction: column;
+}
+.classification select {
+  padding: 8px;
+  height: 48px;
+  margin-bottom: 24px;
+  gap: 24px;
+  border: 2px solid silver;
+  color: var(--blue-color);
+  border-radius: 10px;
+  background-color: var(--lightgray-color);
+  font-size: 16px;
+  transition: border 0.3s;
+}
+.classification select:focus {
+  border: 2px solid var(--blue-color);
+  outline: none;
+}
+*/
+.user {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.projetos-due a {
+  color: var(--blue-color);
+}
+
+
+.projetos-due {
+  display: grid;
+  align-items: center;
+  justify-items: center;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  border-bottom: 1px var(--lightgray-color) solid;
+  padding: var(--padding-input);
+}
+
+/* Estilos principais */
+.background-projects {
+  background-color: var(--white-color);
+  border-radius: var(--padding-input);
+  box-shadow: 2px 2px 2px 2px #bebebe;
+  margin-bottom: 32px;
+
+}
+
+.project-title {
+  display: none;
+}
+
+
+@media (max-width: 930px) {
+  .projetos-due {
+    align-items: center;
+  }
+
+  .Referencias {
+    display: none;
+  }
+
+  #none {
+    display: none;
+  }
+
+  .Projetos {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    border-radius: 16px;
+
+  }
+
+  .project-item {
+    display: flex;
+    align-items: center;
+
+  }
+
+  .Projetos p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+  }
+
+  /* Exibe os títulos (project-title) e define um estilo diferenciado */
+  .project-title {
+    font-weight: bold;
+    color: var(--blue-color);
+    width: 40%;
+    /* Largura fixa para alinhar à esquerda */
+    margin-right: 8px;
+    display: block;
+    /* Aparece em tamanhos menores */
+    text-align: left;
+    /* Garante que o título fique à esquerda */
+    white-space: normal;
+    /* Allows text to wrap onto multiple lines if needed */
+    overflow: visible;
+    /* Shows full text when space permits */
+    text-overflow: initial;
+    /* Disables ellipsis */
+  }
+
+  /* Informações alinhadas à direita */
+  .project-info {
+    width: 60%;
+    /* Ocupa o restante do espaço */
+    text-align: left;
+    /* Mantém o texto à esquerda */
+  }
+}
+
+/* Responsividade para dispositivos pequenos */
+@media (max-width: 768px) {
+  #none {
+    display: none;
+  }
+
+  /*
+
+  .project-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .project-item p {
+    margin: 0;
+  }
+
+  .project-title {
+    font-weight: bold;
+    color: var(--blue-color);
+    margin-right: 8px;
+    padding-right: 8px;
+    display: block;
+  }
+}
+@media (max-width: 480px) {
+  .titulo h1 {
+    font-size: 20px;
+    padding: 8px;
+    text-align: center;
+  }
+*/
+
+
+}

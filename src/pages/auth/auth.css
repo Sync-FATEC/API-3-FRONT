@@ -28,7 +28,7 @@ section.formAuth form p {
 }
 
 section.formAuth form input {
-  width: 48%;
+  width: 40%;
   height: var(--border);
   border-radius: 10px;
   border: none;
@@ -37,7 +37,7 @@ section.formAuth form input {
 }
 
 section.formAuth form button {
-  width: 24%;
+  width: 20%;
   height: var(--border);
   border-radius: var(--padding-input);
   border: none;
@@ -112,6 +112,15 @@ button:hover {
     .logo-mobile{
       display: flex;
       padding-bottom: 32px;
+    }
+
+    section.formAuth form input {
+      width: 80%;
+    }
+
+    section.formAuth form button {
+      width: 40%;
+
     }
   
 }

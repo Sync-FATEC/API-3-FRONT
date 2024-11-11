@@ -1,91 +1,134 @@
 @import url('https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 * {
-    font-family: -apple-system, BlinkMacSystemFont, 'Public Sans';
-    font-size: 16px;
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
+  font-family: -apple-system, BlinkMacSystemFont, 'Public Sans';
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
 }
 
 :root {
-    --padding-global: 12px 120px;
-    --title-font: 24px;
-    --padding-input: 16px;
-    --padding-sizes: 0 16px;
-    --padding-tops: 16px 0;
-    --margin: 32px;
-    --border: 48px;
-    --black-color: #000000;
-    --white-color: #FFFFFF;
-    --off-white-color: #FAFAFA;
-    --lightgray-color: #F3F4F8;
-    --gray-color: #8B909A;
-    --blue-color: #003383;
-    --yellow-color: #F0CE00;
+  --padding-global: 12px 120px;
+  --title-font: 24px;
+  --padding-input: 16px;
+  --padding-sizes: 0 16px;
+  --padding-tops: 16px 0;
+  --margin: 32px;
+  --border: 48px;
 }
 
 @media screen and (max-width: 768px) {
-    :root {
-        --padding-global: 5px 20px;
-    }
-    
+  :root {
+    --padding-global: 5px 20px;
+  }
+
 }
 
 h1 {
-    color: var(--blue-color);
-    font-size: 20px;
+  color: var(--blue-color);
+  font-size: 20px;
 }
 
 h2 {
-    color: var(--blue-color);
-    font-size: 30px;
-    margin: var(--padding-input) 0;
+  color: var(--blue-color);
+  font-size: 30px;
+  margin: var(--padding-input) 0;
 }
 
-p {
-    text-align: justify;
+.section p {
+  text-align: justify;
 }
 
 body {
-    background-color: var(--off-white-color);
+  background-color: var(--off-white-color);
 }
 
 /* Container de todas as páginas admin (sem a sidebar) */
 .MainDadosAuth {
-    display: flex;
-    padding-left: 270px;
-    padding-right: 40px;
+  display: flex;
+  padding-left: 270px;
+  padding-right: 32px;
+  padding-top: 64px;
+}
+
+.admin_center-header {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 32px;
+  align-items: center;
+}
+
+.btn,
+.btn-flex {
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  border: none;
+  cursor: pointer;
+  border-radius: 10px;
+  font-weight: bold;
+}
+
+.btn {
+  width: 200px;
+  height: 48px;
+}
+.btn:hover {
+ background-color: var(--blue-hover-color);
+}
+.btn-flex {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  align-items: center;
+  padding: 16px;
+  justify-content: center;
+
+}
+
+.addfile {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+}
+
+
+
+
+@media (max-width: 768px) {
+  .MainDadosAuth {
+    padding-top: 128px;
+    display: block;
+    padding-left: 10px;
+    padding-right: 10px;
   }
-  .admin_center-header {
-    display: flex;
-    justify-content: space-between;
-    padding-bottom: 32px;
+
+  
+
+  .main-conteiner-auth {
+    padding: 20px;
+  }
+
+  .addfile {
     align-items: center;
   }
-  @media (max-width: 768px) {
-    .MainDadosAuth {
-        padding-top: 64px;
-        display: block;
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-      #MainDadosAuth {
-        padding-top: 64px;
-        
-        padding-left: 10px;
-        padding-right: 10px;
-      }
-      .main-conteiner-auth{
-        padding: 20px;
-      }
 
-  }
-  @media (max-width: 568px) {
-   
-  }
-  @media (max-width: 320px) {
-   
-  }
+}
+
+@media (max-width: 568px) {}
+
+@media (max-width: 320px) {}
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--blue-color);
+  border-radius: 16px;
+}

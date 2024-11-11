@@ -13,6 +13,7 @@ export const AuthContext = createContext<AuthContextType>({
   isAuthenticated: false,
   login: () => {},
   logout: () => {},
+  validateToken: () => {}
 });
 
 // Crie o provedor do contexto de autenticação
@@ -23,16 +24,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const navigate = useNavigate(); 
 
   const login = async (email: string, senha: string) => {
-    
     try {
       const response = await api.post('/auth/login', {
         email: email,
         password: senha
       });
+      
       var token = response.data.model.token;
     
       api.defaults.headers["Authorization"] = `Bearer ${token}`;
       
+      localStorage.setItem('token', token);
       const decodedToken = jwtDecode(token);
       const jsonUserInfo = JSON.parse(decodedToken.sub as string);
       setUser(jsonUserInfo);
@@ -45,12 +47,24 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const logout = () => {
     api.defaults.headers.common.Authorization = ``;
+    localStorage.removeItem('token');
     setIsAuthenticated(false);
     navigate('/')
   };
 
+  const validateToken = async () => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      api.defaults.headers["Authorization"] = `Bearer ${token}`;
+      const decodedToken = jwtDecode(token);
+      const jsonUserInfo = JSON.parse(decodedToken.sub as string);
+      setUser(jsonUserInfo);
+      setIsAuthenticated(true);
+    }
+  };
+
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, login, logout, user, validateToken }}>
       {children}
     </AuthContext.Provider>
   );

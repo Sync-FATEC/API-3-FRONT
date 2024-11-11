@@ -1,0 +1,191 @@
+
+
+.BackgroundChanges {
+    background-color: var(--white-color);
+    border-radius: var(--padding-input);
+    box-shadow: 2px 2px 2px 2px #bebebe;
+    margin-top: 20px;
+    margin-bottom: 32px;
+    padding: 20px;
+}
+
+/* Layout flexível do cabeçalho */
+.GridCategoryChanges {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 40px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--lightgray-color);
+    text-align: left;
+}
+
+/* Flexbox para as linhas de conteúdo */
+.GridValuesChanges {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 1rem;
+    border-bottom: 1px solid var(--lightgray-color);
+    gap: 16px;
+}
+
+.GridValuesChangesContainer {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+
+
+/* Estilo do botão "Ver Mais" */
+.botao-vermais {
+    background-color: var(--blue-color);
+    border: none;
+    cursor: pointer;
+    color: white;
+    padding: 1rem 3rem;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    border-radius: 1rem;
+    font-size: 14px;
+    min-width: 80px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.botao-vermais:hover {
+    background-color: var(--blue-hover-color);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsividade */
+
+@media (max-width: 931px) {
+    .main-conteiner-auth {
+        padding: 20px;
+        padding-top: 64px;
+        padding-left: 16rem;
+    }
+
+    .GridCategoryChanges {
+        display: none;
+    }
+
+    .GridValuesChanges {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: none;
+        padding: 0;
+        
+    }
+
+    .history-entry {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .botao-vermais {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .history-entry p {
+        margin-bottom: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-conteiner-auth {
+        padding: 20px;
+        padding-top: 128px;
+    }
+
+    .GridCategoryChanges {
+        display: none;
+    }
+
+    .GridValuesChanges {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        border-bottom: none;
+        margin-bottom: 16px;
+        gap: 1rem;
+    }
+
+    .history-entry {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: #f9f9f9;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 15px;
+    }
+
+    .botao-vermais {
+        font-size: 12px;
+        padding: 6px 8px;
+    }
+
+    .history-entry p {
+        margin-bottom: 10px;
+    }
+}
+
+
+/* Estilo do modal */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .modal-content {
+        width: 95%;
+        padding: 20px;
+        max-width: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        width: 98%;
+        padding: 20px;
+        max-width: none;
+        max-height: 95vh;
+    }
+}
+.no-changes-message{
+    padding: 8px;
+}

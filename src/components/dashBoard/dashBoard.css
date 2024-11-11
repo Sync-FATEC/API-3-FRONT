@@ -32,6 +32,7 @@
   box-shadow: none;
 
 }
+
 .titulo h1 {
   font-weight: 700;
   size: 24px;
@@ -40,27 +41,242 @@
 
 /* Página do Coordenador */
 
-  .coordenador .container-secundario{
-    margin: 32px 0;
-    border: 1px;
-    border-radius: 8px;
+.coordenador .container-secundario {
+  margin: 32px 0;
+  border: 1px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.mainDadosMobile {
+  flex-grow: 1;
+ 
+}
+
+
+@media (max-width: 768px) {
+  .container-secundario {
     display: flex;
-    justify-content: space-between;
-    gap: 16px;
+    flex-direction: column;
+    align-items: center;
   }
 
-  .mainDadosMobile {
-    flex-grow: 1;
-    margin-top: 50px;
+  .tab3s {
+    width: 200px;
+  }
+}
+
+.export-buttons{
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  margin-top: 30px;
+}
+
+#pdf {
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--red-color);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#excel {
+  padding: 10px 15px;
+  border: none;
+  background-color: var(--green-color);
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+#pdf:hover {
+  background-color: var(--red-hover-color);
+  
+}
+#excel:hover {
+  background-color: var(--green-hover-color);
+  
+}
+
+.botao-pesquisar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  box-shadow: none;
+ 
+  border-radius: 16px;
+  gap: 16px;
+  padding: 16px;
+  cursor: pointer;
+  border: none;
+  
+}
+
+.botao-pesquisar:hover {
+  background-color: var(--blue-hover-color);
+  transition: 0.5s;
+}
+
+/* GRAFICOS */
+
+.tabs3 > div {
+  width: 100%;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 32px;
+}
+
+.chart-container-row {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.chart-section {
+  width: 60%;
+  height: 280px;
+}
+
+.chart-section-last{
+  width: 100%;
+  height: 350px;
+}
+
+@media (max-width: 1150px) {
+  .chart-container-row {
+    flex-direction: column;
+  }
+
+  .chart-section {
+    width: 100%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .chart-section-last{
+    width: 100%;
+  }
+}
+
+/* @media (max-width: 1050px) {
+  .chart-section {
+    width: 80%;
+  }
+
+  .chart-section-last{
+    width: 80%;
   }
   
+}
 
-  @media (max-width: 768px) {
-    .container-secundario {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
-
-    
+@media (max-width: 970px) {
+  .chart-section {
+    width: 70%;
   }
+
+  .chart-section-last{
+    width: 70%;
+  }
+  
+}
+
+@media (max-width: 870px) {
+  .chart-section {
+    width: 60%;
+  }
+
+  .chart-section-last{
+    width: 60%;
+  }
+  
+}
+
+@media (max-width: 770px) {
+  .chart-section {
+    width: 100%;
+  }
+
+  .chart-section-last{
+    width: 100%;
+  }
+  
+} */
+
+/* FILTROS */
+
+.divPesquisar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: end;
+  gap: 10px;
+}
+
+.input-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.container-pesquisa input {
+  padding: var(--padding-input);
+  background-color: var(--lightgray-color);
+  border-radius: 16px;
+  border: none;
+  box-shadow: none;
+  text-decoration: none;
+  width: 100%;
+
+}
+
+.data-inicial, .data-final {
+  width: 100%;
+  max-width: 200px;
+  min-width: 200px;
+}
+@media (max-width: 968px) {
+  .divPesquisar {
+    flex-wrap: wrap;
+  }
+  
+}
+/* Responsividade para telas menores */
+@media (max-width: 768px) {
+  .divPesquisar {
+    flex-direction: column;
+  }
+  .botao-pesquisar{
+    width: 100%;
+  }
+  .input-container {
+    width: 100%;
+  }
+
+  .data-inicial, .data-final {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+  }
+}
+
+.container-pesquisa{
+  padding-top: 32px;
+}
+
+
