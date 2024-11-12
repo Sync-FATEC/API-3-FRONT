@@ -3,6 +3,7 @@
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    width: 250.81px;
     display: flex;
     flex-direction: column;
     text-decoration: none;
@@ -67,7 +68,7 @@ h4{
     size: 11px;
     display: flex;
     padding: 20px;
-    color: #8B909A;
+    color: #121212;
 }
 
 .sidebarMobile {
@@ -126,6 +127,47 @@ h4{
     padding-right: 20px;
     
 }
+
+.submenu {
+    transform: scaleY(0); 
+    opacity: 0; 
+    pointer-events: none; 
+    transition: transform 0.6s ease-out, opacity 0.6s ease-out; 
+    transform-origin: top; 
+    padding-left: 20px;
+}
+
+
+.submenu.open {
+    transform: scaleY(1); 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+
+.submenu:not(.open) {
+    transform: scaleY(0); 
+    opacity: 0; 
+    pointer-events: none; 
+}
+
+.submenu {
+    max-height: 0; 
+    overflow: hidden; 
+    opacity: 0; 
+    transition: max-height 0.3s ease, opacity 0.3s ease; 
+    padding-left: 20px; 
+}
+
+
+.submenu.open {
+    max-height: 500px; 
+    opacity: 1; 
+    padding-top: 10px; 
+}
+
+
+
 @media (max-width: 768px) {
     .sidebarDesktop {
         display: none
