@@ -80,7 +80,7 @@ export default function AddProjects() {
       return;
     }
 
-    if (!referencia || !empresa || !coordenador || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
+    if (!referencia || !empresa || !textoCoordenadores || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
       errorSwal("Todos os campos devem ser preenchidos.");
       return;
     }
