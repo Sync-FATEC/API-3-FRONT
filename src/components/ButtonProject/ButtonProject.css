@@ -1,0 +1,37 @@
+.buttons {
+    background-color: var(--blue-color);
+    color: white; 
+    border: none; 
+    border-radius: 16px; 
+    padding: 16px; 
+    cursor: pointer; 
+    transition: background-color 0.5s; 
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    align-items: center;
+}
+
+#blue {
+    background-color: var(--blue-color);
+}
+
+#blue:hover {
+    background-color: var(--blue-hover-color); 
+}
+
+#red {
+    background-color: var(--red-color);
+}
+
+#red:hover {
+    background-color: var(--red-hover-color);
+}
+
+#yellow {
+    background-color: var(--yellow-color);
+}
+
+#yellow:hover {
+    background-color: var(--yellow-hover-color);
+}

@@ -16,6 +16,7 @@ import {
   faEdit,
   faFileCircleQuestion,
 } from "@fortawesome/free-solid-svg-icons";
+import ButtonProject from "../ButtonProject/ButtonProject";
 import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
@@ -241,27 +242,28 @@ export default function ProjetoDetalhes() {
                   format="pdf"
                   nome={projectData.projectReference ?? "Referencia_Indisponivel"}
                 />
-                <button
-                  className="buttons"
-                  id="yellow"
-                  onClick={() => navigate(`/historico-projeto/${id}`)}
-                >
-                  <FontAwesomeIcon icon={faFileCircleQuestion} />
-                  Historico projeto
-                </button>
-                <button
-                  className="buttons"
-                  id="blue"
-                  onClick={() => navigate(`/editar-projeto/${id}`)}
-                >
-                  <FontAwesomeIcon icon={faEdit} />
-                  Editar
-                </button>
-                <button className="buttons" 
-                id="red"
-                onClick={handleDeleteClick}>
-                  <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
-                </button>
+                
+                <ButtonProject 
+                  text="Histórico"
+                  color="yellow"
+                  iconButton={faFileCircleQuestion}
+                  action={() => {navigate(`/historico-projeto/${id}`)}}
+                />
+                
+                <ButtonProject 
+                  text="Editar"
+                  color="blue"
+                  iconButton={faEdit}
+                  action={() => {navigate(`/editar-projeto/${id}`)}}
+                />
+
+                <ButtonProject 
+                  text="Deletar"
+                  color="red"
+                  iconButton={faCancel}
+                  action={handleDeleteClick}
+                />
+
               </div>
             </>
           )}
