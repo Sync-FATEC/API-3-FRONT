@@ -35,3 +35,10 @@
 #yellow:hover {
     background-color: var(--yellow-hover-color);
 }
+
+#green{
+    background-color: var(--green-color);
+}
+#green:hover{
+    background-color: var(--green-hover-color);
+}

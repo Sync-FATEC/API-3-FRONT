@@ -20,8 +20,14 @@ import ButtonProject from "../ButtonProject/ButtonProject";
 import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
-import ExportProjectButton from "../exportProjectButton/exportProjectButton";
 import BlurText from "../blurText/blurText";
+import { errorSwal } from "../swal/errorSwal";
+
+interface propsExport {
+  id: string;
+  format: string;
+  nome: string;
+}
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -86,6 +92,42 @@ export default function ProjetoDetalhes() {
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
+  };
+
+  const handleExportProject = async ({ id, format, nome }: propsExport) => {
+    if (!id || !format) {
+      errorSwal("Dados insuficientes");
+      return;
+    }
+  
+    if (format !== "pdf" && format !== "excel") {
+      errorSwal("Formato inválido");
+      return;
+    }
+  
+    try {
+      const response = await links.getExport(`/projects/export/${id}/${format}`);
+  
+      if (response.status === 200) {
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const url = window.URL.createObjectURL(blob);
+  
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = nome;
+        document.body.appendChild(a);
+        a.click();
+  
+        setTimeout(() => {
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      } else {
+        console.error("Erro no download do documento:", response.status);
+      }
+    } catch (error) {
+      errorSwal("Erro ao exportar projeto.");
+    }
   };
 
   const handleBackButtonClick = () => {
@@ -237,10 +279,11 @@ export default function ProjetoDetalhes() {
           {isAuthenticated && (
             <>
               <div className="button-container">
-                <ExportProjectButton
-                  id={projectData.projectId}
-                  format="pdf"
-                  nome={projectData.projectReference ?? "Referencia_Indisponivel"}
+                <ButtonProject 
+                  text="Exportar"
+                  color="green"
+                  iconButton={faFileCircleQuestion}
+                  action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
                 />
                 
                 <ButtonProject 
