@@ -12,6 +12,9 @@ import EditarProjeto from './pages/editProjects/EditProjects';
 import ProjectsDue from './pages/projectsDue/projectsDue';
 import GerenciarProjetos from './pages/GerenciarProjetos/GerenciarProjetos';
 import HistoryChanges from './pages/HistoryChanges/HistoryChanges';
+import AddBolsista from './pages/addBolsistas/addBolsistas';
+import GerenciarBolsistas from './pages/GerenciarBolsistas/gerenciarBolsistas';
+import GerenciarRascunhos from './pages/GerenciarRascunhos/gerenciarRascunhos';
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
             <Route path='/projetosVencimentos' element={<RequireAuthAdmin><ProjectsDue /></RequireAuthAdmin>}></Route>
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
             <Route path='/historico-projeto/:id' element={<RequireAuthAdmin><HistoryChanges/></RequireAuthAdmin>}></Route>
+            <Route path='/addBolsistas' element={<RequireAuthAdmin><AddBolsista/></RequireAuthAdmin>}></Route>
+            <Route path='/gerenciarRascunhos' element={<RequireAuthAdmin><GerenciarRascunhos/></RequireAuthAdmin>}></Route> 
+            <Route path='/gerenciarBolsistas' element={<RequireAuthAdmin><GerenciarBolsistas/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>
