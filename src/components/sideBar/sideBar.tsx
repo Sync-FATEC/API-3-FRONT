@@ -62,7 +62,6 @@ export default function Sidebar() {
                         <FontAwesomeIcon icon={isProjetosOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
                         Projetos
                     </div>
-                    {/* Aqui a classe 'open' é adicionada dinamicamente quando o dropdown está aberto */}
                     <div className={`submenu ${isProjetosOpen ? 'open' : ''}`}>
                         <Link to="/addProjetos" className="menu-item" id="projetos">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
@@ -90,7 +89,6 @@ export default function Sidebar() {
                         <FontAwesomeIcon icon={isBolsistasOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
                         Bolsistas
                     </div>
-                    {/* Aqui a classe 'open' é adicionada dinamicamente quando o dropdown está aberto */}
                     <div className={`submenu ${isBolsistasOpen ? 'open' : ''}`}>
                         <Link to="/addBolsistas" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
@@ -114,8 +112,6 @@ export default function Sidebar() {
                     </Link>
                 </div>
             </div>
-
-            {/* Mobile Sidebar */}
             <div className="sidebar sidebarMobile">
                 <div className="logo">
                     <img src="/static/img/logo.svg" alt="Logo" />
@@ -170,13 +166,13 @@ export default function Sidebar() {
                     </div>
                     <div className={`submenu ${isBolsistasOpen ? 'open' : ''}`}>
                         <Link to="/addBolsistas" className="menu-item">
-                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                            <div id='adicionarBolsistas' style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
                                 Adicionar Bolsistas
                             </div>
                         </Link>
                         <Link to="/gerenciarBolsistas" className="menu-item">
-                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                            <div id='gerenciarBolsistas' style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
                                 Gerenciar Bolsistas
                             </div>
