@@ -42,3 +42,11 @@
 #green:hover{
     background-color: var(--green-hover-color);
 }
+
+#blue-light {
+    background-color: var(--blue-light);
+}
+
+#blue-light:hover {
+    background-color: var(--blue-light-hover);
+}

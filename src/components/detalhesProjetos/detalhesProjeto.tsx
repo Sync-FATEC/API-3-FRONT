@@ -15,6 +15,7 @@ import {
   faChevronCircleLeft,
   faEdit,
   faFileCircleQuestion,
+  faFileContract,
 } from "@fortawesome/free-solid-svg-icons";
 import ButtonProject from "../ButtonProject/ButtonProject";
 import Sidebar from "../sideBar/sideBar";
@@ -284,6 +285,13 @@ export default function ProjetoDetalhes() {
                   color="green"
                   iconButton={faFileCircleQuestion}
                   action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
+                />
+
+                <ButtonProject 
+                  text="Gerar Contrato"
+                  color="blue-light"
+                  iconButton={faFileContract}
+                  action={() => () => {}}
                 />
                 
                 <ButtonProject 
