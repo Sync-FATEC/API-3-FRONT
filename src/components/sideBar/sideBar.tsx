@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHome, faSignOutAlt, faCirclePlus, faCube, faCalendarDays, faBars, faClose, faCaretDown, faCaretUp, faChartSimple } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faSignOutAlt, faCirclePlus, faCube, faCalendarDays, faBars, faClose, faCaretDown, faCaretUp, faChartSimple, faFilePen, faFileCirclePlus } from '@fortawesome/free-solid-svg-icons';
 import { Link } from 'react-router-dom';
 import Logout from '../../contexts/auth/logout';
 import './sidebar.css';
@@ -83,6 +83,13 @@ export default function Sidebar() {
                                 Próximos Vencimentos
                             </div>
                         </Link>
+
+                        <Link to="/gerenciarRascunhos" className="menu-item" id="gerenciarRascunhos">
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faFilePen} style={{ color: "#969696", marginRight: '8px' }} />
+                                Gerenciar Rascunhos
+                            </div>
+                        </Link>
                     </div>
 
                     <div className="menu-item" onClick={toggleBolsistasDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
@@ -157,6 +164,13 @@ export default function Sidebar() {
                             <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCalendarDays} style={{ color: "#969696", marginRight: '8px' }} />
                                 Próximos Vencimentos
+                            </div>
+                        </Link>
+                        
+                        <Link to="/gerenciarRascunhos" className="menu-item" id="gerenciarRascunhos">
+                            <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faFilePen} style={{ color: "#969696", marginRight: '8px' }} />
+                                Gerenciar Rascunhos
                             </div>
                         </Link>
                     </div>
