@@ -1,8 +1,8 @@
 import Sidebar from "../../components/sideBar/sideBar";
 import "./addBolsistas.css";
+import { FC } from "react";
 
-
-export default function AddBolsista() {
+const AddBolsista: FC = () => {
     return (
         <>
             <Sidebar />
@@ -67,3 +67,5 @@ export default function AddBolsista() {
         </>
     );
 }
+
+export default AddBolsista;
