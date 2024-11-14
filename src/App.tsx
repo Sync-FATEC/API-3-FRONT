@@ -14,7 +14,9 @@ import GerenciarProjetos from './pages/GerenciarProjetos/GerenciarProjetos';
 import HistoryChanges from './pages/HistoryChanges/HistoryChanges';
 import AddBolsista from './pages/addBolsistas/addBolsistas';
 import GerenciarBolsistas from './pages/GerenciarBolsistas/gerenciarBolsistas';
-import GerenciarRascunhos from './pages/GerenciarRascunhos/gerenciarRascunhos';
+import GerenciarRascunho from './pages/GerenciarRascunhos/gerenciarRascunho';
+import DetalhesBolsistas from './pages/GerenciarBolsistas/detalhesBolsistas/detalhesBolsistas';
+import DetalhesRascunho from './pages/GerenciarRascunhos/detalhesRascunho/detalhesRascunho';
 
 function App() {
   return (
@@ -32,8 +34,10 @@ function App() {
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
             <Route path='/historico-projeto/:id' element={<RequireAuthAdmin><HistoryChanges/></RequireAuthAdmin>}></Route>
             <Route path='/addBolsistas' element={<RequireAuthAdmin><AddBolsista/></RequireAuthAdmin>}></Route>
-            <Route path='/gerenciarRascunhos' element={<RequireAuthAdmin><GerenciarRascunhos/></RequireAuthAdmin>}></Route> 
+            <Route path='/gerenciarRascunhos' element={<RequireAuthAdmin><GerenciarRascunho/></RequireAuthAdmin>}></Route> 
             <Route path='/gerenciarBolsistas' element={<RequireAuthAdmin><GerenciarBolsistas/></RequireAuthAdmin>}></Route>
+            <Route path='/detalheBolsista/:id' element={<RequireAuthAdmin><DetalhesBolsistas/></RequireAuthAdmin>}></Route>
+            <Route path='/detalheRascunho/:id' element={<RequireAuthAdmin><DetalhesRascunho/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>

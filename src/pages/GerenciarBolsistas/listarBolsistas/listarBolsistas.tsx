@@ -1,29 +1,89 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import "./listarBolsistas.css";
+
 
 export default function ListarBolsistas() {
-    return (
-        <>
-                <div className="background-projects">
-                    <div className="Referencias">
-                        <p>Nome</p>
-                        <p>CPF</p>
-                        <p>RG</p>
-                        <p>E-mail</p>
-                        <p>Nacionalidade</p>
-                        <p>Visualizar</p>
-                    </div>
-                    <div className="Bolsistas Bolsistas_Responsivo">
-                        <p><label className="Referencias_Responsivo">Nome: </label></p>
-                        <p><label className="Referencias_Responsivo">CPF: </label></p>
-                        <p><label className="Referencias_Responsivo">RG: </label></p>
-                        <p><label className="Referencias_Responsivo">E-mail: </label></p>
-                        <p><label className="Referencias_Responsivo">Nacionalidade: </label></p>
-                        <img
-                            src="/static/img/pesquisar.svg"
-                            alt="Visualizar bolsistas"
-                            style={{ cursor: "pointer", transition: "transform 0.2s" }}
-                        />
-                    </div>
-                </div>
-        </>
-    );
+  const navigate = useNavigate();
+
+  const bolsistas = [
+    {
+      id: 1,
+      nome: "Carlos Almeida",
+      cpf: "123.456.789-00",
+      rg: "MG-12.345.678",
+      email: "carlos.almeida@email.com",
+      nacionalidade: "Brasileira",
+    },
+    {
+      id: 2,
+      nome: "Ana Paula Souza",
+      cpf: "987.654.321-00",
+      rg: "SP-98.765.432",
+      email: "ana.souza@email.com",
+      nacionalidade: "Brasileira",
+    },
+  ];
+
+  const handleBolsistaClick = (id: number) => {
+    navigate(`/detalheBolsista/${id}`);
+  };
+
+  return (
+    <div id="main-container-bolsistas">
+        <h2>Bolsistas</h2>
+      <div className="background-projects">
+        <div className="Referencias">
+          <p>Nome</p>
+          <p>CPF</p>
+          <p>RG</p>
+          <p>E-mail</p>
+          <p>Nacionalidade</p>
+          <p>Visualizar</p>
+        </div>
+        {bolsistas.map((bolsista) => (
+          <div className="Bolsistas Bolsistas_Responsivo" key={bolsista.id}>
+            <p>
+              <label className="Referencias_Responsivo">Nome: </label>
+              {bolsista.nome}
+            </p>
+            <p>
+              <label className="Referencias_Responsivo">CPF: </label>
+              {bolsista.cpf}
+            </p>
+            <p>
+              <label className="Referencias_Responsivo">RG: </label>
+              {bolsista.rg}
+            </p>
+            <p>
+              <label className="Referencias_Responsivo">E-mail: </label>
+              {bolsista.email}
+            </p>
+            <p>
+              <label className="Referencias_Responsivo">Nacionalidade: </label>
+              {bolsista.nacionalidade}
+            </p>
+            <img
+              src="/static/img/pesquisar.svg"
+              alt="Visualizar bolsistas"
+              onClick={() => handleBolsistaClick(bolsista.id)}
+              style={{ cursor: "pointer", transition: "transform 0.2s" }}
+              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+            />
+          </div>
+        ))}
+        <div className="pagination">
+          <button disabled>
+            <FontAwesomeIcon icon={faChevronLeft} />
+          </button>
+          <span>Página 1 de 1</span>
+          <button disabled>
+            <FontAwesomeIcon icon={faChevronRight} />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
 }

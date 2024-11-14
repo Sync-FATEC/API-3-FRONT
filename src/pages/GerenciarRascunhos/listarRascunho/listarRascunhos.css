@@ -1,0 +1,55 @@
+/* Estilos padrão */
+.MainDados {
+    padding: 20px;
+}
+
+
+.background-drafts {
+    background-color: var(--white-color);
+    border-radius: var(--padding-input);
+    box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
+    padding: 20px;
+}
+
+
+.Referencias, .Rascunhos {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+}
+
+
+.Referencias_Responsivo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .Referencias {
+        display: none;
+    }
+
+    .Referencias_Responsivo {
+        font-weight: bold;
+        display: inline;
+    }
+
+    .Rascunhos_Responsivo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Rascunhos p {
+        text-align: start;
+    }    
+}

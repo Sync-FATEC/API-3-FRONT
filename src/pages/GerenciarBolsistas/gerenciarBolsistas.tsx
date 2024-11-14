@@ -8,7 +8,7 @@ export default function GerenciarBolsistas() {
             <Sidebar />
             <div className="main-conteiner-auth">
                 <div className="admin_center-header">
-                    <h2>Bolsistas</h2>
+                    <h1>Gerenciar Bolsistas</h1>
                     <div className="user">
                         <img src="/static/img/user.svg" alt="logo" />
                         <p>Admin</p>

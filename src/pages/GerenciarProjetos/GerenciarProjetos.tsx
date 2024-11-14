@@ -17,19 +17,15 @@ export default function GerenciarProjetos() {
         <>
             <Sidebar />
             <div className='main-conteiner-auth'>
-               
-
-                    <div className="admin_center-header">
-                        <h1>Gerenciar Projetos</h1>
-                        <div className="user">
-                            <img src="/static/img/user.svg" alt="logo" />
-                            <p>Admin</p>
-                        </div>
+                <div className="admin_center-header">
+                    <h1>Gerenciar Projetos</h1>
+                    <div className="user">
+                        <img src="/static/img/user.svg" alt="logo" />
+                        <p>Admin</p>
                     </div>
-                    <FiltroPortal onFilterSubmit={handleFilterSubmit} />
-                    <ListarProjetos filterData={filterData} />
-
-                
+                </div>
+                <FiltroPortal onFilterSubmit={handleFilterSubmit} />
+                <ListarProjetos filterData={filterData} />
             </div>
         </>
     );
