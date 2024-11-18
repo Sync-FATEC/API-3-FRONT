@@ -4,3 +4,9 @@
     gap: 8px;
     margin-bottom: 16px;
 }
+.campo-total{
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-top: 16px;
+}
