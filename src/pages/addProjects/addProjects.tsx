@@ -6,6 +6,7 @@ import { errorSwal } from "../../components/swal/errorSwal";
 import { successSwal } from "../../components/swal/sucessSwal";
 import AddAnexo from '../../components/addAnexo/addAnexos';
 import createProject from "../../type/createProject";
+import AddPlanoTrabalho from '../../components/addPlanoTrabalho/addPlanoTrabalho';
 
 export default function AddProjects() {
   const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
@@ -22,6 +23,7 @@ export default function AddProjects() {
   const [classificacao, setClassificacao] = useState<string>("");
   const [enviado, setEnviado] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [exibirPlanoTrabalho, setExibirPlanoTrabalho] = useState(false);
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
   const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
@@ -165,6 +167,11 @@ export default function AddProjects() {
     setAddAnexoComponents((prev) => [...prev, prev.length]);
   };
 
+  const togglePlanoTrabalho = () => {
+    setExibirPlanoTrabalho((prev) => !prev);
+  };
+
+
   return (
     <>
       <Sidebar />
@@ -180,7 +187,7 @@ export default function AddProjects() {
           <form className="background-projects" onSubmit={handleSubmitProjeto}>
             <div>
               <div className="campo-projeto">
-                <label className="">Referência do projeto</label>
+                <label className="placeholder">Referência do projeto</label>
                 <input
                   type="text"
                   className="input"
@@ -197,6 +204,23 @@ export default function AddProjects() {
                   Dado sensível?
                 </label>
               </div>
+              <div className="campo-projeto">
+                <label className="placeholder">Título</label>
+                <input
+                    type="text"
+                    className="input"
+                    placeholder=""
+                />
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={empresaSensivel}
+                    onChange={(e) => setEmpresaSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
+            </div>
+            
               <div className="campo-projeto">
                 <label className="placeholder">Empresa</label>
                 <input
@@ -217,7 +241,7 @@ export default function AddProjects() {
               </div>
               <div className="campo-projeto">
                 <div className="pesquisa-container">
-                  <label htmlFor="coordenador">Coordenador</label>
+                  <label className="placeholder" htmlFor="coordenador">Coordenador</label>
                   <input
                     type="text"
                     value={textoCoordenadores}
@@ -358,9 +382,28 @@ export default function AddProjects() {
                   Dado sensível?
                 </label>
               </div>
+              <div>
+
+              </div>
               <div className="campo-projeto">
                 <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
               </div>
+              <div className="campo-projeto">
+                <button
+                  type="button"
+                  className="btn btn-adicionar"
+                  onClick={togglePlanoTrabalho}
+                >
+                  {exibirPlanoTrabalho ? "Fechar" : "Criar Plano de Trabalho"}
+                </button>
+              </div>
+              {exibirPlanoTrabalho && (
+                <div className="plano-trabalho">
+                  <AddPlanoTrabalho />
+                </div>
+              )}
+            </div>
+            <div>
             </div>
             <div>
               <div className="right-side">
