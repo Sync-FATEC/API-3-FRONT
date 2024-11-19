@@ -22,6 +22,7 @@ export default function FormularioEdicaoProjeto({
   const [projeto, setProjeto] = useState<Projects>({
     projectId: "",
     projectReference: "",
+    projectTitle: "",
     nameCoordinator: "",
     projectCompany: "",
     projectObjective: "",
