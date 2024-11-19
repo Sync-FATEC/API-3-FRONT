@@ -41,7 +41,7 @@ export default function ListarRascunhos() {
     <div id="main-conteiner-auth">
       <h2>Rascunhos</h2>
       <div className="background-drafts">
-        <div className="Referencias">
+        <div className="ReferenciasRascunho">
           <p>Referência do rascunho</p>
           <p>Data de Criação</p>
           <p>Autor</p>
