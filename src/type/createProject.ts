@@ -1,6 +1,8 @@
 type createProject = {
     projectReference: string;
     projectReferenceSensitive: boolean;
+    projectTitle: string;
+    projectTitleSensitive: boolean;
     nameCoordinator: string;
     nameCoordinatorSensitive: boolean;
     projectCompany: string;

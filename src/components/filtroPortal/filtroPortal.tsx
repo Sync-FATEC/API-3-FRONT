@@ -107,16 +107,6 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
               onChange={(e) => setTextoReferencia(e.target.value)}
             />
           </div>
-          <div>
-            <label htmlFor="tituloDeDados">Titulo do projeto</label>
-            <input
-              type="text"
-              name="tituloDeDados"
-              id="tituloDeDados"
-              value={textoTitulo}
-              onChange={(e) => setTextoTitulo(e.target.value)}
-            />
-          </div>
           <div className="pesquisa-container">
             <label htmlFor="empresas">Empresas</label>
             <input
