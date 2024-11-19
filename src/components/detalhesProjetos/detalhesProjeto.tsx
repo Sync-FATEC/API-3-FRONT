@@ -187,7 +187,13 @@ export default function ProjetoDetalhes() {
                     <label>
                       <strong>Referência:</strong>
                     </label>
-                    <span>{projectData?.projectReference || <BlurText />} - {projectData?.projectTitle}</span>
+                    <span>{projectData?.projectReference || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
+                      <strong>Titulo:</strong>
+                    </label>
+                    <span>{projectData?.projectTitle || <BlurText />}</span>
                   </div>
                   <div className="campo-projeto">
                     <label>

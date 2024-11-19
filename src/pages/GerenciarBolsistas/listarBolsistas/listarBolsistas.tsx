@@ -34,7 +34,7 @@ export default function ListarBolsistas() {
     <div id="main-container-bolsistas">
         <h2>Bolsistas</h2>
       <div className="background-projects">
-        <div className="Referencias">
+        <div className="ReferenciasBolsistas">
           <p>Nome</p>
           <p>CPF</p>
           <p>RG</p>

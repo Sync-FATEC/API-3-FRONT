@@ -12,6 +12,7 @@ export default function AddProjects() {
   const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
   const [projectId, setProjectId] = useState<string>("");
   const [referencia, setReferencia] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
   const [coordenador, setCoordenador] = useState<string>("");
   const [textoCoordenadores, setTextoCoordenadores] = useState('');
@@ -27,6 +28,7 @@ export default function AddProjects() {
   const [isDraft, setIsDraft] = useState(true)
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
+  const [TitleSensivel, setTitleSensivel] = useState<boolean>(false);
   const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
   const [coordenadorSensivel, setCoordenadorSensivel] = useState<boolean>(false);
   const [valorSensivel, setValorSensivel] = useState<boolean>(false);
@@ -85,7 +87,7 @@ export default function AddProjects() {
       return;
     }
 
-    if (!referencia || !empresa || !textoCoordenadores || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
+    if (!referencia || !title || !empresa || !textoCoordenadores || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
       errorSwal("Todos os campos devem ser preenchidos.");
       return;
     }
@@ -113,6 +115,8 @@ export default function AddProjects() {
       const projeto: createProject = {
         projectReference: referencia,
         projectReferenceSensitive: referenciaSensivel,
+        projectTitle: title,
+        projectTitleSensitive: TitleSensivel,
         nameCoordinator: textoCoordenadores,
         nameCoordinatorSensitive: coordenadorSensivel,
         projectCompany: empresa,
@@ -154,6 +158,7 @@ export default function AddProjects() {
 
   const resetForm = () => {
     setReferencia("");
+    setTitle("");
     setEmpresa("");
     setCoordenador("");
     setTextoCoordenadores('');
@@ -215,12 +220,14 @@ export default function AddProjects() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
                 <label className='checkboxDiv'>
                   <input
                     type="checkbox"
-                    checked={empresaSensivel}
-                    onChange={(e) => setEmpresaSensivel(e.target.checked)}
+                    checked={TitleSensivel}
+                    onChange={(e) => setTitleSensivel(e.target.checked)}
                   />
                   Dado sensível?
                 </label>

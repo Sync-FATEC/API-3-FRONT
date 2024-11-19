@@ -41,6 +41,7 @@ export default function FormularioEdicaoProjeto({onSubmit,initialData,}: Formula
   const formRef = useRef<HTMLDivElement>(null);
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
+  const [titleSensivel, setTitleSensivel] = useState<boolean>(false);
   const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
   const [coordenadorSensivel, setCoordenadorSensivel] = useState<boolean>(false);
   const [valorSensivel, setValorSensivel] = useState<boolean>(false);
@@ -111,9 +112,30 @@ export default function FormularioEdicaoProjeto({onSubmit,initialData,}: Formula
       return;
     }
 
+    if (JSON.stringify(projeto) === JSON.stringify(initialData) && novoAnexo.length === 0 && anexosRemovidos.length === 0) {
+      const sensitiveFields = initialData?.sensitiveFields ?? [];
+      const sensitiveFieldsChanged = referenciaSensivel !== sensitiveFields.includes("projectReference") ||
+      titleSensivel !== sensitiveFields.includes("projectTitle") ||
+      coordenadorSensivel !== sensitiveFields.includes("nameCoordinator") ||
+      empresaSensivel !== sensitiveFields.includes("projectCompany") ||
+      objetoSensivel !== sensitiveFields.includes("projectObjective") ||
+      descricaoSensivel !== sensitiveFields.includes("projectDescription") ||
+      valorSensivel !== sensitiveFields.includes("projectValue") ||
+      dataInicioSensivel !== sensitiveFields.includes("projectStartDate") ||
+      dataTerminoSensivel !== sensitiveFields.includes("projectEndDate") ||
+      classificacaoSensivel !== sensitiveFields.includes("projectClassification");
+
+      if (!sensitiveFieldsChanged) {
+      errorSwal("Nenhuma alteração foi feita.");
+      return;
+      }
+    }
+
     const updateProject: UpdateProject = {
       projectReference: projeto.projectReference,
       projectReferenceSensitive: referenciaSensivel,
+      projectTitle: projeto.projectTitle,
+      projectTitleSensitive: titleSensivel,
       nameCoordinator: projeto.nameCoordinator,
       nameCoordinatorSensitive: coordenadorSensivel,
       projectCompany: projeto.projectCompany,
@@ -140,6 +162,7 @@ export default function FormularioEdicaoProjeto({onSubmit,initialData,}: Formula
   const checkSensitiveFieldsArray = (fields: string[]) => {
     fields.forEach((field) => {
       if(field === "projectReference") setReferenciaSensivel(true);
+      if(field === "projectTitle") setTitleSensivel(true);
       if(field === "nameCoordinator") setCoordenadorSensivel(true);
       if(field === "projectCompany") setEmpresaSensivel(true);
       if(field === "projectObjective") setObjetoSensivel(true);
@@ -174,6 +197,25 @@ export default function FormularioEdicaoProjeto({onSubmit,initialData,}: Formula
                 type="checkbox"
                 checked={referenciaSensivel}
                 onChange={(e) => setReferenciaSensivel(e.target.checked)}
+              />
+              Dado sensível?
+            </label>
+          </div>
+          <div className="campo-projeto">
+            <label className="placeholder">Titulo do projeto</label>
+            <input
+              type="text"
+              className="input"
+              name="referencia"
+              placeholder=" "
+              value={projeto.projectTitle}
+              onChange={(e) => handleChange("projectTitle", e)}
+            />
+            <label className='checkboxDiv'>
+              <input
+                type="checkbox"
+                checked={titleSensivel}
+                onChange={(e) => setTitleSensivel(e.target.checked)}
               />
               Dado sensível?
             </label>
