@@ -64,11 +64,12 @@
     height: 22px;
 }
 h4{
-    font-weight: 400;
+    font-weight: 800;
     size: 11px;
     display: flex;
     padding: 20px;
-    color: #121212;
+    color: var(--blue-color);
+    
 }
 
 .sidebarMobile {

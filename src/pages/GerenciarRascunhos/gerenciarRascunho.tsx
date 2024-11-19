@@ -10,7 +10,7 @@ interface Rascunho {
   status: string;
 }
 
-const GerenciarRascunho: React.FC = () => {
+export default function GerenciarRascunho() {
   const [rascunhos, setRascunhos] = useState<Rascunho[]>([]);
   const [filtro, setFiltro] = useState('');
   const [ordenacao, setOrdenacao] = useState('dataCriacao');
@@ -39,5 +39,3 @@ const GerenciarRascunho: React.FC = () => {
     </>
   );
 };
-
-export default GerenciarRascunho;

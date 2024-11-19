@@ -25,6 +25,7 @@ export default function AddProjects() {
   const [enviado, setEnviado] = useState<boolean>(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [exibirPlanoTrabalho, setExibirPlanoTrabalho] = useState(false);
+  const [isDraft, setIsDraft] = useState(true)
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
   const [TitleSensivel, setTitleSensivel] = useState<boolean>(false);
@@ -87,6 +88,8 @@ export default function AddProjects() {
   const handleSubmitProjeto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setTimeout(() => {}, 100)
+
     if (!validateValor(valor)) {
       errorSwal("Valor do projeto inválido. Certifique-se de que não é negativo e não contém símbolos.");
       return;
@@ -137,7 +140,8 @@ export default function AddProjects() {
         projectEndDate: new Date(dataTermino),
         projectEndDateSensitive: dataTerminoSensivel,
         projectClassification: classificacao,
-        projectClassificationSensitive: classificacaoSensivel
+        projectClassificationSensitive: classificacaoSensivel,
+        isDraft: isDraft
       };
 
       const response = await links.createProject(projeto);
@@ -174,6 +178,7 @@ export default function AddProjects() {
     setClassificacao("");
     setAnexos([]);
     setAddAnexoComponents([]);
+    setIsDraft(false)
   };
 
   const handleAddAnexoComponent = () => {
@@ -427,9 +432,6 @@ export default function AddProjects() {
                 </div>
               )}
             </div>
-            <div className="campo-projeto">
-                <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
-              </div>
             <div>
             </div>
             <div>
@@ -447,6 +449,16 @@ export default function AddProjects() {
                     <button className="btn btn-add" type="button" onClick={handleAddAnexoComponent}>
                       Adicionar anexo
                     </button>
+                  </div>
+                </div>
+                <div className='flexButton'>
+                    <div className="campo-projeto">
+                        <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(false)}>Publicar projeto</button>
+                    </div>
+                  <div>
+                    <div className="campo-projeto">
+                      <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(true)}>Salvar rascunho</button>
+                    </div>
                   </div>
                 </div>
               </div>
