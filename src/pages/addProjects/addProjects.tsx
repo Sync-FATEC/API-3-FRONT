@@ -386,9 +386,6 @@ export default function AddProjects() {
 
               </div>
               <div className="campo-projeto">
-                <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
-              </div>
-              <div className="campo-projeto">
                 <button
                   type="button"
                   className="btn btn-adicionar"
@@ -403,6 +400,9 @@ export default function AddProjects() {
                 </div>
               )}
             </div>
+            <div className="campo-projeto">
+                <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
+              </div>
             <div>
             </div>
             <div>

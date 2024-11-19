@@ -19,6 +19,7 @@ export default function FormularioEdicaoProjeto({onSubmit,initialData,}: Formula
   const [projeto, setProjeto] = useState<Projects>({
     projectId: "",
     projectReference: "",
+    projectTitle: "",
     nameCoordinator: "",
     projectCompany: "",
     projectObjective: "",
