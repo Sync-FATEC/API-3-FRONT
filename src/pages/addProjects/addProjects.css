@@ -250,4 +250,7 @@ input[type="checkbox"] {
   margin: 8px 5px 8px;
 }
 
-
+.flexButton {
+  display: flex;
+  gap: 5;
+}

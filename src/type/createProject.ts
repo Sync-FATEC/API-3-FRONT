@@ -17,6 +17,7 @@ type createProject = {
     projectEndDateSensitive: boolean;
     projectClassification: string;
     projectClassificationSensitive: boolean;
+    isDraft: boolean;
   };
 
 export default createProject;
