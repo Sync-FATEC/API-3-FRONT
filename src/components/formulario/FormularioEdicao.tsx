@@ -15,10 +15,7 @@ interface FormularioEdicaoProjetoProps {
   initialData?: Projects | null;
 }
 
-export default function FormularioEdicaoProjeto({
-  onSubmit,
-  initialData,
-}: FormularioEdicaoProjetoProps) {
+export default function FormularioEdicaoProjeto({onSubmit,initialData,}: FormularioEdicaoProjetoProps) {
   const [projeto, setProjeto] = useState<Projects>({
     projectId: "",
     projectReference: "",
@@ -440,7 +437,6 @@ export default function FormularioEdicaoProjeto({
               <button className="buttons" onClick={confirmSubmit}>Sim</button>
               <button className="delete-buttons" onClick={handleCancel}>Não</button>
             </div>
-
           </div>
         </div>
       )}

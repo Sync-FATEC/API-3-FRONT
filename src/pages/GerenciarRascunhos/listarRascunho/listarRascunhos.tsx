@@ -3,31 +3,38 @@ import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons
 import { useNavigate } from "react-router-dom";
 import { formatDate } from "../../../utils/utils";
 import "./listarRascunhos.css";
+import { links } from "../../../api/api";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
+import { errorSwal } from "../../../components/swal/errorSwal";
+import Loading from "../../../components/loading/loading";
+import { Projects } from "../../../type/projects";
+import ListarProjetos from "../../../components/listaProjetos/listaProjetos";
 
 export default function ListarRascunhos() {
   const navigate = useNavigate();
+  const [rascunhos, setRascunhos] = useState<Projects[]>([])
+  const [keyWord, setKeyword] = useState("")
 
-  const rascunhos = [
-    {
-      draftId: 1,
-      draftReference: "REF-001",
-      creationDate: "2023-10-01",
-      author: "João Silva",
-      company: "Empresa A",
-      value: 1000.0,
-    },
-    {
-      draftId: 2,
-      draftReference: "REF-002",
-      creationDate: "2023-10-02",
-      author: "Maria Souza",
-      company: "Empresa B",
-      value: 2000.0,
-    },
-  ];
+  const fetchDraftProjects = async () => {
+    return await links.getFiltered(keyWord, "", "", "", "" , true)
+  }
 
-  const handleRascunhoClick = (draftId: number) => {
-    navigate(`/detalheRascunho/${draftId}`);
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetchDraftProjects();
+      if (response.status === 200) {
+        setRascunhos(response.data.model);
+        console.log(rascunhos)
+      } else {
+        errorSwal("Erro ao buscar rascunhos");
+      }
+    };
+    fetchData();
+  }, []);
+
+  const handleRascunhoClick = (draftId: string) => {
+    navigate(`/detalhe/${draftId}`);
   };
 
   return (
@@ -42,32 +49,32 @@ export default function ListarRascunhos() {
           <p>Valor</p>
           <p>Visualizar</p>
         </div>
-        {rascunhos.map((rascunho) => (
-          <div className="Rascunhos Rascunhos_Responsivo" key={rascunho.draftId}>
+        {Array.isArray(rascunhos) && rascunhos.map((rascunho) => (
+          <div className="Rascunhos Rascunhos_Responsivo" key={rascunho.projectId}>
             <p>
               <label className="Referencias_Responsivo">Referência do rascunho: </label>
-              {rascunho.draftReference}
+              {rascunho.projectReference}
             </p>
             <p>
               <label className="Referencias_Responsivo">Data de Criação: </label>
-              {formatDate(rascunho.creationDate)}
+              {formatDate(rascunho.projectStartDate)}
             </p>
             <p>
               <label className="Referencias_Responsivo">Autor: </label>
-              {rascunho.author}
+              {rascunho.projectEndDate}
             </p>
             <p>
               <label className="Referencias_Responsivo">Empresa: </label>
-              {rascunho.company}
+              {rascunho.projectCompany}
             </p>
             <p>
               <label className="Referencias_Responsivo">Valor: </label>
-              {rascunho.value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
+              {rascunho.projectValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}
             </p>
             <img
               src="/static/img/pesquisar.svg"
               alt="Visualizar detalhes do rascunho"
-              onClick={() => handleRascunhoClick(rascunho.draftId)}
+              onClick={() => handleRascunhoClick(rascunho.projectId)}
               style={{ cursor: "pointer", transition: "transform 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
