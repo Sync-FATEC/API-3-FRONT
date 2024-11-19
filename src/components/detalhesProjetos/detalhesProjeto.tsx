@@ -132,7 +132,7 @@ export default function ProjetoDetalhes() {
   };
 
   const handleBackButtonClick = () => {
-    navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
+    navigate(-1);
   };
 
   if (error) {

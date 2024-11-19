@@ -37,7 +37,8 @@ export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
                 "",
                 "",
                 "",
-                ""
+                "",
+                false
               );
 
         if (response.data && response.data.model) {

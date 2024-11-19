@@ -15,6 +15,8 @@ const links = {
 
   getProject: (id: string) => api.get(`/projects/get/${id}`),
 
+  // getDraftEditProject: (id: string) => api.get('/projects/get/')
+
   getCoordinators: () => api.get("/projects/get/coordinators"),
 
   getCompanies: () => api.get("/projects/get/companies"),
@@ -49,10 +51,11 @@ const links = {
     dataInicio: string,
     dataFim: string,
     status: string,
-    classificacao: string
+    classificacao: string,
+    isDraft: boolean
   ) => {
     return api.get(
-      `/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}`
+      `/projects/getAll?keyword=${keyword}&dataInicio=${dataInicio}&dataFim=${dataFim}&status=${status}&classificacao=${classificacao}&isDraft=${isDraft}`
     );
   },
 
