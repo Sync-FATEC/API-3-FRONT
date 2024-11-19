@@ -42,12 +42,16 @@ export default function AddProjects() {
 
   const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
   const [listaCoordenadores, setListaCoordenadores] = useState<string[]>([]);
+  const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
+  const [listaEmpresas, setListaEmpresas] = useState<string[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const responseCoordinators = await links.getCoordinators();
         setListaCoordenadores(responseCoordinators.data.model);
+        const responseCompanies = await links.getCompanies();
+        setListaEmpresas(responseCompanies.data.model);
       } catch (error) {
         console.error(error);
       }
@@ -58,6 +62,10 @@ export default function AddProjects() {
 
   const filtrarOpcoesCoordenadores = listaCoordenadores.filter(opcao =>
     opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
+  );
+
+  const filtrarOpcoesEmpresas = listaEmpresas.filter(opcao =>
+    opcao.toLowerCase().includes(empresa.toLowerCase())
   );
 
   const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
@@ -228,15 +236,27 @@ export default function AddProjects() {
                 </label>
             </div>
             
-              <div className="campo-projeto">
-                <label className="placeholder">Empresa</label>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder=" "
-                  value={empresa}
-                  onChange={(e) => setEmpresa(e.target.value)}
-                />
+            <div className="campo-projeto">
+                <div className="pesquisa-container">
+                  <label className="placeholder">Empresa</label>
+                  <input
+                    type="text"
+                    value={empresa}
+                    onChange={(e) => setEmpresa(e.target.value)}
+                    onFocus={() => setExibirDropdownEmpresas(true)}
+                    onBlur={() => setTimeout(() => setExibirDropdownEmpresas(false), 200)}
+                    placeholder="Pesquise..."
+                  />
+                  {exibirDropdownEmpresas && empresa && (
+                    <ul className="dropdown">
+                      {filtrarOpcoesEmpresas.map((opcao, index) => (
+                        <li key={index} onMouseDown={() => setEmpresa(opcao)}>
+                          {opcao}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <label className='checkboxDiv'>
                   <input
                     type="checkbox"
