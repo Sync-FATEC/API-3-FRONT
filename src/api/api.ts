@@ -5,6 +5,7 @@ import { get } from "http";
 import filterDTO from "../type/filterData";
 import { Projects } from "../type/projects";
 import { UpdateProject } from "../type/updateProject";
+import { Grant, createGrant } from "../type/grant";
 
 const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -38,9 +39,9 @@ const links = {
     });
   },
 
-  removeAnexo: (anexos: string[]) => api.put(`/documents/removed`,anexos),
+  removeAnexo: (anexos: string[]) => api.put(`/documents/removed`, anexos),
 
-  addAnexoTeste: (anexos: string[]) => api.put(`/documents/add`,anexos),
+  addAnexoTeste: (anexos: string[]) => api.put(`/documents/add`, anexos),
 
   getAnexos: (link: string) => api.get(link, { responseType: "blob" }),
 
@@ -59,78 +60,117 @@ const links = {
     );
   },
 
-  filterProjects: (data: filterDTO) => api.get("/projects/filter", { params: data }),
+  filterProjects: (data: filterDTO) =>
+    api.get("/projects/filter", { params: data }),
 
   deleteProjects: (id: string) => api.delete(`/projects/delete/${id}`),
 
-  updateProject: (id: string, data: UpdateProject ) => api.put(`/projects/update/${id}`,data),
+  updateProject: (id: string, data: UpdateProject) =>
+    api.put(`/projects/update/${id}`, data),
 
   getProectsNearEnd: () => api.get("/projects/get/all/near-end"),
-  
-  getHistoryChangesProjects: (id: string) => api.get(`/projects/get/history-projects/${id}`),
 
-  getCountStatusCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
-    api.get("/dashboard/count/status/coordinator", { 
-      params: { 
-          nameCoordinator, 
-          projectStartDate, 
-          projectEndDate
-      } 
-  }),
-  
-  getCountClassificationCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
-    api.get("/dashboard/count/classification/coordinator", { 
-      params: { 
-        nameCoordinator, 
-        projectStartDate, 
-        projectEndDate
-    } 
-  }),
-  
-  getCountMonthCoordinator: (nameCoordinator: string, projectStartDate: string, projectEndDate: string) => 
-    api.get("/dashboard/count/month/coordinator", { 
-      params: { 
-        nameCoordinator, 
-        projectStartDate, 
-        projectEndDate
-    } 
-  }),
+  getHistoryChangesProjects: (id: string) =>
+    api.get(`/projects/get/history-projects/${id}`),
 
-getCountStatusCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
-  api.get("/dashboard/count/status/company", { 
-    params: { 
-      projectCompany, 
-      projectStartDate, 
-      projectEndDate
-    } 
-  }),
+  getCountStatusCoordinator: (
+    nameCoordinator: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/status/coordinator", {
+      params: {
+        nameCoordinator,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
 
-getCountClassificationCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
-  api.get("/dashboard/count/classification/company", { 
-    params: { 
-      projectCompany, 
-      projectStartDate, 
-      projectEndDate
-    } 
-  }),
+  getCountClassificationCoordinator: (
+    nameCoordinator: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/classification/coordinator", {
+      params: {
+        nameCoordinator,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
 
-getCountMonthCompany: (projectCompany: string, projectStartDate: string, projectEndDate: string) => 
-  api.get("/dashboard/count/month/company", { 
-    params: { 
-      projectCompany, 
-      projectStartDate, 
-      projectEndDate
-    } 
-  }),
+  getCountMonthCoordinator: (
+    nameCoordinator: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/month/coordinator", {
+      params: {
+        nameCoordinator,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
 
-getInvestmentCompany: (projectCompany: string, projectStartDate?: string, projectEndDate?: string) => 
-  api.get("/dashboard/count/investment/company", { 
-    params: { 
-      projectCompany,
-      projectStartDate,
-      projectEndDate
-    } 
-  })
+  getCountStatusCompany: (
+    projectCompany: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/status/company", {
+      params: {
+        projectCompany,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
+
+  getCountClassificationCompany: (
+    projectCompany: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/classification/company", {
+      params: {
+        projectCompany,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
+
+  getCountMonthCompany: (
+    projectCompany: string,
+    projectStartDate: string,
+    projectEndDate: string
+  ) =>
+    api.get("/dashboard/count/month/company", {
+      params: {
+        projectCompany,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
+
+  getInvestmentCompany: (
+    projectCompany: string,
+    projectStartDate?: string,
+    projectEndDate?: string
+  ) =>
+    api.get("/dashboard/count/investment/company", {
+      params: {
+        projectCompany,
+        projectStartDate,
+        projectEndDate,
+      },
+    }),
+
+  getAllGrants: () => api.get("/grant/getAll"),
+
+  getGrant: (id: string) => api.get(`/grant/get/${id}`),
+
+  deactivateGrants: (id: string) => api.delete(`/grant/deactivate/${id}`),
+
+  createGrant: (data: createGrant) => api.post("/grant/create", data),
 };
 
 export { links };

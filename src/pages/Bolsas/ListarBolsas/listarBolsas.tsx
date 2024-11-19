@@ -2,32 +2,34 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "./listarBolsas.css";
+import { useState, useEffect } from "react";
+import { Grant } from "../../../type/grant";
+import { links } from "../../../api/api";
 
 export default function ListarBolsas() {
+  const [grant, setGrant] = useState<Grant[]>([]);
   const navigate = useNavigate();
 
-  const bolsas = [
-    {
-      id: 1,
-      tipo: "Mestrado",
-      duracao: "6 meses",
-      atuacao: "Engenharia",
-    },
-    {
-        id: 2,
-        tipo: "Iniciação Cientifica",
-        duracao: "1 ano",
-        atuacao: "Computação",
-      },
-  ];
+  const fetchGrant = async () => {
+    try {
+      const response = await links.getAllGrants();
+      setGrant(response.data);
+    } catch (error) {
+      console.error("Erro ao buscar grants:", error);
+    }
+  };
 
-  const handleBolsistaClick = (id: number) => {
+  useEffect(() => {
+    fetchGrant();
+  }, []);
+
+  const handleGrantClick = (id: string) => {
     navigate(`/detalheBolsa/${id}`);
   };
 
   return (
     <div id="main-container-bolsas">
-        <h2>Bolsas</h2>
+      <h2>Bolsas</h2>
       <div className="background-projects">
         <div className="Referencias">
           <p>Tipo de Bolsa</p>
@@ -35,24 +37,24 @@ export default function ListarBolsas() {
           <p>Atuação</p>
           <p>Visualizar</p>
         </div>
-        {bolsas.map((bolsa) => (
-          <div className="Bolsas Bolsas_Responsivo" key={bolsa.id}>
+        {grant.map((grant) => (
+          <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
             <p>
               <label className="Referencias_Responsivo">Tipo de Bolsa: </label>
-              {bolsa.tipo}
-            </p>            
+              {grant.type}
+            </p>
             <p>
               <label className="Referencias_Responsivo">Duração: </label>
-              {bolsa.duracao}
+              {grant.duration}
             </p>
             <p>
               <label className="Referencias_Responsivo">Atuação: </label>
-              {bolsa.atuacao}
+              {grant.acting}
             </p>
             <img
               src="/static/img/pesquisar.svg"
               alt="Visualizar bolsas"
-              onClick={() => handleBolsistaClick(bolsa.id)}
+              onClick={() => handleGrantClick(grant.id)}
               style={{ cursor: "pointer", transition: "transform 0.2s" }}
               onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
               onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
