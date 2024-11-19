@@ -15,6 +15,7 @@ export default function Sidebar() {
 
     const [isBolsistasOpen, setIsBolsistasOpen] = useState(loadToggleState('isBolsistasOpen', false));
     const [isProjetosOpen, setIsProjetosOpen] = useState(loadToggleState('isProjetosOpen', false));
+    const [isBolsasOpen, setIsBolsasOpen] = useState(loadToggleState('isBolsasOpen', false));
 
     const saveToggleState = (key: string, value: boolean) => {
         localStorage.setItem(key, JSON.stringify(value));
@@ -24,6 +25,12 @@ export default function Sidebar() {
         const newState = !isBolsistasOpen;
         setIsBolsistasOpen(newState);
         saveToggleState('isBolsistasOpen', newState);
+    };
+    
+    const toggleBolsasDropdown = () => {
+        const newState = !isBolsasOpen;
+        setIsBolsasOpen(newState);
+        saveToggleState('isBolsasOpen', newState);
     };
 
     const toggleProjetosDropdown = () => {
@@ -51,7 +58,7 @@ export default function Sidebar() {
                     <img src="/static/img/logo.svg" alt="Logo" />
                 </div>
                 <div className="menu">
-                    <h4 > <FontAwesomeIcon icon={faHome} style={{ color: "#121212", marginRight: '8px' }}/> Menu </h4>
+                    <h4 > <FontAwesomeIcon icon={faHome} style={{ color: "var(--blue-color)", marginRight: '8px' }}/> Menu </h4>
                     <Link to="/dashboard" className="menu-item dashBoard">
                         <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A', paddingLeft:'20px' }}>
                             <FontAwesomeIcon icon={faChartSimple} style={{ color: "#969696", marginRight: '8px' }} />
@@ -59,8 +66,8 @@ export default function Sidebar() {
                         </div>
                     </Link>
                     <div className="menu-item" onClick={toggleProjetosDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <FontAwesomeIcon icon={isProjetosOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
-                        Projetos
+                        <FontAwesomeIcon icon={isProjetosOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Projetos</h5>
                     </div>
                     <div className={`submenu ${isProjetosOpen ? 'open' : ''}`}>
                         <Link to="/addProjetos" className="menu-item" id="projetos">
@@ -93,8 +100,8 @@ export default function Sidebar() {
                     </div>
 
                     <div className="menu-item" onClick={toggleBolsistasDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <FontAwesomeIcon icon={isBolsistasOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
-                        Bolsistas
+                        <FontAwesomeIcon icon={isBolsistasOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Bolsistas</h5>
                     </div>
                     <div className={`submenu ${isBolsistasOpen ? 'open' : ''}`}>
                         <Link to="/addBolsistas" className="menu-item">
@@ -107,6 +114,24 @@ export default function Sidebar() {
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
                                 Gerenciar Bolsistas
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="menu-item" onClick={toggleBolsasDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={isBolsasOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Bolsas</h5>
+                    </div>
+                    <div className={`submenu ${isBolsasOpen ? 'open' : ''}`}>
+                        <Link to="/addBolsas" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
+                                Adicionar Bolsas
+                            </div>
+                        </Link>
+                        <Link to="/gerenciarBolsas" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
+                                Gerenciar Bolsas
                             </div>
                         </Link>
                     </div>
@@ -135,7 +160,7 @@ export default function Sidebar() {
                             <FontAwesomeIcon icon={faClose} style={{ color: "#969696" }} /> Fechar menu
                         </button>
                     </div>
-                    <h4 > <FontAwesomeIcon icon={faHome} style={{ color: "#121212", marginRight: '8px' }}/> Menu </h4>
+                    <h4 > <FontAwesomeIcon icon={faHome} style={{ color: "var(--blue-color)", marginRight: '8px' }}/> Menu </h4>
                     <Link to="/dashboard" className="menu-item dashBoard">
                         <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
                             <FontAwesomeIcon icon={faChartSimple} style={{ color: "#969696", marginRight: '8px' }} />
@@ -144,8 +169,8 @@ export default function Sidebar() {
                     </Link>
 
                     <div className="menu-item" onClick={toggleProjetosDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <FontAwesomeIcon icon={isProjetosOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
-                        Projetos
+                        <FontAwesomeIcon icon={isProjetosOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Projetos</h5>
                     </div>
                     <div className={`submenu ${isProjetosOpen ? 'open' : ''}`}>
                         <Link to="/addProjetos" className="menu-item" id="projetos">
@@ -175,8 +200,8 @@ export default function Sidebar() {
                         </Link>
                     </div>
                     <div className="menu-item" onClick={toggleBolsistasDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
-                        <FontAwesomeIcon icon={isBolsistasOpen ? faCaretUp : faCaretDown} style={{ color: "#121212", marginRight: '8px' }} />
-                        Bolsistas
+                        <FontAwesomeIcon icon={isBolsistasOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Bolsistas</h5>
                     </div>
                     <div className={`submenu ${isBolsistasOpen ? 'open' : ''}`}>
                         <Link to="/addBolsistas" className="menu-item">
@@ -189,6 +214,24 @@ export default function Sidebar() {
                             <div id='gerenciarBolsistas' style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
                                 Gerenciar Bolsistas
+                            </div>
+                        </Link>
+                    </div>
+                    <div className="menu-item" onClick={toggleBolsasDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={isBolsasOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Bolsas</h5>
+                    </div>
+                    <div className={`submenu ${isBolsasOpen ? 'open' : ''}`}>
+                        <Link to="/addBolsas" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
+                                Adicionar Bolsas
+                            </div>
+                        </Link>
+                        <Link to="/gerenciarBolsas" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
+                                Gerenciar Bolsas
                             </div>
                         </Link>
                     </div>
