@@ -83,6 +83,33 @@ export default function ProjetoDetalhes() {
     }
   };
 
+  const handleExportProject = async (projectId: string, coordinatorName: string, companyName: string) => {
+    try {
+        // Criar o payload com as informações mínimas
+        const payload = {
+            projectId,
+            coordinatorName,
+            companyName,
+        };
+
+        // Enviar a requisição ao backend
+        const response = await api.post(`/plano-de-trabalho/gerar`, payload, {
+            responseType: "blob", // Para manipular arquivos binários
+        });
+
+        // Criar o link para download do arquivo
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", `PlanoDeTrabalho_${projectData?.projectReference}.docx`);
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+      } catch (error) {
+          console.error("Erro ao gerar o plano de trabalho:", error);
+      }
+  };
+
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
@@ -168,7 +195,7 @@ export default function ProjetoDetalhes() {
                       <strong>Valor do Projeto:</strong>
                     </label>
                     <span>
-                      {projectData?.projectValue != undefined
+                      {projectData?.projectValue !== undefined
                         ? projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
@@ -241,6 +268,14 @@ export default function ProjetoDetalhes() {
                   format="pdf"
                   nome={projectData.projectReference ?? "Referencia_Indisponivel"}
                 />
+                <button
+                    className="buttons"
+                    id="green"
+                    onClick={() => handleExportProject(projectData.projectId, projectData.nameCoordinator, projectData.projectCompany)}
+                >
+                    <FontAwesomeIcon icon={faFileCircleQuestion} />
+                    Gerar Plano de Trabalho
+                </button>
                 <button
                   className="buttons"
                   id="yellow"

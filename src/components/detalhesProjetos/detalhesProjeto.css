@@ -178,7 +178,19 @@
   background-color: var(--yellow-hover-color);
 }
 
+#green {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 5px;
+}
 
+#green:hover {
+  background-color: #218838;
+}
 
 .modal {
   position: fixed;
