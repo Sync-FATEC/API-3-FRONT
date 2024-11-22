@@ -131,6 +131,50 @@ export default function ProjetoDetalhes() {
     }
   };
 
+  const handleGenerateWorkPlan = async ({ projectId, nameCoordinator, projectCompany }: { projectId: string; nameCoordinator: string; projectCompany: string }) => {
+    if (!projectId || !nameCoordinator || !projectCompany) {
+      errorSwal("Dados insuficientes para gerar o plano de trabalho.");
+      return;
+    }
+  
+    try {
+      // Criar o payload
+      const payload = {
+        projectId,
+        nameCoordinator,
+        projectCompany,
+      };
+  
+      // Fazer a requisição POST ao backend
+      const response = await api.post(`/plano-de-trabalho/gerar`, payload, {
+        responseType: "blob", // Para lidar com o arquivo binário
+      });
+  
+      if (response.status === 200) {
+        // Criar o arquivo para download
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `Plano_de_Trabalho_${projectData?.projectReference}.docx`; // Nome do arquivo
+        document.body.appendChild(a);
+        a.click();
+  
+        // Limpar o objeto URL criado
+        setTimeout(() => {
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      } else {
+        errorSwal(`Erro ao gerar o plano de trabalho: ${response.status}`);
+      }
+    } catch (error) {
+      console.error("Erro ao gerar o plano de trabalho:", error);
+      errorSwal("Erro ao gerar plano de trabalho. Verifique o backend.");
+    }
+  };
+  
+
   const handleBackButtonClick = () => {
     navigate(-1);
   };
@@ -218,7 +262,7 @@ export default function ProjetoDetalhes() {
                       <strong>Valor do Projeto:</strong>
                     </label>
                     <span>
-                      {projectData?.projectValue != undefined
+                      {projectData?.projectValue !== undefined
                         ? projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
@@ -299,7 +343,18 @@ export default function ProjetoDetalhes() {
                   iconButton={faFileContract}
                   action={() => () => {}}
                 />
-                
+
+                <ButtonProject
+                  text="Gerar Plano de Trabalho"
+                  color="blue-light"
+                  iconButton={faFileContract}
+                  action={() => handleGenerateWorkPlan({ 
+                    projectId: projectData?.projectId ?? "", 
+                    nameCoordinator: projectData?.nameCoordinator ?? "", 
+                    projectCompany: projectData?.projectCompany ?? "" 
+                  })}
+                />
+
                 <ButtonProject 
                   text="Histórico"
                   color="yellow"
