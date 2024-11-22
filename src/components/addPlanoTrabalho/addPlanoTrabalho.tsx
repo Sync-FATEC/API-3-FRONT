@@ -4,9 +4,13 @@ import api from "../../api/api";
 import { errorSwal } from "../swal/errorSwal";
 import { Projects } from "../../type/projects";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
 
 export default function AddPlanoTrabalho() {
     const location = useLocation();
+    const navigate = useNavigate();
     const { projeto } = (location.state as { projeto?: Projects }) || {};
     const [projectData, setProjectData] = useState<Projects | null>(projeto || null);
     const [coordinatorCPF, setCoordinatorCPF] = useState<string>("");
@@ -154,6 +158,10 @@ export default function AddPlanoTrabalho() {
         }, 0).toFixed(2);
     };
 
+    const handleBackButtonClick = () => {
+        navigate(-1); // Volta para a página anterior
+    };
+
     const handleSubmit = async ({ projectId }: { projectId: string; }) => {
         if (!projectId) {
           errorSwal("Dados insuficientes para gerar o plano de trabalho.");
@@ -217,6 +225,12 @@ export default function AddPlanoTrabalho() {
 
     return (
         <>
+            <div>
+            <button className="btn botao-voltar" onClick={handleBackButtonClick}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+                Voltar
+            </button>
+        </div>
             <div className="campo-projeto">
                 <h3>Dados do Coordenador</h3>
             </div>
@@ -624,8 +638,7 @@ export default function AddPlanoTrabalho() {
                     value={dataAssinatura}
                     onChange={(e) => setDataAssinatura(e.target.value)}
                 />
-            </div>
-            <div>
+                <br />
                 <button 
                     type="button" 
                     className="btn btn-enviar"
@@ -641,7 +654,6 @@ export default function AddPlanoTrabalho() {
                 >
                     Enviar
                 </button>
-
             </div>
         </>
     );
