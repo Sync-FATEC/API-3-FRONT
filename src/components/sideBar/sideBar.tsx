@@ -16,6 +16,7 @@ export default function Sidebar() {
     const [isBolsistasOpen, setIsBolsistasOpen] = useState(loadToggleState('isBolsistasOpen', false));
     const [isProjetosOpen, setIsProjetosOpen] = useState(loadToggleState('isProjetosOpen', false));
     const [isBolsasOpen, setIsBolsasOpen] = useState(loadToggleState('isBolsasOpen', false));
+    const [isCoordinatorsOpen, setIsCoordinatorsOpen] = useState(loadToggleState('isCoordinatorsOpen', false))
 
     const saveToggleState = (key: string, value: boolean) => {
         localStorage.setItem(key, JSON.stringify(value));
@@ -39,6 +40,12 @@ export default function Sidebar() {
         saveToggleState('isProjetosOpen', newState);
     };
 
+    const toggleCoordinatorsDropdown = () => {
+        const newState = !isCoordinatorsOpen
+        setIsCoordinatorsOpen(newState);
+        saveToggleState('isCoordinators', newState)
+    }
+
     const toggleMenu = () => {
         const sidebar = document.querySelector('.sidebarMobile .menu');
         if (sidebar) {
@@ -49,6 +56,7 @@ export default function Sidebar() {
     useEffect(() => {
         setIsBolsistasOpen(loadToggleState('isBolsistasOpen', false));
         setIsProjetosOpen(loadToggleState('isProjetosOpen', false));
+        setIsCoordinatorsOpen(loadToggleState('isCoordinatorsOpen', false))
     }, []);
 
     return (
@@ -135,6 +143,27 @@ export default function Sidebar() {
                             </div>
                         </Link>
                     </div>
+
+                    
+                    <div className="menu-item" onClick={toggleCoordinatorsDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
+                        <FontAwesomeIcon icon={isCoordinatorsOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
+                        <h5>Cordenatores</h5>
+                    </div>
+                    <div className={`submenu ${isCoordinatorsOpen ? 'open' : ''}`}>
+                        <Link to="/addCoordenadores" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
+                                Adicionar cordenatores
+                            </div>
+                        </Link>
+                        <Link to="/gerenciarBolsas" className="menu-item">
+                            <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
+                                <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
+                                Gerenciar cordenatores
+                            </div>
+                        </Link>
+                    </div>
+                    
 
                     <Link to="/" className="menu-item logout" onClick={Logout}>
                         <div style={{ display: 'flex', alignItems: 'center', color: '#e74c3c' }} className="sair">

@@ -24,6 +24,8 @@ const links = {
 
   createProject: (data: createProject) => api.post("/projects/create", data),
 
+  createCoordinators: (data: any) => api.post("/coordinators/create", data),
+  
   AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
     const formData = new FormData();
     formData.append("projectId", projectId);

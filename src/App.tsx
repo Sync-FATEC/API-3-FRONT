@@ -19,6 +19,7 @@ import DetalhesBolsistas from './pages/GerenciarBolsistas/detalhesBolsistas/deta
 import DetalhesRascunho from './pages/GerenciarRascunhos/detalhesRascunho/detalhesRascunho';
 import AddBolsas from './pages/Bolsas/addBolsas';
 import GerenciarBolsas from './pages/Bolsas/GerenciarBolsas/gerenciarBolsas';
+import { AddCoordinators } from './pages/addCoordinators/addCoordinators';
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route path='/detalheRascunho/:id' element={<RequireAuthAdmin><DetalhesRascunho/></RequireAuthAdmin>}></Route>
             <Route path='/addBolsas' element={<RequireAuthAdmin><AddBolsas/></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarBolsas' element={<RequireAuthAdmin><GerenciarBolsas/></RequireAuthAdmin>}></Route>
+            <Route path='/addCoordenadores' element={<RequireAuthAdmin><AddCoordinators/></RequireAuthAdmin>}></Route>
           </Routes>
         </AuthProvider>
       </Router>
