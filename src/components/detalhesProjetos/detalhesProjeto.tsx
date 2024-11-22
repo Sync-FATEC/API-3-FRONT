@@ -72,7 +72,7 @@ export default function ProjetoDetalhes() {
   }, [projectData]);
 
   const handleDeleteClick = () => {
-    setShowConfirmDelete(true); // Abre o pop-up de confirmação
+    setShowConfirmDelete(true);
   };
 
   const handleConfirmDelete = async () => {
@@ -138,29 +138,25 @@ export default function ProjetoDetalhes() {
     }
   
     try {
-      // Criar o payload
       const payload = {
         projectId,
         nameCoordinator,
         projectCompany,
       };
   
-      // Fazer a requisição POST ao backend
       const response = await api.post(`/plano-de-trabalho/gerar`, payload, {
-        responseType: "blob", // Para lidar com o arquivo binário
+        responseType: "blob",
       });
   
       if (response.status === 200) {
-        // Criar o arquivo para download
         const blob = new Blob([response.data], { type: response.headers['content-type'] });
         const url = window.URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `Plano_de_Trabalho_${projectData?.projectReference}.docx`; // Nome do arquivo
+        a.download = `Plano_de_Trabalho_${projectData?.projectReference}.docx`;
         document.body.appendChild(a);
         a.click();
   
-        // Limpar o objeto URL criado
         setTimeout(() => {
           a.remove();
           window.URL.revokeObjectURL(url);

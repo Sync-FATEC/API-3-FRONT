@@ -1,7 +1,29 @@
+import { useState, useEffect } from "react";
+import { links } from "../../api/api";
 import Sidebar from "../../components/sideBar/sideBar";
 import "./addBolsistas.css";
 
-export default function AddBolsista () {
+export default function AddBolsista() {
+    interface Bolsa {
+        id: number;
+        type: string;
+    }
+
+    const [bolsas, setBolsas] = useState<Bolsa[]>([]);
+
+    useEffect(() => {
+        const fetchBolsas = async () => {
+            try {
+                const response = await links.getAllGrants();
+                setBolsas(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar bolsas:", error);
+            }
+        };
+
+        fetchBolsas();
+    }, []);
+
     return (
         <>
             <Sidebar />
@@ -56,6 +78,17 @@ export default function AddBolsista () {
                                     placeholder=" "
                                 />
                             </div>
+                            <div className="campo-projeto">
+                                <label>Bolsa</label>
+                                <select className="input">
+                                    <option value="">Selecione uma bolsa</option>
+                                    {bolsas.map((bolsa) => (
+                                        <option key={bolsa.id} value={bolsa.id}>
+                                            {bolsa.type}
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
                             <div className="campo-bolsistas">
                                 <button className="btn btn-cadastrar" type="button">Cadastrar</button>
                             </div>
@@ -66,4 +99,3 @@ export default function AddBolsista () {
         </>
     );
 }
-

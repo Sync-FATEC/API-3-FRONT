@@ -1,4 +1,3 @@
-/* Estilos padrão */
 .MainDados {
     padding: 20px;
 }
@@ -12,14 +11,14 @@
 }
 
 
-.ReferenciasRascunho, .Rascunhos {
+.Referencias, .Projeto {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
     align-items: center;
     justify-items: center;
     border-bottom: 1px solid var(--lightgray-color);
-    padding: var(--padding-input);
+    padding: var(--padding-input);   
 }
 
 
@@ -29,13 +28,23 @@
     margin-top: 10px;
 }
 
+.Projeto p{
+    color:  grey;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+    text-align: center;
+}
+
 
 .Referencias_Responsivo {
     display: none;
 }
 
+
 @media (max-width: 768px) {
-    .Referencias {
+    .Referencia {
         display: none;
     }
 
@@ -44,7 +53,7 @@
         display: inline;
     }
 
-    .Rascunhos_Responsivo {
+    .Projetos_Responsivo {
         display: flex;
         flex-direction: column;
     }
@@ -52,4 +61,10 @@
     .Rascunhos p {
         text-align: start;
     }    
+
+    .pagination {
+        display: flex;
+        flex-direction: center;
+        padding-right: 40px;
+    }
 }

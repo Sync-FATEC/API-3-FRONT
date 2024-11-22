@@ -15,7 +15,7 @@ import BlurText from "../blurText/blurText";
 import { formatDate } from "../../utils/utils";
 
 interface ProjetosPortalProps {
-  filterData: filterDTO | null; // Adicione esta linha para definir o tipo
+  filterData: filterDTO | null; 
 }
 
 export default function ListarProjetos({ filterData }: ProjetosPortalProps) {
