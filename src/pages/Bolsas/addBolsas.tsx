@@ -105,16 +105,6 @@ export default function AddBolsas() {
                   onChange={(e) => setActing(e.target.value)}
                 />
               </div>
-              <div className="campo-projeto">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={active}
-                    onChange={(e) => setActive(e.target.checked)}
-                  />
-                  Ativo
-                </label>
-              </div>
               <div className="campo-bolsistas">
                 <button className="btn btn-cadastrar" type="submit">
                   Cadastrar
