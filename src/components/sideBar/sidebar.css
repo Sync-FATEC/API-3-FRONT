@@ -8,6 +8,7 @@
     flex-direction: column;
     text-decoration: none;
     position: fixed;
+    overflow-y: auto;
 }
 
 .sidebar .logo {

@@ -25,6 +25,17 @@ const links = {
   createProject: (data: createProject) => api.post("/projects/create", data),
 
   createCoordinators: (data: any) => api.post("/coordinators/create", data),
+
+  getAllCoordinators: () => api.get("/coordinators/buscar"),
+
+  getCoordinator: (id: string) => api.get(`/coordinators/buscar/${id}`),
+
+  deleteCoordinator: (id: string) => api.delete(`/coordinators/delete/${id}`),
+
+  updateCoordinators: (data: any) => api.put("/coordinators/update", data),
+
+  getFilteredCoordinators: (data: any) =>
+    api.get("/coordinators/filter", { params: data }),
   
   AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
     const formData = new FormData();

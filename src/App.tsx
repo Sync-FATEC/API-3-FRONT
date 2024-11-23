@@ -20,6 +20,9 @@ import DetalhesRascunho from './pages/GerenciarRascunhos/detalhesRascunho/detalh
 import AddBolsas from './pages/Bolsas/addBolsas';
 import GerenciarBolsas from './pages/Bolsas/GerenciarBolsas/gerenciarBolsas';
 import { AddCoordinators } from './pages/addCoordinators/addCoordinators';
+import { GerenciarCoordenadores } from './pages/GerenciarCoordenadores/GerenciarCoordenadores';
+import { DetalhesCoordenadores } from './components/detalhesCoordenadores/detalhesCoordenadores';
+import { EditCoordinatorPage } from './pages/editCoordinators/editCoordinators';
 
 function App() {
   return (
@@ -43,7 +46,12 @@ function App() {
             <Route path='/detalheRascunho/:id' element={<RequireAuthAdmin><DetalhesRascunho/></RequireAuthAdmin>}></Route>
             <Route path='/addBolsas' element={<RequireAuthAdmin><AddBolsas/></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarBolsas' element={<RequireAuthAdmin><GerenciarBolsas/></RequireAuthAdmin>}></Route>
+            {/* COORDENADORES */}
             <Route path='/addCoordenadores' element={<RequireAuthAdmin><AddCoordinators/></RequireAuthAdmin>}></Route>
+            <Route path='/gerenciarCoordenadores' element={<RequireAuthAdmin><GerenciarCoordenadores/></RequireAuthAdmin>}></Route>
+            <Route path='/coordenador/detalhe/:id' element={<RequireAuthAdmin><DetalhesCoordenadores/></RequireAuthAdmin>}></Route>
+            <Route path='/coordenador/editar/:id' element={<RequireAuthAdmin><EditCoordinatorPage/></RequireAuthAdmin>}></Route>
+
           </Routes>
         </AuthProvider>
       </Router>

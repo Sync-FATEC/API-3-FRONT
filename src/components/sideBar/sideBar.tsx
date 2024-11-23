@@ -156,7 +156,7 @@ export default function Sidebar() {
                                 Adicionar cordenatores
                             </div>
                         </Link>
-                        <Link to="/gerenciarBolsas" className="menu-item">
+                        <Link to="/gerenciarCoordenadores" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
                                 Gerenciar cordenatores

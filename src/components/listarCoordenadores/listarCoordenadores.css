@@ -1,0 +1,13 @@
+.ReferenciasCoordenadores, .coordenadores {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}
+
+.coordenadores p {
+    text-align: center;
+}

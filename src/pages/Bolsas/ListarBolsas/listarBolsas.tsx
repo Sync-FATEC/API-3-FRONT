@@ -38,7 +38,7 @@ export default function ListarBolsas() {
           <p>Visualizar</p>
         </div>
         {grant.map((grant) => (
-          <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
+          <div className="BolsasReferencias Bolsas_Responsivo" key={grant.id}>
             <p>
               <label className="Referencias_Responsivo">Tipo de Bolsa: </label>
               {grant.type}
