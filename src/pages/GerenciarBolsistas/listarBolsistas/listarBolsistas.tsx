@@ -45,23 +45,23 @@ export default function ListarBolsistas() {
         {bolsistas.map((bolsista) => (
           <div className="Bolsistas Bolsistas_Responsivo" key={bolsista.id}>
             <p>
-              <label className="Referencias_Responsivo">Nome: </label>
+              <label className="ReferenciasBolsistas_Responsivo">Nome: </label>
               {bolsista.nome}
             </p>
             <p>
-              <label className="Referencias_Responsivo">CPF: </label>
+              <label className="ReferenciasBolsistas_Responsivo">CPF: </label>
               {bolsista.cpf}
             </p>
             <p>
-              <label className="Referencias_Responsivo">RG: </label>
+              <label className="ReferenciasBolsistas_Responsivo">RG: </label>
               {bolsista.rg}
             </p>
             <p>
-              <label className="Referencias_Responsivo">E-mail: </label>
+              <label className="ReferenciasBolsistas_Responsivo">E-mail: </label>
               {bolsista.email}
             </p>
             <p>
-              <label className="Referencias_Responsivo">Nacionalidade: </label>
+              <label className="ReferenciasBolsistas_Responsivo">Nacionalidade: </label>
               {bolsista.nacionalidade}
             </p>
             <img
