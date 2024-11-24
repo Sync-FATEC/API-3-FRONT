@@ -17,6 +17,21 @@ export function formatCPF(cpf: string): string {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
+export const formatPhone = (phone: string) => {
+  if (phone == null) return "";
+  return phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
+};
+
+export const formatCNPJ = (cnpj: string): string => {
+  if (cnpj == null) return "";
+  return cnpj.replace(/(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, "$1.$2.$3/$4-$5");
+};
+
+export const formatCEP = (cep: string): string => {
+  if (cep == null) return "";
+  return cep.replace(/(\d{5})(\d{3})/, "$1-$2");
+};
+
 export const validateCPF = (cpf: string) => {
   cpf = cpf.replace(/[^\d]+/g, '');
   if (cpf.length !== 11 || /^(\d)\1+$/.test(cpf)) return false;
@@ -38,8 +53,4 @@ export const validateCPF = (cpf: string) => {
   if (remainder !== parseInt(cpf.charAt(10))) return false;
 
   return true;
-};
-export const formatPhone = (phone: string) => {
-  if (phone == null) return "";
-  return phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");
 };

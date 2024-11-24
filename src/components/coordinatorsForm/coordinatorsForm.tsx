@@ -93,7 +93,7 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
                         </div>
 
                         <div className="campo-projeto">
-                            <button type="submit">{mode === 'create' ? 'Criar' : 'Salvar Alterações'}</button>
+                            <button className='btn btn-cadastrar' type="submit">{mode === 'create' ? 'Criar' : 'Salvar Alterações'}</button>
                         </div>
                     </div>
                 </form>

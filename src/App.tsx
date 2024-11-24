@@ -25,6 +25,10 @@ import { GerenciarCoordenadores } from './pages/GerenciarCoordenadores/Gerenciar
 import { DetalhesCoordenadores } from './components/detalhesCoordenadores/detalhesCoordenadores';
 import { EditCoordinatorPage } from './pages/editCoordinators/editCoordinators';
 import DetalhesBolsas from './pages/Bolsas/DetalhesBolsas/detalhesBolsas';
+import { AddCompany } from './pages/addCompany/addCompany';
+import { GerenciarEmpresas } from './pages/GerenciarCompany/GerenciarCompany';
+import { DetalhesCompany } from './components/detalhesCompany/detalhesCompany';
+import { EditCompanyPage } from './pages/editCompany/editCompany';
 
 function App() {
   return (
@@ -54,6 +58,11 @@ function App() {
             <Route path='/coordenador/editar/:id' element={<RequireAuthAdmin><EditCoordinatorPage/></RequireAuthAdmin>}></Route>
             <Route path='/detalhesBolsas/:id' element={<RequireAuthAdmin><DetalhesBolsas/></RequireAuthAdmin>}></Route>
 
+            <Route path='/addEmpresas' element={<RequireAuthAdmin><AddCompany/></RequireAuthAdmin>}></Route>
+            <Route path='/gerenciarEmpresas' element={<RequireAuthAdmin><GerenciarEmpresas/></RequireAuthAdmin>}></Route>
+            <Route path='/empresa/detalhe/:id' element={<RequireAuthAdmin><DetalhesCompany/></RequireAuthAdmin>}></Route>
+            <Route path='/empresa/editar/:id' element={<RequireAuthAdmin><EditCompanyPage/></RequireAuthAdmin>}></Route>
+            
           </Routes>
         </AuthProvider>
       </Router>

@@ -24,6 +24,8 @@ const links = {
 
   createProject: (data: createProject) => api.post("/projects/create", data),
 
+  // COORDINATORS
+
   createCoordinators: (data: any) => api.post("/coordinators/create", data),
 
   getAllCoordinators: () => api.get("/coordinators/buscar"),
@@ -36,6 +38,21 @@ const links = {
 
   getFilteredCoordinators: (data: any) =>
     api.get("/coordinators/filter", { params: data }),
+  
+  // COMPANIES
+
+  createCompany: (data: any) => api.post("/company/create", data),
+
+  getAllCompanies: () => api.get("/company/buscar"),
+
+  getCompany: (id: string) => api.get(`/company/buscar/${id}`),
+
+  deleteCompany: (id: string) => api.delete(`/company/delete/${id}`),
+
+  updateCompany: (data: any) => api.put("/company/update", data),
+
+  getFilteredCompanies: (data: any) =>
+    api.get("/company/filter", { params: data }),
   
   AddAnexo: (projectId: string, file: any, tipoAnexo: string) => {
     const formData = new FormData();
