@@ -10,7 +10,7 @@
     padding: 20px;
 }
 
-.Referencias, .Bolsas {
+.BolsasReferencias, .Bolsas {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 10px;
@@ -20,22 +20,26 @@
     padding: var(--padding-input);
 }
 
+.BolsasReferencias p, .Bolsas p {
+    color: var(--gray-color);
+}
+
 .pagination {
     display: flex;
     justify-content: right;
     margin-top: 10px;
 }
 
-.Referencias_Responsivo {
+.BolsasReferencias_Responsivo {
     display: none;
 }
 
 @media (max-width: 768px) {
-    .Referencias {
+    .BolsasReferencias {
         display: none;
     }
 
-    .Referencias_Responsivo {
+    .BolsasReferencias_Responsivo {
         font-weight: bold;
         display: inline;
     }

@@ -15,10 +15,15 @@ export default function ListarRascunhos() {
   const navigate = useNavigate();
   const [rascunhos, setRascunhos] = useState<Projects[]>([])
   const [keyWord, setKeyword] = useState("")
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   const fetchDraftProjects = async () => {
-    return await links.getFiltered(keyWord, "", "", "", "" , true)
+    return await links.getFiltered(keyWord, "", "", "", "", true)
   }
+  const handlePageChange = (newPage: number) => {
+    setCurrentPage(newPage);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,15 +47,15 @@ export default function ListarRascunhos() {
       <h2>Rascunhos</h2>
       <div className="background-drafts">
         <div className="ReferenciasRascunho">
-          <p>Referência do rascunho</p>
-          <p>Data de Criação</p>
-          <p>Autor</p>
+          <p>Referência do projeto</p>
+          <p>Início</p>
+          <p>Coordenador</p>
           <p>Empresa</p>
           <p>Valor</p>
           <p>Visualizar</p>
         </div>
         {Array.isArray(rascunhos) && rascunhos.map((rascunho) => (
-          <div className="Rascunhos Rascunhos_Responsivo" key={rascunho.projectId}>
+          <div className="Projeto projetinho Projetos_Responsivo" key={rascunho.projectId}>
             <p>
               <label className="Referencias_Responsivo">Referência do rascunho: </label>
               {rascunho.projectReference}
@@ -60,8 +65,8 @@ export default function ListarRascunhos() {
               {formatDate(rascunho.projectStartDate)}
             </p>
             <p>
-              <label className="Referencias_Responsivo">Autor: </label>
-              {rascunho.projectEndDate}
+              <label className="Referencias_Responsivo">Coordenador: </label>
+              {rascunho.nameCoordinator}
             </p>
             <p>
               <label className="Referencias_Responsivo">Empresa: </label>
@@ -82,11 +87,19 @@ export default function ListarRascunhos() {
           </div>
         ))}
         <div className="pagination">
-          <button disabled>
+          <button
+            onClick={() => handlePageChange(currentPage - 1)}
+            disabled={currentPage === 1}
+          >
             <FontAwesomeIcon icon={faChevronLeft} />
           </button>
-          <span>Página 1 de 1</span>
-          <button disabled>
+          <span>
+            Página {currentPage} de {totalPages}
+          </span>
+          <button
+            onClick={() => handlePageChange(currentPage + 1)}
+            disabled={currentPage === totalPages}
+          >
             <FontAwesomeIcon icon={faChevronRight} />
           </button>
         </div>

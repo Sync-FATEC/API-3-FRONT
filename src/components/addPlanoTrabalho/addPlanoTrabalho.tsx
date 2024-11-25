@@ -1,6 +1,38 @@
 import { useState } from "react";
 import "./addPlanoTrabalho.css";
+import api from "../../api/api";
+import { errorSwal } from "../swal/errorSwal";
+import { Projects } from "../../type/projects";
+import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+
 export default function AddPlanoTrabalho() {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const { projeto } = (location.state as { projeto?: Projects }) || {};
+    const [projectData, setProjectData] = useState<Projects | null>(projeto || null);
+    const [coordinatorCPF, setCoordinatorCPF] = useState<string>("");
+    const [coordinatorAddress, setCoordinatorAddress] = useState<string>("");
+    const [coordinatorCity, setCoordinatorCity] = useState<string>("");
+    const [coordinatorUF, setCoordinatorUF] = useState<string>("");
+    const [coordinatorCEP, setCoordinatorCEP] = useState<string>("");
+    const [coordinatorTelefone, setCoordinatorTelefone] = useState<string>("");
+    const [coordinatorEconomicActivity, setCoordinatorEconomicActivity] = useState<string>("");
+    const [coordinatorPeriod, setCoordinatorPeriod] = useState<string>("");
+    const [companyRazaoSocial, setCompanyRazaoSocial] = useState<string>("");
+    const [companyCNPJ, setCompanyCNPJ] = useState<string>("");
+    const [companyResponsavelTecnico, setCompanyResponsavelTecnico] = useState<string>("");
+    const [companyTelefone, setCompanyTelefone] = useState<string>("");
+    const [companyEndereco, setCompanyEndereco] = useState<string>("");
+    const [companyEmpresaPrivada, setCompanyEmpresaPrivada] = useState<string>("");
+    const [projetoJustificativa, setProjetoJustificativa] = useState<string>("");
+    const [projetoResultadosEsperados, setProjetoResultadosEsperados] = useState<string>("");
+    const [contratanteNome, setContratanteNome] = useState<string>("");
+    const [contratanteCargo, setContratanteCargo] = useState<string>("");
+    const [dataAssinatura, setDataAssinatura] = useState<string>("");
+
     const [fases, setFases] = useState<{ fase: string; descricao: string }[]>([
         { fase: "", descricao: "" },
     ]);
@@ -126,9 +158,79 @@ export default function AddPlanoTrabalho() {
         }, 0).toFixed(2);
     };
 
+    const handleBackButtonClick = () => {
+        navigate(-1); // Volta para a página anterior
+    };
+
+    const handleSubmit = async ({ projectId }: { projectId: string; }) => {
+        if (!projectId) {
+          errorSwal("Dados insuficientes para gerar o plano de trabalho.");
+          return;
+        }
+        try {
+            const payload = {
+                projectId,
+                coordinatorCPF,
+                coordinatorAddress,
+                coordinatorCity,
+                coordinatorUF,
+                coordinatorCEP,
+                coordinatorTelefone,
+                coordinatorEconomicActivity,
+                coordinatorPeriod,
+                companyRazaoSocial,
+                companyCNPJ,
+                companyResponsavelTecnico,
+                companyTelefone,
+                companyEndereco,
+                companyEmpresaPrivada,
+                projetoJustificativa,
+                projetoResultadosEsperados,
+                fases,
+                cronograma,
+                equipe,
+                planoAplicacao,
+                cronogramaFinanceiro,
+                contratanteNome,
+                contratanteCargo,
+                dataAssinatura,
+            };
+            const response = await api.post(`/plano-de-trabalho/gerar`, payload, {
+                responseType: "blob", // Para lidar com o arquivo binário
+            });
+            
+            if (response.status === 200) {
+                // Criar o arquivo para download
+                const blob = new Blob([response.data], { type: response.headers['content-type'] });
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = `Plano_de_Trabalho_${projectData?.projectReference}.docx`; // Nome do arquivo
+                document.body.appendChild(a);
+                a.click();
+                
+                // Limpar o objeto URL criado
+                setTimeout(() => {
+                    a.remove();
+                    window.URL.revokeObjectURL(url);
+                }, 0);
+            } else {
+                errorSwal(`Erro ao gerar o plano de trabalho: ${response.status}`);
+            }
+        } catch (error) {
+            console.error("Erro ao gerar o plano de trabalho:", error);
+            errorSwal("Erro ao gerar plano de trabalho. Verifique o backend.");
+        }
+    };
 
     return (
         <>
+            <div>
+            <button className="btn botao-voltar" onClick={handleBackButtonClick}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+                Voltar
+            </button>
+        </div>
             <div className="campo-projeto">
                 <h3>Dados do Coordenador</h3>
             </div>
@@ -138,6 +240,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorCPF}
+                    onChange={(e) => setCoordinatorCPF(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -146,6 +250,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorAddress}
+                    onChange={(e) => setCoordinatorAddress(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -154,6 +260,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorCity}
+                    onChange={(e) => setCoordinatorCity(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -162,6 +270,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorUF}
+                    onChange={(e) => setCoordinatorUF(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -170,6 +280,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorCEP}
+                    onChange={(e) => setCoordinatorCEP(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -178,6 +290,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorTelefone}
+                    onChange={(e) => setCoordinatorTelefone(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -186,6 +300,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorEconomicActivity}
+                    onChange={(e) => setCoordinatorEconomicActivity(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -194,6 +310,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={coordinatorPeriod}
+                    onChange={(e) => setCoordinatorPeriod(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -205,14 +323,18 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyRazaoSocial}
+                    onChange={(e) => setCompanyRazaoSocial(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
-                <label className="placeholder">C.N.P.J.</label>
+                <label className="placeholder">CNPJ</label>
                 <input
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyCNPJ}
+                    onChange={(e) => setCompanyCNPJ(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -221,6 +343,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyResponsavelTecnico}
+                    onChange={(e) => setCompanyResponsavelTecnico(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -229,6 +353,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyTelefone}
+                    onChange={(e) => setCompanyTelefone(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -237,6 +363,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyEndereco}
+                    onChange={(e) => setCompanyEndereco(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -245,6 +373,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={companyEmpresaPrivada}
+                    onChange={(e) => setCompanyEmpresaPrivada(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -256,6 +386,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={projetoJustificativa}
+                    onChange={(e) => setProjetoJustificativa(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -264,6 +396,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={projetoResultadosEsperados}
+                    onChange={(e) => setProjetoResultadosEsperados(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -481,6 +615,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={contratanteNome}
+                    onChange={(e) => setContratanteNome(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -489,6 +625,8 @@ export default function AddPlanoTrabalho() {
                     type="text"
                     className="input"
                     placeholder=""
+                    value={contratanteCargo}
+                    onChange={(e) => setContratanteCargo(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">
@@ -497,7 +635,25 @@ export default function AddPlanoTrabalho() {
                     type="date"
                     className="input"
                     placeholder=""
+                    value={dataAssinatura}
+                    onChange={(e) => setDataAssinatura(e.target.value)}
                 />
+                <br />
+                <button 
+                    type="button" 
+                    className="btn btn-enviar"
+                    onClick={() => {
+                        if (projectData) {
+                            handleSubmit({
+                                projectId: projectData.projectId,
+                            });
+                        } else {
+                            errorSwal("Dados insuficientes para gerar o plano de trabalho.");
+                        }
+                    }}
+                >
+                    Enviar
+                </button>
             </div>
         </>
     );

@@ -20,22 +20,26 @@
     padding: var(--padding-input);
 }
 
+.ReferenciasBolsistas p, .Bolsistas p {
+    color: var(--gray-color);
+}
+
 .pagination {
     display: flex;
     justify-content: right;
     margin-top: 10px;
 }
 
-.Referencias_Responsivo {
+.ReferenciasBolsistas_Responsivo {
     display: none;
 }
 
 @media (max-width: 768px) {
-    .Referencias {
+    .ReferenciasBolsistas {
         display: none;
     }
 
-    .Referencias_Responsivo {
+    .ReferenciasBolsistas_Responsivo {
         font-weight: bold;
         display: inline;
     }

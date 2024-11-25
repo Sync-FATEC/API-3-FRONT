@@ -24,31 +24,31 @@ export default function ListarBolsas() {
   }, []);
 
   const handleGrantClick = (id: string) => {
-    navigate(`/detalheBolsa/${id}`);
+    navigate(`/detalhesBolsas/${id}`);
   };
 
   return (
     <div id="main-container-bolsas">
       <h2>Bolsas</h2>
       <div className="background-projects">
-        <div className="Referencias">
+        <div className="BolsasReferencias">
           <p>Tipo de Bolsa</p>
           <p>Duração</p>
           <p>Atuação</p>
           <p>Visualizar</p>
         </div>
         {grant.map((grant) => (
-          <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
+          <div className="BolsasReferencias Bolsas_Responsivo" key={grant.id}>
             <p>
-              <label className="Referencias_Responsivo">Tipo de Bolsa: </label>
+              <label className="BolsasReferencias_Responsivo">Tipo de Bolsa: </label>
               {grant.type}
             </p>
             <p>
-              <label className="Referencias_Responsivo">Duração: </label>
+              <label className="BolsasReferencias_Responsivo">Duração: </label>
               {grant.duration}
             </p>
             <p>
-              <label className="Referencias_Responsivo">Atuação: </label>
+              <label className="BolsasReferencias_Responsivo">Atuação: </label>
               {grant.acting}
             </p>
             <img
