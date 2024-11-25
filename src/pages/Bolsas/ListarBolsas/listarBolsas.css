@@ -3,16 +3,16 @@
     padding: 20px;
 }
 
-.background-projects {
+/* .background-projects {
     background-color: var(--white-color);
     border-radius: var(--padding-input);
     box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
     padding: 20px;
-}
+} */
 
 .BolsasReferencias, .Bolsas {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 10px;
     align-items: center;
     justify-items: center;
@@ -20,7 +20,7 @@
     padding: var(--padding-input);
 }
 
-.BolsasReferencias p, .Bolsas p {
+.Bolsas p {
     color: var(--gray-color);
 }
 

@@ -155,19 +155,19 @@ export default function Sidebar() {
                     
                     <div className="menu-item" onClick={toggleCoordinatorsDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                         <FontAwesomeIcon icon={isCoordinatorsOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
-                        <h5>Cordenatores</h5>
+                        <h5>Coordenadores</h5>
                     </div>
                     <div className={`submenu ${isCoordinatorsOpen ? 'open' : ''}`}>
                         <Link to="/addCoordenadores" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
-                                Adicionar cordenatores
+                                Adicionar coordenadores
                             </div>
                         </Link>
                         <Link to="/gerenciarCoordenadores" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
-                                Gerenciar cordenatores
+                                Gerenciar coordenadores
                             </div>
                         </Link>
                     </div>
@@ -295,19 +295,19 @@ export default function Sidebar() {
 
                     <div className="menu-item" onClick={toggleCoordinatorsDropdown} style={{ cursor: 'pointer', display: 'flex', alignItems: 'center' }}>
                         <FontAwesomeIcon icon={isCoordinatorsOpen ? faCaretUp : faCaretDown} style={{ color: "var(--blue-color)", marginRight: '8px' }} />
-                        <h5>Cordenatores</h5>
+                        <h5>Coordenadores</h5>
                     </div>
                     <div className={`submenu ${isCoordinatorsOpen ? 'open' : ''}`}>
                         <Link to="/addCoordenadores" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCirclePlus} style={{ color: "#969696", marginRight: '8px' }} />
-                                Adicionar cordenatores
+                                Adicionar coordenadores
                             </div>
                         </Link>
                         <Link to="/gerenciarCoordenadores" className="menu-item">
                             <div style={{ display: 'flex', alignItems: 'center', paddingLeft: '20px', color: '#8B909A' }}>
                                 <FontAwesomeIcon icon={faCube} style={{ color: "#969696", marginRight: '8px' }} />
-                                Gerenciar cordenatores
+                                Gerenciar coordenadores
                             </div>
                         </Link>
                     </div>

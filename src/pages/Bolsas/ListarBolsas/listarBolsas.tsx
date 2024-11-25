@@ -15,7 +15,7 @@ export default function ListarBolsas() {
       const response = await links.getAllGrants();
       setGrant(response.data);
     } catch (error) {
-      console.error("Erro ao buscar grants:", error);
+      console.error("Erro ao buscar bolsas:", error);
     }
   };
 
@@ -38,7 +38,7 @@ export default function ListarBolsas() {
           <p>Visualizar</p>
         </div>
         {grant.map((grant) => (
-          <div className="BolsasReferencias Bolsas_Responsivo" key={grant.id}>
+          <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
             <p>
               <label className="BolsasReferencias_Responsivo">Tipo de Bolsa: </label>
               {grant.type}

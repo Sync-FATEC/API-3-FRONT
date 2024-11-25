@@ -14,6 +14,7 @@ export default function DetalhesBolsas() {
     const [grant, setGrant] = useState<Grant | null>(null);
     const [error, setError] = useState<string | null>(null);
     const [activeTab, setActiveTab] = useState<string>("Informações da Bolsa");
+    const [isActive, setIsActive] = useState<boolean>(true);
     const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
     const navigate = useNavigate();
     const { isAuthenticated } = useContext(AuthContext);
@@ -23,6 +24,7 @@ export default function DetalhesBolsas() {
             try {
                 const response = await links.getGrant(id!);
                 setGrant(response.data);
+                setIsActive(response.data.active);
             } catch (error) {
                 setError("Erro ao buscar detalhes da bolsa.");
             }
@@ -47,15 +49,15 @@ export default function DetalhesBolsas() {
         setShowConfirmDelete(false);
         if (grant) {
             await handleDelete(grant.id);
+            window.location.reload();
         }
     };
 
     const handleDelete = async (grantId: string) => {
         try {
             await links.deactivateGrants(grantId);
-            handleBackButtonClick();
         } catch (error) {
-            console.error("Erro ao deletar bolsa:", error);
+            console.error("Erro ao desativar bolsa:", error);
         }
     };
 
@@ -111,6 +113,10 @@ export default function DetalhesBolsas() {
                                         </label>
                                         <span>{grant.acting}</span>
                                     </div>
+                                    <div className="campo-projeto">
+                            <label><strong>Status:</strong></label>
+                            <span>{isActive ? "Ativo" : "Inativo"}</span>
+                        </div>
                                 </>
                             )}
                         </div>
@@ -126,7 +132,7 @@ export default function DetalhesBolsas() {
                                 />
 
                                 <ButtonProject
-                                    text="Deletar"
+                                    text="Desativar Bolsa"
                                     color="red"
                                     iconButton={faCancel}
                                     action={handleDeleteClick}
@@ -139,7 +145,7 @@ export default function DetalhesBolsas() {
                 {showConfirmDelete && (
                     <div className="modal">
                         <div className="modal-content">
-                            <h1>Você tem certeza que deseja deletar esta bolsa?</h1>
+                            <h1>Você tem certeza que deseja desativar esta bolsa?</h1>
                             <div className="modal-button">
                                 <button className="buttons" onClick={handleConfirmDelete}>
                                     Sim
