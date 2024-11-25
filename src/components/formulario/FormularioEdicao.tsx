@@ -69,6 +69,7 @@ export default function FormularioEdicaoProjeto({
   const [listaCoordenadores, setListaCoordenadores] = useState<string[]>([]);
   const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
   const [listaEmpresas, setListaEmpresas] = useState<string[]>([]);
+  const [publish, setPublish] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -85,12 +86,16 @@ export default function FormularioEdicaoProjeto({
     fetchData();
   }, []);
 
-  const filtrarOpcoesCoordenadores = listaCoordenadores.filter((opcao) =>
-    opcao.toLowerCase().includes(projeto.nameCoordinator.toLowerCase())
+  const filtrarOpcoesCoordenadores = listaCoordenadores.filter(
+    (opcao) =>
+      projeto.nameCoordinator &&
+      opcao.toLowerCase().includes(projeto.nameCoordinator.toLowerCase())
   );
 
-  const filtrarOpcoesEmpresas = listaEmpresas.filter((opcao) =>
-    opcao.toLowerCase().includes(projeto.projectCompany.toLowerCase())
+  const filtrarOpcoesEmpresas = listaEmpresas.filter(
+    (opcao) =>
+      projeto.projectCompany &&
+      opcao.toLowerCase().includes(projeto.projectCompany.toLowerCase())
   );
 
   useEffect(() => {
@@ -187,12 +192,8 @@ export default function FormularioEdicaoProjeto({
         dataInicioSensivel !== sensitiveFields.includes("projectStartDate") ||
         dataTerminoSensivel !== sensitiveFields.includes("projectEndDate") ||
         classificacaoSensivel !==
-          sensitiveFields.includes("projectClassification");
-
-      if (!sensitiveFieldsChanged) {
-        errorSwal("Nenhuma alteração foi feita.");
-        return;
-      }
+        sensitiveFields.includes("projectClassification");
+ 
     }
 
     const updateProject: UpdateProject = {
@@ -217,6 +218,8 @@ export default function FormularioEdicaoProjeto({
       projectClassification: projeto.projectClassification,
       projectClassificationSensitive: classificacaoSensivel,
       projectStatus: projeto.projectStatus,
+      makePublic: publish,
+      isDraft: publish ? false : true,
     };
 
     onSubmit(updateProject, novoAnexo, anexosRemovidos);
@@ -491,10 +494,15 @@ export default function FormularioEdicaoProjeto({
               Dado sensível?
             </label>
           </div>
-          <div className="campo-projeto">
-            <button className="btn-flex" id="button-editar" type="submit">
+          <div className="campo-projeto display-flex">
+            <button className="btn-flex" id="button-editar" type="submit"  onClick={() => setPublish(false)}>
               <FontAwesomeIcon icon={faEdit} />
-              Salvar Edição
+              Salvar rascunho de edição
+            </button>
+
+            <button className="btn-flex" id="button-editar" type="submit"  onClick={() => setPublish(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+              Publicar alterações
             </button>
           </div>
         </div>

@@ -24,4 +24,6 @@ export type UpdateProject = {
     projectClassification: string;
     projectClassificationSensitive: boolean;
     projectStatus: ProjectStatus;
+    makePublic: boolean;
+    isDraft: boolean;
 };

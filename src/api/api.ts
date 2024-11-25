@@ -16,7 +16,7 @@ const links = {
 
   getProject: (id: string) => api.get(`/projects/get/${id}`),
 
-  // getDraftEditProject: (id: string) => api.get('/projects/get/')
+  getDraftEditProject: (id: string) => api.get(`/projects/get/draft/${id}`),
 
   getCoordinators: () => api.get("/projects/get/coordinators"),
 
@@ -67,6 +67,9 @@ const links = {
 
   updateProject: (id: string, data: UpdateProject) =>
     api.put(`/projects/update/${id}`, data),
+
+  updateDraftProject: (id: string, data: UpdateProject) =>
+    api.put(`/projects/update/draft/${id}`, data),
 
   getProectsNearEnd: () => api.get("/projects/get/all/near-end"),
 
