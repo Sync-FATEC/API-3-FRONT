@@ -4,4 +4,7 @@ export type CoordinatorType = {
     coordinatorCPF: string;
     coordinatorTelefone: string;
     coordinatorEconomicActivity: string;
+    coordinatorRG: string;
+    coordinatorNacionality: string;
+    coordinatorMaritalStatus: string;
 };

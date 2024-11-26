@@ -17,6 +17,11 @@ export function formatCPF(cpf: string): string {
   return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
+export const formatRG = (rg: string): string => {
+  if (rg == null) return "";
+  return rg.replace(/(\d{2})(\d{3})(\d{3})(\d{1})/, "$1.$2.$3-$4");
+};
+
 export const formatPhone = (phone: string) => {
   if (phone == null) return "";
   return phone.replace(/(\d{2})(\d{5})(\d{4})/, "($1) $2-$3");

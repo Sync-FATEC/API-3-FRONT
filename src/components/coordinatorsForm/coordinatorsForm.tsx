@@ -3,7 +3,7 @@ import Sidebar from "../../components/sideBar/sideBar";
 import { createCoordinators } from '../../type/createCoordinators';
 import { successSwal } from '../../components/swal/sucessSwal';
 import { errorSwal } from '../../components/swal/errorSwal';
-import { formatCPF, formatPhone, validateCPF } from '../../utils/utils';
+import { formatCPF, formatPhone, formatRG, validateCPF } from '../../utils/utils';
 import { CoordinatorType } from '../../type/CoordinatorsType';
 import { useNavigate } from 'react-router-dom';
 
@@ -19,6 +19,9 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
     const [coordinatorCPF, setCoordinatorCPF] = useState(initialData?.coordinatorCPF || '');
     const [coordinatorTelefone, setCoordinatorTelefone] = useState(initialData?.coordinatorTelefone || '');
     const [coordinatorEconomicActivity, setCoordinatorEconomicActivity] = useState(initialData?.coordinatorEconomicActivity || '');
+    const [coordinatorRG, setCoordinatorRG] = useState(initialData?.coordinatorRG || '');
+    const [coordinatorMaritalStatus, setCoordinatorMaritalStatus] = useState(initialData?.coordinatorMaritalStatus || '');
+    const [coordinatorNacionality, setCoordinatorNacionality] = useState(initialData?.coordinatorNacionality || '');
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -33,6 +36,9 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
             coordinatorCPF: unformattedCPF,
             coordinatorTelefone: unformattedPhone,
             coordinatorEconomicActivity,
+            coordinatorRG,
+            coordinatorMaritalStatus,
+            coordinatorNacionality
         };
 
         if (!validateCPF(unformattedCPF) && unformattedCPF.length > 0) {
@@ -83,6 +89,11 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
                         </div>
 
                         <div className="campo-projeto">
+                            <label htmlFor="coordinatorRG">RG:</label>
+                            <input type="text" id="coordinatorRG" value={formatRG(coordinatorRG)} onChange={(e) => setCoordinatorRG(e.target.value)} maxLength={9} />
+                        </div>
+
+                        <div className="campo-projeto">
                             <label htmlFor="coordinatorTelefone">Telefone:</label>
                             <input type="text" id="coordinatorTelefone" value={formatPhone(coordinatorTelefone)} onChange={(e) => setCoordinatorTelefone(e.target.value.replace(/[^\d]/g, ''))} maxLength={11} />
                         </div>
@@ -90,6 +101,22 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
                         <div className="campo-projeto">
                             <label htmlFor="coordinatorEconomicActivity">Atividade econômica:</label>
                             <input type="text" id="coordinatorEconomicActivity" value={coordinatorEconomicActivity} onChange={(e) => setCoordinatorEconomicActivity(e.target.value)} />
+                        </div>
+
+                        <div className="campo-projeto">
+                            <label htmlFor="coordinatorMaritalStatus">Estado civil:</label>
+                            <select id="coordinatorMaritalStatus" value={coordinatorMaritalStatus} onChange={(e) => setCoordinatorMaritalStatus(e.target.value)}>
+                                <option value="">Selecione</option>
+                                <option value="Solteiro">Solteiro</option>
+                                <option value="Casado">Casado</option>
+                                <option value="Divorciado">Divorciado</option>
+                                <option value="Viuvo">Viúvo</option>
+                            </select>
+                        </div>
+
+                        <div className="campo-projeto">
+                            <label htmlFor="coordinatorNacionality">Nacionalidade:</label>
+                            <input type="text" id="coordinatorNacionality" value={coordinatorNacionality} onChange={(e) => setCoordinatorNacionality(e.target.value)} />
                         </div>
 
                         <div className="campo-projeto">

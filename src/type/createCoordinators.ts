@@ -3,4 +3,7 @@ export type createCoordinators = {
     coordinatorCPF: string;
     coordinatorTelefone: string;
     coordinatorEconomicActivity: string;
+    coordinatorRG: string;
+    coordinatorNacionality: string;
+    coordinatorMaritalStatus: string;
 }

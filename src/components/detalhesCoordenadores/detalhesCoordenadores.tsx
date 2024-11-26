@@ -13,7 +13,7 @@ import { links } from "../../api/api";
 import { errorSwal } from "../swal/errorSwal";
 import ButtonProject from "../ButtonProject/ButtonProject";
 import "./detalhesCoordenadores.css";
-import { formatCPF, formatPhone } from "../../utils/utils";
+import { formatCPF, formatPhone, formatRG } from "../../utils/utils";
 
 export function DetalhesCoordenadores() {
   const navigate = useNavigate();
@@ -85,6 +85,12 @@ export function DetalhesCoordenadores() {
               </div>
               <div className="campo-projeto">
                 <label>
+                  <strong>RG:</strong>
+                </label>
+                <span>{coordenador?.coordinatorRG ? formatRG(coordenador.coordinatorRG) : "Não disponível"}</span>
+              </div>
+              <div className="campo-projeto">
+                <label>
                   <strong>Telefone:</strong>
                 </label>
                 <span>
@@ -98,6 +104,18 @@ export function DetalhesCoordenadores() {
                 <span>
                   {coordenador?.coordinatorEconomicActivity || "Não disponível"}
                 </span>
+              </div>
+              <div className="campo-projeto">
+                <label>
+                  <strong>Estado Civil:</strong>
+                </label>
+                <span>{coordenador?.coordinatorMaritalStatus || "Não disponível"}</span>
+              </div>
+              <div className="campo-projeto">
+                <label>
+                  <strong>Nacionalidade:</strong>
+                </label>
+                <span>{coordenador?.coordinatorNacionality || "Não disponível"}</span>
               </div>
             </div>
           </div>
