@@ -278,6 +278,7 @@ export default function ProjetoDetalhes() {
                     anexos.map((documento) => (
                       <div key={documento.fileUrl} className="anexo-item">
                         <Anexos
+                          id={projectData.projectId}
                           link={documento.fileUrl}
                           nome={documento.fileName}
                           tipo={documento.fileType}

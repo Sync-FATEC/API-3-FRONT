@@ -2,23 +2,30 @@ import React from 'react';
 import { links } from '../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faDownload, faFile } from '@fortawesome/free-solid-svg-icons';
+import './anexos.css';
 
 interface AnexosProps {
+    id: string;
     nome: string;
     link: string;
     tipo: string;
     fileBytes?: Uint8Array | null;
 }
 
-export default function Anexos({ nome, link, tipo, fileBytes }: AnexosProps) {
+export default function Anexos({id, nome, link, tipo, fileBytes }: AnexosProps) {
 
-    const handleGetWorkPlan = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleGetWorkPlan = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+    
+        try {
+            await links.getPlanoTrabalho(id, nome);
+        } catch (error) {
+            console.error("Erro ao baixar o plano de trabalho:", error);
+        }
+    };
+    
 
-        // Logica para baaixar o workplan        
-    }
-
-    const handleGetDocument = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleGetDocument = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
@@ -47,24 +54,24 @@ export default function Anexos({ nome, link, tipo, fileBytes }: AnexosProps) {
     };
 
     return (
-        <div className='anexos'>
+        <div className="anexos">
             <p>
                 <FontAwesomeIcon icon={faFile} /> Tipo do arquivo: {tipo}
             </p>
             <p>Nome do arquivo: {nome}</p>
             {fileBytes != null && tipo.includes("PLANO") ? (
-                <a href={link} onClick={handleGetDocument}>
-                    <FontAwesomeIcon height={100} icon={faDownload} />
-                </a>
+                <button className="btn-download" onClick={handleGetWorkPlan}>
+                    <FontAwesomeIcon height={100} icon={faDownload} /> 
+                </button>
             ) : null}
             {link ? link.includes("https://fapg.org.br") ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Abrir Link
                 </a>
             ) : (
-                <a href={link} onClick={handleGetDocument}>
-                    <FontAwesomeIcon height={100} icon={faDownload} />
-                </a>
+                <button className="btn-download" onClick={handleGetDocument}>
+                    <FontAwesomeIcon height={100} icon={faDownload} /> 
+                </button>
             ) : null}
         </div>
     );
