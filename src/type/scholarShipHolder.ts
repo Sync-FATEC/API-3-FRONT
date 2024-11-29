@@ -1,3 +1,4 @@
+
 export type RegisterScholarshipHolder = {
     id?: string;
     cpf: string;
@@ -5,8 +6,9 @@ export type RegisterScholarshipHolder = {
     name: string;
     email: string;
     nationality: string;
+    grantId: string;
     address: {
-        id: string;
+        id?: string;
         street: string;
         number: string;
         neighborhood: string;
@@ -14,6 +16,15 @@ export type RegisterScholarshipHolder = {
         state: string;
         zipCode: string;
     };
+}
+
+export type ListScholarshipHolder = {
+    id: string;
+    cpf: string;
+    rg: string;
+    name: string;
+    email: string;
+    nationality: string;
 }
 
 export type UpdateScholarShipHolder = {
