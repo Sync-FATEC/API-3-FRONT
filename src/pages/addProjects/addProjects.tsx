@@ -6,7 +6,6 @@ import { errorSwal } from "../../components/swal/errorSwal";
 import { successSwal } from "../../components/swal/sucessSwal";
 import AddAnexo from '../../components/addAnexo/addAnexos';
 import createProject from "../../type/createProject";
-import AddPlanoTrabalho from '../../components/addPlanoTrabalho/addPlanoTrabalho';
 
 export default function AddProjects() {
   const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
@@ -23,8 +22,6 @@ export default function AddProjects() {
   const [descricao, setDescricao] = useState<string>("");
   const [classificacao, setClassificacao] = useState<string>("");
   const [enviado, setEnviado] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [exibirPlanoTrabalho, setExibirPlanoTrabalho] = useState(false);
   const [isDraft, setIsDraft] = useState(true)
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
@@ -184,11 +181,6 @@ export default function AddProjects() {
   const handleAddAnexoComponent = () => {
     setAddAnexoComponents((prev) => [...prev, prev.length]);
   };
-
-  const togglePlanoTrabalho = () => {
-    setExibirPlanoTrabalho((prev) => !prev);
-  };
-
 
   return (
     <>
@@ -417,20 +409,6 @@ export default function AddProjects() {
               <div>
 
               </div>
-              <div className="campo-projeto">
-                <button
-                  type="button"
-                  className="btn btn-adicionar"
-                  onClick={togglePlanoTrabalho}
-                >
-                  {exibirPlanoTrabalho ? "Fechar" : "Criar Plano de Trabalho"}
-                </button>
-              </div>
-              {exibirPlanoTrabalho && (
-                <div className="plano-trabalho">
-                  <AddPlanoTrabalho />
-                </div>
-              )}
             </div>
             <div>
             </div>

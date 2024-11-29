@@ -6,10 +6,12 @@ import { errorSwal } from '../../components/swal/errorSwal';
 import { formatCPF, formatPhone, formatRG, validateCPF } from '../../utils/utils';
 import { CoordinatorType } from '../../type/CoordinatorsType';
 import { useNavigate } from 'react-router-dom';
+import { UpdateCoordinators } from '../../type/updateCoodinators';
+import AddressFields from '../endereco/AddressFields';
 
 type CoordinatorsFormProps = {
     initialData?: CoordinatorType;
-    onSubmit: (data: CoordinatorType) => Promise<{ status: number }>;
+    onSubmit: (data: UpdateCoordinators) => Promise<{ status: number }>;
     mode: 'create' | 'edit';
 };
 
@@ -22,6 +24,13 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
     const [coordinatorRG, setCoordinatorRG] = useState(initialData?.coordinatorRG || '');
     const [coordinatorMaritalStatus, setCoordinatorMaritalStatus] = useState(initialData?.coordinatorMaritalStatus || '');
     const [coordinatorNacionality, setCoordinatorNacionality] = useState(initialData?.coordinatorNacionality || '');
+    const [addressId] = useState(initialData?.address?.id || '');
+    const [addressStreet, setAddressStreet] = useState(initialData?.address?.street || '');
+    const [addressNumber, setAddressNumber] = useState(initialData?.address?.number || '');
+    const [addressNeighborhood, setAddressNeighborhood] = useState(initialData?.address?.neighborhood || '');
+    const [addressCity, setAddressCity] = useState(initialData?.address?.city || '');
+    const [addressState, setAddressState] = useState(initialData?.address?.state || '');
+    const [addressZipCode, setAddressZipCode] = useState(initialData?.address?.zipCode || '');
     const navigate = useNavigate();
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -30,7 +39,7 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
         const unformattedCPF = coordinatorCPF.replace(/[^\d]/g, '');
         const unformattedPhone = coordinatorTelefone.replace(/[^\d]/g, '');
 
-        const coordinator: CoordinatorType = {
+        const coordinator: UpdateCoordinators = {
             coordinatorId,
             coordinatorName,
             coordinatorCPF: unformattedCPF,
@@ -38,7 +47,14 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
             coordinatorEconomicActivity,
             coordinatorRG,
             coordinatorMaritalStatus,
-            coordinatorNacionality
+            coordinatorNacionality,
+            addressId,
+            addressStreet,
+            addressNumber,
+            addressNeighborhood,
+            addressCity,
+            addressState,
+            addressZipCode,
         };
 
         if (!validateCPF(unformattedCPF) && unformattedCPF.length > 0) {
@@ -118,6 +134,21 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
                             <label htmlFor="coordinatorNacionality">Nacionalidade:</label>
                             <input type="text" id="coordinatorNacionality" value={coordinatorNacionality} onChange={(e) => setCoordinatorNacionality(e.target.value)} />
                         </div>
+
+                        <AddressFields
+                            addressStreet={addressStreet}
+                            addressNumber={addressNumber}
+                            addressNeighborhood={addressNeighborhood}
+                            addressCity={addressCity}
+                            addressState={addressState}
+                            addressZipCode={addressZipCode}
+                            setAddressStreet={setAddressStreet}
+                            setAddressNumber={setAddressNumber}
+                            setAddressNeighborhood={setAddressNeighborhood}
+                            setAddressCity={setAddressCity}
+                            setAddressState={setAddressState}
+                            setAddressZipCode={setAddressZipCode}
+                            />
 
                         <div className="campo-projeto">
                             <button className='btn btn-cadastrar' type="submit">{mode === 'create' ? 'Criar' : 'Salvar Alterações'}</button>

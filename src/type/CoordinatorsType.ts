@@ -7,4 +7,13 @@ export type CoordinatorType = {
     coordinatorRG: string;
     coordinatorNacionality: string;
     coordinatorMaritalStatus: string;
+    address: {
+        id: string;
+        street: string;
+        number: string;
+        neighborhood: string;
+        city: string;
+        state: string;
+        zipCode: string;
+    };
 };

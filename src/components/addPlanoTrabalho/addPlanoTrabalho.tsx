@@ -235,46 +235,6 @@ export default function AddPlanoTrabalho() {
                 <h3>Dados do Coordenador</h3>
             </div>
             <div className="campo-projeto">
-                <label className="placeholder">Endereço</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorAddress}
-                    onChange={(e) => setCoordinatorAddress(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">Cidade</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorCity}
-                    onChange={(e) => setCoordinatorCity(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">UF</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorUF}
-                    onChange={(e) => setCoordinatorUF(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">CEP</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorCEP}
-                    onChange={(e) => setCoordinatorCEP(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
                 <label className="placeholder">Período</label>
                 <input
                     type="text"
@@ -288,26 +248,6 @@ export default function AddPlanoTrabalho() {
                 <h3>Dados da Empresa/Contratante</h3>
             </div>
             <div className="campo-projeto">
-                <label className="placeholder">Razão Social</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={companyRazaoSocial}
-                    onChange={(e) => setCompanyRazaoSocial(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">CNPJ</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={companyCNPJ}
-                    onChange={(e) => setCompanyCNPJ(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
                 <label className="placeholder">Responsável Técnico</label>
                 <input
                     type="text"
@@ -315,36 +255,6 @@ export default function AddPlanoTrabalho() {
                     placeholder=""
                     value={companyResponsavelTecnico}
                     onChange={(e) => setCompanyResponsavelTecnico(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">Telefone</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={companyTelefone}
-                    onChange={(e) => setCompanyTelefone(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">Endereço</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={companyEndereco}
-                    onChange={(e) => setCompanyEndereco(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">Empresa Privada</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={companyEmpresaPrivada}
-                    onChange={(e) => setCompanyEmpresaPrivada(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">

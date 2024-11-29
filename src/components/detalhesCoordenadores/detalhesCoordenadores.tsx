@@ -13,7 +13,7 @@ import { links } from "../../api/api";
 import { errorSwal } from "../swal/errorSwal";
 import ButtonProject from "../ButtonProject/ButtonProject";
 import "./detalhesCoordenadores.css";
-import { formatCPF, formatPhone, formatRG } from "../../utils/utils";
+import { formatCEP, formatCPF, formatPhone, formatRG } from "../../utils/utils";
 
 export function DetalhesCoordenadores() {
   const navigate = useNavigate();
@@ -116,6 +116,16 @@ export function DetalhesCoordenadores() {
                   <strong>Nacionalidade:</strong>
                 </label>
                 <span>{coordenador?.coordinatorNacionality || "Não disponível"}</span>
+              </div>
+              <div className="campo-projeto">
+              <label>
+                  <strong>Endereço:</strong>
+              </label>
+              <span>
+                  {coordenador?.address
+                    ? `${coordenador.address.state}, ${coordenador.address.city}, ${coordenador.address.neighborhood}, ${coordenador.address.street}, ${coordenador.address.number}, ${formatCEP(coordenador.address.zipCode)}`
+                    : "Não disponível"}
+                </span>
               </div>
             </div>
           </div>

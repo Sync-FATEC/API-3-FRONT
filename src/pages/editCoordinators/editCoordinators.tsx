@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { errorSwal } from '../../components/swal/errorSwal';
 import Loading from '../../components/loading/loading';
 import ErrorComponent from '../../components/error/error';
+import { UpdateCoordinators } from '../../type/updateCoodinators';
 
 export function EditCoordinatorPage() {
     const { id } = useParams();
@@ -28,7 +29,7 @@ export function EditCoordinatorPage() {
         getCoordinator();
     }, [id]);
 
-    const handleEditCoordinator = async (data: CoordinatorType) => {
+    const handleEditCoordinator = async (data: UpdateCoordinators) => {
         const response = await links.updateCoordinators(data);
         return { status: response.status };
     };
