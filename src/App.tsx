@@ -57,7 +57,7 @@ function App() {
             <Route path='/coordenador/detalhe/:id' element={<RequireAuthAdmin><DetalhesCoordenadores/></RequireAuthAdmin>}></Route>
             <Route path='/coordenador/editar/:id' element={<RequireAuthAdmin><EditCoordinatorPage/></RequireAuthAdmin>}></Route>
             <Route path='/detalhesBolsas/:id' element={<RequireAuthAdmin><DetalhesBolsas/></RequireAuthAdmin>}></Route>
-
+            <Route path='/plano-trabalho' element={<RequireAuthAdmin><AddPlanoTrabalho/></RequireAuthAdmin>}></Route>
             <Route path='/addEmpresas' element={<RequireAuthAdmin><AddCompany/></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarEmpresas' element={<RequireAuthAdmin><GerenciarEmpresas/></RequireAuthAdmin>}></Route>
             <Route path='/empresa/detalhe/:id' element={<RequireAuthAdmin><DetalhesCompany/></RequireAuthAdmin>}></Route>

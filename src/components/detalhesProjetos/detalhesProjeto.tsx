@@ -148,8 +148,12 @@ export default function ProjetoDetalhes() {
     );
   }
 
-  const handleNavigateToPlanoTrabalho = () => {
-    navigate(`/plano-trabalho`, {state: {projeto: projectData}});
+  const handleNavigateToPlanoTrabalho = async () => {    
+    try {
+      const response = await links.getPlanoTrabalho(projectData.projectId, projectData.projectReference ?? "Sem referencia");
+    } catch {
+      navigate(`/plano-trabalho`, {state: {projeto: projectData}});
+    }
   }
 
   return (

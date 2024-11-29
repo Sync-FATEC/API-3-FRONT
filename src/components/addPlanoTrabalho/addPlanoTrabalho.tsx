@@ -235,16 +235,6 @@ export default function AddPlanoTrabalho() {
                 <h3>Dados do Coordenador</h3>
             </div>
             <div className="campo-projeto">
-                <label className="placeholder">CPF</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorCPF}
-                    onChange={(e) => setCoordinatorCPF(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
                 <label className="placeholder">Endereço</label>
                 <input
                     type="text"
@@ -282,26 +272,6 @@ export default function AddPlanoTrabalho() {
                     placeholder=""
                     value={coordinatorCEP}
                     onChange={(e) => setCoordinatorCEP(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">DDD/Telefone</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorTelefone}
-                    onChange={(e) => setCoordinatorTelefone(e.target.value)}
-                />
-            </div>
-            <div className="campo-projeto">
-                <label className="placeholder">Atividade Econômica</label>
-                <input
-                    type="text"
-                    className="input"
-                    placeholder=""
-                    value={coordinatorEconomicActivity}
-                    onChange={(e) => setCoordinatorEconomicActivity(e.target.value)}
                 />
             </div>
             <div className="campo-projeto">

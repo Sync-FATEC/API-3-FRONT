@@ -204,6 +204,22 @@ const links = {
   deactivateGrants: (id: string) => api.patch(`/grant/deactivate/${id}`),
 
   createGrant: (data: createGrant) => api.post("/grant/create", data),
+
+  getPlanoTrabalho: (id: string, referencia: string) => api.get(`/plano-de-trabalho/download/${id}`, { responseType: "blob" }).then(response => {
+    const blob = new Blob([response.data], { type: response.headers['content-type'] });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Plano_de_Trabalho_${referencia}.docx`; // Nome do arquivo
+    document.body.appendChild(a);
+    a.click();
+    
+    // Limpar o objeto URL criado
+    setTimeout(() => {
+      a.remove();
+      window.URL.revokeObjectURL(url);
+    }, 0);
+  }),
 };
 
 export { links };
