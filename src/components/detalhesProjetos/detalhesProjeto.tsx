@@ -281,6 +281,7 @@ export default function ProjetoDetalhes() {
                           link={documento.fileUrl}
                           nome={documento.fileName}
                           tipo={documento.fileType}
+                          fileBytes={documento.fileBytes}
                         />
                       </div>
                     ))
@@ -301,19 +302,29 @@ export default function ProjetoDetalhes() {
                   action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
                 />
 
-                <ButtonProject 
-                  text="Gerar Contrato"
-                  color="blue-light"
-                  iconButton={faFileContract}
-                  action={() => () => {}}
-                />
+                {/* Se ja tiver um anexo como contrato então não gera */}
+                {/* So pode gerar contrato se tiver plano de trabalho */}
+                {projectData.documents.find((doc) => 
+                    doc.fileType.includes("CONTRATO")) || !projectData.documents.find((doc) => 
+                    doc.fileType.includes("PLANO_DE_TRABALHO")) ? null  : 
+                  <ButtonProject
+                    text="Gerar Contrato"
+                    color="blue-light"
+                    iconButton={faFileContract}
+                    action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
+                  />
+                }
 
-                <ButtonProject
-                  text="Gerar Plano de Trabalho"
-                  color="blue-light"
-                  iconButton={faFileContract}
-                  action={handleNavigateToPlanoTrabalho}
-                />
+                {/* Se ja tiver um anexo como plano de trabalho então nao gera */}
+                {projectData.documents.find((doc) => 
+                    doc.fileType.includes("PLANO_DE_TRABALHO")) ? null  : 
+                  <ButtonProject
+                    text="Gerar Plano de Trabalho"
+                    color="blue-light"
+                    iconButton={faFileContract}
+                    action={handleNavigateToPlanoTrabalho}
+                  />
+                }
 
                 <ButtonProject 
                   text="Histórico"

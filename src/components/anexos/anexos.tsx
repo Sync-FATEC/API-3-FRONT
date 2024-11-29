@@ -7,9 +7,16 @@ interface AnexosProps {
     nome: string;
     link: string;
     tipo: string;
+    fileBytes?: Uint8Array | null;
 }
 
-export default function Anexos({ nome, link, tipo }: AnexosProps) {
+export default function Anexos({ nome, link, tipo, fileBytes }: AnexosProps) {
+
+    const handleGetWorkPlan = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+        event.preventDefault();
+
+        // Logica para baaixar o workplan        
+    }
 
     const handleGetDocument = async (event: React.MouseEvent<HTMLAnchorElement>) => {
         event.preventDefault();
@@ -45,7 +52,12 @@ export default function Anexos({ nome, link, tipo }: AnexosProps) {
                 <FontAwesomeIcon icon={faFile} /> Tipo do arquivo: {tipo}
             </p>
             <p>Nome do arquivo: {nome}</p>
-            {link.includes("https://fapg.org.br") ? (
+            {fileBytes != null && tipo.includes("PLANO") ? (
+                <a href={link} onClick={handleGetDocument}>
+                    <FontAwesomeIcon height={100} icon={faDownload} />
+                </a>
+            ) : null}
+            {link ? link.includes("https://fapg.org.br") ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faMagnifyingGlass} />
                 </a>
@@ -53,7 +65,7 @@ export default function Anexos({ nome, link, tipo }: AnexosProps) {
                 <a href={link} onClick={handleGetDocument}>
                     <FontAwesomeIcon height={100} icon={faDownload} />
                 </a>
-            )}
+            ) : null}
         </div>
     );
 }
