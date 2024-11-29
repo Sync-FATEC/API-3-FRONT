@@ -6,6 +6,7 @@ import filterDTO from "../type/filterData";
 import { Projects } from "../type/projects";
 import { UpdateProject } from "../type/updateProject";
 import { Grant, createGrant } from "../type/grant";
+import { RegisterScholarshipHolder, UpdateScholarShipHolder } from "../type/scholarShipHolder";
 
 const api = axios.create({
   baseURL: "http://localhost:8080",
@@ -204,6 +205,16 @@ const links = {
   deactivateGrants: (id: string) => api.patch(`/grant/deactivate/${id}`),
 
   createGrant: (data: createGrant) => api.post("/grant/create", data),
+
+  getScholarShipHolder: (id: string) => api.get(`/scholarship-holders/buscar/${id}`),
+
+  getAllScholarShipHolder: () => api.get("/scholarship-holders/buscar"),
+
+  RegisterScholarshipHolder: (data: RegisterScholarshipHolder) => api.post("/scholarship-holders/create", data),
+
+  UpdateScholarShipHolder: (data: UpdateScholarShipHolder) => api.put("/scholarship-holders/update", data),
+
+  removeScholarShipHolder: (id: string) => api.delete(`/scholarship-holders/delete/${id}`),
 
   getPlanoTrabalho: (id: string, referencia: string) => api.get(`/plano-de-trabalho/download/${id}`, { responseType: "blob" }).then(response => {
     const blob = new Blob([response.data], { type: response.headers['content-type'] });
