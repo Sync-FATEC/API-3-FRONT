@@ -99,17 +99,31 @@ export default function ProjetoDetalhes() {
 
   const handleGenerateContract = async (projectId: string) => {
     try {
-      console.log("projectId", projectId);
-      const response = await api.get(`contract/generate/${projectId}`);
-       if(response.status === 200) {
-        successSwal("Contrato gerado com sucesso!");
-      } else {
-        console.error("Erro ao gerar contrato:", response.status);
-      }
+        const response = await api.get(`/contracts/generate/${projectId}`, {
+            responseType: "blob",
+        });
+
+        if (response.status === 200) {
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "contrato.docx";
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 0);
+        } else {
+            console.error("Erro ao gerar contrato:", response.status);
+        }
     } catch (error) {
-      console.error("Erro ao gerar contrato:", error);
+        console.error("Erro ao gerar contrato:", error);
     }
-  }
+};
+
 
   const handleExportProject = async ({ id, format, nome }: propsExport) => {
     if (!id || !format) {
