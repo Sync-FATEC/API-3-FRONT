@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { successSwal } from "../swal/sucessSwal";
 
 export default function AddPlanoTrabalho() {
     const location = useLocation();
@@ -214,6 +215,9 @@ export default function AddPlanoTrabalho() {
                     a.remove();
                     window.URL.revokeObjectURL(url);
                 }, 0);
+                
+                successSwal("Plano de Trabalho criado com sucesso!");
+                navigate(-1);
             } else {
                 errorSwal(`Erro ao gerar o plano de trabalho: ${response.status}`);
             }
