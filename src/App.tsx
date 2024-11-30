@@ -12,7 +12,7 @@ import EditarProjeto from './pages/editProjects/EditProjects';
 import ProjectsDue from './pages/projectsDue/projectsDue';
 import GerenciarProjetos from './pages/GerenciarProjetos/GerenciarProjetos';
 import HistoryChanges from './pages/HistoryChanges/HistoryChanges';
-import AddBolsista from './pages/addBolsistas/addBolsistas';
+import { AddBolsistas } from './pages/addBolsistas/addBolsistas';
 import GerenciarBolsistas from './pages/GerenciarBolsistas/gerenciarBolsistas';
 import GerenciarRascunho from './pages/GerenciarRascunhos/gerenciarRascunho';
 import DetalhesBolsistas from './pages/GerenciarBolsistas/detalhesBolsistas/detalhesBolsistas';
@@ -29,6 +29,7 @@ import { AddCompany } from './pages/addCompany/addCompany';
 import { GerenciarEmpresas } from './pages/GerenciarCompany/GerenciarCompany';
 import { DetalhesCompany } from './components/detalhesCompany/detalhesCompany';
 import { EditCompanyPage } from './pages/editCompany/editCompany';
+import { EditBolsistaPage } from './pages/editBolsistas/editBolsistas';
 
 function App() {
   return (
@@ -45,7 +46,7 @@ function App() {
             <Route path='/projetosVencimentos' element={<RequireAuthAdmin><ProjectsDue /></RequireAuthAdmin>}></Route>
             <Route path='/editar-projeto/:id' element={<RequireAuthAdmin><EditarProjeto/></RequireAuthAdmin>}></Route>
             <Route path='/historico-projeto/:id' element={<RequireAuthAdmin><HistoryChanges/></RequireAuthAdmin>}></Route>
-            <Route path='/addBolsistas' element={<RequireAuthAdmin><AddBolsista/></RequireAuthAdmin>}></Route>
+            <Route path='/addBolsistas' element={<RequireAuthAdmin><AddBolsistas/></RequireAuthAdmin>}></Route>
             <Route path='/gerenciarRascunhos' element={<RequireAuthAdmin><GerenciarRascunho/></RequireAuthAdmin>}></Route> 
             <Route path='/gerenciarBolsistas' element={<RequireAuthAdmin><GerenciarBolsistas/></RequireAuthAdmin>}></Route>
             <Route path='/detalheBolsista/:id' element={<RequireAuthAdmin><DetalhesBolsistas/></RequireAuthAdmin>}></Route>
@@ -62,6 +63,7 @@ function App() {
             <Route path='/gerenciarEmpresas' element={<RequireAuthAdmin><GerenciarEmpresas/></RequireAuthAdmin>}></Route>
             <Route path='/empresa/detalhe/:id' element={<RequireAuthAdmin><DetalhesCompany/></RequireAuthAdmin>}></Route>
             <Route path='/empresa/editar/:id' element={<RequireAuthAdmin><EditCompanyPage/></RequireAuthAdmin>}></Route>
+            <Route path='/bolsas/editar/:id' element={<RequireAuthAdmin><EditBolsistaPage/></RequireAuthAdmin>}></Route>
             
           </Routes>
         </AuthProvider>

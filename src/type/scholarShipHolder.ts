@@ -1,3 +1,21 @@
+export type ScholarshipHolder = {
+    id: string;
+    cpf: string;
+    rg: string;
+    name: string;
+    email: string;
+    nationality: string;
+    grantId: string;
+    address: {
+        id?: string;
+        street: string;
+        number: string;
+        neighborhood: string;
+        city: string;
+        state: string;
+        zipCode: string;
+    };
+}
 
 export type RegisterScholarshipHolder = {
     id?: string;
@@ -25,6 +43,7 @@ export type ListScholarshipHolder = {
     name: string;
     email: string;
     nationality: string;
+    removed: boolean;
 }
 
 export type UpdateScholarShipHolder = {
@@ -34,6 +53,7 @@ export type UpdateScholarShipHolder = {
     name: string;
     email: string;
     nationality: string;
+    grantId: string;
     address: {
         id: string;
         street: string;

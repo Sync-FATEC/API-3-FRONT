@@ -25,12 +25,10 @@ export default function DetalhesBolsista() {
 
     const fetchBolsistaDetails = async (scholarId: string) => {
         try {
-            // Buscar os dados do bolsista
             const response = await links.getScholarShipHolder(scholarId);
             const fetchedBolsista = response.data.model;
             setBolsistaData(fetchedBolsista);
 
-            // Buscar os dados da bolsa, caso o bolsista tenha vínculo
             if (fetchedBolsista?.grant?.id) {
                 const grantResponse = await links.getGrant(fetchedBolsista.grant.id);
                 setBolsa(grantResponse.data.model);
@@ -58,31 +56,30 @@ export default function DetalhesBolsista() {
     };
     
     const handleConfirmDelete = async () => {
-        if (bolsa?.id) {
+        if (bolsistaData?.id) {
             try {
-                await links.deactivateGrants(bolsa.id);
+                await links.removeScholarShipHolder(bolsistaData.id);
                 setShowConfirmDelete(false);
-                alert("Bolsa desativada com sucesso!");
-                navigate(-1); // Voltar para a página anterior após a exclusão
+                alert("Bolsista desativado com sucesso!");
+                navigate(-1); 
             } catch (error) {
-                console.error("Erro ao desativar bolsa:", error);
-                alert("Ocorreu um erro ao desativar a bolsa.");
+                console.error("Erro ao desativar bolsista:", error);
+                alert("Ocorreu um erro ao desativar o bolsista.");
             }
         } else {
-            alert("Não foi possível identificar a bolsa para desativar.");
+            alert("Não foi possível identificar o bolsista para desativar.");
             setShowConfirmDelete(false);
         }
     };
     
-
-    const handleDelete = async (grantId: string) => {
+    const handleDelete = async (id: string) => {
         try {
-            await links.deactivateGrants(grantId);
+            await links.removeScholarShipHolder(id);
+            handleDeleteClick()
         } catch (error) {
-            console.error("Erro ao desativar bolsa:", error);
+            console.error("Erro ao desativar bolsista:", error);
         }
     };
-
 
     if (loading) {
         return (
@@ -166,14 +163,14 @@ export default function DetalhesBolsista() {
                             text="Editar"
                             color="blue"
                             iconButton={faEdit}
-                            action={() => { navigate(`/editar-bolsa/${id}`) }}
+                            action={() => { navigate(`/bolsas/editar/${id}`) }}
                         />
 
                         <ButtonProject
-                            text="Desativar Bolsa"
+                            text="Desativar Bolsista"
                             color="red"
                             iconButton={faCancel}
-                            action={handleDeleteClick}
+                            action={() => bolsistaData?.id && handleDelete(bolsistaData.id)}
                         />
                     </div>
 
@@ -181,7 +178,7 @@ export default function DetalhesBolsista() {
                 {showConfirmDelete && (
                     <div className="modal">
                         <div className="modal-content">
-                            <h1>Você tem certeza que deseja desativar esta bolsa?</h1>
+                            <h1>Você tem certeza que deseja excluir esse bolsista?</h1>
                             <div className="modal-button">
                                 <button className="buttons" onClick={handleConfirmDelete}>
                                     Sim
