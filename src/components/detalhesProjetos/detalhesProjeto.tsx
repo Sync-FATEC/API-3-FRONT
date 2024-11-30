@@ -116,6 +116,7 @@ export default function ProjetoDetalhes() {
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
             }, 0);
+            await fetchProjetoById(projectId);
         } else {
             console.error("Erro ao gerar contrato:", response.status);
         }
