@@ -16,7 +16,7 @@ interface AnexosProps {
 
 export default function Anexos({id, anexoId, nome, link, tipo, fileBytes }: AnexosProps) {
 
-    const handleDownloadDocWithFilyBte = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDownloadDocWithFileBytes = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     
         try {
@@ -76,19 +76,18 @@ export default function Anexos({id, anexoId, nome, link, tipo, fileBytes }: Anex
                 <FontAwesomeIcon icon={faFile} /> Tipo do arquivo: {tipo}
             </p>
             <p>Nome do arquivo: {nome}</p>
-            {fileBytes != null ? (
-                <button className="btn-download" onClick={handleDownloadDocWithFilyBte}>
-                    <FontAwesomeIcon height={100} icon={faDownload} /> 
+            {fileBytes ? (
+                <button className="btn-download" onClick={handleDownloadDocWithFileBytes}>
+                    <FontAwesomeIcon height={100} icon={faDownload} />
                 </button>
-            ) : null}
-            {link ? link.includes("https://fapg.org.br") ? (
+            ) : link && !link.includes("https://fapg.org.br") ? (
+                <button className="btn-download" onClick={handleGetDocument}>
+                    <FontAwesomeIcon height={100} icon={faDownload} />
+                </button>
+            ) : link ? (
                 <a href={link} target="_blank" rel="noopener noreferrer">
                     <FontAwesomeIcon icon={faMagnifyingGlass} /> Abrir Link
                 </a>
-            ) : (
-                <button className="btn-download" onClick={handleGetDocument}>
-                    <FontAwesomeIcon height={100} icon={faDownload} /> 
-                </button>
             ) : null}
         </div>
     );
