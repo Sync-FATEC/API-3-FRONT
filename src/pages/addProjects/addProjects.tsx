@@ -429,21 +429,23 @@ export default function AddProjects() {
                     </button>
                   </div>
                 </div>
-                <div className='flexButton'>
-                    <div className="campo-projeto">
-                        <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(false)}>Publicar projeto</button>
-                    </div>
-                  <div>
+                <div className='add-anexo'>
+                  <div className='flexButton'>
                     <div className="campo-projeto">
                       <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(true)}>Salvar rascunho</button>
                     </div>
+                    <div className="campo-projeto">
+                        <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(false)}>Publicar projeto</button>
+                    </div>
                   </div>
-                </div>
+                <div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </form>
+    </div>
+  </div>
+</>
+);
 }
