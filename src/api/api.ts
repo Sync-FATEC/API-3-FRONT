@@ -205,6 +205,7 @@ const links = {
   deactivateGrants: (id: string) => api.patch(`/grant/deactivate/${id}`),
 
   createGrant: (data: createGrant) => api.post("/grant/create", data),
+  
 
   getScholarShipHolder: (id: string) => api.get(`/scholarship-holders/buscar/${id}`),
 

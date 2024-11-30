@@ -1,19 +1,25 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
-import "./listarBolsas.css";
 import { useState, useEffect } from "react";
 import { Grant } from "../../../type/grant";
 import { links } from "../../../api/api";
+import "./listarBolsas.css";
 
-export default function ListarBolsas() {
+type ListarBolsasProps = {
+  keywordFilter: string; // Nova prop para receber o filtro do componente pai
+};
+
+export default function ListarBolsas({ keywordFilter }: ListarBolsasProps) {
   const [grant, setGrant] = useState<Grant[]>([]);
+  const [filteredGrant, setFilteredGrant] = useState<Grant[]>([]);
   const navigate = useNavigate();
 
   const fetchGrant = async () => {
     try {
       const response = await links.getAllGrants();
       setGrant(response.data);
+      setFilteredGrant(response.data); // Inicializa a lista filtrada com todas as bolsas
     } catch (error) {
       console.error("Erro ao buscar bolsas:", error);
     }
@@ -22,6 +28,16 @@ export default function ListarBolsas() {
   useEffect(() => {
     fetchGrant();
   }, []);
+
+  useEffect(() => {
+    const filtered = grant.filter((item) =>
+      Object.values(item)
+        .join(" ")
+        .toLowerCase()
+        .includes(keywordFilter.toLowerCase())
+    );
+    setFilteredGrant(filtered);
+  }, [keywordFilter, grant]);
 
   const handleGrantClick = (id: string) => {
     navigate(`/detalhesBolsas/${id}`);
@@ -37,30 +53,34 @@ export default function ListarBolsas() {
           <p>Atuação</p>
           <p>Visualizar</p>
         </div>
-        {grant.map((grant) => (
-          <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
-            <p>
-              <label className="BolsasReferencias_Responsivo">Tipo de Bolsa: </label>
-              {grant.type}
-            </p>
-            <p>
-              <label className="BolsasReferencias_Responsivo">Duração: </label>
-              {grant.duration}
-            </p>
-            <p>
-              <label className="BolsasReferencias_Responsivo">Atuação: </label>
-              {grant.acting}
-            </p>
-            <img
-              src="/static/img/pesquisar.svg"
-              alt="Visualizar bolsas"
-              onClick={() => handleGrantClick(grant.id)}
-              style={{ cursor: "pointer", transition: "transform 0.2s" }}
-              onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
-              onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
-            />
-          </div>
-        ))}
+        {filteredGrant.length > 0 ? (
+          filteredGrant.map((grant) => (
+            <div className="Bolsas Bolsas_Responsivo" key={grant.id}>
+              <p>
+                <label className="BolsasReferencias_Responsivo">Tipo de Bolsa: </label>
+                {grant.type}
+              </p>
+              <p>
+                <label className="BolsasReferencias_Responsivo">Duração: </label>
+                {grant.duration}
+              </p>
+              <p>
+                <label className="BolsasReferencias_Responsivo">Atuação: </label>
+                {grant.acting}
+              </p>
+              <img
+                src="/static/img/pesquisar.svg"
+                alt="Visualizar bolsas"
+                onClick={() => handleGrantClick(grant.id)}
+                style={{ cursor: "pointer", transition: "transform 0.2s" }}
+                onMouseEnter={(e) => (e.currentTarget.style.transform = "scale(1.1)")}
+                onMouseLeave={(e) => (e.currentTarget.style.transform = "scale(1)")}
+              />
+            </div>
+          ))
+        ) : (
+          <p>Nenhuma bolsa encontrada.</p>
+        )}
         <div className="pagination">
           <button disabled>
             <FontAwesomeIcon icon={faChevronLeft} />

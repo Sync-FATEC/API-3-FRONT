@@ -5,22 +5,24 @@ import { formatDate } from "../../../utils/utils";
 import "./listarRascunhos.css";
 import { links } from "../../../api/api";
 import { useEffect, useState } from "react";
-import Swal from "sweetalert2";
 import { errorSwal } from "../../../components/swal/errorSwal";
-import Loading from "../../../components/loading/loading";
 import { Projects } from "../../../type/projects";
-import ListarProjetos from "../../../components/listaProjetos/listaProjetos";
 
-export default function ListarRascunhos() {
+type ListarRascunhosProps = {
+  keywordFilter: string;
+};
+
+export default function ListarRascunhos({ keywordFilter }: ListarRascunhosProps) {
   const navigate = useNavigate();
-  const [rascunhos, setRascunhos] = useState<Projects[]>([])
-  const [keyWord, setKeyword] = useState("")
+  const [rascunhos, setRascunhos] = useState<Projects[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
 
+  // Função para buscar rascunhos com filtro
   const fetchDraftProjects = async () => {
-    return await links.getFiltered(keyWord, "", "", "", "", true)
-  }
+    return await links.getFiltered(keywordFilter, "", "", "", "", true);
+  };
+
   const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
@@ -30,13 +32,13 @@ export default function ListarRascunhos() {
       const response = await fetchDraftProjects();
       if (response.status === 200) {
         setRascunhos(response.data.model);
-        console.log(rascunhos)
+        setTotalPages(response.data.totalPages); // Supondo que a resposta tenha o total de páginas
       } else {
         errorSwal("Erro ao buscar rascunhos");
       }
     };
     fetchData();
-  }, []);
+  }, [keywordFilter, currentPage]); // Recarregar quando keyword ou página mudar
 
   const handleRascunhoClick = (draftId: string) => {
     navigate(`/detalhe/${draftId}`);

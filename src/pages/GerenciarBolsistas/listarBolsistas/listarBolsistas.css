@@ -21,11 +21,11 @@
 }
 
 .Bolsistas p {
-    color: var(--gray-color);
-    white-space: nowrap; /* Impede que o texto quebre para a próxima linha */
-    overflow: hidden; /* Oculta o texto que ultrapassa o container */
-    text-overflow: ellipsis; /* Adiciona "..." no final do texto cortado */
-    max-width: 100%; /* Garante que o texto não ultrapasse o limite */
+
+    white-space: nowrap;
+    overflow: hidden; 
+    text-overflow: ellipsis;
+    max-width: 100%; 
 }
 
 .pagination {

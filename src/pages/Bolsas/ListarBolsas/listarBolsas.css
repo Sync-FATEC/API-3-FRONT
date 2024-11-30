@@ -3,12 +3,6 @@
     padding: 20px;
 }
 
-/* .background-projects {
-    background-color: var(--white-color);
-    border-radius: var(--padding-input);
-    box-shadow: 2px 2px 2px #bebebe, -2px -2px 6px var(--white-color);
-    padding: 20px;
-} */
 
 .BolsasReferencias, .Bolsas {
     display: grid;
@@ -20,9 +14,6 @@
     padding: var(--padding-input);
 }
 
-.Bolsas p {
-    color: var(--gray-color);
-}
 
 .pagination {
     display: flex;

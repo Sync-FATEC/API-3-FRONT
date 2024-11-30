@@ -1,8 +1,15 @@
 import Sidebar from "../../components/sideBar/sideBar";
 import "./gerenciarBolsistas.css";
 import ListarBolsistas from "./listarBolsistas/listarBolsistas";
+import { FiltroPages } from "../../components/filtroBolsas/filtro";
+import { useState } from "react";
 
 export default function GerenciarBolsistas() {
+    const [keywordFilter, setKeywordFilter] = useState<string>("");
+
+    const handleFilterChange = (keyword: string) => {
+        setKeywordFilter(keyword);
+    };
     return (
         <>
             <Sidebar />
@@ -14,7 +21,8 @@ export default function GerenciarBolsistas() {
                         <p>Admin</p>
                     </div>
                 </div>
-                <ListarBolsistas />
+                <FiltroPages onFilterChange={handleFilterChange} title="Buscar bolsistas"/>
+                <ListarBolsistas keywordFilter={keywordFilter}/>
             </div>
         </>
     );
