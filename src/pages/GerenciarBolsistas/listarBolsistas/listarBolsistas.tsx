@@ -21,7 +21,8 @@ export default function ListarBolsistas({ keywordFilter }: ListarBolsistasProps)
     try {
       const response = await links.getAllScholarShipHolder();
       const bolsistasData = response.data.model || [];
-      setBolsistas(bolsistasData);
+      const filteredBolsistas = bolsistasData.filter((bolsista: ListScholarshipHolder) => !bolsista.removed);
+      setBolsistas(filteredBolsistas);
     } catch (err) {
       console.error("Erro ao buscar bolsistas:", err);
       setError("Não foi possível carregar os bolsistas.");
@@ -38,7 +39,6 @@ export default function ListarBolsistas({ keywordFilter }: ListarBolsistasProps)
     navigate(`/detalheBolsista/${id}`);
   };
 
-  // Aplicando o filtro nos bolsistas com base no keywordFilter
   const filteredBolsistas = bolsistas.filter((bolsista) => {
     return (
       bolsista.name.toLowerCase().includes(keywordFilter.toLowerCase()) ||
