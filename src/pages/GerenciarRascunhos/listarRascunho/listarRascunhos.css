@@ -66,4 +66,10 @@
         flex-direction: center;
         padding-right: 40px;
     }
+
+    .ReferenciasRascunho {
+        display: none;
+         
+    }
+    
 }

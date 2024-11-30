@@ -75,11 +75,8 @@
 
 #MainDados form button, #MainDadosAuth form button  {
   min-width: 50px;
-  margin-top: var(--padding-input);
-  padding: 12px;
-  height: 40px;
+  height: 47px;
   border: none;
-  border-radius: var(--padding-input);
   background-color: var(--blue-color);
   color: var(--white-color);
   cursor: pointer;
@@ -103,6 +100,10 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: auto;
   }
+  .containerForm .filtro {
+    border-radius: 10px;
+    width: 100%;
+  }
 }
 
 @media (max-width: 950px) {
@@ -111,6 +112,10 @@
   #grid-four {
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: auto;
+  }
+  .containerForm .filtro {
+    border-radius: 10px;
+    width: 100%;
   }
 }
 
@@ -121,12 +126,20 @@
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
+  .containerForm .filtro {
+    border-radius: 10px;
+    width: 100%;
+  }
 }
 
 @media (max-width: 420px) {
   .barraNavegacao {
     width: 30%;
     font-size: 14px;
+  }
+  .containerForm .filtro {
+    border-radius: 10px;
+    width: 100%;
   }
 }
 .searchInput {
@@ -191,22 +204,22 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  padding-top: 12px;
 }
 
 .containerForm .filtro {
-  border-radius: 0px 10px 10px 0px;
+  border-radius: 0px 16px 16px 0px;
   width: 100%;
-  border-right: 1px solid var(--gray-color);
 }
+.busca{
+  border-radius: 16px 0px 0px 16px;
 
+}
 .containerForm .busca {
   width: 100%;
   min-width: 50px;
-  margin-top: var(--padding-input);
-  padding: 12px;
   height: 40px;
   border: none;
-  border-radius: var(--padding-input);
   background-color: var(--blue-color);
   color: var(--white-color);
   cursor: pointer;
@@ -216,3 +229,27 @@
   background-color: var(--blue-hover-color);
 }
 
+#botaoPesquisaBorder {
+  border-radius: 0 10px 10px 0;
+  box-shadow: 2px 2px 2px #bebebe, 5px -2px 6px var(--white-color) !important;
+  height: 50px;
+  width: min-content;
+  flex-grow: 1;
+  margin: 0;
+}
+
+
+.containerForm .buscaHistorico {
+  width: 100%;
+  min-width: 50px;
+  border-radius: var(--padding-input);
+  height: 40px;
+  border: none;
+  background-color: var(--blue-color);
+  color: var(--white-color);
+  cursor: pointer;
+}
+
+.containerForm .buscaHistorico:hover {
+  background-color: var(--blue-hover-color);
+}

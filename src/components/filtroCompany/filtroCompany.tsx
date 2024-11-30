@@ -29,7 +29,7 @@ export function FiltroCompany({ onFilterChange }: FiltroCompanyProps) {
                     placeholder="Digite a palavra-chave"
                     className="barraNavegacao"
                 />
-                <button className="botaoPesquisa" type="submit">
+                <button id="botaoPesquisaBorder"  type="submit">
                     <FontAwesomeIcon icon={faSearch}></FontAwesomeIcon>
                 </button>
             </form>
