@@ -16,42 +16,73 @@ export default function Sidebar() {
     const [isBolsistasOpen, setIsBolsistasOpen] = useState(loadToggleState('isBolsistasOpen', false));
     const [isProjetosOpen, setIsProjetosOpen] = useState(loadToggleState('isProjetosOpen', false));
     const [isBolsasOpen, setIsBolsasOpen] = useState(loadToggleState('isBolsasOpen', false));
-    const [isCoordinatorsOpen, setIsCoordinatorsOpen] = useState(loadToggleState('isCoordinatorsOpen', false))
-    const [isCompanyOpen, setIsCompanyOpen] = useState(loadToggleState('isCompanyOpen', false))
+    const [isCoordinatorsOpen, setIsCoordinatorsOpen] = useState(loadToggleState('isCoordinatorsOpen', false));
+    const [isCompanyOpen, setIsCompanyOpen] = useState(loadToggleState('isCompanyOpen', false));
 
     const saveToggleState = (key: string, value: boolean) => {
         localStorage.setItem(key, JSON.stringify(value));
     };
 
+    const closeOtherMenus = (currentMenu: string) => {
+        const menuStates: { [key: string]: boolean } = {
+            isBolsistasOpen,
+            isProjetosOpen,
+            isBolsasOpen,
+            isCoordinatorsOpen,
+            isCompanyOpen
+        };
+    
+        const setters: { [key: string]: React.Dispatch<React.SetStateAction<boolean>> } = {
+            isBolsistasOpen: setIsBolsistasOpen,
+            isProjetosOpen: setIsProjetosOpen,
+            isBolsasOpen: setIsBolsasOpen,
+            isCoordinatorsOpen: setIsCoordinatorsOpen,
+            isCompanyOpen: setIsCompanyOpen
+        };
+    
+        Object.keys(menuStates).forEach((menu) => {
+            if (menu !== currentMenu && menuStates[menu]) {
+                setters[menu](false);
+                saveToggleState(menu, false);
+            }
+        });
+    };
+    
+
     const toggleBolsistasDropdown = () => {
         const newState = !isBolsistasOpen;
+        closeOtherMenus('isBolsistasOpen');
         setIsBolsistasOpen(newState);
         saveToggleState('isBolsistasOpen', newState);
     };
-    
+
     const toggleBolsasDropdown = () => {
         const newState = !isBolsasOpen;
+        closeOtherMenus('isBolsasOpen');
         setIsBolsasOpen(newState);
         saveToggleState('isBolsasOpen', newState);
     };
 
     const toggleProjetosDropdown = () => {
         const newState = !isProjetosOpen;
+        closeOtherMenus('isProjetosOpen');
         setIsProjetosOpen(newState);
         saveToggleState('isProjetosOpen', newState);
     };
 
     const toggleCoordinatorsDropdown = () => {
-        const newState = !isCoordinatorsOpen
+        const newState = !isCoordinatorsOpen;
+        closeOtherMenus('isCoordinatorsOpen');
         setIsCoordinatorsOpen(newState);
-        saveToggleState('isCoordinators', newState)
-    }
+        saveToggleState('isCoordinatorsOpen', newState);
+    };
 
     const toggleCompanyDropdown = () => {
-        const newState = !isCompanyOpen
+        const newState = !isCompanyOpen;
+        closeOtherMenus('isCompanyOpen');
         setIsCompanyOpen(newState);
-        saveToggleState('isCompany', newState)
-    }
+        saveToggleState('isCompanyOpen', newState);
+    };
 
     const toggleMenu = () => {
         const sidebar = document.querySelector('.sidebarMobile .menu');
@@ -63,8 +94,8 @@ export default function Sidebar() {
     useEffect(() => {
         setIsBolsistasOpen(loadToggleState('isBolsistasOpen', false));
         setIsProjetosOpen(loadToggleState('isProjetosOpen', false));
-        setIsCoordinatorsOpen(loadToggleState('isCoordinatorsOpen', false))
-        setIsCompanyOpen(loadToggleState('isCompanyOpen', false))
+        setIsCoordinatorsOpen(loadToggleState('isCoordinatorsOpen', false));
+        setIsCompanyOpen(loadToggleState('isCompanyOpen', false));
     }, []);
 
     return (
