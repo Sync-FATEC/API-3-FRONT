@@ -23,6 +23,7 @@ import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
 import BlurText from "../blurText/blurText";
 import { errorSwal } from "../swal/errorSwal";
+import { successSwal } from "../swal/sucessSwal";
 
 interface propsExport {
   id: string;
@@ -94,6 +95,19 @@ export default function ProjetoDetalhes() {
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
   };
+
+  const handleGenerateContract = async (projectId: string) => {
+    try {
+      const response = await api.post("/contract/generate", { projectId });
+       if(response.status === 200) {
+        successSwal("Contrato gerado com sucesso!");
+      } else {
+        console.error("Erro ao gerar contrato:", response.status);
+      }
+    } catch (error) {
+      console.error("Erro ao gerar contrato:", error);
+    }
+  }
 
   const handleExportProject = async ({ id, format, nome }: propsExport) => {
     if (!id || !format) {
@@ -311,7 +325,7 @@ export default function ProjetoDetalhes() {
                     text="Gerar Contrato"
                     color="blue-light"
                     iconButton={faFileContract}
-                    action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
+                    action={() => handleGenerateContract(projectData.projectId)}
                   />
                 }
 
