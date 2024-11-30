@@ -11,7 +11,7 @@ import { Grant } from "../../../type/grant";
 import { formatCPF, formatRG } from "../../../utils/utils";
 import ButtonProject from "../../../components/ButtonProject/ButtonProject";
 import { faEdit, faCancel, faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function DetalhesBolsista() {
     const { id } = useParams<{ id?: string }>();
@@ -51,33 +51,20 @@ export default function DetalhesBolsista() {
         navigate(-1);
     };
 
-    const handleDeleteClick = () => {
-        setShowConfirmDelete(true);
-    };
-    
     const handleConfirmDelete = async () => {
-        if (bolsistaData?.id) {
-            try {
-                await links.removeScholarShipHolder(bolsistaData.id);
-                setShowConfirmDelete(false);
-                alert("Bolsista desativado com sucesso!");
-                navigate(-1); 
-            } catch (error) {
-                console.error("Erro ao desativar bolsista:", error);
-                alert("Ocorreu um erro ao desativar o bolsista.");
-            }
-        } else {
-            alert("Não foi possível identificar o bolsista para desativar.");
+        if (!bolsistaData?.id) {
             setShowConfirmDelete(false);
+            return;
         }
-    };
-    
-    const handleDelete = async (id: string) => {
+
         try {
-            await links.removeScholarShipHolder(id);
-            handleDeleteClick()
+            console.log(`Removendo bolsista com ID: ${bolsistaData.id}`);
+            await links.removeScholarShipHolder(bolsistaData.id);
+            navigate(-1);
         } catch (error) {
             console.error("Erro ao desativar bolsista:", error);
+        } finally {
+            setShowConfirmDelete(false);
         }
     };
 
@@ -102,7 +89,7 @@ export default function DetalhesBolsista() {
                     <div className="title">
                         <h2>Detalhes do Bolsista</h2>
                         <button className="botao-voltar" onClick={handleBackButtonClick}>
-                        <FontAwesomeIcon icon={faChevronCircleLeft} />
+                            <FontAwesomeIcon icon={faChevronCircleLeft} />
                             Voltar
                         </button>
                     </div>
@@ -163,22 +150,22 @@ export default function DetalhesBolsista() {
                             text="Editar"
                             color="blue"
                             iconButton={faEdit}
-                            action={() => { navigate(`/bolsas/editar/${id}`) }}
+                            action={() => { navigate(`/bolsas/editar/${id}`); }}
                         />
 
                         <ButtonProject
                             text="Desativar Bolsista"
                             color="red"
                             iconButton={faCancel}
-                            action={() => bolsistaData?.id && handleDelete(bolsistaData.id)}
+                            action={() => setShowConfirmDelete(true)} 
                         />
-                    </div>
 
+                    </div>
                 </div>
                 {showConfirmDelete && (
                     <div className="modal">
                         <div className="modal-content">
-                            <h1>Você tem certeza que deseja excluir esse bolsista?</h1>
+                            <h1>Você tem certeza que deseja excluir este bolsista?</h1>
                             <div className="modal-button">
                                 <button className="buttons" onClick={handleConfirmDelete}>
                                     Sim
