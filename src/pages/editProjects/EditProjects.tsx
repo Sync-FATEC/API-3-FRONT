@@ -81,8 +81,10 @@ export default function EditarProjeto() {
           
         }
         setEnviado(true);
+        navigate(-1);
       }
     } catch (error) {
+      errorSwal("Erro ao editar projeto");
       console.error("Erro ao editar o projeto:", error);
     }
   };

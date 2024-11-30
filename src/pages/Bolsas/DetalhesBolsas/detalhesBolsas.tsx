@@ -23,15 +23,17 @@ export default function DetalhesBolsas() {
         const fetchGrant = async () => {
             try {
                 const response = await links.getGrant(id!);
-                setGrant(response.data);
-                setIsActive(response.data.active);
+                setGrant(response.data.model); // Acessa o objeto correto no backend
+                setIsActive(response.data.model.active);
             } catch (error) {
+                console.error("Erro ao buscar detalhes da bolsa:", error);
                 setError("Erro ao buscar detalhes da bolsa.");
             }
         };
-
+    
         fetchGrant();
     }, [id]);
+    
 
     const handleBackButtonClick = () => {
         navigate(-1);

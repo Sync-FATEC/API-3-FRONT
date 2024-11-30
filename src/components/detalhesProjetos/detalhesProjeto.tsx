@@ -88,6 +88,7 @@ export default function ProjetoDetalhes() {
       await links.deleteProjects(projectId);
       handleBackButtonClick();
     } catch (error) {
+      errorSwal("Erro ao deletar projeto.");
       console.error("Erro ao deletar projeto:", error);
     }
   };
@@ -292,6 +293,7 @@ export default function ProjetoDetalhes() {
                     anexos.map((documento) => (
                       <div key={documento.fileUrl} className="anexo-item">
                         <Anexos
+                          id={projectData.projectId}
                           link={documento.fileUrl}
                           nome={documento.fileName}
                           tipo={documento.fileType}
