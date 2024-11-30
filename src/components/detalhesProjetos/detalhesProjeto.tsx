@@ -87,6 +87,7 @@ export default function ProjetoDetalhes() {
       await links.deleteProjects(projectId);
       handleBackButtonClick();
     } catch (error) {
+      errorSwal("Erro ao deletar projeto.");
       console.error("Erro ao deletar projeto:", error);
     }
   };
