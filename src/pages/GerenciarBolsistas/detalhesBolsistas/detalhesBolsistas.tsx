@@ -9,6 +9,7 @@ import { AuthContext } from "../../../contexts/auth/AuthContext";
 import ErrorComponent from "../../../components/error/error";
 import { RegisterScholarshipHolder } from "../../../type/scholarShipHolder";
 import { Grant } from "../../../type/grant";
+import { formatCPF, formatRG } from "../../../utils/utils";
 
 export default function DetalhesBolsista() {
     const { id } = useParams<{ id?: string }>();
@@ -92,13 +93,13 @@ export default function DetalhesBolsista() {
                             <label>
                                 <strong>CPF:</strong>
                             </label>
-                            <span>{bolsistaData?.cpf}</span>
+                            <span>{bolsistaData?.cpf ? formatCPF(bolsistaData.cpf) : "Não informado"}</span>
                         </div>
                         <div className="campo-bolsista">
                             <label>
                                 <strong>RG:</strong>
                             </label>
-                            <span>{bolsistaData?.rg}</span>
+                            <span>{bolsistaData?.rg ? formatRG(bolsistaData.rg) : "Não informado"}</span>
                         </div>
                         <div className="campo-bolsista">
                             <label>
