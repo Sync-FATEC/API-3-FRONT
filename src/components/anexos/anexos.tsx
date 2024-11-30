@@ -1,25 +1,42 @@
 import React from 'react';
-import { links } from '../../api/api';
+import api, { links } from '../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faDownload, faFile } from '@fortawesome/free-solid-svg-icons';
 import './anexos.css';
+import { errorSwal } from '../swal/errorSwal';
 
 interface AnexosProps {
     id: string;
+    anexoId: string;
     nome: string;
     link: string;
     tipo: string;
     fileBytes?: Uint8Array | null;
 }
 
-export default function Anexos({id, nome, link, tipo, fileBytes }: AnexosProps) {
+export default function Anexos({id, anexoId, nome, link, tipo, fileBytes }: AnexosProps) {
 
-    const handleGetWorkPlan = async (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleDownloadDocWithFilyBte = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     
         try {
-            await links.getPlanoTrabalho(id, nome);
+            var response = await api.get(`/documents/download/${anexoId}`, { responseType: "blob" });
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = nome;
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }, 0);
+
         } catch (error) {
+            errorSwal("Erro ao baixar o plano de trabalho. \n Tente novamente mais tarde.");
             console.error("Erro ao baixar o plano de trabalho:", error);
         }
     };
@@ -59,8 +76,8 @@ export default function Anexos({id, nome, link, tipo, fileBytes }: AnexosProps) 
                 <FontAwesomeIcon icon={faFile} /> Tipo do arquivo: {tipo}
             </p>
             <p>Nome do arquivo: {nome}</p>
-            {fileBytes != null && tipo.includes("PLANO") ? (
-                <button className="btn-download" onClick={handleGetWorkPlan}>
+            {fileBytes != null ? (
+                <button className="btn-download" onClick={handleDownloadDocWithFilyBte}>
                     <FontAwesomeIcon height={100} icon={faDownload} /> 
                 </button>
             ) : null}

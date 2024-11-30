@@ -99,7 +99,8 @@ export default function ProjetoDetalhes() {
 
   const handleGenerateContract = async (projectId: string) => {
     try {
-      const response = await api.post("/contract/generate", { projectId });
+      console.log("projectId", projectId);
+      const response = await api.get(`contract/generate/${projectId}`);
        if(response.status === 200) {
         successSwal("Contrato gerado com sucesso!");
       } else {
@@ -294,6 +295,7 @@ export default function ProjetoDetalhes() {
                       <div key={documento.fileUrl} className="anexo-item">
                         <Anexos
                           id={projectData.projectId}
+                          anexoId= {documento.documentId}
                           link={documento.fileUrl}
                           nome={documento.fileName}
                           tipo={documento.fileType}
