@@ -254,3 +254,9 @@ input[type="checkbox"] {
   display: flex;
   gap: 5;
 }
+
+@media (max-width: 768px) {
+  .flexButton {
+    display: block;
+  }
+}
