@@ -135,6 +135,7 @@ export default function AddBolsista() {
                                     placeholder=" "
                                     value={formatCPF(cpf)}
                                     onChange={(e) => setCpf(e.target.value)}
+                                    maxLength={11}
                                 />
                             </div>
                             <div className="campo-projeto">
@@ -145,7 +146,7 @@ export default function AddBolsista() {
                                     placeholder=" "
                                     value={formatRG(rg)}
                                     onChange={(e) => setRg(e.target.value)}
-                                    maxLength={11}
+                                    
                                 />
                             </div>
                             <div className="campo-projeto">

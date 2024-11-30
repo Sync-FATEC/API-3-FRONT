@@ -8,8 +8,8 @@ import { successSwal } from "../../components/swal/sucessSwal";
 
 export default function AddBolsas() {
   const [type, setType] = useState("");
-  const [months, setMonths] = useState<number | string>(0);
-  const [years, setYears] = useState<number | string>(0);
+  const [months, setMonths] = useState<number | string>("");
+  const [years, setYears] = useState<number | string>("");
   const [acting, setActing] = useState("");
   const [active, setActive] = useState(true);
   const navigate = useNavigate();
