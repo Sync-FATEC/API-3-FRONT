@@ -3,6 +3,8 @@ import { links } from "../../api/api";
 import Sidebar from "../../components/sideBar/sideBar";
 import { errorSwal } from "../../components/swal/errorSwal";
 import { successSwal } from "../../components/swal/sucessSwal";
+import AddressFields from "../../components/endereco/AddressFields";
+import { formatCPF, formatRG } from "../../utils/utils";
 import "./addBolsistas.css";
 
 export default function AddBolsista() {
@@ -18,14 +20,12 @@ export default function AddBolsista() {
     const [email, setEmail] = useState<string>("");
     const [nacionalidade, setNacionalidade] = useState<string>("");
     const [bolsaId, setBolsaId] = useState<string>("");
-
-    // Estados para o endereço
-    const [street, setStreet] = useState<string>("");
-    const [number, setNumber] = useState<string>("");
-    const [neighborhood, setNeighborhood] = useState<string>("");
-    const [city, setCity] = useState<string>("");
-    const [state, setState] = useState<string>("");
-    const [zipCode, setZipCode] = useState<string>("");
+    const [addressStreet, setAddressStreet] = useState<string>("");
+    const [addressNumber, setAddressNumber] = useState<string>("");
+    const [addressNeighborhood, setAddressNeighborhood] = useState<string>("");
+    const [addressCity, setAddressCity] = useState<string>("");
+    const [addressState, setAddressState] = useState<string>("");
+    const [addressZipCode, setAddressZipCode] = useState<string>("");
 
     useEffect(() => {
         const fetchBolsas = async () => {
@@ -41,44 +41,56 @@ export default function AddBolsista() {
     }, []);
 
     const handleSubmit = async () => {
-        if (!nome || !cpf || !rg || !email || !nacionalidade || !bolsaId || !street || !number || !neighborhood || !city || !state || !zipCode) {
+        if (
+            !nome ||
+            !cpf ||
+            !rg ||
+            !email ||
+            !nacionalidade ||
+            !bolsaId ||
+            !addressStreet ||
+            !addressNumber ||
+            !addressNeighborhood ||
+            !addressCity ||
+            !addressState ||
+            !addressZipCode
+        ) {
             errorSwal("Por favor, preencha todos os campos obrigatórios.");
             return;
         }
 
         const payload = {
             name: nome,
-            cpf: cpf,
-            rg: rg,
-            email: email,
+            cpf,
+            rg,
+            email,
             nationality: nacionalidade,
             grantId: bolsaId,
             address: {
-                street: street,
-                number: number,
-                neighborhood: neighborhood,
-                city: city,
-                state: state,
-                zipCode: zipCode,
+                street: addressStreet,
+                number: addressNumber,
+                neighborhood: addressNeighborhood,
+                city: addressCity,
+                state: addressState,
+                zipCode: addressZipCode,
             },
         };
 
         try {
             await links.RegisterScholarshipHolder(payload);
             successSwal("Bolsista cadastrado com sucesso!");
-            // Limpar campos após o sucesso
             setNome("");
             setCpf("");
             setRg("");
             setEmail("");
             setNacionalidade("");
             setBolsaId("");
-            setStreet("");
-            setNumber("");
-            setNeighborhood("");
-            setCity("");
-            setState("");
-            setZipCode("");
+            setAddressStreet("");
+            setAddressNumber("");
+            setAddressNeighborhood("");
+            setAddressCity("");
+            setAddressState("");
+            setAddressZipCode("");
         } catch (error) {
             console.error("Erro ao cadastrar bolsista:", error);
             errorSwal("Erro ao cadastrar bolsista. Tente novamente.");
@@ -100,7 +112,7 @@ export default function AddBolsista() {
                     <form
                         className="background-projects"
                         onSubmit={(e) => {
-                            e.preventDefault(); // Prevenir o comportamento padrão do formulário
+                            e.preventDefault();
                             handleSubmit();
                         }}
                     >
@@ -121,7 +133,7 @@ export default function AddBolsista() {
                                     type="text"
                                     className="input"
                                     placeholder=" "
-                                    value={cpf}
+                                    value={formatCPF(cpf)}
                                     onChange={(e) => setCpf(e.target.value)}
                                 />
                             </div>
@@ -131,8 +143,9 @@ export default function AddBolsista() {
                                     type="text"
                                     className="input"
                                     placeholder=" "
-                                    value={rg}
+                                    value={formatRG(rg)}
                                     onChange={(e) => setRg(e.target.value)}
+                                    maxLength={11}
                                 />
                             </div>
                             <div className="campo-projeto">
@@ -155,7 +168,22 @@ export default function AddBolsista() {
                                     onChange={(e) => setNacionalidade(e.target.value)}
                                 />
                             </div>
-                            <div className="campo-projeto">
+
+                            <AddressFields
+                                addressStreet={addressStreet}
+                                addressNumber={addressNumber}
+                                addressNeighborhood={addressNeighborhood}
+                                addressCity={addressCity}
+                                addressState={addressState}
+                                addressZipCode={addressZipCode}
+                                setAddressStreet={setAddressStreet}
+                                setAddressNumber={setAddressNumber}
+                                setAddressNeighborhood={setAddressNeighborhood}
+                                setAddressCity={setAddressCity}
+                                setAddressState={setAddressState}
+                                setAddressZipCode={setAddressZipCode}
+                            />
+                             <div className="campo-projeto">
                                 <label>Bolsa</label>
                                 <select
                                     className="input"
@@ -170,72 +198,8 @@ export default function AddBolsista() {
                                     ))}
                                 </select>
                             </div>
-                            <h3>Endereço</h3>
-                            <div className="campo-projeto">
-                                <label>Rua</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={street}
-                                    onChange={(e) => setStreet(e.target.value)}
-                                />
-                            </div>
-                            <div className="campo-projeto">
-                                <label>Número</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={number}
-                                    onChange={(e) => setNumber(e.target.value)}
-                                />
-                            </div>
-                            <div className="campo-projeto">
-                                <label>Bairro</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={neighborhood}
-                                    onChange={(e) => setNeighborhood(e.target.value)}
-                                />
-                            </div>
-                            <div className="campo-projeto">
-                                <label>Cidade</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={city}
-                                    onChange={(e) => setCity(e.target.value)}
-                                />
-                            </div>
-                            <div className="campo-projeto">
-                                <label>Estado</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={state}
-                                    onChange={(e) => setState(e.target.value)}
-                                />
-                            </div>
-                            <div className="campo-projeto">
-                                <label>CEP</label>
-                                <input
-                                    type="text"
-                                    className="input"
-                                    placeholder=" "
-                                    value={zipCode}
-                                    onChange={(e) => setZipCode(e.target.value)}
-                                />
-                            </div>
                             <div className="campo-bolsistas">
-                                <button
-                                    className="btn btn-cadastrar"
-                                    type="submit"
-                                >
+                                <button className="btn btn-cadastrar" type="submit">
                                     Cadastrar
                                 </button>
                             </div>
