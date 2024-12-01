@@ -60,6 +60,15 @@ export default function ListarBolsistas({ keywordFilter }: ListarBolsistasProps)
   return (
     <div id="main-container-bolsistas">
       <h2>Bolsistas</h2>
+      {loading ? (
+        <p>Carregando bolsistas...</p>
+      ) : error ? (
+        <p>{error}</p>
+      ) : bolsistas.length === 0 ? (
+        <div className="no-drafts-message">
+          <p>Nenhum bolsista encontrado.</p>
+        </div>
+      ) : (
       <div className="background-projects">
         <div className="ReferenciasBolsistas">
           <p>Nome</p>
@@ -111,6 +120,7 @@ export default function ListarBolsistas({ keywordFilter }: ListarBolsistasProps)
           </button>
         </div>
       </div>
+       )}
     </div>
   );
 }
