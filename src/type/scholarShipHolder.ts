@@ -6,6 +6,7 @@ export type ScholarshipHolder = {
     email: string;
     nationality: string;
     grantId: string;
+    projectId: string;
     address: {
         id?: string;
         street: string;
@@ -25,6 +26,7 @@ export type RegisterScholarshipHolder = {
     email: string;
     nationality: string;
     grantId: string;
+    project: string;
     address: {
         id?: string;
         street: string;
@@ -54,6 +56,7 @@ export type UpdateScholarShipHolder = {
     email: string;
     nationality: string;
     grantId: string;
+    projectId: string;
     address: {
         id: string;
         street: string;

@@ -13,18 +13,18 @@ interface BolsistaFormProps {
     onSubmit: (data: UpdateScholarShipHolder) => Promise<{ status: number }>;
     mode: "create" | "edit";
     initialData?: ScholarshipHolder | null;
-    bolsas: any[]; 
+    bolsas: any[];
+    projetos: any[];
 }
 
-
-
-export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: BolsistaFormProps) {
+export default function BolsistaForm({ onSubmit, mode, initialData, bolsas, projetos }: BolsistaFormProps) {
     const [nome, setNome] = useState<string>(initialData?.name || "");
     const [cpf, setCpf] = useState<string>(initialData?.cpf || "");
     const [rg, setRg] = useState<string>(initialData?.rg || "");
     const [email, setEmail] = useState<string>(initialData?.email || "");
     const [nacionalidade, setNacionalidade] = useState<string>(initialData?.nationality || "");
     const [bolsaId, setBolsaId] = useState<string>(initialData?.grantId || "");
+    const [projetoId, setProjetoId] = useState<string>(initialData?.projectId || "");
     const [addressStreet, setAddressStreet] = useState<string>(initialData?.address?.street || "");
     const [addressNumber, setAddressNumber] = useState<string>(initialData?.address?.number || "");
     const [addressNeighborhood, setAddressNeighborhood] = useState<string>(initialData?.address?.neighborhood || "");
@@ -33,8 +33,8 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
     const [addressZipCode, setAddressZipCode] = useState<string>(initialData?.address?.zipCode || "");
     const navigate = useNavigate();
     
-
     const [selectedGrantId, setSelectedGrantId] = useState<string>(bolsaId || "");
+    const [selectedProjectId, setSelectedProjectId] = useState<string>(projetoId || "");
 
     useEffect(() => {
         const fetchBolsas = async () => {
@@ -48,8 +48,20 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
     
         fetchBolsas();
     }, []);
-    
 
+    useEffect(() => {
+        const fetchProjetos = async () => {
+            try {
+                const response = await links.getAllProjects();
+                setProjetoId(response.data);
+            } catch (error) {
+                console.error("Erro ao buscar projetos:", error);
+            }
+        };
+    
+        fetchProjetos();
+    }, []);
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -60,6 +72,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
             !email ||
             !nacionalidade ||
             !selectedGrantId ||
+            !selectedProjectId ||
             !addressStreet ||
             !addressNumber ||
             !addressNeighborhood ||
@@ -79,6 +92,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
             email,
             nationality: nacionalidade,
             grantId: selectedGrantId, 
+            projectId: selectedProjectId,
             address: {
                 id: initialData?.address?.id || "",
                 street: addressStreet,
@@ -101,6 +115,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                     setEmail("");
                     setNacionalidade("");
                     setSelectedGrantId("");
+                    setSelectedProjectId("");
                     setAddressStreet("");
                     setAddressNumber("");
                     setAddressNeighborhood("");
@@ -213,6 +228,21 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         {bolsas.map((bolsa) => (
                             <option key={bolsa.id} value={bolsa.id}>
                                 {bolsa.type}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="campo-projeto">
+                    <label>Projeto</label>
+                    <select
+                        className="input"
+                        value={selectedProjectId}
+                        onChange={(e) => setSelectedProjectId(e.target.value)} // Atualiza o selectedProjectId
+                    >
+                        <option value="">Selecione um projeto</option>
+                        {projetos.map((projeto) => (
+                            <option key={projeto.projectId} value={projeto.projectId}>
+                                {projeto.projectReference} {projeto.projectTitle}
                             </option>
                         ))}
                     </select>

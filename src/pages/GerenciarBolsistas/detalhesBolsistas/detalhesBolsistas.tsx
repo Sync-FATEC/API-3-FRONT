@@ -19,6 +19,7 @@ export default function DetalhesBolsista() {
     const { isAuthenticated } = useContext(AuthContext);
     const [bolsistaData, setBolsistaData] = useState<RegisterScholarshipHolder | null>(null);
     const [bolsa, setBolsa] = useState<Grant | null>(null);
+    const [project, setProject] = useState<any | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
     const [showConfirmDelete, setShowConfirmDelete] = useState<boolean>(false);
@@ -32,6 +33,10 @@ export default function DetalhesBolsista() {
             if (fetchedBolsista?.grant?.id) {
                 const grantResponse = await links.getGrant(fetchedBolsista.grant.id);
                 setBolsa(grantResponse.data.model);
+            }
+            if (fetchedBolsista?.project?.projectId) {
+                const projectResponse = await links.getProject(fetchedBolsista?.project?.projectId);
+                setProject(projectResponse.data.model);
             }
         } catch (error) {
             console.error("Erro ao buscar dados do bolsista ou bolsa:", error);
@@ -142,6 +147,12 @@ export default function DetalhesBolsista() {
                                     <strong>Vínculo com Bolsa:</strong>
                                 </label>
                                 <span>{bolsa?.type || "Não informado"}</span>
+                            </div>
+                            <div className="campo-projeto">
+                                <label>
+                                    <strong>Vínculo com Projeto:</strong>
+                                </label>
+                                <span>{project?.projectReference + " " + project?.projectTitle || "Não informado"}</span>
                             </div>
                         </div>
                     </div>

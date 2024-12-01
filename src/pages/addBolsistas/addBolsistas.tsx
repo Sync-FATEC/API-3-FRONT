@@ -5,6 +5,7 @@ import Sidebar from "../../components/sideBar/sideBar";
 
 export function AddBolsistas() {
     const [bolsas, setBolsas] = useState<any[]>([]); 
+    const [projetos, setProjetos] = useState<any[]>([]);
 
 
     useEffect(() => {
@@ -18,6 +19,19 @@ export function AddBolsistas() {
         };
 
         fetchBolsas();
+    }, []);
+
+    useEffect(() => {
+        const fetchProjetos = async () => {
+            try {
+                const response = await links.getAllProjects();
+                setProjetos(response.data.model);
+            } catch (error) {
+                console.error("Erro ao buscar projetos:", error);
+            }
+        };
+
+        fetchProjetos();
     }, []);
 
     const handleCreateBolsista = async (data: any) => {
@@ -38,7 +52,8 @@ export function AddBolsistas() {
                 <BolsistaForm
                     onSubmit={handleCreateBolsista}
                     mode="create" 
-                    bolsas={bolsas} 
+                    bolsas={bolsas}
+                    projetos={projetos}
                 />
             </div>
         </>

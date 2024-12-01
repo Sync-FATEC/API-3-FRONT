@@ -6,12 +6,16 @@ import { successSwal } from "../../components/swal/sucessSwal";
 import BolsistaForm from "../../components/bolsistaForm/bolsistasForm";
 import { ScholarshipHolder, UpdateScholarShipHolder } from "../../type/scholarShipHolder";
 import Sidebar from "../../components/sideBar/sideBar";
+import { useNavigate } from "react-router-dom";
 
 export function EditBolsistaPage() {
     const { id } = useParams();
     const [bolsista, setBolsista] = useState<ScholarshipHolder | null>(null);
     const [loading, setLoading] = useState(true);
     const [bolsas, setBolsas] = useState<any[]>([]);
+    const [projetos, setProjetos] = useState<any[]>([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,12 +43,26 @@ export function EditBolsistaPage() {
         fetchData();
     }, [id]);
 
+    useEffect(() => {
+        const fetchProjetos = async () => {
+            try {
+                const response = await links.getAllProjects();
+                setProjetos(response.data.model); 
+            } catch (error) {
+                console.error("Erro ao buscar projetos:", error);
+            }
+        };
+
+        fetchProjetos();
+    }, []);
+
     // Função de edição do bolsista
     const handleEditBolsista = async (data: UpdateScholarShipHolder) => {
         try {
             const response = await links.UpdateScholarShipHolder(data);
             if (response.status === 200 || response.status === 201) {
                 successSwal("Bolsista editado com sucesso!");
+                navigate(-1);
             }
             return { status: response.status };
         } catch (error) {
@@ -71,7 +89,8 @@ export function EditBolsistaPage() {
                     onSubmit={handleEditBolsista} 
                     mode="edit" 
                     initialData={bolsista} 
-                    bolsas={bolsas} 
+                    bolsas={bolsas}
+                    projetos={projetos}
                 />
             </div>
         </>
