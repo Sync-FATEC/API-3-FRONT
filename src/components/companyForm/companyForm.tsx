@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from "../sideBar/sideBar";
 import { successSwal } from '../swal/sucessSwal';
 import { errorSwal } from '../swal/errorSwal';
@@ -80,16 +82,26 @@ export function CompanyForm({ initialData, onSubmit, mode }: CompanyFormProps) {
     }
   };
 
+  const handleBackButtonClick = () => {
+    navigate(-1);
+  };
+
   return (
     <>
       <Sidebar />
       <div className="main-conteiner-auth">
         <div className="admin_center-header">
-          <h1>{mode === 'create' ? 'Adicionar Empresa' : 'Editar Empresa'}</h1>
-          <div className="user">
+        <div className='title'>
+            <h1>{mode === 'create' ? 'Adicionar Empresa' : 'Editar Empresa'}</h1>
+            <button className="botao-voltar" onClick={handleBackButtonClick}>
+                <FontAwesomeIcon icon={faChevronCircleLeft} />
+                Voltar
+            </button>
+        </div>
+        <div className="user">
             <img src="/static/img/user.svg" alt="logo" />
             <p>Admin</p>
-          </div>
+        </div>
         </div>
         <form onSubmit={handleSubmit} className="background-projects">
           <div>

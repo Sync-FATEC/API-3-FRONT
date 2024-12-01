@@ -23,7 +23,7 @@ export default function DetalhesBolsas() {
         const fetchGrant = async () => {
             try {
                 const response = await links.getGrant(id!);
-                setGrant(response.data.model); // Acessa o objeto correto no backend
+                setGrant(response.data.model); 
                 setIsActive(response.data.model.active);
             } catch (error) {
                 console.error("Erro ao buscar detalhes da bolsa:", error);
@@ -130,7 +130,7 @@ export default function DetalhesBolsas() {
                                     text="Editar"
                                     color="blue"
                                     iconButton={faEdit}
-                                    action={() => { navigate(`/editar-bolsa/${id}`) }}
+                                    action={() => { navigate(`/bolsas/editar/${id}`) }}
                                 />
 
                                 <ButtonProject

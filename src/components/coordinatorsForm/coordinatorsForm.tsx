@@ -6,6 +6,8 @@ import { errorSwal } from '../../components/swal/errorSwal';
 import { formatCPF, formatPhone, formatRG, validateCPF } from '../../utils/utils';
 import { CoordinatorType } from '../../type/CoordinatorsType';
 import { useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronCircleLeft } from '@fortawesome/free-solid-svg-icons';
 import { UpdateCoordinators } from '../../type/updateCoodinators';
 import AddressFields from '../endereco/AddressFields';
 
@@ -81,12 +83,22 @@ export function CoordinatorsForm({ initialData, onSubmit, mode }: CoordinatorsFo
         }
     };
 
+    const handleBackButtonClick = () => {
+        navigate(-1);
+    };
+
     return (
         <>
             <Sidebar />
             <div className='main-conteiner-auth'>
                 <div className="admin_center-header">
-                    <h1>{mode === 'create' ? 'Adicionar Coordenador' : 'Editar Coordenador'}</h1>
+                    <div className='title'>
+                        <h1>{mode === 'create' ? 'Adicionar Coordenador' : 'Editar Coordenador'}</h1>
+                        <button className="botao-voltar" onClick={handleBackButtonClick}>
+                            <FontAwesomeIcon icon={faChevronCircleLeft} />
+                            Voltar
+                        </button>
+                    </div>
                     <div className="user">
                         <img src="/static/img/user.svg" alt="logo" />
                         <p>Admin</p>

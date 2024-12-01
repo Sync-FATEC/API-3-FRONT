@@ -5,7 +5,7 @@ import { get } from "http";
 import filterDTO from "../type/filterData";
 import { Projects } from "../type/projects";
 import { UpdateProject } from "../type/updateProject";
-import { Grant, createGrant } from "../type/grant";
+import { Grant, createGrant, updateGrant } from "../type/grant";
 import { RegisterScholarshipHolder, UpdateScholarShipHolder } from "../type/scholarShipHolder";
 
 const api = axios.create({
@@ -205,7 +205,8 @@ const links = {
   deactivateGrants: (id: string) => api.patch(`/grant/deactivate/${id}`),
 
   createGrant: (data: createGrant) => api.post("/grant/create", data),
-  
+
+  updateGrant: (data: updateGrant) => api.put("/grant/update", data),
 
   getScholarShipHolder: (id: string) => api.get(`/scholarship-holders/buscar/${id}`),
 

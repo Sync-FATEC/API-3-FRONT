@@ -150,7 +150,7 @@ export default function DetalhesBolsista() {
                             text="Editar"
                             color="blue"
                             iconButton={faEdit}
-                            action={() => { navigate(`/bolsas/editar/${id}`); }}
+                            action={() => { navigate(`/bolsistas/editar/${id}`); }}
                         />
 
                         <ButtonProject

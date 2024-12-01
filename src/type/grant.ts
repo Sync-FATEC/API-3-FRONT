@@ -14,3 +14,12 @@ export type createGrant = {
     acting: string;
     active: boolean;
 }
+
+export type updateGrant = {
+    id: string;
+    type: string;
+    months: number;
+    years: number;
+    acting: string;
+    active: boolean;
+}

@@ -30,6 +30,7 @@ import { GerenciarEmpresas } from './pages/GerenciarCompany/GerenciarCompany';
 import { DetalhesCompany } from './components/detalhesCompany/detalhesCompany';
 import { EditCompanyPage } from './pages/editCompany/editCompany';
 import { EditBolsistaPage } from './pages/editBolsistas/editBolsistas';
+import EditBolsas from './pages/editBolsas/editBolsas';
 
 function App() {
   return (
@@ -63,7 +64,8 @@ function App() {
             <Route path='/gerenciarEmpresas' element={<RequireAuthAdmin><GerenciarEmpresas/></RequireAuthAdmin>}></Route>
             <Route path='/empresa/detalhe/:id' element={<RequireAuthAdmin><DetalhesCompany/></RequireAuthAdmin>}></Route>
             <Route path='/empresa/editar/:id' element={<RequireAuthAdmin><EditCompanyPage/></RequireAuthAdmin>}></Route>
-            <Route path='/bolsas/editar/:id' element={<RequireAuthAdmin><EditBolsistaPage/></RequireAuthAdmin>}></Route>
+            <Route path='/bolsistas/editar/:id' element={<RequireAuthAdmin><EditBolsistaPage/></RequireAuthAdmin>}></Route>
+            <Route path='/bolsas/editar/:id' element={<RequireAuthAdmin><EditBolsas/></RequireAuthAdmin>}></Route>
             
           </Routes>
         </AuthProvider>

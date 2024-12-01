@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
-import { links } from "../../api/api"; // Supondo que links seja um objeto que lida com suas requisições API
-import { errorSwal } from "../swal/errorSwal"; // Supondo que você tenha um sistema de alertas
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { links } from "../../api/api";
+import { errorSwal } from "../swal/errorSwal"; 
 import { successSwal } from "../swal/sucessSwal";
-import { formatCPF, formatRG } from "../../utils/utils"; // Supondo que você tenha funções de formatação de CPF e RG
+import { formatCPF, formatRG } from "../../utils/utils";
 import AddressFields from "../endereco/AddressFields";
 import { UpdateScholarShipHolder, ScholarshipHolder } from "../../type/scholarShipHolder";
+import { useNavigate } from "react-router-dom";
 
 interface BolsistaFormProps {
     onSubmit: (data: UpdateScholarShipHolder) => Promise<{ status: number }>;
     mode: "create" | "edit";
-    initialData?: ScholarshipHolder | null;  // Permite tanto `null` quanto `undefined`
-    bolsas: any[]; // Propriedade obrigatória
+    initialData?: ScholarshipHolder | null;
+    bolsas: any[]; 
 }
 
 
@@ -28,23 +31,23 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
     const [addressCity, setAddressCity] = useState<string>(initialData?.address?.city || "");
     const [addressState, setAddressState] = useState<string>(initialData?.address?.state || "");
     const [addressZipCode, setAddressZipCode] = useState<string>(initialData?.address?.zipCode || "");
+    const navigate = useNavigate();
     
 
     const [selectedGrantId, setSelectedGrantId] = useState<string>(bolsaId || "");
 
-    // Função para buscar as grants
     useEffect(() => {
         const fetchBolsas = async () => {
             try {
                 const response = await links.getAllGrants();
-                setBolsaId(response.data); // Atualiza o estado de bolsas com a resposta da API
+                setBolsaId(response.data);
             } catch (error) {
                 console.error("Erro ao buscar bolsas:", error);
             }
         };
     
         fetchBolsas();
-    }, []); // Dependência vazia significa que isso vai ser chamado apenas uma vez quando o componente for montado
+    }, []);
     
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -56,7 +59,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
             !rg ||
             !email ||
             !nacionalidade ||
-            !selectedGrantId || // Altere para usar selectedGrantId
+            !selectedGrantId ||
             !addressStreet ||
             !addressNumber ||
             !addressNeighborhood ||
@@ -75,7 +78,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
             rg,
             email,
             nationality: nacionalidade,
-            grantId: selectedGrantId, // Grant selecionada
+            grantId: selectedGrantId, 
             address: {
                 id: initialData?.address?.id || "",
                 street: addressStreet,
@@ -88,7 +91,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
         };
 
         try {
-            const response = await onSubmit(data); // Envia os dados para o método onSubmit
+            const response = await onSubmit(data);
             if (response?.status === 200 || response?.status === 201) {
                 successSwal(`Bolsista ${mode === 'create' ? 'cadastrado' : 'editado'} com sucesso!`);
                 if (mode === 'create') {
@@ -97,7 +100,7 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                     setRg("");
                     setEmail("");
                     setNacionalidade("");
-                    setSelectedGrantId(""); // Limpar o valor da bolsa
+                    setSelectedGrantId("");
                     setAddressStreet("");
                     setAddressNumber("");
                     setAddressNeighborhood("");
@@ -113,17 +116,26 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
         }
     };
 
+    const handleBackButtonClick = () => {
+        navigate(-1);
+    };
+
     return (
         <div className="main-conteiner-auth">
             <div className="admin_center-header">
-                <h1>{mode === 'create' ? 'Adicionar Bolsista' : 'Editar Bolsista'}</h1>
+                <div className="title">
+                    <h1>{mode === 'create' ? 'Adicionar Bolsista' : 'Editar Bolsista'}</h1>
+                    <button className="botao-voltar" onClick={handleBackButtonClick}>
+                    <FontAwesomeIcon icon={faChevronCircleLeft} />
+                        Voltar
+                    </button>
+                </div>
                 <div className="user">
                     <img src="/static/img/user.svg" alt="logo" />
                     <p>Admin</p>
                 </div>
             </div>
             <form onSubmit={handleSubmit} className="background-projects">
-                {/* Nome */}
                 <div className="campo-projeto">
                     <label>Nome</label>
                     <input
@@ -134,8 +146,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         onChange={(e) => setNome(e.target.value)}
                     />
                 </div>
-
-                {/* CPF */}
                 <div className="campo-projeto">
                     <label>CPF</label>
                     <input
@@ -147,8 +157,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         maxLength={11}
                     />
                 </div>
-
-                {/* RG */}
                 <div className="campo-projeto">
                     <label>RG</label>
                     <input
@@ -159,8 +167,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         onChange={(e) => setRg(e.target.value)}
                     />
                 </div>
-
-                {/* Email */}
                 <div className="campo-projeto">
                     <label>Email</label>
                     <input
@@ -171,8 +177,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         onChange={(e) => setEmail(e.target.value)}
                     />
                 </div>
-
-                {/* Nacionalidade */}
                 <div className="campo-projeto">
                     <label>Nacionalidade</label>
                     <input
@@ -198,8 +202,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                     setAddressState={setAddressState}
                     setAddressZipCode={setAddressZipCode}
                 />
-
-                {/* Grant */}
                 <div className="campo-projeto">
                     <label>Bolsa</label>
                     <select
@@ -215,8 +217,6 @@ export default function BolsistaForm({ onSubmit, mode, initialData, bolsas }: Bo
                         ))}
                     </select>
                 </div>
-
-                {/* Botão de submit */}
                 <div className="campo-projeto">
                     <button type="submit" className="btn btn-cadastrar">
                         {mode === 'create' ? 'Cadastrar Bolsista' : 'Salvar Alterações'}
