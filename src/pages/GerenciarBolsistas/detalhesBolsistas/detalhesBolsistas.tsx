@@ -154,7 +154,7 @@ export default function DetalhesBolsista() {
                         />
 
                         <ButtonProject
-                            text="Desativar Bolsista"
+                            text="Excluir"
                             color="red"
                             iconButton={faCancel}
                             action={() => setShowConfirmDelete(true)} 

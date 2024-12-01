@@ -134,7 +134,7 @@ export default function DetalhesBolsas() {
                                 />
 
                                 <ButtonProject
-                                    text="Desativar Bolsa"
+                                    text="Desativar"
                                     color="red"
                                     iconButton={faCancel}
                                     action={handleDeleteClick}
