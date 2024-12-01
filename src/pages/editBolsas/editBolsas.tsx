@@ -13,12 +13,31 @@ export default function EditBolsas() {
     const [bolsa, setBolsa] = useState<updateGrant | null>(null);
     const [loading, setLoading] = useState(true);
 
+    function parseDuration(duration: string) {
+        const yearsMatch = duration.match(/(\d+)\s*anos?/);
+        const monthsMatch = duration.match(/(\d+)\s*meses?/);
+    
+        const years = yearsMatch ? parseInt(yearsMatch[1], 10) : 0;
+        const months = monthsMatch ? parseInt(monthsMatch[1], 10) : 0;
+    
+        return { years, months };
+    }
+
     useEffect(() => {
         const fetchData = async () => {
             try {
                 if (id) {
                     const bolsaResponse = await links.getGrant(id);
+
+                    if (bolsaResponse.data.model.duration) {
+                        const { years, months } = parseDuration(bolsaResponse.data.model.duration);
+                        bolsaResponse.data.model.years = years;
+                        bolsaResponse.data.model.months = months;
+                        delete bolsaResponse.data.model.duration;
+                    }
+
                     setBolsa(bolsaResponse.data.model);
+                    
                 }
             } catch (error) {
                 errorSwal("Erro ao buscar dados da bolsa");
