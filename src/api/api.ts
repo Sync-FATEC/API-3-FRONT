@@ -25,6 +25,12 @@ const links = {
 
   createProject: (data: createProject) => api.post("/projects/create", data),
 
+  getDraftsProjects: () => api.get("/draft/get"),
+
+  getDraftProject: (id: string) => api.get(`/draft/get/${id}`),
+
+  deleteDraftProject: (id: string) => api.delete(`/draft/delete/${id}`),
+
   // COORDINATORS
 
   createCoordinators: (data: any) => api.post("/coordinators/create", data),
