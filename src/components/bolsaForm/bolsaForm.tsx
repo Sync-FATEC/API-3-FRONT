@@ -3,7 +3,7 @@ import { createGrant, updateGrant } from "../../type/grant";
 import { errorSwal } from "../swal/errorSwal";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faChevronCircleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faChevronCircleLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 
 interface BolsaFormProps<T> {
   onSubmit: (data: T) => Promise<void>;
@@ -102,6 +102,7 @@ export default function BolsaForm<T extends createGrant | updateGrant>({ onSubmi
         </div>
         <div className="campo-projeto">
           <button type="submit" className="btn btn-cadastrar">
+          <FontAwesomeIcon icon={faEdit} />
             {mode === "edit" ? "Salvar Alterações" : "Cadastrar Bolsa"}
           </button>
         </div>

@@ -210,6 +210,8 @@ const links = {
 
   deactivateGrants: (id: string) => api.patch(`/grant/deactivate/${id}`),
 
+  activateGrants: (id: string) => api.patch(`/grant/activate/${id}`),
+
   createGrant: (data: createGrant) => api.post("/grant/create", data),
 
   updateGrant: (data: updateGrant) => api.put("/grant/update", data),
