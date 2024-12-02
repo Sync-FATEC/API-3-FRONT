@@ -1,0 +1,8 @@
+.user {
+    display: flex-end;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+
+
+  }

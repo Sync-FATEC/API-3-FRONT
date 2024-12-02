@@ -1,0 +1,7 @@
+.btn-download {
+    background: none;
+    border: none;
+    color: #003383;
+    text-decoration: underline;
+    cursor: pointer;
+}

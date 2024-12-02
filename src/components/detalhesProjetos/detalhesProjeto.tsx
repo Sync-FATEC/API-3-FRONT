@@ -15,12 +15,21 @@ import {
   faChevronCircleLeft,
   faEdit,
   faFileCircleQuestion,
+  faFileContract,
 } from "@fortawesome/free-solid-svg-icons";
+import ButtonProject from "../ButtonProject/ButtonProject";
 import Sidebar from "../sideBar/sideBar";
 import ErrorComponent from "../error/error";
 import { formatDate } from "../../utils/utils";
-import ExportProjectButton from "../exportProjectButton/exportProjectButton";
 import BlurText from "../blurText/blurText";
+import { errorSwal } from "../swal/errorSwal";
+import { successSwal } from "../swal/sucessSwal";
+
+interface propsExport {
+  id: string;
+  format: string;
+  nome: string;
+}
 
 export default function ProjetoDetalhes() {
   const { id } = useParams<{ id?: string }>();
@@ -64,7 +73,7 @@ export default function ProjetoDetalhes() {
   }, [projectData]);
 
   const handleDeleteClick = () => {
-    setShowConfirmDelete(true); // Abre o pop-up de confirmação
+    setShowConfirmDelete(true);
   };
 
   const handleConfirmDelete = async () => {
@@ -79,6 +88,7 @@ export default function ProjetoDetalhes() {
       await links.deleteProjects(projectId);
       handleBackButtonClick();
     } catch (error) {
+      errorSwal("Erro ao deletar projeto.");
       console.error("Erro ao deletar projeto:", error);
     }
   };
@@ -87,8 +97,73 @@ export default function ProjetoDetalhes() {
     setActiveTab(tab);
   };
 
+  const handleGenerateContract = async (projectId: string) => {
+    try {
+        const response = await api.get(`/contracts/generate/${projectId}`, {
+            responseType: "blob",
+        });
+
+        if (response.status === 200) {
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = "contrato.docx";
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 0);
+            await fetchProjetoById(projectId);
+        } else {
+            console.error("Erro ao gerar contrato:", response.status);
+        }
+    } catch (error) {
+        console.error("Erro ao gerar contrato:", error);
+    }
+};
+
+
+  const handleExportProject = async ({ id, format, nome }: propsExport) => {
+    if (!id || !format) {
+      errorSwal("Dados insuficientes");
+      return;
+    }
+  
+    if (format !== "pdf" && format !== "excel") {
+      errorSwal("Formato inválido");
+      return;
+    }
+  
+    try {
+      const response = await links.getExport(`/projects/export/${id}/${format}`);
+  
+      if (response.status === 200) {
+        const blob = new Blob([response.data], { type: response.headers['content-type'] });
+        const url = window.URL.createObjectURL(blob);
+  
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = nome;
+        document.body.appendChild(a);
+        a.click();
+  
+        setTimeout(() => {
+          a.remove();
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      } else {
+        console.error("Erro no download do documento:", response.status);
+      }
+    } catch (error) {
+      errorSwal("Erro ao exportar projeto.");
+    }
+  };
+
   const handleBackButtonClick = () => {
-    navigate(isAuthenticated ? "/gerenciarProjetos" : "/");
+    navigate(-1);
   };
 
   if (error) {
@@ -102,6 +177,14 @@ export default function ProjetoDetalhes() {
         <Loading />
       </div>
     );
+  }
+
+  const handleNavigateToPlanoTrabalho = async () => {    
+    try {
+      const response = await links.getPlanoTrabalho(projectData.projectId, projectData.projectReference ?? "Sem referencia");
+    } catch {
+      navigate(`/plano-trabalho`, {state: {projeto: projectData}});
+    }
   }
 
   return (
@@ -147,6 +230,12 @@ export default function ProjetoDetalhes() {
                   </div>
                   <div className="campo-projeto">
                     <label>
+                      <strong>Titulo:</strong>
+                    </label>
+                    <span>{projectData?.projectTitle || <BlurText />}</span>
+                  </div>
+                  <div className="campo-projeto">
+                    <label>
                       <strong>Empresa:</strong>
                     </label>
                     <span>{projectData?.projectCompany || <BlurText />}</span>
@@ -168,7 +257,7 @@ export default function ProjetoDetalhes() {
                       <strong>Valor do Projeto:</strong>
                     </label>
                     <span>
-                      {projectData?.projectValue != undefined
+                      {projectData?.projectValue !== undefined
                         ? projectData.projectValue.toLocaleString("pt-BR", {
                           style: "currency",
                           currency: "BRL",
@@ -220,9 +309,12 @@ export default function ProjetoDetalhes() {
                     anexos.map((documento) => (
                       <div key={documento.fileUrl} className="anexo-item">
                         <Anexos
+                          id={projectData.projectId}
+                          anexoId= {documento.documentId}
                           link={documento.fileUrl}
                           nome={documento.fileName}
                           tipo={documento.fileType}
+                          fileBytes={documento.fileBytes}
                         />
                       </div>
                     ))
@@ -236,32 +328,58 @@ export default function ProjetoDetalhes() {
           {isAuthenticated && (
             <>
               <div className="button-container">
-                <ExportProjectButton
-                  id={projectData.projectId}
-                  format="pdf"
-                  nome={projectData.projectReference ?? "Referencia_Indisponivel"}
+                <ButtonProject 
+                  text="Exportar"
+                  color="green"
+                  iconButton={faFileCircleQuestion}
+                  action={() => handleExportProject({ id: projectData.projectId, format: "pdf", nome: projectData.projectReference ?? "Referencia_Indisponivel" })}
                 />
-                <button
-                  className="buttons"
-                  id="yellow"
-                  onClick={() => navigate(`/historico-projeto/${id}`)}
-                >
-                  <FontAwesomeIcon icon={faFileCircleQuestion} />
-                  Historico projeto
-                </button>
-                <button
-                  className="buttons"
-                  id="blue"
-                  onClick={() => navigate(`/editar-projeto/${id}`)}
-                >
-                  <FontAwesomeIcon icon={faEdit} />
-                  Editar
-                </button>
-                <button className="buttons" 
-                id="red"
-                onClick={handleDeleteClick}>
-                  <FontAwesomeIcon icon={faCancel} /> Deletar Projeto
-                </button>
+
+                {/* Se ja tiver um anexo como contrato então não gera */}
+                {/* So pode gerar contrato se tiver plano de trabalho */}
+                {projectData.documents.find((doc) => 
+                    doc.fileType.includes("CONTRATO")) || !projectData.documents.find((doc) => 
+                    doc.fileType.includes("PLANO_DE_TRABALHO")) ? null  : 
+                  <ButtonProject
+                    text="Gerar Contrato"
+                    color="blue-light"
+                    iconButton={faFileContract}
+                    action={() => handleGenerateContract(projectData.projectId)}
+                  />
+                }
+
+                {/* Se ja tiver um anexo como plano de trabalho então nao gera */}
+                {projectData.documents.find((doc) => 
+                    doc.fileType.includes("PLANO_DE_TRABALHO")) ? null  : 
+                  <ButtonProject
+                    text="Gerar Plano de Trabalho"
+                    color="blue-light"
+                    iconButton={faFileContract}
+                    action={handleNavigateToPlanoTrabalho}
+                  />
+                }
+
+                <ButtonProject 
+                  text="Histórico"
+                  color="yellow"
+                  iconButton={faFileCircleQuestion}
+                  action={() => {navigate(`/historico-projeto/${id}`)}}
+                />
+                
+                <ButtonProject 
+                  text="Editar"
+                  color="blue"
+                  iconButton={faEdit}
+                  action={() => {navigate(`/editar-projeto/${id}`)}}
+                />
+
+                <ButtonProject 
+                  text="Deletar"
+                  color="red"
+                  iconButton={faCancel}
+                  action={handleDeleteClick}
+                />
+
               </div>
             </>
           )}

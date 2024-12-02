@@ -11,6 +11,7 @@ import { useContext } from "react";
 import FormularioEdicaoProjeto from "../../components/formulario/FormularioEdicao";
 import documents from "../../type/documents";
 import './EditProjects.css';
+import { errorSwal } from "../../components/swal/errorSwal";
 
 
 export default function EditarProjeto() {
@@ -30,8 +31,9 @@ export default function EditarProjeto() {
 
   const fetchProjetoById = async (projectId: string) => {
     try {
-      const response = await links.getProject(projectId);
+      const response = await links.getDraftEditProject(projectId);
       if (response.data) {
+        console.log(response.data.model)
         setOriginalData(response.data.model);
       } else {
         setError("Projeto não encontrado.");
@@ -52,7 +54,13 @@ export default function EditarProjeto() {
   ) => {
     try {
       if (id) {
-        const response = await links.updateProject(id, projeto)
+        const response = await links.updateDraftProject(id, projeto); 
+        if(projeto.makePublic){
+          let response = await links.updateProject(id, projeto);
+          if(response.status != 200){
+            errorSwal("Erro ao publicar edições")
+          }
+        }
         if (response.status === 200) {
           if (anexosRemovidos.length >= 1) {
             const idsAnexosRemovidos = anexosRemovidos.map((anexo) => anexo.documentId)
@@ -73,9 +81,10 @@ export default function EditarProjeto() {
           
         }
         setEnviado(true);
-        navigate('/gerenciarprojetos')
+        navigate(-1);
       }
     } catch (error) {
+      errorSwal("Erro ao editar projeto");
       console.error("Erro ao editar o projeto:", error);
     }
   };

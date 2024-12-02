@@ -1,0 +1,46 @@
+/* Estilos padrão */
+.MainDados {
+    padding: 20px;
+}
+
+
+.BolsasReferencias, .Bolsas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}
+
+
+.pagination {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+}
+
+.BolsasReferencias_Responsivo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .BolsasReferencias {
+        display: none;
+    }
+
+    .BolsasReferencias_Responsivo {
+        font-weight: bold;
+        display: inline;
+    }
+
+    .Bolsas_Responsivo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Bolsas p {
+        text-align: start;
+    }    
+}

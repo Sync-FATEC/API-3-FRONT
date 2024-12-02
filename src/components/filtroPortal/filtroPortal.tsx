@@ -14,6 +14,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
   const [coordenadores, setCoordenadores] = useState<string[]>([]);
   const [empresas, setEmpresas] = useState<string[]>([]);
   const [textoReferencia, setTextoReferencia] = useState('');
+  const [textoTitulo, setTextoTitulo] = useState('');
   const [textoEmpresas, setTextoEmpresas] = useState('');
   const [textoCoordenadores, setTextoCoordenadores] = useState('');
   const [textoClassificacao, setTextoClassificacao] = useState('');
@@ -58,6 +59,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
 
     const filterData: filterDTO = {
       projectReference: textoReferencia,
+      projectTitle: textoTitulo,
       projectCompany: textoEmpresas,
       nameCoordinator: textoCoordenadores,
       projectClassification: textoClassificacao,
@@ -75,6 +77,7 @@ export default function FiltroPortal({ onFilterSubmit }: FiltroPortalProps) {
 
     const filterData: filterDTO = {
       projectReference: textoReferencia,
+      projectTitle: textoTitulo,
       projectCompany: textoEmpresas,
       nameCoordinator: textoCoordenadores,
       projectClassification: textoClassificacao,

@@ -5,6 +5,7 @@ import documents from "./documents";
 export type Projects = {
     projectId: string;
     projectReference: string;
+    projectTitle: string;
     nameCoordinator: string;
     projectCompany: string;
     projectObjective: string;

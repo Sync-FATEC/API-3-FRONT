@@ -3,10 +3,12 @@
     background-color: #fff;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     z-index: 1;
+    width: 250.81px;
     display: flex;
     flex-direction: column;
     text-decoration: none;
     position: fixed;
+    overflow-y: auto;
 }
 
 .sidebar .logo {
@@ -43,7 +45,7 @@
     
 }
 
-.sidebar .menu .menu-item:hover {
+.sidebar .menu-item:hover {
     background-color: #dcdada;
     color: #070707;
     border-radius: 16px;
@@ -63,11 +65,12 @@
     height: 22px;
 }
 h4{
-    font-weight: 400;
+    font-weight: 800;
     size: 11px;
     display: flex;
     padding: 20px;
-    color: #8B909A;
+    color: var(--blue-color);
+    
 }
 
 .sidebarMobile {
@@ -108,8 +111,6 @@ h4{
     z-index: 1;
 }
 
-
-
 .buttonClose {
     width: max-content;
     height: 50px;
@@ -126,6 +127,31 @@ h4{
     padding-right: 20px;
     
 }
+
+.submenu.open {
+    transform: scaleY(1); 
+    opacity: 1; 
+    pointer-events: auto; 
+}
+
+.submenu:not(.open) {
+    transform: scaleY(0); 
+    opacity: 0; 
+    pointer-events: none; 
+}
+
+.submenu {
+    max-height: 0; 
+    overflow: hidden; 
+    opacity: 0; 
+    transition: max-height 0.3s ease, opacity 1s ease;  
+}
+
+.submenu.open {
+    max-height: 500px; 
+    opacity: 1; 
+}
+
 @media (max-width: 768px) {
     .sidebarDesktop {
         display: none

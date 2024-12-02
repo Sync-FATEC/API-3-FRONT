@@ -5,6 +5,8 @@ import documents from "./documents";
 export type UpdateProject = {
     projectReference: string;
     projectReferenceSensitive: boolean;
+    projectTitle: string;
+    projectTitleSensitive: boolean;
     nameCoordinator: string;
     nameCoordinatorSensitive: boolean;
     projectCompany: string;
@@ -22,4 +24,6 @@ export type UpdateProject = {
     projectClassification: string;
     projectClassificationSensitive: boolean;
     projectStatus: ProjectStatus;
+    makePublic: boolean;
+    isDraft: boolean;
 };

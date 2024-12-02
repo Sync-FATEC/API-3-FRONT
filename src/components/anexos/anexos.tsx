@@ -1,17 +1,48 @@
 import React from 'react';
-import { links } from '../../api/api';
+import api, { links } from '../../api/api';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass, faDownload, faFile } from '@fortawesome/free-solid-svg-icons';
+import './anexos.css';
+import { errorSwal } from '../swal/errorSwal';
 
 interface AnexosProps {
+    id: string;
+    anexoId: string;
     nome: string;
     link: string;
     tipo: string;
+    fileBytes?: Uint8Array | null;
 }
 
-export default function Anexos({ nome, link, tipo }: AnexosProps) {
+export default function Anexos({id, anexoId, nome, link, tipo, fileBytes }: AnexosProps) {
 
-    const handleGetDocument = async (event: React.MouseEvent<HTMLAnchorElement>) => {
+    const handleDownloadDocWithFileBytes = async (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+    
+        try {
+            var response = await api.get(`/documents/download/${anexoId}`, { responseType: "blob" });
+            const blob = new Blob([response.data], { type: response.headers['content-type'] });
+            const url = window.URL.createObjectURL(blob);
+
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = nome;
+            document.body.appendChild(a);
+            a.click();
+
+            setTimeout(() => {
+                a.remove();
+                window.URL.revokeObjectURL(url);
+            }, 0);
+
+        } catch (error) {
+            errorSwal("Erro ao baixar o plano de trabalho. \n Tente novamente mais tarde.");
+            console.error("Erro ao baixar o plano de trabalho:", error);
+        }
+    };
+    
+
+    const handleGetDocument = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
         try {
@@ -40,20 +71,24 @@ export default function Anexos({ nome, link, tipo }: AnexosProps) {
     };
 
     return (
-        <div className='anexos'>
+        <div className="anexos">
             <p>
                 <FontAwesomeIcon icon={faFile} /> Tipo do arquivo: {tipo}
             </p>
             <p>Nome do arquivo: {nome}</p>
-            {link.includes("https://fapg.org.br") ? (
-                <a href={link} target="_blank" rel="noopener noreferrer">
-                    <FontAwesomeIcon icon={faMagnifyingGlass} />
-                </a>
-            ) : (
-                <a href={link} onClick={handleGetDocument}>
+            {fileBytes ? (
+                <button className="btn-download" onClick={handleDownloadDocWithFileBytes}>
                     <FontAwesomeIcon height={100} icon={faDownload} />
+                </button>
+            ) : link && !link.includes("https://fapg.org.br") ? (
+                <button className="btn-download" onClick={handleGetDocument}>
+                    <FontAwesomeIcon height={100} icon={faDownload} />
+                </button>
+            ) : link ? (
+                <a href={link} target="_blank" rel="noopener noreferrer">
+                    <FontAwesomeIcon icon={faMagnifyingGlass} /> Abrir Link
                 </a>
-            )}
+            ) : null}
         </div>
     );
 }

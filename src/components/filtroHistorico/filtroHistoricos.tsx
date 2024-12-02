@@ -49,7 +49,7 @@ export default function FiltroHistoricos({ onFilterSubmit }: FiltroHistoricosPro
             />
           </div>
           <div className="divBuscaFiltro">
-            <button type="submit" className="busca">
+            <button type="submit" className="buscaHistorico">
               <FontAwesomeIcon icon={faSearch} />
             </button>
           </div>

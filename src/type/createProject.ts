@@ -1,6 +1,8 @@
 type createProject = {
     projectReference: string;
     projectReferenceSensitive: boolean;
+    projectTitle: string;
+    projectTitleSensitive: boolean;
     nameCoordinator: string;
     nameCoordinatorSensitive: boolean;
     projectCompany: string;
@@ -17,6 +19,7 @@ type createProject = {
     projectEndDateSensitive: boolean;
     projectClassification: string;
     projectClassificationSensitive: boolean;
+    isDraft: boolean;
   };
 
 export default createProject;

@@ -1,0 +1,34 @@
+.Referencias, .Bolsistas {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 10px;
+    align-items: center;
+    justify-items: center;
+    border-bottom: 1px solid var(--lightgray-color);
+    padding: var(--padding-input);
+}
+
+.Referencias_Responsivo {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .Referencias {
+        display: none;
+    }
+
+    .Referencias_Responsivo {
+        font-weight: bold;
+        display: inline;
+    }
+
+    .Bolsistas_Responsivo {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Bolsistas p {
+        text-align: start;
+    }    
+}
+

@@ -1,5 +1,6 @@
 type filterData = {
     projectReference: string;
+    projectTitle: string;
     projectCompany: string;
     nameCoordinator: string;
     projectClassification: string;

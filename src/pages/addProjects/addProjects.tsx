@@ -1,5 +1,5 @@
 import './addProjects.css';
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import Sidebar from '../../components/sideBar/sideBar';
 import { links } from "../../api/api";
 import { errorSwal } from "../../components/swal/errorSwal";
@@ -11,8 +11,10 @@ export default function AddProjects() {
   const [anexos, setAnexos] = useState<{ file: File | null; tipo: string }[]>([]);
   const [projectId, setProjectId] = useState<string>("");
   const [referencia, setReferencia] = useState<string>("");
+  const [title, setTitle] = useState<string>("");
   const [empresa, setEmpresa] = useState<string>("");
   const [coordenador, setCoordenador] = useState<string>("");
+  const [textoCoordenadores, setTextoCoordenadores] = useState('');
   const [valor, setValor] = useState<string>("");
   const [dataInicio, setDataInicio] = useState<string>("");
   const [dataTermino, setDataTermino] = useState<string>("");
@@ -20,9 +22,10 @@ export default function AddProjects() {
   const [descricao, setDescricao] = useState<string>("");
   const [classificacao, setClassificacao] = useState<string>("");
   const [enviado, setEnviado] = useState<boolean>(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDraft, setIsDraft] = useState(true)
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
+  const [TitleSensivel, setTitleSensivel] = useState<boolean>(false);
   const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
   const [coordenadorSensivel, setCoordenadorSensivel] = useState<boolean>(false);
   const [valorSensivel, setValorSensivel] = useState<boolean>(false);
@@ -34,6 +37,34 @@ export default function AddProjects() {
 
   const formRef = useRef<HTMLDivElement>(null);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
+
+  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] = useState(false);
+  const [listaCoordenadores, setListaCoordenadores] = useState<string[]>([]);
+  const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
+  const [listaEmpresas, setListaEmpresas] = useState<string[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseCoordinators = await links.getCoordinators();
+        setListaCoordenadores(responseCoordinators.data.model);
+        const responseCompanies = await links.getCompanies();
+        setListaEmpresas(responseCompanies.data.model);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filtrarOpcoesCoordenadores = listaCoordenadores.filter(opcao =>
+    opcao.toLowerCase().includes(textoCoordenadores.toLowerCase())
+  );
+
+  const filtrarOpcoesEmpresas = listaEmpresas.filter(opcao =>
+    opcao.toLowerCase().includes(empresa.toLowerCase())
+  );
 
   const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
     const newAnexos = [...anexos];
@@ -54,12 +85,14 @@ export default function AddProjects() {
   const handleSubmitProjeto = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    setTimeout(() => {}, 100)
+
     if (!validateValor(valor)) {
       errorSwal("Valor do projeto inválido. Certifique-se de que não é negativo e não contém símbolos.");
       return;
     }
 
-    if (!referencia || !empresa || !coordenador || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
+    if (!referencia || !title || !empresa || !textoCoordenadores || !valor || !dataInicio || !dataTermino || !objeto || !descricao || !classificacao) {
       errorSwal("Todos os campos devem ser preenchidos.");
       return;
     }
@@ -87,7 +120,9 @@ export default function AddProjects() {
       const projeto: createProject = {
         projectReference: referencia,
         projectReferenceSensitive: referenciaSensivel,
-        nameCoordinator: coordenador,
+        projectTitle: title,
+        projectTitleSensitive: TitleSensivel,
+        nameCoordinator: textoCoordenadores,
         nameCoordinatorSensitive: coordenadorSensivel,
         projectCompany: empresa,
         projectCompanySensitive: empresaSensivel,
@@ -102,7 +137,8 @@ export default function AddProjects() {
         projectEndDate: new Date(dataTermino),
         projectEndDateSensitive: dataTerminoSensivel,
         projectClassification: classificacao,
-        projectClassificationSensitive: classificacaoSensivel
+        projectClassificationSensitive: classificacaoSensivel,
+        isDraft: isDraft
       };
 
       const response = await links.createProject(projeto);
@@ -127,8 +163,10 @@ export default function AddProjects() {
 
   const resetForm = () => {
     setReferencia("");
+    setTitle("");
     setEmpresa("");
     setCoordenador("");
+    setTextoCoordenadores('');
     setValor("");
     setDataInicio("");
     setDataTermino("");
@@ -137,6 +175,7 @@ export default function AddProjects() {
     setClassificacao("");
     setAnexos([]);
     setAddAnexoComponents([]);
+    setIsDraft(false)
   };
 
   const handleAddAnexoComponent = () => {
@@ -158,7 +197,7 @@ export default function AddProjects() {
           <form className="background-projects" onSubmit={handleSubmitProjeto}>
             <div>
               <div className="campo-projeto">
-                <label className="">Referência do projeto</label>
+                <label className="placeholder">Referência do projeto</label>
                 <input
                   type="text"
                   className="input"
@@ -176,14 +215,45 @@ export default function AddProjects() {
                 </label>
               </div>
               <div className="campo-projeto">
-                <label className="placeholder">Empresa</label>
+                <label className="placeholder">Título</label>
                 <input
-                  type="text"
-                  className="input"
-                  placeholder=" "
-                  value={empresa}
-                  onChange={(e) => setEmpresa(e.target.value)}
+                    type="text"
+                    className="input"
+                    placeholder=""
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
                 />
+                <label className='checkboxDiv'>
+                  <input
+                    type="checkbox"
+                    checked={TitleSensivel}
+                    onChange={(e) => setTitleSensivel(e.target.checked)}
+                  />
+                  Dado sensível?
+                </label>
+            </div>
+            
+            <div className="campo-projeto">
+                <div className="pesquisa-container">
+                  <label className="placeholder">Empresa</label>
+                  <input
+                    type="text"
+                    value={empresa}
+                    onChange={(e) => setEmpresa(e.target.value)}
+                    onFocus={() => setExibirDropdownEmpresas(true)}
+                    onBlur={() => setTimeout(() => setExibirDropdownEmpresas(false), 200)}
+                    placeholder="Pesquise..."
+                  />
+                  {exibirDropdownEmpresas && empresa && (
+                    <ul className="dropdown">
+                      {filtrarOpcoesEmpresas.map((opcao, index) => (
+                        <li key={index} onMouseDown={() => setEmpresa(opcao)}>
+                          {opcao}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <label className='checkboxDiv'>
                   <input
                     type="checkbox"
@@ -194,14 +264,26 @@ export default function AddProjects() {
                 </label>
               </div>
               <div className="campo-projeto">
-                <label className="placeholder">Coordenador</label>
-                <input
-                  type="text"
-                  className="input"
-                  placeholder=" "
-                  value={coordenador}
-                  onChange={(e) => setCoordenador(e.target.value)}
-                />
+                <div className="pesquisa-container">
+                  <label className="placeholder" htmlFor="coordenador">Coordenador</label>
+                  <input
+                    type="text"
+                    value={textoCoordenadores}
+                    onChange={(e) => setTextoCoordenadores(e.target.value)}
+                    onFocus={() => setExibirDropdownCoordenadores(true)}
+                    onBlur={() => setTimeout(() => setExibirDropdownCoordenadores(false), 200)}
+                    placeholder="Pesquise..."
+                  />
+                  {exibirDropdownCoordenadores && textoCoordenadores && (
+                    <ul className="dropdown">
+                      {filtrarOpcoesCoordenadores.map((opcao, index) => (
+                        <li key={index} onMouseDown={() => setTextoCoordenadores(opcao)}>
+                          {opcao}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <label className='checkboxDiv'>
                   <input
                     type="checkbox"
@@ -324,9 +406,11 @@ export default function AddProjects() {
                   Dado sensível?
                 </label>
               </div>
-              <div className="campo-projeto">
-                <button className="btn btn-cadastrar" type="submit">Cadastrar</button>
+              <div>
+
               </div>
+            </div>
+            <div>
             </div>
             <div>
               <div className="right-side">
@@ -345,11 +429,23 @@ export default function AddProjects() {
                     </button>
                   </div>
                 </div>
+                <div className='add-anexo'>
+                  <div className='flexButton'>
+                    <div className="campo-projeto">
+                      <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(true)}>Salvar rascunho</button>
+                    </div>
+                    <div className="campo-projeto">
+                        <button className="btn btn-cadastrar" type="submit" onClick={() => setIsDraft(false)}>Publicar projeto</button>
+                    </div>
+                  </div>
+                <div>
               </div>
             </div>
-          </form>
+          </div>
         </div>
-      </div>
-    </>
-  );
+      </form>
+    </div>
+  </div>
+</>
+);
 }

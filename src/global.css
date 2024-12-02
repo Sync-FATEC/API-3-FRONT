@@ -37,6 +37,9 @@ h2 {
   font-size: 30px;
   margin: var(--padding-input) 0;
 }
+h5{
+  color: var(--blue-color);
+}
 
 .section p {
   text-align: justify;

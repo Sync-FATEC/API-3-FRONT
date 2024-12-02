@@ -9,9 +9,14 @@ import { faEdit } from "@fortawesome/free-solid-svg-icons";
 import { RemoveAnexos } from "../removeAnexos/removeAnexos";
 import { UpdateProject } from "../../type/updateProject";
 import { errorSwal } from "../swal/errorSwal";
+import { links } from "../../api/api";
 
 interface FormularioEdicaoProjetoProps {
-  onSubmit: (projeto: UpdateProject, anexos: any, anexosRemovidos: documents[]) => void;
+  onSubmit: (
+    projeto: UpdateProject,
+    anexos: any,
+    anexosRemovidos: documents[]
+  ) => void;
   initialData?: Projects | null;
 }
 
@@ -22,6 +27,7 @@ export default function FormularioEdicaoProjeto({
   const [projeto, setProjeto] = useState<Projects>({
     projectId: "",
     projectReference: "",
+    projectTitle: "",
     nameCoordinator: "",
     projectCompany: "",
     projectObjective: "",
@@ -36,21 +42,61 @@ export default function FormularioEdicaoProjeto({
     sensitiveFields: [],
   });
   const [anexos, setAnexos] = useState<documents[]>([]);
-  const [novoAnexo, setNovoAnexo] = useState<{ file: File | null; tipo: string }[]>([]);
+  const [novoAnexo, setNovoAnexo] = useState<
+    { file: File | null; tipo: string }[]
+  >([]);
   const [anexosRemovidos, setAnexosRemovidos] = useState<documents[]>([]);
   const [addAnexoComponents, setAddAnexoComponents] = useState<number[]>([]);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const formRef = useRef<HTMLDivElement>(null);
 
   const [referenciaSensivel, setReferenciaSensivel] = useState<boolean>(false);
+  const [titleSensivel, setTitleSensivel] = useState<boolean>(false);
   const [empresaSensivel, setEmpresaSensivel] = useState<boolean>(false);
-  const [coordenadorSensivel, setCoordenadorSensivel] = useState<boolean>(false);
+  const [coordenadorSensivel, setCoordenadorSensivel] =
+    useState<boolean>(false);
   const [valorSensivel, setValorSensivel] = useState<boolean>(false);
   const [dataInicioSensivel, setDataInicioSensivel] = useState<boolean>(false);
-  const [dataTerminoSensivel, setDataTerminoSensivel] = useState<boolean>(false);
+  const [dataTerminoSensivel, setDataTerminoSensivel] =
+    useState<boolean>(false);
   const [objetoSensivel, setObjetoSensivel] = useState<boolean>(false);
   const [descricaoSensivel, setDescricaoSensivel] = useState<boolean>(false);
-  const [classificacaoSensivel, setClassificacaoSensivel] = useState<boolean>(false);
+  const [classificacaoSensivel, setClassificacaoSensivel] =
+    useState<boolean>(false);
+
+  const [exibirDropdownCoordenadores, setExibirDropdownCoordenadores] =
+    useState(false);
+  const [listaCoordenadores, setListaCoordenadores] = useState<string[]>([]);
+  const [exibirDropdownEmpresas, setExibirDropdownEmpresas] = useState(false);
+  const [listaEmpresas, setListaEmpresas] = useState<string[]>([]);
+  const [publish, setPublish] = useState<boolean>(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const responseCoordinators = await links.getCoordinators();
+        setListaCoordenadores(responseCoordinators.data.model);
+        const responseCompanies = await links.getCompanies();
+        setListaEmpresas(responseCompanies.data.model);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const filtrarOpcoesCoordenadores = listaCoordenadores.filter(
+    (opcao) =>
+      projeto.nameCoordinator &&
+      opcao.toLowerCase().includes(projeto.nameCoordinator.toLowerCase())
+  );
+
+  const filtrarOpcoesEmpresas = listaEmpresas.filter(
+    (opcao) =>
+      projeto.projectCompany &&
+      opcao.toLowerCase().includes(projeto.projectCompany.toLowerCase())
+  );
 
   useEffect(() => {
     if (initialData && initialData !== null) {
@@ -60,11 +106,17 @@ export default function FormularioEdicaoProjeto({
     }
   }, [initialData]);
 
-  const handleChangeSelect = (field: keyof Projects, e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeSelect = (
+    field: keyof Projects,
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     setProjeto((prev) => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleChange = (field: keyof Projects, novoValor: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (
+    field: keyof Projects,
+    novoValor: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setProjeto((prev) => ({ ...prev, [field]: novoValor.target.value }));
   };
 
@@ -72,7 +124,10 @@ export default function FormularioEdicaoProjeto({
     setAddAnexoComponents((prev) => [...prev, prev.length]);
   };
 
-  const handleAddAnexo = (id: number, anexo: { file: File | null; tipo: string }) => {
+  const handleAddAnexo = (
+    id: number,
+    anexo: { file: File | null; tipo: string }
+  ) => {
     const newAnexos = [...novoAnexo];
     newAnexos[id] = anexo;
     setNovoAnexo(newAnexos);
@@ -85,7 +140,9 @@ export default function FormularioEdicaoProjeto({
 
   const handleDeleteDocument = (documento: documents) => {
     setAnexosRemovidos((prev) => [...prev, documento]);
-    setAnexos((prev) => prev.filter((doc) => doc.documentId !== documento.documentId));
+    setAnexos((prev) =>
+      prev.filter((doc) => doc.documentId !== documento.documentId)
+    );
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -104,18 +161,46 @@ export default function FormularioEdicaoProjeto({
     maxStartDate.setDate(currentDate.getDate() + 7);
 
     if (new Date(projeto.projectStartDate) > maxStartDate) {
-      errorSwal("Data de início não pode ser maior que 7 dias a partir da data atual.");
+      errorSwal(
+        "Data de início não pode ser maior que 7 dias a partir da data atual."
+      );
       return;
     }
 
-    if (isNaN(Date.parse(projeto.projectStartDate)) || isNaN(Date.parse(projeto.projectEndDate))) {
+    if (
+      isNaN(Date.parse(projeto.projectStartDate)) ||
+      isNaN(Date.parse(projeto.projectEndDate))
+    ) {
       errorSwal("Data inválida.");
       return;
+    }
+
+    if (
+      JSON.stringify(projeto) === JSON.stringify(initialData) &&
+      novoAnexo.length === 0 &&
+      anexosRemovidos.length === 0
+    ) {
+      const sensitiveFields = initialData?.sensitiveFields ?? [];
+      const sensitiveFieldsChanged =
+        referenciaSensivel !== sensitiveFields.includes("projectReference") ||
+        titleSensivel !== sensitiveFields.includes("projectTitle") ||
+        coordenadorSensivel !== sensitiveFields.includes("nameCoordinator") ||
+        empresaSensivel !== sensitiveFields.includes("projectCompany") ||
+        objetoSensivel !== sensitiveFields.includes("projectObjective") ||
+        descricaoSensivel !== sensitiveFields.includes("projectDescription") ||
+        valorSensivel !== sensitiveFields.includes("projectValue") ||
+        dataInicioSensivel !== sensitiveFields.includes("projectStartDate") ||
+        dataTerminoSensivel !== sensitiveFields.includes("projectEndDate") ||
+        classificacaoSensivel !==
+        sensitiveFields.includes("projectClassification");
+ 
     }
 
     const updateProject: UpdateProject = {
       projectReference: projeto.projectReference,
       projectReferenceSensitive: referenciaSensivel,
+      projectTitle: projeto.projectTitle,
+      projectTitleSensitive: titleSensivel,
       nameCoordinator: projeto.nameCoordinator,
       nameCoordinatorSensitive: coordenadorSensivel,
       projectCompany: projeto.projectCompany,
@@ -133,6 +218,8 @@ export default function FormularioEdicaoProjeto({
       projectClassification: projeto.projectClassification,
       projectClassificationSensitive: classificacaoSensivel,
       projectStatus: projeto.projectStatus,
+      makePublic: publish,
+      isDraft: publish ? false : true,
     };
 
     onSubmit(updateProject, novoAnexo, anexosRemovidos);
@@ -141,16 +228,18 @@ export default function FormularioEdicaoProjeto({
 
   const checkSensitiveFieldsArray = (fields: string[]) => {
     fields.forEach((field) => {
-      if(field === "projectReference") setReferenciaSensivel(true);
-      if(field === "nameCoordinator") setCoordenadorSensivel(true);
-      if(field === "projectCompany") setEmpresaSensivel(true);
-      if(field === "projectObjective") setObjetoSensivel(true);
-      if(field === "projectDescription") setDescricaoSensivel(true);
-      if(field === "projectValue") setValorSensivel(true);
-      if(field === "projectStartDate") setDataInicioSensivel(true);
-      if(field === "projectEndDate") setDataTerminoSensivel(true);
-      if(field === "projectClassification") setClassificacaoSensivel(true);
-  })};
+      if (field === "projectReference") setReferenciaSensivel(true);
+      if (field === "projectTitle") setTitleSensivel(true);
+      if (field === "nameCoordinator") setCoordenadorSensivel(true);
+      if (field === "projectCompany") setEmpresaSensivel(true);
+      if (field === "projectObjective") setObjetoSensivel(true);
+      if (field === "projectDescription") setDescricaoSensivel(true);
+      if (field === "projectValue") setValorSensivel(true);
+      if (field === "projectStartDate") setDataInicioSensivel(true);
+      if (field === "projectEndDate") setDataTerminoSensivel(true);
+      if (field === "projectClassification") setClassificacaoSensivel(true);
+    });
+  };
 
   const handleCancel = () => {
     setModalIsOpen(false); // Fecha o modal sem fazer alterações
@@ -160,7 +249,6 @@ export default function FormularioEdicaoProjeto({
     <div ref={formRef} className="">
       <form className="background-projects" onSubmit={handleSubmit}>
         <div>
-
           <div className="campo-projeto">
             <label className="placeholder">Referência do projeto</label>
             <input
@@ -171,7 +259,7 @@ export default function FormularioEdicaoProjeto({
               value={projeto.projectReference}
               onChange={(e) => handleChange("projectReference", e)}
             />
-            <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={referenciaSensivel}
@@ -181,16 +269,56 @@ export default function FormularioEdicaoProjeto({
             </label>
           </div>
           <div className="campo-projeto">
-            <label className="placeholder">Empresa</label>
+            <label className="placeholder">Titulo do projeto</label>
             <input
               type="text"
               className="input"
-              name="empresa"
+              name="referencia"
               placeholder=" "
-              value={projeto.projectCompany}
-              onChange={(e) => handleChange("projectCompany", e)}
+              value={projeto.projectTitle}
+              onChange={(e) => handleChange("projectTitle", e)}
             />
-          <label className='checkboxDiv'>
+            <label className="checkboxDiv">
+              <input
+                type="checkbox"
+                checked={titleSensivel}
+                onChange={(e) => setTitleSensivel(e.target.checked)}
+              />
+              Dado sensível?
+            </label>
+          </div>
+          <div className="campo-projeto">
+            <div className="pesquisa-container">
+              <label className="placeholder">Empresa</label>
+              <input
+                type="text"
+                value={projeto.projectCompany}
+                onChange={(e) => handleChange("projectCompany", e)}
+                onFocus={() => setExibirDropdownEmpresas(true)}
+                onBlur={() =>
+                  setTimeout(() => setExibirDropdownEmpresas(false), 200)
+                }
+                placeholder="Pesquise..."
+              />
+              {exibirDropdownEmpresas && projeto.projectCompany && (
+                <ul className="dropdown">
+                  {filtrarOpcoesEmpresas.map((opcao, index) => (
+                    <li
+                      key={index}
+                      onMouseDown={() =>
+                        setProjeto((prev) => ({
+                          ...prev,
+                          projectCompany: opcao,
+                        }))
+                      }
+                    >
+                      {opcao}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={empresaSensivel}
@@ -200,18 +328,38 @@ export default function FormularioEdicaoProjeto({
             </label>
           </div>
 
-
           <div className="campo-projeto">
-            <label className="placeholder">Coordenador</label>
-            <input
-              type="text"
-              className="input"
-              name="coordenador"
-              placeholder=" "
-              value={projeto.nameCoordinator}
-              onChange={(e) => handleChange("nameCoordinator", e)}
-            />
-                      <label className='checkboxDiv'>
+            <div className="pesquisa-container">
+              <label className="placeholder">Coordenador</label>
+              <input
+                type="text"
+                value={projeto.nameCoordinator}
+                onChange={(e) => handleChange("nameCoordinator", e)}
+                onFocus={() => setExibirDropdownCoordenadores(true)}
+                onBlur={() =>
+                  setTimeout(() => setExibirDropdownCoordenadores(false), 200)
+                }
+                placeholder="Pesquise..."
+              />
+              {exibirDropdownCoordenadores && projeto.nameCoordinator && (
+                <ul className="dropdown">
+                  {filtrarOpcoesCoordenadores.map((opcao, index) => (
+                    <li
+                      key={index}
+                      onMouseDown={() =>
+                        setProjeto((prev) => ({
+                          ...prev,
+                          nameCoordinator: opcao,
+                        }))
+                      }
+                    >
+                      {opcao}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={coordenadorSensivel}
@@ -219,8 +367,8 @@ export default function FormularioEdicaoProjeto({
               />
               Dado sensível?
             </label>
-
           </div>
+
           <div className="campo-projeto">
             <label className="placeholder">Valor do projeto</label>
             <input
@@ -231,7 +379,7 @@ export default function FormularioEdicaoProjeto({
               value={projeto.projectValue}
               onChange={(e) => handleChange("projectValue", e)}
             />
-                      <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={valorSensivel}
@@ -239,9 +387,7 @@ export default function FormularioEdicaoProjeto({
               />
               Dado sensível?
             </label>
-
           </div>
-
 
           <div className="campo-projeto">
             <label className="placeholder">Data de início</label>
@@ -252,7 +398,7 @@ export default function FormularioEdicaoProjeto({
               value={projeto.projectStartDate}
               onChange={(e) => handleChange("projectStartDate", e)}
             />
-          <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={dataInicioSensivel}
@@ -270,7 +416,7 @@ export default function FormularioEdicaoProjeto({
               value={projeto.projectEndDate}
               onChange={(e) => handleChange("projectEndDate", e)}
             />
-                      <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={dataTerminoSensivel}
@@ -291,7 +437,7 @@ export default function FormularioEdicaoProjeto({
               onChange={(e) => handleChange("projectObjective", e)}
               maxLength={2500}
             />
-          <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={objetoSensivel}
@@ -311,7 +457,7 @@ export default function FormularioEdicaoProjeto({
               onChange={(e) => handleChange("projectDescription", e)}
               maxLength={2500}
             />
-                      <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={descricaoSensivel}
@@ -332,14 +478,10 @@ export default function FormularioEdicaoProjeto({
               <option value="" disabled>
                 Classificação
               </option>
-              <option value="OUTROS">AS, OF, PC e/ou outros</option>
               <option value="CONTRATOS">Contrato</option>
-              <option value="CONVENIO">Convênio</option>
               <option value="PATROCINIO">Patrocínio</option>
-              <option value="TERMO_DE_COOPERACAO">Termo de cooperação</option>
-              <option value="TERMO_DE_OUTORGA">Termo de outorga</option>
             </select>
-            <label className='checkboxDiv'>
+            <label className="checkboxDiv">
               <input
                 type="checkbox"
                 checked={classificacaoSensivel}
@@ -348,12 +490,17 @@ export default function FormularioEdicaoProjeto({
               Dado sensível?
             </label>
           </div>
-          <div className="campo-projeto">
-            <button className="btn-flex" id="button-editar" type="submit">
+          <div className="campo-projeto display-flex">
+            <button className="btn-flex" id="button-editar" type="submit"  onClick={() => setPublish(false)}>
               <FontAwesomeIcon icon={faEdit} />
-              Salvar Edição
-            </button> 
-            </div>
+              Salvar rascunho de edição
+            </button>
+
+            <button className="btn-flex" id="button-editar" type="submit"  onClick={() => setPublish(true)}>
+              <FontAwesomeIcon icon={faEdit} />
+              Publicar alterações
+            </button>
+          </div>
         </div>
         <div>
           <div className="right-side">
@@ -374,16 +521,14 @@ export default function FormularioEdicaoProjeto({
                 />
               ))}
               <div className="add-anexo">
-
-             
-              <button 
-                type="button"
-                className="btn btn-add"
-                onClick={handleAddAnexoComponent}
-              >
-                Adicionar anexo
-              </button>
-               </div>
+                <button
+                  type="button"
+                  className="btn btn-add"
+                  onClick={handleAddAnexoComponent}
+                >
+                  Adicionar anexo
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -394,10 +539,13 @@ export default function FormularioEdicaoProjeto({
           <div className="modal-content">
             <h1>Você tem certeza que deseja salvar as alterações?</h1>
             <div className="modal-button">
-              <button className="buttons" onClick={confirmSubmit}>Sim</button>
-              <button className="delete-buttons" onClick={handleCancel}>Não</button>
+              <button className="buttons" onClick={confirmSubmit}>
+                Sim
+              </button>
+              <button className="delete-buttons" onClick={handleCancel}>
+                Não
+              </button>
             </div>
-
           </div>
         </div>
       )}
